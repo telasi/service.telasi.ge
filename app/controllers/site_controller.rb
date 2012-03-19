@@ -16,8 +16,7 @@ class SiteController < ApplicationController
     @title = 'რეგისტრაცია'
     if request.post?
       @user = User.new(params[:user])
-      @user.save!
-      redirect_to(login_url, :notice => 'მომხმარებელი შექმნილია') 
+      redirect_to(login_url, :notice => 'მომხმარებელი შექმნილია') if @user.save 
     else
       @user = User.new
     end

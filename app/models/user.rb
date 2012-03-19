@@ -41,7 +41,7 @@ class User
   validates_presence_of :last_name, :message => 'ჩაწერეთ გვარი'
   validates_presence_of :password, :message => 'ჩაწერეთ პაროლი'
   validates_confirmation_of :password, :message => 'პაროლი არ ემთხვევა'
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, :message => 'ეს მისამართი უკვე რეგისტრირებულია'
 
   # ტრიგერები
   before_create :before_user_create
