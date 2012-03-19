@@ -1,0 +1,10 @@
+.nav-collapse
+  %ul.nav
+    - items.each do |key, val|
+      %li{:class => (page == key ? 'active' : nil)}
+        %a{:href => "/#{key}"}= val
+  %ul.nav.pull-right
+    - secondary_items.each do |key, val|
+      %li{:class => (page == key ? 'active' : nil)}
+        %a{:href => "/#{key}"}= val 
+

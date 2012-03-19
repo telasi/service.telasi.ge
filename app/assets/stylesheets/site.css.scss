@@ -1,3 +1,12 @@
 // Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#index-header {
+  h1 {
+    font-size: 1.7em;
+    text-align: center;
+    background-image: url('/assets/texture01.png');
+    padding: 1.5em 0;
+  }
+}

@@ -1,0 +1,6 @@
+not_authorized:
+  main:
+    home: საწყისი
+    help: დახმარება
+  secondary:
+    login: შესვლა

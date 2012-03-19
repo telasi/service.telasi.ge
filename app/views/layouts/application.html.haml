@@ -7,17 +7,6 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          %a.brand telasi.ge
+    = render :partial => 'layouts/header'
     = yield
-    .container
-      %hr
-      .copy &copy; 2012 <a href="http://www.telasi.ge">სს თელასი</a>
-      .who საინფორმაციო ტექნოლოგიების დეპარტამენტი
-      %address.muted
-        საქართველო, ქ. თბილისი<br>
-        0154, ვანის ქ. №3<br>
-        p: +(99532)2779868<br>
-        e: #{mail_to 'sys@telasi.ge'}
+    = render :partial => 'layouts/footer'
