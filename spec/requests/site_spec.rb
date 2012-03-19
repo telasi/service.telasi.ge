@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-feature "registration process" do
-  scenario 'sign up process' do
+feature "ახალი მომხმარებლის რეგისტრაცია" do
+  scenario "ფორმის გაგზავნა" do
     visit register_url
     within("#register-form") do
       fill_in 'user_email', :with => 'dimitri@c12.ge'
