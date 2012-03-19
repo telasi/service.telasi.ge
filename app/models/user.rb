@@ -39,11 +39,7 @@ class User
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)
     user = User.where(:email => email).first
-    if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
-      user
-    else
-      nil
-    end
+    user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
   end
   
   def password
