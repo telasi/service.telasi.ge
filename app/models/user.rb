@@ -23,8 +23,14 @@ class User
   # გვარი
   field :last_name, type: String
 
-  # არის თუ არა ეს ბაზის ადმინისტრატორი?
+  # არის თუ არა ეს სისტემური ადმინისტრატორი?
   field :sys_admin, type: Boolean
+
+  # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
+  field :email_confirmed, type: Boolean
+
+  # არის თუ არა მომხმარებლის მობილური დადასტურებული?
+  field :mobile_confirmed, type: Boolean
 
   # შემოწმების ოპერაციები
   validates_presence_of :salt
@@ -38,7 +44,7 @@ class User
   validates_uniqueness_of :email
 
   # ტრიგერები
-  before_create :first_user_sys_admin
+  before_create :before_user_create
 
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)
@@ -58,8 +64,11 @@ class User
 
   private
 
-  def first_user_sys_admin
-    self.sys_admin = User.count == 0
+  def before_user_create
+    is_first = User.count == 0
+    self.sys_admin = is_first if self.sys_admin.nil?
+    self.email_confirmed = is_first if self.email_confirmed.nil?
+    self.mobile_confirmed = false if self.mobile_confirmed.nil?
+    true
   end
-  
 end

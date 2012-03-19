@@ -10,6 +10,8 @@ describe User do
   it { should have_field(:first_name).of_type(String) }
   it { should have_field(:last_name).of_type(String) }
   it { should have_field(:sys_admin).of_type(Boolean) }
+  it { should have_field(:email_confirmed).of_type(Boolean) }
+  it { should have_field(:mobile_confirmed).of_type(Boolean) }
   it { should validate_presence_of(:salt) }
   it { should validate_presence_of(:hashed_password) }
   it { should validate_presence_of(:email) }
@@ -33,13 +35,24 @@ describe "ახალ მომხმარებელზე პაროლ�
   end
 end
 
-describe "ახალი მომხმარების შექმნა" do
-  context "პირველი" do
+describe "ახალი მომხმარების შექმნა:" do
+  context "პირველი მომხმარებელი" do
     before(:all) do
-      @user = Factory(:user, :email => 'dimitri@c12.ge', :password => 'secret')
+      @user = Factory(:user, :email => 'dimitri@c12.ge')
     end
     subject { @user }
     its(:sys_admin) { should == true }
+    its(:email_confirmed) { should == true }
+    its(:mobile_confirmed) { should == false }
+  end
+  context "მეორე მომხმარებელი" do
+    before(:all) do
+      @user = Factory(:user, :email => 'cat.dog@c12.ge')
+    end
+    subject { @user }
+    its(:sys_admin) { should == false }
+    its(:email_confirmed) { should == false }
+    its(:mobile_confirmed) { should == false }
   end
 end
 
