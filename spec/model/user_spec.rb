@@ -31,3 +31,14 @@ describe "მომხმარებელზე პაროლის მი�
     its(:length) { should == 40 }
   end
 end
+
+describe "მომხმარებლის ავტორიზაცია" do
+  before(:all) do
+    User.new(:email => 'dimitri@c12.ge', :password => 'secret', :mobile => '595335514', :first_name => 'Dimitri', :last_name => 'Kurashvili').save!
+    #user.save!
+  end
+  context "სწორი პაროლით" do
+    subject { User.authenticate('dimitri@c12.ge', 'secret') }
+    it { should == true }
+  end
+end
