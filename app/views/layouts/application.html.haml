@@ -8,5 +8,7 @@
     = csrf_meta_tags
   %body
     = render :partial => 'layouts/header'
-    = yield
+    = yield(:top)
+    .container{:style => 'margin-top: 1em;'}
+      = yield
     = render :partial => 'layouts/footer'
