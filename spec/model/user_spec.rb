@@ -9,6 +9,7 @@ describe User do
   it { should have_field(:mobile).of_type(String) }
   it { should have_field(:first_name).of_type(String) }
   it { should have_field(:last_name).of_type(String) }
+  it { should have_field(:sys_admin).of_type(Boolean) }
   it { should validate_presence_of(:salt) }
   it { should validate_presence_of(:hashed_password) }
   it { should validate_presence_of(:email) }
@@ -17,7 +18,7 @@ describe User do
   it { should validate_presence_of(:last_name) }
 end
 
-describe "მომხმარებელზე პაროლის მინიჭება" do
+describe "ახალ მომხმარებელზე პაროლის მინიჭება" do
   before(:all) do
     @user = User.new(:password => 'secret')
   end
@@ -32,10 +33,19 @@ describe "მომხმარებელზე პაროლის მი�
   end
 end
 
+describe "ახალი მომხმარების შექმნა" do
+  context "პირველი" do
+    before(:all) do
+      @user = Factory(:user, :email => 'dimitri@c12.ge', :password => 'secret')
+    end
+    subject { @user }
+    its(:sys_admin) { should == true }
+  end
+end
+
 describe "მომხმარებლის ავტორიზაცია" do
   before(:all) do
-    @user = User.new(:email => 'dimitri@c12.ge', :password => 'secret', :mobile => '595335514', :first_name => 'Dimitri', :last_name => 'Kurashvili')
-    @user.save!
+    @user = Factory(:user, :email => 'dimitri@c12.ge', :password => 'secret')
   end
   context "სწორი პაროლით" do
     subject { User.authenticate('dimitri@c12.ge', 'secret') }
@@ -45,7 +55,7 @@ describe "მომხმარებლის ავტორიზაცია
     subject { User.authenticate('dimitri@c12.ge', 'wrong_password') }
     it { should be_nil }
   end
-  context "არასწორი ელ.@user ფოსტის მისამართით" do
+  context "არასწორი ელ. ფოსტის მისამართით" do
     subject { User.authenticate('dimitri@c12.gee', 'secret') }
     it { should be_nil }
   end

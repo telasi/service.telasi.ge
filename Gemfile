@@ -21,4 +21,5 @@ group :test, :development do
   gem 'rspec-rails', '~> 2.6'
   gem 'mongoid-rspec'
   gem 'capybara'
+  gem 'factory_girl'
 end

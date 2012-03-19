@@ -13,6 +13,7 @@ require 'mongoid'
 require 'capybara'
 require 'mongoid-rspec'
 require 'capybara/rspec'
+require 'factory_girl'
 
 RSpec.configure do |config|
   # ## Mock Framework
@@ -42,3 +43,5 @@ RSpec.configure do |config|
     Mongoid.master.collections.each(&:remove)
   end
 end
+
+require 'factories/user'

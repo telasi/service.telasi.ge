@@ -23,6 +23,9 @@ class User
   # გვარი
   field :last_name, type: String
 
+  # არის თუ არა ეს ბაზის ადმინისტრატორი?
+  field :sys_admin, type: Boolean
+
   # შემოწმების ოპერაციები
   validates_presence_of :salt
   validates_presence_of :hashed_password
@@ -34,12 +37,15 @@ class User
   validates_confirmation_of :password, :message => 'პაროლი არ ემთხვევა'
   validates_uniqueness_of :email
 
+  # ტრიგერები
+  before_create :first_user_sys_admin
+
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)
     user = User.where(:email => email).first
     user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
   end
-  
+
   def password
     @password
   end
@@ -50,4 +56,10 @@ class User
     self.hashed_password = Digest::SHA1.hexdigest("#{pwd}dimitri#{salt}")
   end
 
+  private
+
+  def first_user_sys_admin
+    self.sys_admin = User.count == 0
+  end
+  
 end
