@@ -9,14 +9,19 @@ class User
 
   # ელექტრონული ფოსტა
   field :email, type: String
+
   # პაროლის "მარილი"
   field :salt, type: String
+
   # დაკრიპტული მარილი
   field :hashed_password, type: String
+
   # მობილური
   field :mobile, type: String
+
   # სახელი
   field :first_name, type: String
+
   # გვარი
   field :last_name, type: String
 
@@ -31,6 +36,16 @@ class User
   validates_confirmation_of :password, :message => 'პაროლი არ ემთხვევა'
   validates_uniqueness_of :email
 
+  # მომხმარებლის ავტორიზაცია.
+  def self.authenticate(email, pwd)
+    user = User.where(:email => email).first
+    if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
+      user
+    else
+      nil
+    end
+  end
+  
   def password
     @password
   end

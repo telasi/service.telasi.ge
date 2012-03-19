@@ -34,11 +34,19 @@ end
 
 describe "მომხმარებლის ავტორიზაცია" do
   before(:all) do
-    User.new(:email => 'dimitri@c12.ge', :password => 'secret', :mobile => '595335514', :first_name => 'Dimitri', :last_name => 'Kurashvili').save!
-    #user.save!
+    @user = User.new(:email => 'dimitri@c12.ge', :password => 'secret', :mobile => '595335514', :first_name => 'Dimitri', :last_name => 'Kurashvili')
+    @user.save!
   end
   context "სწორი პაროლით" do
     subject { User.authenticate('dimitri@c12.ge', 'secret') }
-    it { should == true }
+    it { should == @user }
+  end
+  context "არასწორი პაროლით" do
+    subject { User.authenticate('dimitri@c12.ge', 'wrong_password') }
+    it { should be_nil }
+  end
+  context "არასწორი ელ.@user ფოსტის მისამართით" do
+    subject { User.authenticate('dimitri@c12.gee', 'secret') }
+    it { should be_nil }
   end
 end
