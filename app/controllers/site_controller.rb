@@ -5,7 +5,8 @@ class SiteController < ApplicationController
     unless current_user
       @title = 'საწყისი'
     else
-      
+      @title = 'განცხადებები'
+      @applications = Application.where(:owner_id => current_user.id)
       render 'applications/index'
     end
   end

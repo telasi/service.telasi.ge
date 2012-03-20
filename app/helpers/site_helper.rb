@@ -14,6 +14,10 @@ module SiteHelper
     render :partial => 'layouts/main_menu', :locals => {:items => main_menu, :secondary_items => secondary_menu, :page => page, :user => user}
   end
 
+  def icon_text(icn, txt)
+    %Q{<i class="icon-#{icn}"></i> #{txt}}.strip.html_safe
+  end
+
   def support_phone
     '2 779-868'
   end
@@ -21,5 +25,5 @@ module SiteHelper
   def support_email
     mail_to 'sys@telasi.ge'
   end
-    
+
 end

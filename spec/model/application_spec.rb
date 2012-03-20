@@ -15,8 +15,9 @@ describe Application do
   it { should have_field(:send_date).of_type(Time) }
   it { should have_field(:response_date).of_type(Time) }
   it { should have_field(:close_date).of_type(Time) }
-  it { should embed_one(:applicant) }
-  it { should embed_one(:bank_account) }
+  it { should belong_to(:owner).of_type(User) }
+  it { should embed_one(:applicant).of_type(Applicant) }
+  it { should embed_one(:bank_account).of_type(BankAccount) }
 end
 
 describe Applicant do

@@ -54,6 +54,8 @@ class Application
   # დახურვის თარიღი.
   field :close_date, type: Time
 
+  belongs_to :owner, class_name: 'User'
+
   # ინფორმაცია განმცხადებლის შესახებ.
   embeds_one :applicant
 
