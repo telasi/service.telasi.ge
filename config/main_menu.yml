@@ -4,3 +4,8 @@ not_authorized:
     help: დახმარება
   secondary:
     login: შესვლა
+authorized:
+  main:
+    home: საწყისი
+    help: დახმარება
+  secondary:

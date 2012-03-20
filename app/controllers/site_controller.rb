@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class SiteController < ApplicationController
+
   def index
     @title = 'საწყისი'
   end
@@ -11,6 +12,22 @@ class SiteController < ApplicationController
 
   def login
     @title = 'შესვლა'
+    if request.post?
+      user = User.authenticate(params[:email], params[:password])
+      if user.nil?
+        @error = 'არასწორი მომხმარებელი ან პაროლი.'
+      elsif not user.email_confirmed
+        @error = 'ეს ანგარიში დაუდასტურებელია'
+      else
+        session[:user_id] = user.id
+        redirect_to home_url
+      end
+    end
+  end
+
+  def logout
+    session[:user_id] = nil
+    redirect_to home_url
   end
 
   def register
@@ -27,4 +44,5 @@ class SiteController < ApplicationController
       end
     end
   end
+
 end

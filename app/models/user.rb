@@ -62,6 +62,10 @@ class User
     self.hashed_password = Digest::SHA1.hexdigest("#{pwd}dimitri#{salt}")
   end
 
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
   private
 
   def before_user_create

@@ -6,6 +6,7 @@ TelasiService::Application.routes.draw do
   get '/help', :controller => :site, :action => :help, :as => :help
   match '/register', :controller => :site, :action => :register, :as => :register
   match '/login', :controller => :site, :action => :login, :as => :login
+  get '/logout', :controller => :site, :action => :logout, :as => :logout
 
   root :to => 'site#index'
 end

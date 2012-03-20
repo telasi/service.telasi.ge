@@ -7,7 +7,7 @@ feature "ახალი მომხმარებლის რეგისტ
     visit register_url
     has_css?('form')
     find('form legend').should have_content 'ახალი მომხმარებლის რეგისტრაცია'
-    within("#register-form") do
+    within('#register-form') do
       fill_in 'user_email', :with => 'dimitri@c12.ge'
       fill_in 'user_password', :with => 'secret'
       fill_in 'user_password_confirmation', :with => 'secret'
@@ -24,10 +24,19 @@ feature "ახალი მომხმარებლის რეგისტ
 end
 
 feature "მომხმარებლის ავტორიზაცია" do
+  background do
+    @user = Factory(:user, :password => 'secret')
+  end
   scenario "მონაცემების შევსება და შესვლა" do
     visit login_url
     has_css?('form')
     find('legend').should have_content 'სისტემაში შესვლა'
-    # XXX
+    within('#login-form') do
+      fill_in 'email', :with => @user.email
+      fill_in 'password', :with => 'secret'
+      click_button 'შესვლა'
+    end
+    current_url.should == home_url
+    find('#user-info').should have_content @user.full_name
   end
 end
