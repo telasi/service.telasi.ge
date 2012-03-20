@@ -5,6 +5,8 @@ require 'spec_helper'
 feature "ახალი მომხმარებლის რეგისტრაცია" do
   scenario "მონაცემების გაგზავნა" do
     visit register_url
+    has_css?('form')
+    find('form legend').should have_content 'ახალი მომხმარებლის რეგისტრაცია'
     within("#register-form") do
       fill_in 'user_email', :with => 'dimitri@c12.ge'
       fill_in 'user_password', :with => 'secret'
@@ -23,6 +25,9 @@ end
 
 feature "მომხმარებლის ავტორიზაცია" do
   scenario "მონაცემების შევსება და შესვლა" do
-    
+    visit login_url
+    has_css?('form')
+    find('legend').should have_content 'სისტემაში შესვლა'
+    # XXX
   end
 end
