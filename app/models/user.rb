@@ -29,9 +29,12 @@ class User
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
   field :email_confirmed, type: Boolean
 
+  # კოდი, რომელიც გამოიყენება ამ ელ. ფოსტის მისამართის დასადასტურებლად.
+  field :email_confirm_hash, type: String
+
   # არის თუ არა მომხმარებლის მობილური დადასტურებული?
   field :mobile_confirmed, type: Boolean
-
+  
   # შემოწმების ოპერაციები
   validates_presence_of :salt
   validates_presence_of :hashed_password
@@ -103,6 +106,7 @@ class User
     self.email_confirmed = is_first if self.email_confirmed.nil?
     self.mobile_confirmed = false if self.mobile_confirmed.nil?
     self.mobile = User.compact_mobile(self.mobile)
+    self.email_confirm_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 100}#{Time.now}")
     true
   end
 end

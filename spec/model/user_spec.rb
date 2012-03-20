@@ -12,6 +12,7 @@ describe User do
   it { should have_field(:sys_admin).of_type(Boolean) }
   it { should have_field(:email_confirmed).of_type(Boolean) }
   it { should have_field(:mobile_confirmed).of_type(Boolean) }
+  it { should have_field(:email_confirm_hash).of_type(String) }
   it { should validate_presence_of(:salt) }
   it { should validate_presence_of(:hashed_password) }
   it { should validate_presence_of(:email) }
@@ -45,6 +46,11 @@ describe "ახალი მომხმარების შექმნა:"
     its(:email_confirmed) { should == true }
     its(:mobile_confirmed) { should == false }
     its(:mobile) { should == '595335514' }
+    context 'ელ. ფოსტის დადასტურების კოდი' do
+      subject { @user.email_confirm_hash }
+      it { should_not be_nil }
+      its(:length) { should == 40 }
+    end
   end
   context "მეორე მომხმარებელი" do
     before(:all) do
