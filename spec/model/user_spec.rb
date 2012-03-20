@@ -48,8 +48,7 @@ describe "ახალი მომხმარების შექმნა:"
     its(:mobile) { should == '595335514' }
     context 'ელ. ფოსტის დადასტურების კოდი' do
       subject { @user.email_confirm_hash }
-      it { should_not be_nil }
-      its(:length) { should == 40 }
+      it { should be_nil }
     end
   end
   context "მეორე მომხმარებელი" do
@@ -60,6 +59,11 @@ describe "ახალი მომხმარების შექმნა:"
     its(:sys_admin) { should == false }
     its(:email_confirmed) { should == false }
     its(:mobile_confirmed) { should == false }
+    context 'ელ. ფოსტის დადასტურების კოდი' do
+      subject { @user.email_confirm_hash }
+      it { should_not be_nil }
+      its(:length) { should == 40 }
+    end
   end
 end
 
