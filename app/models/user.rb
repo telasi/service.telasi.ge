@@ -91,6 +91,7 @@ class User
     self.sys_admin = is_first if self.sys_admin.nil?
     self.email_confirmed = is_first if self.email_confirmed.nil?
     self.mobile_confirmed = false if self.mobile_confirmed.nil?
+    self.mobile = User.compact_mobile(self.mobile)
     true
   end
 end

@@ -38,12 +38,13 @@ end
 describe "ახალი მომხმარების შექმნა:" do
   context "პირველი მომხმარებელი" do
     before(:all) do
-      @user = Factory(:user, :email => 'dimitri@c12.ge')
+      @user = Factory(:user, :email => 'dimitri@c12.ge', :mobile => '(595)33-55-14')
     end
     subject { @user }
     its(:sys_admin) { should == true }
     its(:email_confirmed) { should == true }
     its(:mobile_confirmed) { should == false }
+    its(:mobile) { should == '595335514' }
   end
   context "მეორე მომხმარებელი" do
     before(:all) do
