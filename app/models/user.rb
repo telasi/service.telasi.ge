@@ -49,6 +49,7 @@ class User
 
   # ტრიგერები
   before_create :before_user_create
+  before_update :before_user_update
 
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)
@@ -114,5 +115,9 @@ class User
     self.mobile = User.compact_mobile(self.mobile)
     self.email_confirm_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 100}#{Time.now}") unless self.email_confirmed
     true
+  end
+
+  def before_user_update
+    self.mobile = User.compact_mobile(self.mobile)
   end
 end
