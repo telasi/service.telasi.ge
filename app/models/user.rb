@@ -106,7 +106,7 @@ class User
     self.email_confirmed = is_first if self.email_confirmed.nil?
     self.mobile_confirmed = false if self.mobile_confirmed.nil?
     self.mobile = User.compact_mobile(self.mobile)
-    self.email_confirm_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 100}#{Time.now}")
+    self.email_confirm_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 100}#{Time.now}") unless self.email_confirmed
     true
   end
 end
