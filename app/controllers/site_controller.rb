@@ -2,7 +2,12 @@
 
 class SiteController < ApplicationController
   def index
-    @title = 'საწყისი'
+    unless current_user
+      @title = 'საწყისი'
+    else
+      
+      render 'applications/index'
+    end
   end
 
   def help

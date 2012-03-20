@@ -6,6 +6,6 @@ not_authorized:
     login: შესვლა
 authorized:
   main:
-    home: საწყისი
+    home: განცხადებები
     help: დახმარება
   secondary:
