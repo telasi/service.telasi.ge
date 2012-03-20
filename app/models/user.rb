@@ -42,7 +42,7 @@ class User
   validates_presence_of :password, :message => 'ჩაწერეთ პაროლი'
   validates_confirmation_of :password, :message => 'პაროლი არ ემთხვევა'
   validates_uniqueness_of :email, :message => 'ეს მისამართი უკვე რეგისტრირებულია'
-  validate :validate_mobile_format
+  validate :mobile_format, :email_format
 
   # ტრიგერები
   before_create :before_user_create
@@ -64,6 +64,11 @@ class User
     not not (compact_mobile(mob) =~ /^[0-9]{9}$/)
   end
 
+  # ელ.ფოსტის შემოწმება.
+  def self.correct_email?(email)
+    not not (email =~ /^\S+@\S+$/)
+  end
+
   def password
     @password
   end
@@ -80,9 +85,15 @@ class User
 
   private
 
-  def validate_mobile_format
+  def mobile_format
     if self.mobile and not User.correct_mobile?(self.mobile)
       errors.add(:mobile, 'არასწორი მობილური') 
+    end
+  end
+
+  def email_format
+    if self.email and not User.correct_email?(self.email)
+      errors.add(:email, 'არასწორი ელ. ფოსტა') 
     end
   end
 
