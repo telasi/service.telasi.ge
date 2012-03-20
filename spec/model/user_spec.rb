@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe User do
+  it { should be_mongoid_document }
+  it { should have_field(:created_at).of_type(Time) }
+  it { should have_field(:updated_at).of_type(Time) }
   it { should have_field(:salt).of_type(String) }
   it { should have_field(:hashed_password).of_type(String) }
   it { should have_field(:email).of_type(String) }

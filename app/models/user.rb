@@ -2,6 +2,7 @@
 
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   attr_accessor :password_confirmation
 
