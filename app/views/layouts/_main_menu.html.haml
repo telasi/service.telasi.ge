@@ -14,5 +14,6 @@
 				%a#user-info.dropdown-toggle{:href => '#', 'data-toggle' => 'dropdown'}= user.full_name
 				%ul.dropdown-menu
 					%li= link_to 'ანგარიშის მართვა', account_url
+					%li= link_to 'პაროლის შეცვლა', change_password_url
 					%li.divider
 					%li= link_to 'გასვლა', logout_url, :confirm => 'ნამდვილად გინდათ გასვლა?'

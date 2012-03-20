@@ -9,6 +9,7 @@ TelasiService::Application.routes.draw do
   get '/logout', :controller => :site, :action => :logout, :as => :logout
   get '/confirm', :controller => :site, :action => :confirm, :as => :confirm
   match '/account', :controller => :site, :action => :account, :as => :account
+  match '/change_password', :controller => :site, :action => :change_password, :as => :change_password
 
   root :to => 'site#index'
 end
