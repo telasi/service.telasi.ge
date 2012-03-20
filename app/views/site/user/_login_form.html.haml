@@ -1,7 +1,7 @@
 = form_tag(login_url, :class => 'form-horizontal', :id => 'login-form') do |f|
 	%legend სისტემაში შესვლა
 	- if @error
-		#error_explanation.alert.alert-error.fade.in
+		#error-explanation.alert.alert-error.fade.in
 			%a.close{ 'data-dismiss' => 'alert', :href => '#' } &times;
 			= @error
 	.control-group

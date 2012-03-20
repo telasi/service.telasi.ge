@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 class SiteController < ApplicationController
-
   def index
     @title = 'საწყისი'
   end
@@ -40,11 +39,28 @@ class SiteController < ApplicationController
         @user = User.new(params[:user])
         if @user.save
           redirect_to(register_url(:status => :ok), :notice => 'მომხმარებელი შექმნილია') if @user.save
-          UserMailer.email_confirmation(@user).deliver
+          UserMailer.delay.email_confirmation(@user).deliver if @user.email_confirm_hash
         end
       else
         @user = User.new
       end
+    end
+  end
+
+  def confirm
+    begin
+      @user = User.find(params[:id])
+      @title = 'რეგისტრაციის დადასტურება'
+      if @user.email_confirm_hash == params[:hash]
+        @user.email_confirm_hash = nil
+        @user.email_confirmed = true
+        @user.save!
+        @confirmed = true
+      else
+        @confirmed = false
+      end
+    rescue Exception => ex
+      @error = ex.to_s
     end
   end
 

@@ -34,7 +34,7 @@ class User
 
   # არის თუ არა მომხმარებლის მობილური დადასტურებული?
   field :mobile_confirmed, type: Boolean
-  
+
   # შემოწმების ოპერაციები
   validates_presence_of :salt
   validates_presence_of :hashed_password
@@ -42,10 +42,10 @@ class User
   validates_presence_of :mobile, :message => 'ჩაწერეთ მობილური'
   validates_presence_of :first_name, :message => 'ჩაწერეთ სახელი'
   validates_presence_of :last_name, :message => 'ჩაწერეთ გვარი'
-  validates_presence_of :password, :message => 'ჩაწერეთ პაროლი'
+  #validates_presence_of :password, :message => 'ჩაწერეთ პაროლი'
   validates_confirmation_of :password, :message => 'პაროლი არ ემთხვევა'
   validates_uniqueness_of :email, :message => 'ეს მისამართი უკვე რეგისტრირებულია'
-  validate :mobile_format, :email_format
+  validate :mobile_format, :email_format, :password_presence
 
   # ტრიგერები
   before_create :before_user_create
@@ -97,6 +97,12 @@ class User
   def email_format
     if self.email and not User.correct_email?(self.email)
       errors.add(:email, 'არასწორი ელ. ფოსტა') 
+    end
+  end
+
+  def password_presence
+    if self.hashed_password.nil? and self.password.nil?
+      errors.add(:password, 'ჩაწერეთ პაროლი')
     end
   end
 

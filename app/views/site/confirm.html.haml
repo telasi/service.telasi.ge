@@ -1,0 +1,20 @@
+- if @error
+	#error-explanation.alert.alert-error.alert-block
+		%h3 სისტემური შეცდომა
+		%p
+			თქვენი მოთხოვნის დამუშავებისას მოხდა სისტემური შეცდომა:
+		%p= @error
+- elsif @confirmed
+	#success.alert.alert-success.alert-block
+		%h3 დადასტურება წარმატებულია!
+		%p
+			გილოცავთ! თქვენი ელ.ფოსტის დადასტურება წარმატებულია!
+		%p
+			თქვენ შეგიძლიათ დაიწყოთ #{link_to 'პროგრამით სარგებლობა', login_url(:email => @user.email)}.
+- else
+	#error-explanation.alert.alert-error.alert-block
+		%h3 დადასტურება ვერ ხერხდება
+		%p
+			თქვენს მიერ მოწოდებული დადასტურების მონაცემები არასწორია!
+		%p
+			სამწუხაროდ თქვენი ანგარიშის გააქტიურება ვერ ხერხდება.

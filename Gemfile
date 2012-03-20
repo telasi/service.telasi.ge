@@ -5,6 +5,8 @@ gem 'simple_form', '~> 2.0.0'
 gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
 gem 'haml'
+gem 'delayed_job'
+gem 'delayed_job_mongoid'
 
 gem 'sqlite3'
 

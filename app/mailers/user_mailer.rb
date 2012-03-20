@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
 
   def email_confirmation(user)
     @user = user
-    @url = "#{register_url(:host => Telasi::HOST)}?c=#{@user.email_confirm_hash}&email=#{@user.email}"
+    @url = "#{confirm_url(:host => Telasi::HOST)}?hash=#{@user.email_confirm_hash}&id=#{@user.id}"
     mail(:to => "#{@user.full_name} <#{@user.email}>", :subject => 'რეგისტრაციის დასრულება')
   end
 
