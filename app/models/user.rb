@@ -79,8 +79,10 @@ class User
 
   def password=(pwd)
     @password = pwd
-    self.salt = "salt#{rand 100}#{Time.now}"
-    self.hashed_password = Digest::SHA1.hexdigest("#{pwd}dimitri#{salt}")
+    unless pwd.nil? or pwd.strip.empty?
+      self.salt = "salt#{rand 100}#{Time.now}"
+      self.hashed_password = Digest::SHA1.hexdigest("#{pwd}dimitri#{salt}")
+    end
   end
 
   def full_name
