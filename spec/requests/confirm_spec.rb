@@ -2,28 +2,18 @@
 
 require 'spec_helper'
 
-def make_login(email, pwd)
-  within('#login-form') do
-    fill_in 'email', :with => email
-    fill_in 'password', :with => 'secret'
-    click_button 'შესვლა'
-  end
-end
-
 feature 'მომხმარებელის ავტორიზაცია და აქტივაცია' do
   before(:all) do
     @admin = Factory(:user, :email => 'dimitri@c12.ge', :password => 'secret')
     @user  = Factory(:user, :email => 'dimakura@gmail.com', :password => 'secret')
   end
   scenario 'პიველი მომხმარებელი შედის სისტემაში' do
-    visit login_url
-    make_login(@admin.email, 'secret')
+    make_login(page, @admin.email, 'secret')
     current_url.should == home_url
     find('#user-info').should have_content @admin.full_name
   end
   scenario 'მეორე მომხმარებელი ვერ შედის სისტემაში (ის არაა აქტიური)' do
-    visit login_url
-    make_login(@user.email, 'secret')
+    make_login(page, @user.email, 'secret')
     current_url.should == login_url
     find('#error-explanation').should have_content 'ეს ანგარიში დაუდასტურებელია'
   end
@@ -35,8 +25,7 @@ feature 'მომხმარებელის ავტორიზაცი�
     @user.email_confirmed.should == true
   end
   scenario 'მეორე მომხმარებელს უკვე შეუძლია შესვლა თავის ანგარიშში' do
-    visit login_url
-    make_login(@user.email, 'secret')
+    make_login(page, @user.email, 'secret')
     current_url.should == home_url
     find('#user-info').should have_content @user.full_name
   end
