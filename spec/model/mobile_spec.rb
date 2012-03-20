@@ -19,6 +19,12 @@ end
 describe 'მობილურის ფორმატის შემოწმება' do
   correct_mobile '595335514'
   correct_mobile '599422451'
+  correct_mobile '(595)335-514'
+  correct_mobile '(595)33-55-14'
+  correct_mobile '+(595)33-55-14'
+
   incorrect_mobile '59533551'
-  incorrect_mobile '(595)335-514'
+  incorrect_mobile '123'
+  incorrect_mobile '5953355145'
+  incorrect_mobile nil
 end

@@ -42,6 +42,7 @@ class User
   validates_presence_of :password, :message => 'ჩაწერეთ პაროლი'
   validates_confirmation_of :password, :message => 'პაროლი არ ემთხვევა'
   validates_uniqueness_of :email, :message => 'ეს მისამართი უკვე რეგისტრირებულია'
+  validate :validate_mobile_format
 
   # ტრიგერები
   before_create :before_user_create
@@ -52,12 +53,17 @@ class User
     user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
   end
 
+  # მობილურის "კომპაქტიზაცია": ტოვებს მხოლოდ ციფრებს.
+  def self.compact_mobile(mob)
+    mob.scan(/[0-9]/).join('') if mob
+  end
+
   # ამოწმებს მობილურის ნომრის კორექტულობას.
   # კორექტული მობილურის ნომერი უნდა შეიცავდეს 9 ციფრს.
   def self.correct_mobile?(mob)
-    not not (mob =~ /[0-9]{9}/)
+    not not (compact_mobile(mob) =~ /^[0-9]{9}$/)
   end
-  
+
   def password
     @password
   end
@@ -73,6 +79,12 @@ class User
   end
 
   private
+
+  def validate_mobile_format
+    if self.mobile and not User.correct_mobile?(self.mobile)
+      errors.add(:mobile, 'არასწორი მობილური') 
+    end
+  end
 
   def before_user_create
     is_first = User.count == 0
