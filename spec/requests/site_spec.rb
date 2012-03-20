@@ -24,10 +24,10 @@ feature "ახალი მომხმარებლის რეგისტ
 end
 
 feature "მომხმარებლის ავტორიზაცია" do
-  background do
+  before(:all) do
     @user = Factory(:user, :password => 'secret')
   end
-  scenario "მონაცემების შევსება და შესვლა" do
+  scenario 'სწორი მონაცემებით' do
     visit login_url
     has_css?('form')
     find('legend').should have_content 'სისტემაში შესვლა'
@@ -38,5 +38,15 @@ feature "მომხმარებლის ავტორიზაცია"
     end
     current_url.should == home_url
     find('#user-info').should have_content @user.full_name
+  end
+  scenario 'არასწორი მონაცემებით' do
+    visit login_url
+    within('#login-form') do
+      fill_in 'email', :with => @user.email
+      fill_in 'password', :with => 'wrong_password'
+      click_button 'შესვლა'
+    end
+    current_url.should == login_url
+    find('#error_explanation').should have_content 'არასწორი მომხმარებელი ან პაროლი'
   end
 end

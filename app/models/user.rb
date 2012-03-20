@@ -52,6 +52,12 @@ class User
     user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
   end
 
+  # ამოწმებს მობილურის ნომრის კორექტულობას.
+  # კორექტული მობილურის ნომერი უნდა შეიცავდეს 9 ციფრს.
+  def self.correct_mobile?(mob)
+    not not (mob =~ /[0-9]{9}/)
+  end
+  
   def password
     @password
   end
