@@ -13,14 +13,18 @@ class SiteController < ApplicationController
   end
 
   def register
-    @title = 'რეგისტრაცია'
-    if request.post?
-      @user = User.new(params[:user])
-      redirect_to(login_url, :notice => 'მომხმარებელი შექმნილია') if @user.save 
+    if params[:status] == 'ok'
+      @show_success = true
+      @title = 'რეგისტრაცია წარმატებულია'
     else
-      @user = User.new
+      @title = 'რეგისტრაცია'
+      if request.post?
+        @user = User.new(params[:user])
+        redirect_to(register_url(:status => :ok), :notice => 'მომხმარებელი შექმნილია') if @user.save
+      else
+        @user = User.new
+      end
     end
-    
   end
 end
 

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 feature "ახალი მომხმარებლის რეგისტრაცია" do
-  scenario "ფორმის გაგზავნა" do
+  scenario "მონაცემების გაგზავნა" do
     visit register_url
     within("#register-form") do
       fill_in 'user_email', :with => 'dimitri@c12.ge'
@@ -16,5 +16,13 @@ feature "ახალი მომხმარებლის რეგისტ
     end
     user = User.where(:email => 'dimitri@c12.ge').first
     user.should_not be_nil
+    current_url.should == register_url(:status => :ok)
+    find('h3').should have_content 'რეგისტრაცია წარმატებულია'
+  end
+end
+
+feature "მომხმარებლის ავტორიზაცია" do
+  scenario "მონაცემების შევსება და შესვლა" do
+    
   end
 end
