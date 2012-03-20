@@ -39,7 +39,7 @@ class SiteController < ApplicationController
         @user = User.new(params[:user])
         if @user.save
           redirect_to(register_url(:status => :ok), :notice => 'მომხმარებელი შექმნილია') if @user.save
-          UserMailer.delay.email_confirmation(@user).deliver if @user.email_confirm_hash
+          (Telasi::USE_DELAYED_JOB ? UserMailer.delay : UserMailer).email_confirmation(@user).deliver if @user.email_confirm_hash
         end
       else
         @user = User.new

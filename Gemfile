@@ -24,4 +24,5 @@ group :test, :development do
   gem 'mongoid-rspec'
   gem 'capybara'
   gem 'factory_girl'
+  gem 'email_spec'
 end
