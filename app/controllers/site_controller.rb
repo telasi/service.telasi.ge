@@ -64,4 +64,11 @@ class SiteController < ApplicationController
     end
   end
 
+  def account
+    @title = 'ანგარიშის მართვა'
+    @user = current_user
+    if request.put?
+      redirect_to home_url, :notice => 'თქვენი ანგარიში განახლებულია' if @user.update_attributes(params[:user])
+    end
+  end
 end
