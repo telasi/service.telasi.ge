@@ -1,6 +1,13 @@
 .page-header
 	%h2 ახალი განცხადება <small>აბონენტის ქსელში მიერთება</small>
-- if @step1
-	= render :partial => 'applications/form_tariff'
-- else
+- if @tariff
+	%p
+		ძაბვა: <strong>#{@tariff.voltage}</strong> კვ,
+		სიმძლავრე: <strong>#{@tariff.power}</strong> კვტ,
+		ღირებულება: <strong>#{number_format @tariff.price}</strong> ლარი,
+		შესრულება: <strong>#{@tariff.complete}</strong> დღე.
+		= link_to 'სხვა სიმძლავრის არჩევა', new_application_url, :class => ['btn'] 
+	%hr
 	= render :partial => 'applications/form'
+- else
+	= render :partial => 'applications/form_tariff'

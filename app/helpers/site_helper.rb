@@ -13,7 +13,7 @@ module SiteHelper
     render :partial => 'layouts/main_menu', :locals => {:items => main_menu, :secondary_items => secondary_menu, :page => page, :user => user}
   end
 
-  def icon_text(icn, txt)
+  def icon_text(icn, txt = nil)
     %Q{<i class="icon-#{icn}"></i> #{txt}}.strip.html_safe
   end
 

@@ -7,6 +7,7 @@ gem 'bson_ext', '~> 1.5'
 gem 'haml'
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
+gem 'rs.ge'
 
 gem 'sqlite3'
 

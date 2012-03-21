@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Tariff2012 do
+describe 'ყველა ტარიფების ძებნა' do
   before(:all) do
     @tariffs = Tariff2012.all
   end
@@ -18,4 +18,13 @@ describe Tariff2012 do
     its(:complete) { should == 35 }
     its(:price) { should == 400.0 }
   end
+end
+
+describe 'ტარიფის ძებნა ID-თი' do
+  before(:all) do
+    @tariff = Tariff2012.find(13)
+  end
+  subject { @tariff }
+  it { should_not be_nil }
+  its(:id) { should == 13 }
 end

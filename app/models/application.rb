@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'rs'
 
 # ეს არის აბონენტის განაცხადის კლასი.
 class Application
@@ -45,6 +46,9 @@ class Application
   # უნდა თუ არა მომხმარებელს პასუხის მიღება ელ.ფოსტის მეშვეობით.
   field :email_response, type: Boolean
 
+  # ტარიფის იდენტიფიკატორი
+  field :tariff_id, type: Integer
+
   # გაგზავნის თარიღი.
   field :send_date, type: Time
 
@@ -57,14 +61,16 @@ class Application
   belongs_to :owner, class_name: 'User'
 
   # ინფორმაცია განმცხადებლის შესახებ.
-  embeds_one :applicant
+  embeds_one :applicant #, cascade_callbacks: true
 
   # ინფორმაცია განმცხადებლის საბანკო ანგარიშის შესახებ.
   #
   # შეიძლება დაგებადოთ კითხვა: თუ რა საჭიროა განმცხადებლის საბანკო
   # ანგარიშის ცოდნა? თუ ჩვენ დაგვჭირდა თანხის დაბრუნება, ამ შემთხვევისთვის
   # გვჭირდება ეს ანგარიში! სწორედ მასზე მოხდება თანხის დაბრუნება.
-  embeds_one :bank_account
+  embeds_one :bank_account #, cascade_callbacks: true
+
+  validates_presence_of :address  
 end
 
 # ინფორმაცია განმცხადებლის შესახებ.
@@ -82,6 +88,25 @@ class Applicant
   field :email, type: String
   # განცხადება, რომელსაც მიეკუთვნება ეს განმცხადებელი.
   embedded_in :application
+
+  # შემოწმებები
+  validates_presence_of :tin, :message => 'ჩაწერეთ საიდენტიფიკაციო კოდი'
+  validates_presence_of :address, :message => 'ჩაწერეთ მისამართი'
+  validates_presence_of :mobile, :message => 'ჩაწერეთ მობილური'
+  validate :name_from_tin
+
+  private
+
+  def name_from_tin
+    if self.tin_changed?
+      if not RS.is_valid_personal_tin(self.tin) and not RS.is_valid_corporate_tin(self.tin)
+        errors.add(:tin, 'უნდა იყოს 9 ან 11 ციფრიანი კოდი') if self.name.nil?
+      else
+        self.name = RS.get_name_from_tin('tin' => self.tin)
+        errors.add(:tin, 'არასწორი საიდენტიფიკაციო კოდი') if self.name.nil?
+      end
+    end
+  end
 end
 
 # ინფორმაცია განმცხადებლის საბანკო მონაცემების შესახებ.
@@ -95,6 +120,10 @@ class BankAccount
   field :eban, type: String
   # განცხადება, რომელზეც მობმულია ეს ანგარიში.
   embedded_in :application
+
+  validates_presence_of :swift, :message => 'ჩაწერეთ SWIFT კოდი'
+  validates_presence_of :bank, :message => 'ჩაწერეთ ბანკი'
+  validates_presence_of :eban, :message => 'ჩაწერეთ ანგარიშის ნომერი'
 end
 
 # ეს არის 2012 წლის ტარიფი ახალი აბონენტის მიერთებაზე.
@@ -119,5 +148,15 @@ class Tariff2012
       end
     end
     ALL
+  end
+
+  # ტარიფის ძებნა ID-თი.
+  def self.find(id)
+    if id
+      tariffs = Tariff2012.all
+      tariffs.each do |t|
+        return t if t.id == id.to_i
+      end
+    end
   end
 end

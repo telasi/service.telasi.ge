@@ -14,8 +14,25 @@ class ApplicationsController < ApplicationController
 
   def new
     @title = 'ახალი განცხადება'
-    @application = Application.new(params[:application])
-    @step1 = true
+    if params[:tariff_id]
+      @tariff = Tariff2012.find(params[:tariff_id])
+      if request.post?
+        puts params
+        @application = Application.new(params[:application])
+        @application.build_applicant(params[:applicant])
+        @application.build_bank_account(params[:bank_account])
+        @application.owner = current_user
+        if @application.save
+        #  @application.applicant.save
+        #  @application.bank_account.save
+          redirect_to(home_url, :notice => 'განცხადება შენახულია')
+        end
+      else
+        @application = Application.new(:email_response => true, :applicant => Applicant.new, :bank_account => BankAccount.new)
+      end
+    else
+      @tariffs = Tariff2012.all
+    end
   end
 
 end

@@ -100,7 +100,7 @@ class User
 
   def email_format
     if self.email and not User.correct_email?(self.email)
-      errors.add(:email, 'არასწორი ელ. ფოსტა') 
+      errors.add(:email, 'არასწორი ელ. ფოსტა')
     end
   end
 

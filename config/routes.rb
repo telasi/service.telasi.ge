@@ -16,6 +16,9 @@ TelasiService::Application.routes.draw do
   scope '/app', :controller => :applications do
     get '/tariffs', :action => :tariffs, :as => :tariffs
     match '/new', :action => :new, :as => :new_application
+    get '/show/:id', :action => :show, :as => :show_application
+    match '/edit/:id', :action => :edit, :as => :edit_application
+    delete '/delete/:id', :action => :destroy, :as => :delete_application
   end
 
   root :to => 'site#index'
