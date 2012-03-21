@@ -106,15 +106,17 @@ class Tariff2012
 
   # ყველა ტარიფის მიღება
   def self.all
-    tariff_yml = YAML.load_file(File.join(Rails.root, 'config/tariff_2012.yml'))
-    tariff_yml.each do |t|
-      tariff = Tariff2012.new
-      tariff.id = t[0]
-      tariff.voltage = t[1]['voltage']
-      tariff.power = t[1]['power']
-      tariff.complete = t[1]['complete']
-      tariff.price = t[1]['price']
-      ALL << tariff
+    if ALL.empty?
+      tariff_yml = YAML.load_file(File.join(Rails.root, 'config/tariff_2012.yml'))
+      tariff_yml.each do |t|
+        tariff = Tariff2012.new
+        tariff.id = t[0]
+        tariff.voltage = t[1]['voltage']
+        tariff.power = t[1]['power']
+        tariff.complete = t[1]['complete']
+        tariff.price = t[1]['price']
+        ALL << tariff
+      end
     end
     ALL
   end
