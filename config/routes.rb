@@ -18,7 +18,7 @@ TelasiService::Application.routes.draw do
     match '/new', :action => :new, :as => :new_application
     get '/show/:id', :action => :show, :as => :show_application
     match '/edit/:id', :action => :edit, :as => :edit_application
-    delete '/delete/:id', :action => :destroy, :as => :delete_application
+    delete '/delete/:id', :action => :delete, :as => :delete_application
   end
 
   root :to => 'site#index'

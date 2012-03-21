@@ -22,17 +22,21 @@ class ApplicationsController < ApplicationController
         @application.build_applicant(params[:applicant])
         @application.build_bank_account(params[:bank_account])
         @application.owner = current_user
-        if @application.save
-        #  @application.applicant.save
-        #  @application.bank_account.save
-          redirect_to(home_url, :notice => 'განცხადება შენახულია')
-        end
+        @application.status = Application::STATUS_START
+        @application.type = Application::TYPE_CONNECT
+        redirect_to(home_url, :notice => 'განცხადება შენახულია') if @application.save
       else
-        @application = Application.new(:email_response => true, :applicant => Applicant.new, :bank_account => BankAccount.new)
+        @application = Application.new(:applicant => Applicant.new, :bank_account => BankAccount.new)
       end
     else
       @tariffs = Tariff2012.all
     end
   end
 
+  def delete
+    app = Application.find(params[:id])
+    app.destroy
+    redirect_to home_url, :notice => 'განცხადება წაშლილია'
+  end
+  
 end
