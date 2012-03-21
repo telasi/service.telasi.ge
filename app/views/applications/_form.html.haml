@@ -1,4 +1,4 @@
-= simple_form_for(@application, :url => new_application_url(:tariff_id => @tariff.id), :html => {:class => 'form-horizontal'}) do |f|
+= simple_form_for(@application, :url => (@application.new? ? new_application_url(:tariff_id => @tariff.id) : edit_application_url(@application)), :html => {:class => 'form-horizontal'}) do |f|
 	%h3 მონაცემები განმცხადებელზე
 	%p.muted
 		შეიყვანეთ მონაცემები განცხადების ავტორის შესახებ.

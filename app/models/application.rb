@@ -93,20 +93,19 @@ class Applicant
   validates_presence_of :tin, :message => 'ჩაწერეთ საიდენტიფიკაციო კოდი'
   validates_presence_of :address, :message => 'ჩაწერეთ მისამართი'
   validates_presence_of :mobile, :message => 'ჩაწერეთ მობილური'
-  validate :name_from_tin
+  validate :check_tin
 
   private
 
-  def name_from_tin
-    if self.tin_changed?
-      if not RS.is_valid_personal_tin(self.tin) and not RS.is_valid_corporate_tin(self.tin)
-        errors.add(:tin, 'უნდა იყოს 9 ან 11 ციფრიანი კოდი') if self.name.nil?
-      else
-        self.name = RS.get_name_from_tin('tin' => self.tin)
-        errors.add(:tin, 'არასწორი საიდენტიფიკაციო კოდი') if self.name.nil?
-      end
+  def check_tin
+    if not RS.is_valid_personal_tin(self.tin) and not RS.is_valid_corporate_tin(self.tin)
+      errors.add(:tin, 'უნდა იყოს 9 ან 11 ციფრიანი კოდი')
+    elsif self.tin_changed?
+      self.name = RS.get_name_from_tin('tin' => self.tin)
+      errors.add(:tin, 'არასწორი საიდენტიფიკაციო კოდი') if self.name.nil?
     end
   end
+
 end
 
 # ინფორმაცია განმცხადებლის საბანკო მონაცემების შესახებ.
