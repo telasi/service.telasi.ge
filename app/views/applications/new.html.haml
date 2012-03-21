@@ -1,3 +1,6 @@
 .page-header
 	%h2 ახალი განცხადება <small>აბონენტის ქსელში მიერთება</small>
-= render :partial => 'applications/form'
+- if @step1
+	= render :partial => 'applications/form_tariff'
+- else
+	= render :partial => 'applications/form'

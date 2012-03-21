@@ -15,6 +15,7 @@ class ApplicationsController < ApplicationController
   def new
     @title = 'ახალი განცხადება'
     @application = Application.new(params[:application])
+    @step1 = true
   end
 
 end
