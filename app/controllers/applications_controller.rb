@@ -37,7 +37,7 @@ class ApplicationsController < ApplicationController
   def show
     @title = 'განცხადების პარამეტრები'
     @application = Application.find(params[:id])
-    @tariff = Tariff2012.find(@application.tariff_id)
+    @tariff = @application.tariff
   end
 
   def edit

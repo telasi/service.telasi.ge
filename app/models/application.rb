@@ -70,7 +70,30 @@ class Application
   # გვჭირდება ეს ანგარიში! სწორედ მასზე მოხდება თანხის დაბრუნება.
   embeds_one :bank_account #, cascade_callbacks: true
 
-  validates_presence_of :address  
+  validates_presence_of :address
+
+  def tariff
+    Tariff2012.find(self.tariff_id)
+  end
+end
+
+# შეიცავს ინფორმაციას ინდივიდუალურ განმცხადებლებზე.
+class ApplicationItem
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :tin, type: String
+  field :name, type: String
+  field :address, type: String
+  field :tariff_id, type: Integer
+
+  validates_presence_of :tin
+  validates_presence_of :address
+  validates_presence_of :tariff_id
+
+  def tariff
+    Tariff2012.find(self.tariff_id)
+  end
 end
 
 # ინფორმაცია განმცხადებლის შესახებ.
