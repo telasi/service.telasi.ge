@@ -7,9 +7,8 @@ class ApplicationsController < ApplicationController
   def tariffs
     @tariffs = Tariff2012.all
     respond_to do |format|
-      format.html do
-        @title = 'მომსახურების ტარიფები'
-      end
+      format.html {  @title = 'მომსახურების ტარიფები' }
+      format.json { render :json => @tariffs }
     end
   end
 
