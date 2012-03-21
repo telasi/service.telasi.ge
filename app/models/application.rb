@@ -96,3 +96,26 @@ class BankAccount
   # განცხადება, რომელზეც მობმულია ეს ანგარიში.
   embedded_in :application
 end
+
+# ეს არის 2012 წლის ტარიფი ახალი აბონენტის მიერთებაზე.
+class Tariff2012
+  # ეს მასივი გამოიყენება ტარიფების შესანახად.
+  ALL = []
+
+  attr_accessor :id, :voltage, :power, :complete, :price
+
+  # ყველა ტარიფის მიღება
+  def self.all
+    tariff_yml = YAML.load_file(File.join(Rails.root, 'config/tariff_2012.yml'))
+    tariff_yml.each do |t|
+      tariff = Tariff2012.new
+      tariff.id = t[0]
+      tariff.voltage = t[1]['voltage']
+      tariff.power = t[1]['power']
+      tariff.complete = t[1]['complete']
+      tariff.price = t[1]['price']
+      ALL << tariff
+    end
+    ALL
+  end
+end
