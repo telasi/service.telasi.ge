@@ -1,10 +1,34 @@
 # -*- encoding : utf-8 -*-
 require 'rs'
 
+# ეს მოდული ამატებს საიდენტიფიკაციო კოდის შემოწმების ფუნქციას.
+module CheckTin
+  def check_tin
+    if not RS.is_valid_personal_tin(self.tin) and not RS.is_valid_corporate_tin(self.tin)
+      errors.add(:tin, 'უნდა იყოს 9 ან 11 ციფრიანი კოდი')
+    elsif self.tin_changed?
+      self.name = RS.get_name_from_tin('tin' => self.tin)
+      errors.add(:tin, 'არასწორი საიდენტიფიკაციო კოდი') if self.name.nil?
+    end
+  end
+
+  def self.included(base)
+    base.validate :check_tin
+  end
+end
+
+# ტარიფის ამოღება მისი ID-დან.
+module TariffFinder
+  def tariff
+    Tariff2012.find(self.tariff_id)
+  end
+end
+
 # ეს არის აბონენტის განაცხადის კლასი.
 class Application
   include Mongoid::Document
   include Mongoid::Timestamps
+  include TariffFinder
 
   # ეს არის "გამანაწილებელ ქსელზე ახალი მომხმარებლის მიერთების"
   # განაცხადის ტიპის აღმნიშვნელი კონსტანტა.
@@ -71,16 +95,14 @@ class Application
   embeds_one :bank_account #, cascade_callbacks: true
 
   validates_presence_of :address
-
-  def tariff
-    Tariff2012.find(self.tariff_id)
-  end
 end
 
 # შეიცავს ინფორმაციას ინდივიდუალურ განმცხადებლებზე.
 class ApplicationItem
   include Mongoid::Document
   include Mongoid::Timestamps
+  include TariffFinder
+  include CheckTin
 
   field :tin, type: String
   field :name, type: String
@@ -90,15 +112,13 @@ class ApplicationItem
   validates_presence_of :tin
   validates_presence_of :address
   validates_presence_of :tariff_id
-
-  def tariff
-    Tariff2012.find(self.tariff_id)
-  end
 end
 
 # ინფორმაცია განმცხადებლის შესახებ.
 class Applicant
   include Mongoid::Document
+  include CheckTin
+
   # საიდენტიფიკაციო კოდი
   field :tin, type: String
   # სახელი/დასახელება
@@ -116,19 +136,6 @@ class Applicant
   validates_presence_of :tin, :message => 'ჩაწერეთ საიდენტიფიკაციო კოდი'
   validates_presence_of :address, :message => 'ჩაწერეთ მისამართი'
   validates_presence_of :mobile, :message => 'ჩაწერეთ მობილური'
-  validate :check_tin
-
-  private
-
-  def check_tin
-    if not RS.is_valid_personal_tin(self.tin) and not RS.is_valid_corporate_tin(self.tin)
-      errors.add(:tin, 'უნდა იყოს 9 ან 11 ციფრიანი კოდი')
-    elsif self.tin_changed?
-      self.name = RS.get_name_from_tin('tin' => self.tin)
-      errors.add(:tin, 'არასწორი საიდენტიფიკაციო კოდი') if self.name.nil?
-    end
-  end
-
 end
 
 # ინფორმაცია განმცხადებლის საბანკო მონაცემების შესახებ.
