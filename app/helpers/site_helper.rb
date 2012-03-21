@@ -2,7 +2,6 @@
 require 'yaml'
 
 module SiteHelper
-
   def application_menu
     user = current_user
     menu = YAML.load_file('config/main_menu.yml')
@@ -16,6 +15,10 @@ module SiteHelper
 
   def icon_text(icn, txt)
     %Q{<i class="icon-#{icn}"></i> #{txt}}.strip.html_safe
+  end
+
+  def number_format(num, prec = 2)
+    number_with_precision(num, :precision => prec, :delimiter => ' ', :separator => ',')
   end
 
   def support_phone

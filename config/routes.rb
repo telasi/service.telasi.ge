@@ -14,6 +14,7 @@ TelasiService::Application.routes.draw do
 
   # application actions
   scope '/app', :controller => :applications do
+    get '/tariffs', :action => :tariffs, :as => :tariffs
     match '/new', :action => :new, :as => :new_application
   end
 
