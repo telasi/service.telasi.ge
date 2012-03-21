@@ -8,7 +8,7 @@ class ApplicationsController < ApplicationController
     @tariffs = Tariff2012.all
     respond_to do |format|
       format.html {  @title = 'მომსახურების ტარიფები' }
-      format.json { render :json => @tariffs }
+      format.json { render :json => @tariffs, :format => false }
     end
   end
 

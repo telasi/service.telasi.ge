@@ -2,6 +2,19 @@
 
 require 'spec_helper'
 
+feature 'ტარიფები' do
+  scenario 'html ფორმატი' do
+    visit tariffs_url
+    find('.page-header h2').should have_content 'მომსახურების ტარიფები'
+    page.should have_css('table tbody tr', :count=>18)
+  end
+  scenario 'json ფორმატი' do
+    visit tariffs_url(:format => :json)
+    tariffs = JSON.parse(page.source)
+    tariffs.length.should == 18
+  end
+end
+
 feature 'განცხადებები' do
   before(:all) do
     @user = Factory(:user, :password => 'secret')
@@ -14,8 +27,9 @@ feature 'განცხადებები' do
   scenario 'ახალი განცხადების გვერდი' do
     make_login(page, @user.email, 'secret')
     visit new_application_url
-    within('#application-form') do
-      # XXX
-    end
+    # TODO: complete form
+#    within('#application-form') do
+#      # XXX
+#    end
   end
 end
