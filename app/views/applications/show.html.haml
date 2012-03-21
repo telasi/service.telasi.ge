@@ -81,4 +81,19 @@
 			- if @application.written_response
 				%span.label.label-success წერილობით
 			- if not @application.email_response and not @application.written_response
-				%span.label.label-important განუსაზღვრელი		
+				%span.label.label-important განუსაზღვრელი
+.items
+	.page-header
+		%h2 აბონენტების სია <small>თქვენი მოთხოვნის დეტალები</small>
+	.btn-toolbar
+		= link_to icon_text('plus', 'აბონენტის დამატება'), new_application_item_url(@application), :class => :btn
+	%table.table.table-bordered.table-striped
+		%thead
+			%tr
+				%th{:width=>25} №
+				%th{:width=>100} საიდ. ნომერი
+				%th{:width => 250} დასახელება
+				%th მისამართი
+				%th{:width=>100} ძაბვა
+				%th{:width=>100} სიმძლავრე
+		

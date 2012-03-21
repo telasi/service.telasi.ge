@@ -85,14 +85,17 @@ class Application
   belongs_to :owner, class_name: 'User'
 
   # ინფორმაცია განმცხადებლის შესახებ.
-  embeds_one :applicant #, cascade_callbacks: true
+  embeds_one :applicant
 
   # ინფორმაცია განმცხადებლის საბანკო ანგარიშის შესახებ.
   #
   # შეიძლება დაგებადოთ კითხვა: თუ რა საჭიროა განმცხადებლის საბანკო
   # ანგარიშის ცოდნა? თუ ჩვენ დაგვჭირდა თანხის დაბრუნება, ამ შემთხვევისთვის
   # გვჭირდება ეს ანგარიში! სწორედ მასზე მოხდება თანხის დაბრუნება.
-  embeds_one :bank_account #, cascade_callbacks: true
+  embeds_one :bank_account
+
+  # აბონენტების სია.
+  embeds_many :application_items
 
   validates_presence_of :address
 end
@@ -108,6 +111,7 @@ class ApplicationItem
   field :name, type: String
   field :address, type: String
   field :tariff_id, type: Integer
+  embedded_in :application
 
   validates_presence_of :tin
   validates_presence_of :address

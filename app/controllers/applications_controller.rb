@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class ApplicationsController < ApplicationController
+
   def index
   end
 
@@ -55,6 +56,12 @@ class ApplicationsController < ApplicationController
     app = Application.find(params[:id])
     app.destroy
     redirect_to home_url, :notice => 'განცხადება წაშლილია'
+  end
+
+  def new_item
+    @title = 'ახალი აბონენტი'
+    @application = Application.find(params[:id])
+    @item = ApplicationItem.new
   end
 
 end

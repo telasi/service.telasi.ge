@@ -1,0 +1,2 @@
+= simple_form_for(@item, :url => (@item.new? ? new_application_item_url(@application) : edit_application_item_url(@item))) do |f|
+	= f.input :tin, :label => 'საიდენტ. კოდი', :input_html => {:autofocus => true}
