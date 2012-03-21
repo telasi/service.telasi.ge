@@ -22,16 +22,22 @@ class ApplicationsController < ApplicationController
         @application.build_applicant(params[:applicant])
         @application.build_bank_account(params[:bank_account])
         @application.owner = current_user
+        @application.tariff_id = @tariff.id
         @application.status = Application::STATUS_START
         @application.type = Application::TYPE_CONNECT
-        @application.tariff_id = @tariff.id
-        redirect_to(home_url, :notice => 'განცხადება შენახულია') if @application.save
+        redirect_to(show_application_url(@application), :notice => 'განცხადება შენახულია') if @application.save
       else
         @application = Application.new(:applicant => Applicant.new, :bank_account => BankAccount.new)
       end
     else
       @tariffs = Tariff2012.all
     end
+  end
+
+  def show
+    @title = 'განცხადების პარამეტრები'
+    @application = Application.find(params[:id])
+    @tariff = Tariff2012.find(@application.tariff_id)
   end
 
   def edit
@@ -41,7 +47,7 @@ class ApplicationsController < ApplicationController
     if request.put?
       params[:application][:applicant] = params[:applicant]
       params[:application][:bank_account] = params[:bank_account]
-      redirect_to(home_url, :notice => 'განცხადება განახლებულია') if @application.update_attributes(params[:application])
+      redirect_to(show_application_url(@application), :notice => 'განცხადება განახლებულია') if @application.update_attributes(params[:application])
     end
   end
 

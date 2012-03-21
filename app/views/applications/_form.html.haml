@@ -52,5 +52,5 @@
 	= f.input :written_response, :as => :boolean, :label => 'წერილობით'
 	.form-actions
 		= f.button :submit, 'განცხადების შენახვა', :class => ['btn', 'btn-primary']
-		= link_to 'გაუქმება', home_url, :class => ['btn'], :confirm => 'ნამდვილად?'
+		= link_to 'გაუქმება', (@application.new? ? home_url : show_application_url(@application)), :class => ['btn'], :confirm => 'ნამდვილად?'
 		
