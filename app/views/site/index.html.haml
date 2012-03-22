@@ -1,5 +1,18 @@
 - content_for(:top) do
-  #index-header
-    %h1 თელასის ელექტრონული მომსახურეობა
-    .top-footer
-      თელასის <strong>ქსელში მიერთების განაცხადი</strong> უკვე ელექტრონულ ფორმატში
+	#index-header
+		%h1 თელასის ელექტრონული მომსახურეობა
+		.top-footer თელასის <strong>ქსელში მიერთების განაცხადი</strong> უკვე ელექტრონულ ფორმატში
+.content
+	#register_now
+		.row
+			.span6
+				%p
+					= link_to 'შემოგიერთდით დღესვე'.html_safe, register_url, :class => ['btn', 'btn-primary', 'btn-large']
+				%p.muted
+					პროგრამაში მუშაობის დასაწყებად უნდა დარეგისტრირდეთ.<br>
+					რეგისტრაციის პროცესი მარტივი და სწრაფია.
+			.span6
+				%p
+					= link_to 'სისტემაში შესვლა'.html_safe, login_url, :class => ['btn', 'btn-large']
+				%p.muted
+					თუ უკვე რეგისტრირებული ხართ, შეგიძლიათ მუშაობის დაწყება.
