@@ -29,6 +29,9 @@ describe Applicant do
   it { should have_field(:mobile).of_type(String) }
   it { should have_field(:email).of_type(String) }
   it { should be_embedded_in(:application) }
+  it { should validate_presence_of(:tin) }
+  it { should validate_presence_of(:address) }
+  it { should validate_presence_of(:mobile) }
 end
 
 describe BankAccount do
@@ -38,3 +41,4 @@ describe BankAccount do
   it { should have_field(:eban).of_type(String) }
   it { should be_embedded_in(:application) }
 end
+
