@@ -96,6 +96,7 @@
 				%th მისამართი
 				%th{:width=>100} ძაბვა
 				%th{:width=>100} სიმძლავრე
+				%th.center{:width=>50}= icon_text 'cog'
 		%tbody
 			- indx = 0
 			- @application.application_items.each do |item|
@@ -107,3 +108,6 @@
 					%td= item.address
 					%td.right #{item.tariff.voltage} კვ
 					%td.right #{item.tariff.power} კვტ
+					%td.center
+						= link_to icon_text('pencil'), edit_application_item_url(:id => item.id, :app_id => @application.id)
+						= link_to icon_text('trash'), delete_application_item_url(:id => item.id, :app_id => @application.id), :method => :delete, :confirm => 'ნამდვილად გინდათ ამ აბონენტის წაშლა?'

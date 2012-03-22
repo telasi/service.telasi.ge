@@ -21,8 +21,8 @@ TelasiService::Application.routes.draw do
     delete '/delete/:id', :action => :delete, :as => :delete_application
     scope '/item' do
       match '/new/:id', :action => :new_item, :as => :new_application_item
-      match '/edit/:id', :action => :edit_item, :as => :edit_application_item
-      delete '/delete/:id', :action => :delete_item, :as => :delete_application_item
+      match '/edit/:app_id/:id', :action => :edit_item, :as => :edit_application_item
+      delete '/delete/:app_id/:id', :action => :delete_item, :as => :delete_application_item
     end
   end
 

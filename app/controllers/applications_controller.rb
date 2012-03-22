@@ -70,4 +70,11 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def delete_item
+    app = Application.find(params[:app_id])
+    item = app.application_items.find(params[:id])
+    item.destroy
+    redirect_to show_application_url(app)
+  end
+
 end
