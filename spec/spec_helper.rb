@@ -46,4 +46,5 @@ RSpec.configure do |config|
 end
 
 require 'factories/user'
+require 'factories/application'
 require 'helpers/sys'
