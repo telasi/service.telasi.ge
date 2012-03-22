@@ -42,3 +42,11 @@ describe BankAccount do
   it { should be_embedded_in(:application) }
 end
 
+describe 'განცხადების PDF-ის დაბეჭდვა' do
+  before(:all) do
+    @application = Factory(:application)
+  end
+  subject { @application }
+  it { should_not be_nil }
+  it { should_not be_new }
+end
