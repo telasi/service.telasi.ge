@@ -64,9 +64,18 @@ class ApplicationsController < ApplicationController
     if request.post?
       @item = ApplicationItem.new(params[:application_item])
       @item.application = @application
-      redirect_to show_application_url(@application) if @item.save
+      redirect_to show_application_url(@application), :notice => 'აბონენტი დამატებულია' if @item.save
     else
       @item = ApplicationItem.new
+    end
+  end
+
+  def edit_item
+    @title = 'აბონენტის რედაქტირება'
+    @application = Application.find(params[:app_id])
+    @item = @application.application_items.find(params[:id])
+    if request.put?
+      redirect_to show_application_url(@application), :notice => 'აბონენტი შეცვლილია' if @item.update_attributes(params[:application_item])
     end
   end
 
@@ -74,7 +83,7 @@ class ApplicationsController < ApplicationController
     app = Application.find(params[:app_id])
     item = app.application_items.find(params[:id])
     item.destroy
-    redirect_to show_application_url(app)
+    redirect_to show_application_url(app), :notice => 'აბონენტი წაშლილია'
   end
 
 end
