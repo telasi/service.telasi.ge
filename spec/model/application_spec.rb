@@ -45,9 +45,11 @@ end
 describe 'განცხადების PDF-ის დაბეჭდვა' do
   before(:all) do
     @application = Factory(:application)
+    @application.applicant.name = 'დიმიტრი ყურაშვილი'
+    @path = File.expand_path('tmp/application.pdf')
+    Telasi.print_application(@application, @path)
   end
   subject { @application }
   it { should_not be_nil }
-  it { should_not be_new }
   
 end
