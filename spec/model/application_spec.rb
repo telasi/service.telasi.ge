@@ -49,4 +49,5 @@ describe 'განცხადების PDF-ის დაბეჭდვა'
   subject { @application }
   it { should_not be_nil }
   it { should_not be_new }
+  
 end

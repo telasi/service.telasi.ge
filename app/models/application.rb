@@ -6,7 +6,7 @@ module CheckTin
   def check_tin
     if not RS.is_valid_personal_tin(self.tin) and not RS.is_valid_corporate_tin(self.tin)
       errors.add(:tin, 'უნდა იყოს 9 ან 11 ციფრიანი კოდი')
-    elsif self.tin_changed?
+    elsif self.tin_changed? and Telasi::TIN_CHECK
       self.name = RS.get_name_from_tin('tin' => self.tin)
       errors.add(:tin, 'არასწორი საიდენტიფიკაციო კოდი') if self.name.nil?
     end
