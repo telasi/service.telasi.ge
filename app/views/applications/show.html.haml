@@ -96,4 +96,14 @@
 				%th მისამართი
 				%th{:width=>100} ძაბვა
 				%th{:width=>100} სიმძლავრე
-		
+		%tbody
+			- indx = 0
+			- @application.application_items.each do |item|
+				- indx += 1
+				%tr
+					%td= indx
+					%td= item.tin
+					%td= item.name
+					%td= item.address
+					%td.right #{item.tariff.voltage} კვ
+					%td.right #{item.tariff.power} კვტ

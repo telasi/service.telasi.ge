@@ -1,2 +1,7 @@
-= simple_form_for(@item, :url => (@item.new? ? new_application_item_url(@application) : edit_application_item_url(@item))) do |f|
+= simple_form_for(@item, :url => (@item.new? ? new_application_item_url(@application) : edit_application_item_url(@item)), :html => {:class => 'form-horizontal'}) do |f|
 	= f.input :tin, :label => 'საიდენტ. კოდი', :input_html => {:autofocus => true}
+	= f.input :address, :label => 'მისამართი', :input_html => {:class => :span6}
+	= f.input :tariff_id, :collection => Tariff2012.all, :label => 'სიმძლავრე', :include_blank => false
+	.form-actions
+		= f.button :submit, 'აბონენტის შენახვა', :class => ['btn', 'btn-primary']
+		= link_to 'გაუქმება', (@item.new? ? show_application_url(@application) : show_application_url(@item.application)), :class => :btn

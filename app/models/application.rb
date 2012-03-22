@@ -192,4 +192,8 @@ class Tariff2012
       end
     end
   end
+
+  def to_s
+    "#{self.voltage}კვ, #{self.power} კვტ"
+  end
 end

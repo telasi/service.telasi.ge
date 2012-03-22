@@ -61,7 +61,13 @@ class ApplicationsController < ApplicationController
   def new_item
     @title = 'ახალი აბონენტი'
     @application = Application.find(params[:id])
-    @item = ApplicationItem.new
+    if request.post?
+      @item = ApplicationItem.new(params[:application_item])
+      @item.application = @application
+      redirect_to show_application_url(@application) if @item.save
+    else
+      @item = ApplicationItem.new
+    end
   end
 
 end
