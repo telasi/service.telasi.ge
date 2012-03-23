@@ -110,12 +110,20 @@ class ApplicationItem
   field :tin, type: String
   field :name, type: String
   field :address, type: String
+  field :address_code, type: String
   field :tariff_id, type: Integer
   embedded_in :application
 
   validates_presence_of :tin
   validates_presence_of :address
+  validates_presence_of :address_code
   validates_presence_of :tariff_id
+
+  # პირადი მოხმარებისთვის არის ის,
+  # რომლის საიდენტიფიკაციო კოდი არის 11 ნიშნა.
+  def personal?
+    tin.length == 11
+  end
 end
 
 # ინფორმაცია განმცხადებლის შესახებ.

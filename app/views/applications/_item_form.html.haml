@@ -1,6 +1,15 @@
 = simple_form_for(@item, :url => (@item.new? ? new_application_item_url(@application) : edit_application_item_url(:id => @item.id, :app_id => @application.id)), :html => {:class => 'form-horizontal'}) do |f|
+	%p.muted
+		იურიდიული პირის შემთხვევაში მიუთითეთ საიდენტიფიკაციო კოდი,
+		ხოლო ფიზიკური პირისთვის &mdash; პირადი ნომერი.
 	= f.input :tin, :label => 'საიდენტ. კოდი', :input_html => {:autofocus => true}
+	%p.muted
+		დაზუსტებული მისამართი სადაც უნდა მოხდეს ქსელზე მიერთება.
+		ასევე აუცილებელია შესაბამისი საკადასტრო კოდის მითითება.
 	= f.input :address, :label => 'მისამართი', :input_html => {:class => :span6}
+	= f.input :address_code, :label => 'საკადასტრო კოდი'
+	%p.muted
+		მიუთითეთ ამ კონკრეტულ აბონენტზე მოთხოვნილი სიმძლავრე.
 	= f.input :tariff_id, :collection => Tariff2012.all, :label => 'სიმძლავრე', :include_blank => false
 	.form-actions
 		= f.button :submit, 'აბონენტის შენახვა', :class => ['btn', 'btn-primary']
