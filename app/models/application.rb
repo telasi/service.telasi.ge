@@ -172,7 +172,7 @@ class Tariff2012
   # ეს მასივი გამოიყენება ტარიფების შესანახად.
   ALL = []
 
-  attr_accessor :id, :voltage, :power, :complete, :price
+  attr_accessor :id, :voltage, :voltage_alt, :power, :complete, :price
 
   # ყველა ტარიფის მიღება
   def self.all
@@ -182,6 +182,7 @@ class Tariff2012
         tariff = Tariff2012.new
         tariff.id = t[0]
         tariff.voltage = t[1]['voltage']
+        tariff.voltage_alt = t[1]['voltage_alt']
         tariff.power = t[1]['power']
         tariff.complete = t[1]['complete']
         tariff.price = t[1]['price']

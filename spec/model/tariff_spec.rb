@@ -14,6 +14,7 @@ describe 'ყველა ტარიფების ძებნა' do
     subject { @tariffs.first }
     its(:id) { should == 1 }
     its(:voltage) { should == '0.220' }
+    its(:voltage_alt) { should == '220 ვ' }
     its(:power) { should == '1-10' }
     its(:complete) { should == 35 }
     its(:price) { should == 400.0 }
