@@ -8,7 +8,8 @@ module SiteHelper
     menu = menu[(user ? 'authorized' : 'not_authorized')]
     main_menu = menu['main']
     secondary_menu = menu['secondary']
-    page = request.fullpath[1..-1]
+    index = request.fullpath.index('?')
+    page = request.fullpath[1..(index ? index - 1 : -1)]
     page = 'home' if page.empty?
     render :partial => 'layouts/main_menu', :locals => {:items => main_menu, :secondary_items => secondary_menu, :page => page, :user => user}
   end
