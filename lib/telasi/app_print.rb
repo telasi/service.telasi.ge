@@ -2,10 +2,17 @@
 require 'c12-commons'
 
 module Telasi
+
   def self.print_application(app, file)
     C12::PDF::Document.generate file, :page_size => 'A4', :margin => [40, 30] do |pdf|
       build_pdf app, pdf
     end
+  end
+
+  def self.render_application(app)
+    pdf = C12::PDF::Document.new :page_size => 'A4', :margin => [40, 30]
+    build_pdf app, pdf
+    pdf.render
   end
 
   private
