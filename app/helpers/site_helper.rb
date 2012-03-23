@@ -2,6 +2,7 @@
 require 'yaml'
 
 module SiteHelper
+
   def application_menu
     user = current_user
     menu = YAML.load_file('config/main_menu.yml')
