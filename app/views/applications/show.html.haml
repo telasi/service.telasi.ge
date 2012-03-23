@@ -3,6 +3,7 @@
 .btn-toolbar
 	= link_to icon_text('arrow-left', 'განცხადებებში დაბრუნება'), home_url, :class => :btn
 	= link_to icon_text('pencil', 'მონაცემების შეცვლა'), edit_application_url(@application), :class => :btn
+	= link_to icon_text('print', 'განცხადების ამობეჭდვა'), print_application_url(@application), :class => :btn
 	= link_to icon_text('trash', 'განცხადების წაშლა'), delete_application_url(@application), :method => :delete, :class => :btn, :confirm => 'ნამდვილად გინდათ ამ განცხადების წაშლა?'
 .row
 	.span6

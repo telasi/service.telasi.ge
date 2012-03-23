@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'telasi'
 
 class ApplicationsController < ApplicationController
 
@@ -39,6 +40,12 @@ class ApplicationsController < ApplicationController
     @title = 'განცხადების პარამეტრები'
     @application = Application.find(params[:id])
     @tariff = @application.tariff
+  end
+
+  def print
+    app = Application.find(params[:id])
+    output = Telasi.render_application(app)
+    send_data output, :filename => 'application.pdf', :type => :pdf, :disposition => 'inline'
   end
 
   def edit
