@@ -11,6 +11,7 @@ gem 'rs.ge'
 gem 'mongoid_session_store'
 
 gem 'sqlite3'
+gem 'kramdown'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

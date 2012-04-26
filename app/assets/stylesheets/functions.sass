@@ -1,0 +1,35 @@
+@mixin clearfix
+	content: "."
+	display: block
+	height: 0
+	visibility: hidden
+	clear: both
+
+@mixin gradient($c1, $c2)
+	background-color: $c2
+	background: -webkit-gradient(linear,0% 0,0% 100%,from($c1),to($c2))
+	background: -moz-linear-gradient(270deg,$c1,$c2)
+	background-image: -o-linear-gradient($c1, $c2)
+	background: linear-gradient($c1,$c2)
+
+@mixin rounded($side, $radius)
+	border-#{$side}-radius: $radius
+	-moz-border-radius-#{$side}: $radius
+	-webkit-border-#{$side}-radius: $radius
+
+@mixin rounded_all($radius)
+	@include rounded(top-left, $radius)
+	@include rounded(top-right, $radius)
+	@include rounded(bottom-left, $radius)
+	@include rounded(bottom-right, $radius)
+
+@mixin order_status($c)
+	font-size: 0.9em
+	display: inline-block
+	background: rgba($c, 0.25)
+	border: 1px solid rgba($c, 0.3)
+	border-bottom: 1px solid rgba($c, 0.2)
+	border-right: 1px solid rgba($c, 0.2)
+	padding: 2px 5px
+	@include rounded_all(3px)
+	text-shadow: 1px 1px 1px rgba(white, 0.75)

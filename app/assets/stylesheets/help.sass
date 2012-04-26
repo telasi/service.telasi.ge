@@ -1,0 +1,65 @@
+@import 'functions'
+
+.help-content
+	.image
+		text-align: center
+		margin: 10px 0
+
+#help-accordion
+	margin: 20px 0
+	padding: 3px
+	font-size: 12px
+	background: #EEE
+	@include rounded_all(3px)
+	.accordion
+		border: 1px solid #CACACA
+		border-bottom: none
+		margin: 0
+		padding: 0
+		background-color: #FAFAFB
+		.tutorial
+			margin: 0
+			padding: 0
+			border: none
+			@include rounded_all(0)
+			.heading
+				margin: 0
+				padding: 0
+				border-bottom: 1px solid #CACACA
+				h3
+					font-size: 14px
+					line-height: 1.3em
+					background-color: #E1E1E1
+					@include gradient(#F1F1F1, #E1E1E1)
+					a
+						margin: 0
+						color: #666
+						text-shadow: 1px 1px 0px white
+						text-decoration: none
+					&:hover
+						background-color: #E1E1E1
+						@include gradient(#E1E1E1, #D1D1D1)
+		.accordion-inner
+			padding: 0
+			margin: 0
+			ul
+				list-style: none
+				margin: 0
+				padding-bottom: 7px
+				border-bottom: 1px solid #CACACA
+				li
+					border-top: 1px solid white
+					border-bottom: 1px solid #E9ECEE
+					line-height: 32px
+					padding: 0 10px
+					a
+						text-decoration: none
+						display: block
+						font-weight: bold
+					&.active
+						background: url(/assets/active-arrow.png) no-repeat 0 50% #F0F0F3
+						a
+							color: #666
+							padding-left: 10px
+					&:hover
+						background-color: #F0F0F3

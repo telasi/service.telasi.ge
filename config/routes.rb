@@ -9,7 +9,6 @@ TelasiService::Application.routes.draw do
   scope '/help', :controller => :help do
     get '/(:tutorial/:section)', :action => :index, :as => :help
   end
-  #get '/help', :controller => :site, :action => :help, :as => :help
 
   # user actions
   match '/register', :controller => :site, :action => :register, :as => :register
