@@ -35,23 +35,23 @@ class UsersController < ApplicationController
     redirect_to home_url
   end
 
-#  def register
-#    if params[:status] == 'ok'
-#      @show_success = true
-#      @title = 'რეგისტრაცია წარმატებულია'
-#    else
-#      @title = 'რეგისტრაცია'
-#      if request.post?
-#        @user = User.new(params[:user])
+  def register
+    if params[:status] == 'ok'
+      @show_success = true
+      @title = 'რეგისტრაცია წარმატებულია'
+    else
+      @title = 'რეგისტრაცია'
+      if request.post?
+        @user = User.new(params[:user])
 #        if @user.save
 #          redirect_to(register_url(:status => :ok), :notice => 'მომხმარებელი შექმნილია') if @user.save
 #          (Telasi::USE_DELAYED_JOB ? UserMailer.delay : UserMailer).email_confirmation(@user).deliver if @user.email_confirm_hash
 #        end
-#      else
-#        @user = User.new
-#      end
-#    end
-#  end
+      else
+        @user = User.new
+      end
+    end
+  end
 
 #  def confirm
 #    begin
