@@ -73,7 +73,6 @@ GEM
     ffi (1.0.11)
     gyoku (0.4.4)
       builder (>= 2.1.2)
-    haml (3.1.4)
     hike (1.2.1)
     httpi (0.9.7)
       rack
@@ -214,7 +213,6 @@ DEPENDENCIES
   delayed_job_mongoid
   email_spec
   factory_girl
-  haml
   jquery-rails
   kramdown
   mongoid (~> 2.4)
