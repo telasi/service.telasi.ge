@@ -18,12 +18,6 @@ class HelpController < ApplicationController
     @body = load_body(path)
   end
 
-  protected
-
-  def login?
-    false
-  end
-
   private
 
   def load_body(path)

@@ -1,12 +1,22 @@
-.container
-	.row
-		.span8
-			= render :partial => 'site/user/login_form'
-		.span4
-			%p.well
-				ელექტრონული მომსახურეობით სარგებლობისთვის, უნდა დარეგისტრირდეთ ჩვენს საიტზე.
-			%p.muted
-			%p.center
-				= link_to 'ახალი რეგისტრაცია &rarr;'.html_safe, register_url, :class => ['btn', 'btn-success', 'btn-large']
-			.muted.center
-				თუ ჯერ არ ხართ რეგისტრირებული, შეგიძლიათ ეს ახლა გააკეთოთ.
+<div class="page-header">
+  <h2>სისტემაში შესვლა</h2>
+</div>
+<%= form_tag(login_url, :class => 'form-horizontal', :id => 'login-form') do |f| -%>
+  <div class="control-group">
+    <div class="control-label"><%= label_tag :email, 'ელ.ფოსტა' %></div>
+    <div class="controls"><%= text_field_tag :email, params[:email], :autofocus => true %></div>
+  </div>
+  <div class="control-group">
+    <div class="control-label"><%= label_tag :password, 'პაროლი' %></div>
+    <div class="controls"><%= password_field_tag :password, params[:password] %></div>
+  </div>
+  <div class="form-actions">
+    <%= submit_tag 'შესვლა', :class => ['btn', 'btn-primary'] %>
+  </div>
+<% end -%>
+
+<div>
+  <p class="muted">ახალი მომხმარებელი ხართ? გაიარეთ <%= link_to 'რეგისტრაცია აქ', register_url %>.</p>
+  <p class="muted">დაგავიწყდათ პაროლი? მიჰყევით <%= link_to 'ამ ბმულს' %> თქვენი პაროლის აღსადგენად.</p>
+  <p></p>
+</div>

@@ -14,6 +14,9 @@ TelasiService::Application.routes.draw do
   scope '/user', :controller => :users do
     match '/register', :action => :register
     match '/login', :action => :login
+    match '/account', :action => :account
+    match '/change_password', :action => :change_password
+    get '/logout', :action => :logout
   end
 
 #  match '/register', :controller => :site, :action => :register, :as => :register
