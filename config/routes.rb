@@ -4,7 +4,14 @@ TelasiService::Application.routes.draw do
 
   # site actions
   get '/home', :controller => :site, :action => :index, :as => :home
-  get '/help', :controller => :site, :action => :help, :as => :help
+
+  # help actions
+  scope '/help', :controller => :help do
+    get '/(:tutorial/:section)', :action => :index, :as => :help
+  end
+  #get '/help', :controller => :site, :action => :help, :as => :help
+
+  # user actions
   match '/register', :controller => :site, :action => :register, :as => :register
   match '/login', :controller => :site, :action => :login, :as => :login
   get '/logout', :controller => :site, :action => :logout, :as => :logout
@@ -12,20 +19,20 @@ TelasiService::Application.routes.draw do
   match '/account', :controller => :site, :action => :account, :as => :account
   match '/change_password', :controller => :site, :action => :change_password, :as => :change_password
 
-  # application actions
-  scope '/app', :controller => :applications do
-    get '/tariffs', :action => :tariffs, :as => :tariffs
-    match '/new', :action => :new, :as => :new_application
-    get '/show/:id', :action => :show, :as => :show_application
-    get '/print/:id', :action => :print, :as => :print_application
-    match '/edit/:id', :action => :edit, :as => :edit_application
-    delete '/delete/:id', :action => :delete, :as => :delete_application
-    scope '/item' do
-      match '/new/:id', :action => :new_item, :as => :new_application_item
-      match '/edit/:app_id/:id', :action => :edit_item, :as => :edit_application_item
-      delete '/delete/:app_id/:id', :action => :delete_item, :as => :delete_application_item
-    end
-  end
+#  # application actions
+#  scope '/app', :controller => :applications do
+#    get '/tariffs', :action => :tariffs, :as => :tariffs
+#    match '/new', :action => :new, :as => :new_application
+#    get '/show/:id', :action => :show, :as => :show_application
+#    get '/print/:id', :action => :print, :as => :print_application
+#    match '/edit/:id', :action => :edit, :as => :edit_application
+#    delete '/delete/:id', :action => :delete, :as => :delete_application
+#    scope '/item' do
+#      match '/new/:id', :action => :new_item, :as => :new_application_item
+#      match '/edit/:app_id/:id', :action => :edit_item, :as => :edit_application_item
+#      delete '/delete/:app_id/:id', :action => :delete_item, :as => :delete_application_item
+#    end
+#  end
 
   root :to => 'site#index'
 end
