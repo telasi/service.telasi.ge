@@ -1,11 +1,8 @@
-not_authorized:
-  main:
-    home: საწყისი
-    help: დახმარება
-  secondary:
-    login: შესვლა
-authorized:
-  main:
-    home: განცხადებები
-    help: დახმარება
-  secondary:
+home:
+  label: საწყისი
+  url: /home
+  select: site/index
+help:
+  label: დახმარება
+  url: /help
+  select: help

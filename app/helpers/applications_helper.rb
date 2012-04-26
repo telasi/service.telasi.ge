@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-
 module ApplicationsHelper
 
   def app_status_icon(app)
