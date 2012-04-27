@@ -31,9 +31,9 @@ FactoryGirl.define do
     app.written_response true
     app.email_response   true
     app.tariff_id        1
-    app.owner            Factory(:user, :email => 'application_owner@c12.ge')
-    app.applicant        Factory.build(:applicant) {|a| a.application = app }
-    app.bank_account     Factory.build(:bank_account) { |ba| ba.application = app }
-    app.application_items [ Factory.build(:application_item) {|ai| ai.application = app } ]
+    #app.owner            Factory(:user, :email => 'application_owner@c12.ge')
+    #app.applicant        Factory.build(:applicant) {|a| a.application = app }
+    #app.bank_account     Factory.build(:bank_account) { |ba| ba.application = app }
+    #app.application_items [ Factory.build(:application_item) {|ai| ai.application = app } ]
   end
 end

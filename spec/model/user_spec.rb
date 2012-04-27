@@ -42,7 +42,7 @@ end
 describe "ახალი მომხმარების შექმნა:" do
   context "პირველი მომხმარებელი" do
     before(:all) do
-      @user = Factory(:user, :email => 'dimitri@c12.ge', :mobile => '(595)33-55-14')
+      @user = create(:user, :email => 'dimitri@c12.ge', :mobile => '(595)33-55-14')
     end
     subject { @user }
     its(:sys_admin) { should == true }
@@ -56,7 +56,7 @@ describe "ახალი მომხმარების შექმნა:"
   end
   context "მეორე მომხმარებელი" do
     before(:all) do
-      @user = Factory(:user, :email => 'cat.dog@c12.ge')
+      @user = create(:user, :email => 'cat.dog@c12.ge')
     end
     subject { @user }
     its(:sys_admin) { should == false }
@@ -72,7 +72,7 @@ end
 
 describe "მომხმარებლის ავტორიზაცია" do
   before(:all) do
-    @user = Factory(:user, :email => 'dimitri@c12.ge', :password => 'secret')
+    @user = create(:user, :email => 'dimitri@c12.ge', :password => 'secret')
   end
   context "სწორი პაროლით" do
     subject { User.authenticate('dimitri@c12.ge', 'secret') }
