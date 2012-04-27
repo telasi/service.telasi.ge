@@ -1,10 +1,11 @@
-= simple_form_for(@user, :url => register_url, :html => {:id => 'register-form', :class => 'form-horizontal'}) do |f|
-	%legend ახალი მომხმარებლის რეგისტრაცია
-	= f.input :email, :label => 'ელ. ფოსტა', :input_html => {:autofocus => true}
-	= f.input :password, :label => 'პაროლი'
-	= f.input :password_confirmation, :label => 'დაადასტურეთ პაროლი'
-	= f.input :mobile, :label => 'მობილური'
-	= f.input :first_name, :label => 'სახელი'
-	= f.input :last_name, :label => 'გვარი'
-	.form-actions
-		= f.button :submit, 'რეგისტრაცია', :class => ['btn', 'btn-primary']
+<%= simple_form_for(@user, :url => register_url, :html => {:id => 'register-form', :class => 'form-horizontal'}) do |f| %>
+  <%= f.input :email, :label => 'ელ. ფოსტა', :input_html => {:autofocus => true} %>
+  <%= f.input :password, :label => 'პაროლი', :required => true %>
+  <%= f.input :password_confirmation, :label => 'დაადასტურეთ პაროლი', :required => true %>
+  <%= f.input :mobile, :label => 'მობილური' %>
+  <%= f.input :first_name, :label => 'სახელი' %>
+  <%= f.input :last_name, :label => 'გვარი' %>	
+  <div class="form-actions">
+    <%= f.button :submit, 'რეგისტრაცია', :class => ['btn', 'btn-primary'] %>
+  </div>
+<% end -%>
