@@ -74,6 +74,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # პაროლის შეცვლა.
   def change_password
     @title = 'პაროლის შეცვლა'
     @user = current_user

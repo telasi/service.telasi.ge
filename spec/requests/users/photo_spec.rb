@@ -12,7 +12,7 @@ feature 'მომხმარებლის გამოსახულებ�
   context 'გამოსახულების შეცვლა' do
     before(:all) do
       login('dimitri@c12.ge', 'secret')
-      visit user_photo_url
+      visit user_photo_path
       attach_file 'user_photo', File.join(Rails.root, 'spec/assets/images/user_photo.jpg')
       click_button 'გამოსახულების შეცვლა'
     end

@@ -28,4 +28,5 @@ group :test, :development do
   gem 'capybara'
   gem 'factory_girl'
   gem 'email_spec'
+  gem 'capybara-webkit'
 end

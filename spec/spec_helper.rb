@@ -13,6 +13,7 @@ require 'mongoid'
 require 'capybara'
 require 'mongoid-rspec'
 require 'capybara/rspec'
+require 'capybara-webkit'
 require 'factory_girl'
 require 'includes'
 
@@ -38,3 +39,5 @@ RSpec.configure do |config|
     Mongoid.master.collections.each(&:remove)
   end
 end
+
+Capybara.current_driver = :webkit
