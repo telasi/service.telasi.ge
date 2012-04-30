@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       if request.post?
         @user = User.new(params[:user])
         if @user.save
-          redirect_to(register_url(:status => :ok), :notice => 'მომხმარებელი შექმნილია') if @user.save
+          redirect_to register_url(:status => :ok) if @user.save
           UserMailer.email_confirmation(@user).deliver if @user.email_confirm_hash
         end
       else
@@ -61,7 +61,16 @@ class UsersController < ApplicationController
     @title = 'ანგარიშის მართვა'
     @user = current_user
     if request.put?
-      redirect_to home_url, :notice => 'თქვენი ანგარიში განახლებულია' if @user.update_attributes(params[:user])
+      redirect_to home_url, :notice => 'თქვენი ანგარიში განახლებულია.' if @user.update_attributes(params[:user])
+    end
+  end
+
+  # მომხმარებლის ფოტოსურათი.
+  def photo
+  	@title = 'ფოტოს შეცვლა'
+  	@user = current_user
+  	if request.put?
+      redirect_to home_url, :notice => 'თქვენი გამოსახულება შეცვლილია.' if @user.update_attributes(params[:user])
     end
   end
 

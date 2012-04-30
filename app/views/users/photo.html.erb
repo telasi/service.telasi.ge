@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h2>გამოსახულების შეცვლა</h2>
+</div>
+<%= simple_form_for(@user, :url => user_photo_url, :html => {:id => 'account-form', :multipart => true}) do |f| -%>
+	<p>აარჩიეთ ფაილი თქვენი გამოსახულებით:</p>
+	<%= f.file_field :photo %>
+	<div class="form-actions">
+		<%= f.submit 'გამოსახულების შეცვლა', :class => ['btn', 'btn-primary'] %>
+		<%= link_to 'გაუქმება', home_url, :class => 'btn' %>
+	</div>
+<% end -%>
