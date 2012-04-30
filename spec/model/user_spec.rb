@@ -15,6 +15,7 @@ describe User do
   it { should have_field(:email_confirmed).of_type(Boolean) }
   it { should have_field(:mobile_confirmed).of_type(Boolean) }
   it { should have_field(:email_confirm_hash).of_type(String) }
+  it { should have_field(:new_password_hash).of_type(String) }
   it { should validate_presence_of(:salt) }
   it { should validate_presence_of(:hashed_password) }
   it { should validate_presence_of(:email) }

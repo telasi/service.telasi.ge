@@ -37,6 +37,9 @@ class User
   # არის თუ არა მომხმარებლის მობილური დადასტურებული?
   field :mobile_confirmed, type: Boolean
 
+  # პაროლის აღდგენის კოდი
+  field :new_password_hash, type: String
+  
   # შემოწმების ოპერაციები
   validates_presence_of :salt
   validates_presence_of :hashed_password
@@ -91,6 +94,12 @@ class User
     "#{self.first_name} #{self.last_name}"
   end
 
+  # აგენერირებს აღდგენის კოდს ამ მომხამრებლისთვის.
+  def prepeare_restore!
+  	self.new_password_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 1000}dimitri#{Time.now}")
+  	self.save
+  end
+  
   private
 
   def mobile_format

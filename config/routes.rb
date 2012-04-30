@@ -2,24 +2,25 @@
 TelasiService::Application.routes.draw do
   get 'site/index'
 
-  # site actions
+  # საიტის მოქმედებები
   get '/home', :controller => :site, :action => :index, :as => :home
 
-  # help actions
+  # დახმარება
   scope '/help', :controller => :help do
     get '/(:tutorial/:section)', :action => :index, :as => :help
   end
 
-  # user actions
+  # მოქმედებები მომხმარებელზე
   scope '/user', :controller => :users do
-    match '/register', :action => :register
-    get   '/confirm',  :action => :confirm
-    match '/login',    :action => :login
-    match '/account',  :action => :account
+    match '/register',        :action => :register
+    get   '/confirm',         :action => :confirm
+    match '/login',           :action => :login
+    match '/account',         :action => :account
     match '/change_password', :action => :change_password
-    match '/restore',  :action => :restore, :as => :restore_password
-    get   '/logout',   :action => :logout
-    match '/photo',    :action => :photo, :as => :user_photo
+    match '/restore',         :action => :restore,        :as => :restore_password
+    match '/new_password',    :action => :new_password,   :as => :new_password
+    get   '/logout',          :action => :logout
+    match '/photo',           :action => :photo,          :as => :user_photo
   end
 
 #  # application actions

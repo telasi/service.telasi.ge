@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h2>პაროლის აღდგენა</h2>
+</div>
+<p class="muted">
+  პაროლის აღსადგენად ჩაწერეთ თქვენი ელექტრონული ფოსტის მისამართი.
+</p>
+<%= form_tag(restore_password_url) do -%>
+  <%= text_field_tag :email, params[:email], :autofocus => true %>
+  <div class="form-actions">
+    <%= submit_tag 'პაროლის აღდგენა', :class => ['btn', 'btn-primary'] %>
+  </div>
+<% end -%>

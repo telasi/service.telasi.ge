@@ -83,4 +83,18 @@ class UsersController < ApplicationController
     end
   end
 
+  # პაროლის აღდგენა.
+  def restore
+  	@title = 'პაროლის აღდგენა'
+  	if request.post?
+  		user = User.where(:email => params[:email]).first
+  		if user
+  			UserMailer.restore_password(user).deliver
+  		else
+  			flash.now[:alert] = 'ასეთი მომხმარებელი ვერ მოიძებნა.'
+  		end
+  	end
+  end
+
 end
+

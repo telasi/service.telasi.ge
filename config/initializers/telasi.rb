@@ -5,5 +5,5 @@ module Telasi
   TIN_CHECK = true
 
   # პროგრამის ძირითადი მისამართი.
-  HOST = 'localhost:3000/'
+  HOST = 'localhost:3000'
 end

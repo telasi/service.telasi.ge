@@ -3,6 +3,7 @@
 class UserMailer < ActionMailer::Base
   default :from => "Telasi.ge <sys@telasi.ge>"
 
+  #
   # მომხმარებელზე დადასტურების კოდის გაგზავნა.
   #
   # დადასტურების მისამართის ფორმატია:
@@ -17,4 +18,15 @@ class UserMailer < ActionMailer::Base
     mail(:to => "#{@user.full_name} <#{@user.email}>", :subject => 'რეგისტრაციის დასრულება')
   end
 
+  #
+  # მომხმარებელზე აღდგენის პაროლის გაგზავნა.
+  #
+  def restore_password(user)
+  	@user = user
+  	@user.prepeare_restore!
+  	@url = new_password_url(:host => Telasi::HOST, :h => @user.new_password_hash, :id => @user.id)
+  	mail(:to => "#{@user.full_name} <#{@user.email}>", :subject => 'პაროლის აღდგენა')
+  end
+
 end
+
