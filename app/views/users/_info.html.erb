@@ -1,0 +1,10 @@
+<table class="table-common">
+  <tr>
+    <td width="110"><%= image_tag current_user.normal_photo %></td>
+    <td style="padding-top: 16px;">
+      <strong><%= current_user.full_name %></strong><br>
+      e: <%= mail_to current_user.email %><br>
+      m: <%= C12.format_mobile(current_user.mobile) %>
+    </td>
+  </tr>
+</table>
