@@ -1,40 +1,29 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
 
-  # მომხმარებლის ავტორიზაციის გვერდი.
+  # მომხმარებლის ავტორიზაცია.
   def login
     @title = 'სისტემაში შესვლა'
     if request.post?
       user = User.authenticate(params[:email], params[:password])
-      if user
+      if user.nil?
+        flash.now[:alert] = 'არასწორი მომხმარებელი ან პაროლი.'
+      elsif not user.email_confirmed
+        flash.now[:alert] = 'ელ. ფოსტა არაა დადასტურებული.'
+      else
         session[:user_id] = user.id
         redirect_to home_url
-      else
-        flash.now[:alert] = 'არასწორი მომხმარებელი ან პაროლი.'
       end
     end
   end
 
-#  def login
-#    @title = 'შესვლა'
-#    if request.post?
-#      user = User.authenticate(params[:email], params[:password])
-#      if user.nil?
-#        @error = 'არასწორი მომხმარებელი ან პაროლი.'
-#      elsif not user.email_confirmed
-#        @error = 'ეს ანგარიში დაუდასტურებელია'
-#      else
-#        session[:user_id] = user.id
-#        redirect_to home_url
-#      end
-#    end
-#  end
-
+  # სისტემიდან გასვლა.
   def logout
     session[:user_id] = nil
     redirect_to home_url
   end
 
+  # ახალი მომხმარებლის რეგისტრაცია.
   def register
     if params[:status] == 'ok'
       @show_success = true
