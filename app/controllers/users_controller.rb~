@@ -42,22 +42,18 @@ class UsersController < ApplicationController
     end
   end
 
-#  def confirm
-#    begin
-#      @user = User.find(params[:id])
-#      @title = 'რეგისტრაციის დადასტურება'
-#      if @user.email_confirm_hash == params[:hash]
-#        @user.email_confirm_hash = nil
-#        @user.email_confirmed = true
-#        @user.save!
-#        @confirmed = true
-#      else
-#        @confirmed = false
-#      end
-#    rescue Exception => ex
-#      @error = ex.to_s
-#    end
-#  end
+  def confirm
+  	@title = 'ელ. ფოსტის დადასტურება'
+  	user = User.where(:_id => params[:id]).first
+  	if user and user.email_confirm_hash == params[:c]
+  		user.email_confirmed = true
+  		user.email_confirm_hash = nil
+  		user.save
+  		@confirmed = true
+  	else
+  		@confirmed = false
+  	end
+  end
 
 #  def account
 #    @title = 'ანგარიშის მართვა'

@@ -1,7 +1,15 @@
-= simple_form_for(@user, :url => account_url, :html => {:class => 'form-horizontal', :id => 'account-form'}) do |f|
-	%legend თქვენი მონაცემების შეცვლა <small>#{@user.email}</small>
-	= f.input :first_name, :label => 'სახელი', :input_html => { :autofocus => true }
-	= f.input :last_name, :label => 'გვარი'
-	= f.input :mobile, :label => 'მობილური'
-	.form-actions
-		= f.submit 'შენახვა', :class => ['btn', 'btn-primary']
+<div class="page-header">
+  <h2>ანგარიშის მართვა <small><%= mail_to @user.email %></small></h2>
+</div>
+<p class="muted">
+  აქ შეგიძლიათ მართოთ თქვენი პირადი მონაცემები.
+  გთხოვთ ყოველთვის ასახოთ აქ უახლესი ინფორმაცია.
+</p>
+<%= simple_form_for(@user, :url => account_url, :html => {:class => 'form-horizontal', :id => 'account-form'}) do |f| -%>
+	<%= f.input :first_name, :label => 'სახელი', :input_html => { :autofocus => true } %>
+	<%= f.input :last_name,  :label => 'გვარი' %>
+	<%= f.input :mobile,     :label => 'მობილური' %>
+	<div class="form-actions">
+		<%= f.submit 'შენახვა', :class => ['btn', 'btn-primary'] %>
+  </div>
+<% end -%>
