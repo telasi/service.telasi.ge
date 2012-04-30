@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
+require 'cgi'
 
 def register(params = {})
   visit register_url
@@ -51,6 +52,10 @@ feature 'მომხმარებლის რეგისტრაცია:
       subject { ActionMailer::Base.deliveries.last }
       it { should_not be_nil }
       its(:subject) { should == 'რეგისტრაციის დასრულება' }
+      its(:body) { should be_include(CGI.escapeHTML(confirm_url(:host => Telasi::HOST, :id => User.last.id, :c => User.last.email_confirm_hash))) }
     end
+  end
+  context 'მეორე მომხმარებლის დადასტურება' do
+    # XXX
   end
 end
