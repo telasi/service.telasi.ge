@@ -13,12 +13,12 @@ TelasiService::Application.routes.draw do
   # user actions
   scope '/user', :controller => :users do
     match '/register', :action => :register
-    get  '/confirm', :action => :confirm
-    match '/login', :action => :login
-    match '/account', :action => :account
+    get   '/confirm',  :action => :confirm
+    match '/login',    :action => :login
+    match '/account',  :action => :account
     match '/change_password', :action => :change_password
-    match '/restore', :action => :restore, :as => :restore_password
-    get   '/logout', :action => :logout
+    match '/restore',  :action => :restore, :as => :restore_password
+    get   '/logout',   :action => :logout
   end
 
 #  # application actions

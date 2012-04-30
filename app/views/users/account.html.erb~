@@ -1,7 +1,0 @@
-= simple_form_for(@user, :url => account_url, :html => {:class => 'form-horizontal', :id => 'account-form'}) do |f|
-	%legend თქვენი მონაცემების შეცვლა <small>#{@user.email}</small>
-	= f.input :first_name, :label => 'სახელი', :input_html => { :autofocus => true }
-	= f.input :last_name, :label => 'გვარი'
-	= f.input :mobile, :label => 'მობილური'
-	.form-actions
-		= f.submit 'შენახვა', :class => ['btn', 'btn-primary']

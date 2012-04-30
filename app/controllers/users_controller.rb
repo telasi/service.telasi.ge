@@ -42,6 +42,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # მომხმარებლის ელ. ფოსტის დადასტურება.
   def confirm
   	@title = 'ელ. ფოსტის დადასტურება'
   	user = User.where(:_id => params[:id]).first
@@ -55,6 +56,7 @@ class UsersController < ApplicationController
   	end
   end
 
+  # მომხმარებლის ანგარიშის მართვა.
   def account
     @title = 'ანგარიშის მართვა'
     @user = current_user
