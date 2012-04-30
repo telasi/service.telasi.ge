@@ -61,6 +61,5 @@ feature 'მომხმარებლის რეგისტრაცია:
     end
     subject { User.last }
     its(:email_confirmed) { should == true }
-    its(:email_confirm_hash) { should == nil }
   end
 end
