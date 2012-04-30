@@ -19,6 +19,7 @@ TelasiService::Application.routes.draw do
     match '/change_password', :action => :change_password
     match '/restore',  :action => :restore, :as => :restore_password
     get   '/logout',   :action => :logout
+    match '/photo',    :action => :photo, :as => :user_photo
   end
 
 #  # application actions
