@@ -3,6 +3,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Telasi::StandardPhoto
 
   attr_accessor :password_confirmation
 
