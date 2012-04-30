@@ -8,6 +8,7 @@ gem 'delayed_job'
 gem 'delayed_job_mongoid'
 gem 'rs.ge'
 gem 'mongoid_session_store'
+gem 'mongoid-paperclip'
 
 gem 'sqlite3'
 gem 'kramdown'
