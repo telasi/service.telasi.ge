@@ -1,1 +1,5 @@
-<%= render :partial => 'site/index_presenter' %>
+<% if current_user -%>
+  <%= render :partial => 'site/home_private' %>
+<% else -%>
+  <%= render :partial => 'site/home' %>
+<% end -%>
