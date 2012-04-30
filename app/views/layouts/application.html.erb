@@ -12,6 +12,7 @@
     <%= render :partial => 'layouts/header' %>
     <div class="container">
       <%= bootstrap_alert(alert, :class => :error) %>
+      <%= bootstrap_alert(notice, :class => :warning) %>
       <%= yield %>
       <%= render :partial => 'layouts/footer' %>
     </div>
