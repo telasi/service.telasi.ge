@@ -83,6 +83,19 @@ class UsersController < ApplicationController
     end
   end
 
+  # ახალი პაროლის დაყენება.
+  def new_password
+  	@title = 'პაროლის აღდგენა'
+  	@user = User.where(:_id => params[:id]).first
+  	if @user and @user.new_password_hash == params[:h]
+  		if request.put?
+  			redirect_to login_url, :notice => 'თქვენი პაროლი შეცვლილია: შეგიძლიათ გაიაროთ ავტორიზაცია.' if @user.update_attributes(params[:user])
+  		end
+  	else
+  		redirect_to home_url, :alert => 'პაროლის აღდგენა შეუძლებელია: სცადეთ განმეორებით.'
+  	end
+  end
+
   # პაროლის აღდგენა.
   def restore
   	@title = 'პაროლის აღდგენა'
@@ -90,6 +103,7 @@ class UsersController < ApplicationController
   		user = User.where(:email => params[:email]).first
   		if user
   			UserMailer.restore_password(user).deliver
+  			redirect_to login_url, :notice => 'პაროლის აღდგენის ინსტრუქცია გამოგზავნილია თქვენს ელ. ფოსტაზე.'
   		else
   			flash.now[:alert] = 'ასეთი მომხმარებელი ვერ მოიძებნა.'
   		end
