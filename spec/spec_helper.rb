@@ -13,9 +13,12 @@ require 'mongoid'
 require 'capybara'
 require 'mongoid-rspec'
 require 'capybara/rspec'
-require 'capybara-webkit'
 require 'factory_girl'
 require 'includes'
+
+Capybara.javascript_driver = :webkit
+Capybara.default_wait_time = 5
+Capybara.current_driver = :webkit
 
 RSpec.configure do |config|
   # ## Mock Framework
@@ -26,18 +29,24 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = false
+
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  config.include FactoryGirl::Syntax::Methods
-
   config.include RSpec::Matchers
+  config.include FactoryGirl::Syntax::Methods
   config.include Mongoid::Matchers
   config.before(:all) do
+    # clear database
     Mongoid.master.collections.each(&:remove)
+    # clear ActionMailer deliveries
+    ActionMailer::Base.deliveries.clear
   end
 end
 
-Capybara.current_driver = :webkit

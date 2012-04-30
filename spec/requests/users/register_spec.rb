@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'cgi'
 
 def register(params = {})
-  visit register_url
+  visit register_path
   fill_in('ელ. ფოსტა', :with => (params[:email] || 'dimitri@c12.ge'))
   fill_in('პაროლი', :with => (params[:password] || 'secret'))
   fill_in('დაადასტურეთ პაროლი', :with => (params[:password] || 'secret'))
@@ -11,6 +11,7 @@ def register(params = {})
   fill_in('გვარი', :with => (params[:last_name] || 'ყურაშვილი'))
   fill_in('მობილური', :with => (params[:mobile] || '(595)335514'))
   click_button('რეგისტრაცია')
+  sleep 0.1
 end
 
 feature 'მომხმარებლის რეგისტრაცია:' do
