@@ -4,5 +4,17 @@
   </div>
   <div class="span4">
     <%= render :partial => 'users/info' %>
+    <div class="well well-actions">
+		 <ul class="nav nav-list">
+				<li><%= link_to icon_text('pencil', 'მონაცემების შეცვლა'), account_path %></li>
+				<li><%= link_to icon_text('lock', 'პაროლის შეცვლა'), change_password_path %></li>
+				<li><%= link_to icon_text('picture', 'გამოსახულების შეცვლა'), user_photo_path %></li>
+			</ul>
+		</div>
+		<div class="well well-actions">
+		  <ul class="nav nav-list">
+		    <li><%= link_to icon_text('file', 'თქვენი განცხადებები'), apps_home_path %></li>
+		  </ul>
+		</div>
   </div>
 </div>
