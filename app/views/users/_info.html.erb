@@ -1,10 +1,13 @@
 <table class="table-common">
   <tr>
     <td width="110"><%= image_tag current_user.normal_photo %></td>
-    <td style="padding-top: 16px;">
+    <td>
       <strong><%= current_user.full_name %></strong><br>
       e: <%= mail_to current_user.email %><br>
-      m: <%= C12.format_mobile(current_user.mobile) %>
+      m: <%= C12.format_mobile(current_user.mobile) %><br>
+      <% if current_user.sys_admin -%>
+        <span class="badge badge-important">სისადმინი</span>
+      <% end -%>
     </td>
   </tr>
 </table>
