@@ -23,12 +23,20 @@ TelasiService::Application.routes.draw do
     match '/photo',           :action => :photo,          :as => :user_photo
   end
 
-  # application actions
+  # განცხადებები
   namespace :apps do
   	scope :controller => :applications do
   		get '/', :action => :index, :as => :home
+  	end
+  	# ქსელზე მიერთება
+  	scope '/new_customer', :controller => :new_customer do
+  		match  '/new',        :action => :new,    :as => :new_customer_new
+  		match  '/edit/:id',   :action => :edit,   :as => :new_customer_edit
+  		get    '/show/:id',   :action => :show,   :as => :new_customer
+  		delete '/delete/:id', :action => :delete, :as => :new_customer_delete 
   	end
   end
 
   root :to => 'site#index'
 end
+
