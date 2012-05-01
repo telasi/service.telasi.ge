@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
   def restore_password(user)
   	@user = user
   	@user.prepeare_restore!
-  	@url = new_password_url(:host => Telasi::HOST, :h => @user.new_password_hash, :id => @user.id)
+  	@url = new_password_url(:host => Telasi::HOST, :id => @user.id, :h => @user.new_password_hash)
   	mail(:to => "#{@user.full_name} <#{@user.email}>", :subject => 'პაროლის აღდგენა')
   end
 
