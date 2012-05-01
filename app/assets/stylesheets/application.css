@@ -15,3 +15,4 @@ body { padding-top: 60px; padding-bottom: 45px; }
 .center { text-align: center !important; }
 .right { text-align: right !important; }
 .well-actions{padding: 8px 0 !important; margin-top: 7px;}
+table.table-common{ width: 100%; }
