@@ -7,6 +7,7 @@ describe Application do
 	it { should have_field(:type).of_type(String) }
 	it { should belong_to(:owner).of_type(User) }
 	it { should embed_one(:applicant).of_type(Applicant) }
+	it { should embed_one(:new_customer_application).of_type(NewCustomerApplication) }
 end
 
 describe Applicant do
@@ -17,5 +18,10 @@ describe Applicant do
 	it { should have_field(:mobile).of_type(String) }
 	it { should have_field(:email).of_type(String) }
 	it { should have_field(:address).of_type(String) }
+end
+
+describe NewCustomerApplication do
+	it { should be_mongoid_document }
+	it { should be_embedded_in(:application).of_type(Application) }
 end
 

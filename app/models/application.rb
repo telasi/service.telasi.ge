@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 # ეს არის აბონენტის განაცხადის კლასი.
 class Application
   include Mongoid::Document
@@ -12,7 +11,7 @@ class Application
   field :type, type: String
 	belongs_to :owner, :class_name => 'User'
 	embeds_one :applicant
-
+	embeds_one :new_customer_application
 end
 
 # განმცხადებელზე ინფორმაცია.
@@ -23,6 +22,13 @@ class Applicant
 	field :mobile,  type: String
 	field :email,   type: String
 	field :address, type: String
+	embedded_in :application
+end
+
+# ახალი აბონენტის მიერთების განაცხადი.
+class NewCustomerApplication
+	include Mongoid::Document
+
 	embedded_in :application
 end
 
