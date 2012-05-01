@@ -7,6 +7,7 @@ gem 'bson_ext', '~> 1.5'
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
 gem 'rs.ge'
+gem 'c12-commons'
 gem 'mongoid_session_store'
 gem 'mongoid-paperclip'
 
