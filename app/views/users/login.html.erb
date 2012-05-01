@@ -1,3 +1,6 @@
+<script type="text/javascript">
+  $(function() { Telasi.setFormWaitingOnSubmit('login-form'); });
+</script>
 <div class="page-header">
   <h2>სისტემაში შესვლა</h2>
 </div>
@@ -14,7 +17,6 @@
     <%= submit_tag 'შესვლა', :class => ['btn', 'btn-primary'] %>
   </div>
 <% end -%>
-
 <div>
   <p class="muted">ახალი მომხმარებელი ხართ? გაიარეთ <%= link_to 'რეგისტრაცია აქ', register_url %>.</p>
   <p class="muted">დაგავიწყდათ პაროლი? მიჰყევით <%= link_to 'ამ ბმულს', restore_password_url %> თქვენი პაროლის აღსადგენად.</p>
