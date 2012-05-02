@@ -2,6 +2,6 @@
 class Apps::ApplicationsController < ApplicationController
 	def index
 		@title = 'განცხადებები'
-		@applications = Application.all
+		@applications = Apps::Application.all
 	end
 end

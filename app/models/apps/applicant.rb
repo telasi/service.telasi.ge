@@ -16,4 +16,3 @@ class Apps::Applicant
 	validates_presence_of :email, :message => 'ჩაწერეთ ელ.ფოსტა'
 	validates_presence_of :address, :message => 'ჩაწერეთ მისამართი'
 end
-

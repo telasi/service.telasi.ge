@@ -35,8 +35,19 @@
   <% end -%>
   <h3>ძაბვის საფეხური</h3>
   <p class="muted">
-    განსაზღვრეთ სასურველი ძაბვის საფეხური.
+    აარჩიეთ სასურველი ძაბვის საფეხური:
   </p>
+  <%= simple_fields_for @application.new_customer_application do |new_customer_form| %>
+  	<%= new_customer_form.input :voltage, :label => 'ძაბვის საფეხური', :collection => Apps::NewCustomerApplication::VOLTAGES_HUMAN, :as => :radio_buttons, :item_wrapper_class => 'inline', :label => false %>
+  	<div class="well">
+	  <h4 style="margin: 0 0 10px 0">რომელი ძაბვის საფეხური ავარჩიო?</h4>
+	  <ul class="muted">
+	    <li>აარჩიეთ <strong>220 ვოლტი</strong> თუ გსურთ 1 ან 2 ფიზიკური პირის მიერთება და ჯამური სიმძლავრე არ აღემატება 10კვტ-ს;</li>
+	    <li>აარჩიეთ <strong>380 ვოლტი</strong> თუ გსურთ კომერციული ობიექტის ან 2-ზე მეტი ფიზიკური პირის მიერთება;</li>
+	    <li>აარჩიეთ <strong>6/10 კილოვოლტი</strong> მხოლოდ განსაკუთრებულ შემთხვევაში: როდესაც საკუთარი ქვესადგურის მფლობელი ბრძანდებით.</li>
+	  </ul>
+    </div>
+  <% end -%>
   <div class="form-actions">
     <%= f.submit 'განცხადების შექმნა', :class => ['btn', 'btn-primary'] %>
     <%= link_to 'გაუქმება', apps_home_url, :class => 'btn' %>

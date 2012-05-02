@@ -31,12 +31,4 @@ class Apps::NewCustomerTariff
       @@tariffs
     end
   end
-
-#	id: 1
-#  voltage: '0.220'
-#  voltage_alt: '220 ვ'
-#  power_kwt: 1-10
-#  days_to_complete: 35
-#  price_gel: 400
-
 end

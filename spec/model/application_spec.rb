@@ -27,6 +27,10 @@ end
 
 describe Apps::NewCustomerApplication do
   it { should be_mongoid_document }
+  it { should have_field(:status).of_type(Integer) }
+  it { should have_field(:voltage).of_type(String) }
+  it { should have_field(:power).of_type(Float) }
+  it { should have_field(:tariff).of_type(Integer) }
   it { should be_embedded_in(:application).of_type(Apps::Application) }
 end
 
