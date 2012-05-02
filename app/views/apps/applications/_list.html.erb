@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="150">№ და ტიპი</th>
+      <th width="300">განმცხადებელი</th>
+      <th width="125">თარიღები</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @applications.each do |app| -%>
+      <tr>
+      	<td>
+      	  <%= app_link(app) %><br>
+      	  <span class="muted"><%= app_type(app) %></span>
+      	</td>
+        <td>
+          <span class="badge badge-inverse"><%= tooltiped_text app.applicant.tin, 'საიდენტიფიკაციო ნომერი', :right %></span>
+          <%= app.applicant.name %><br>
+          <%= mail_to app.applicant.email %> <span class="muted"><%= C12.format_mobile app.applicant.mobile %></span>
+        </td>
+        <td>
+          <%= tooltiped_text app.created_at.strftime('%d-%b-%Y %H:%M'), 'შექმნის თარიღი', :left %><br>
+          <span class="muted"><%= tooltiped_text app.created_at.strftime('%d-%b-%Y %H:%M'), 'ბოლო ცვლილების თარიღი', :left %></span>
+        </td>
+        <td></td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>

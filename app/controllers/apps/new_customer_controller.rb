@@ -17,4 +17,9 @@ class Apps::NewCustomerController < ApplicationController
 		end
 	end
 
+	def show
+    @application = Apps::Application.where(:_id => params[:id]).first
+    # XXX
+	end
+
 end

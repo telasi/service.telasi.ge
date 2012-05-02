@@ -5,7 +5,7 @@
   <%= link_to icon_text('plus', 'ქსელზე მიერთება'), apps_new_customer_new_path, :class => 'btn' %>
 </div>
 <% if @applications.any? -%>
-  AA
+  <%= render :partial => 'apps/applications/list' %>
 <% else -%>
   <div class="well">
     თქვენი განცხადებების სია ცარიელია.
