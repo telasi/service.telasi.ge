@@ -18,6 +18,11 @@ describe Applicant do
 	it { should have_field(:mobile).of_type(String) }
 	it { should have_field(:email).of_type(String) }
 	it { should have_field(:address).of_type(String) }
+	it { should validate_presence_of(:tin) }
+	it { should validate_presence_of(:name) }
+	it { should validate_presence_of(:mobile) }
+	it { should validate_presence_of(:email) }
+	it { should validate_presence_of(:address) }
 end
 
 describe NewCustomerApplication do

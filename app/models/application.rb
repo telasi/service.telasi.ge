@@ -23,6 +23,11 @@ class Applicant
 	field :email,   type: String
 	field :address, type: String
 	embedded_in :application
+	validates_presence_of :tin, :message => 'ჩაწერეთ საიდენტიფიკაციო კოდი'
+	validates_presence_of :name
+	validates_presence_of :mobile, :message => 'ჩაწერეთ მობილური'
+	validates_presence_of :email, :message => 'ჩაწერეთ ელ.ფოსტა'
+	validates_presence_of :address, :message => 'ჩაწერეთ მისამართი'
 end
 
 # ახალი აბონენტის მიერთების განაცხადი.
