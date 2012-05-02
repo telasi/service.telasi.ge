@@ -33,6 +33,8 @@ GEM
     akami (1.0.0)
       gyoku (>= 0.4.0)
     arel (3.0.2)
+    bootstrap-will_paginate (0.0.7)
+      will_paginate
     bson (1.6.2)
     bson_ext (1.6.2)
       bson (~> 1.6.2)
@@ -60,11 +62,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.1)
-    delayed_job (3.0.2)
-      activesupport (~> 3.0)
-    delayed_job_mongoid (1.0.8)
-      delayed_job (~> 3.0.0)
-      mongoid (>= 2.0)
     diff-lcs (1.1.3)
     email_spec (1.2.1)
       mail (~> 2.2)
@@ -211,6 +208,10 @@ GEM
       multi_json (>= 1.0.2)
     wasabi (2.1.0)
       nokogiri (>= 1.4.0)
+    will_paginate (3.0.3)
+    will_paginate_mongoid (1.0.5)
+      mongoid (~> 2.4)
+      will_paginate (~> 3.0.2)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -218,13 +219,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-will_paginate
   bson_ext (~> 1.5)
   c12-commons
   capybara
   capybara-webkit
   coffee-rails (~> 3.2.1)
-  delayed_job
-  delayed_job_mongoid
   email_spec
   factory_girl
   jquery-rails
@@ -241,3 +241,4 @@ DEPENDENCIES
   sqlite3
   therubyracer
   uglifier (>= 1.0.3)
+  will_paginate_mongoid

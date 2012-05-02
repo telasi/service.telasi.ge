@@ -1,14 +1,18 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 3.2.0'
-gem 'simple_form', '~> 2.0.0'
+
 gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
-gem 'delayed_job'
-gem 'delayed_job_mongoid'
+
+gem 'mongoid_session_store'
+
 gem 'rs.ge'
 gem 'c12-commons'
-gem 'mongoid_session_store'
+
+gem 'will_paginate_mongoid'
+gem 'bootstrap-will_paginate'
+gem 'simple_form', '~> 2.0.0'
 gem 'mongoid-paperclip'
 
 gem 'sqlite3'

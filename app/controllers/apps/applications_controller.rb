@@ -2,6 +2,6 @@
 class Apps::ApplicationsController < ApplicationController
 	def index
 		@title = 'განცხადებები'
-		@applications = Apps::Application.all
+		@applications = Apps::Application.desc(:_id).paginate(:page => params[:page], :per_page => 10)
 	end
 end
