@@ -1,10 +1,15 @@
 <style type="text/css">
   .description { margin: -16px 0 16px 0; }
 </style>
+<script type="text/javascript">
+  $(function() {
+    Telasi.setFormWaitingOnSubmit('new-customer-form');
+  });
+</script>
 <div class="page-header">
   <h2>ახალი განცხადება <small>ქსელზე მიერთების</small></h2>
 </div>
-<%= simple_form_for(@application, :url => request.url) do |f| -%>
+<%= simple_form_for(@application, :url => request.url, :html => {:id => 'new-customer-form'}) do |f| -%>
   <h3>ინფორმაცია აპლიკანტზე</h3>
   <p class="muted">
     პირველ რიგში განსაზღვრეთ ინფორმაცია იმ პირის შესახებ, ვისაც შემოაქვს განცხადება.
