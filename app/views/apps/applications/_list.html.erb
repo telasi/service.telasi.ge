@@ -15,7 +15,7 @@
       	  <span class="muted"><%= app_type(app) %></span>
       	</td>
         <td>
-          <span class="badge badge-inverse"><%= tooltiped_text app.applicant.tin, 'საიდენტიფიკაციო ნომერი', :right %></span>
+          <span class="badge badge-inverse"><%= tooltiped_text app.applicant.tin, 'განმცხადებლის საიდენტიფიკაციო ან პირადი ნომერი', :right %></span>
           <%= app.applicant.name %><br>
           <%= mail_to app.applicant.email %> <span class="muted"><%= C12.format_mobile app.applicant.mobile %></span>
         </td>
