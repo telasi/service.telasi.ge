@@ -1,4 +1,16 @@
-home:
+main:
   label: ძირითადი
   url: /apps/new_customer/show/:id
-  select: site/index
+  select: new_customer/show
+customers:
+  label: აბონენტები
+  url: /app/new_customer/show/:id/customers
+  select: new_customer/customers
+notes:
+  label: შენიშვნები
+  url: /app/new_customer/show/:id/notes
+  select: new_customer/notes
+docs:
+  label: დოკუმენტები
+  url: /app/new_customer/show/:id/docs
+  select: new_customer/docs

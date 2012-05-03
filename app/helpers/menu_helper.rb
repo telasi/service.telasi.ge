@@ -41,7 +41,7 @@ module MenuHelper
 
   def app_menu_url(item, opts = {})
     url = item['url']
-    opts.each { |k,v| url[":#{k}"] = v if url[":#{k}"] }
+    opts.each { |k,v| url[":#{k}"] = v.to_s if url[":#{k}"] }
     url
   end
 
@@ -56,7 +56,6 @@ module MenuHelper
     end
   end
 
-
   public
 
   # ქმნის პროგრამის ძირითად მენიუს.
@@ -67,16 +66,16 @@ module MenuHelper
       url = app_menu_url(val, opts)
       item_selected = app_menu_selected(val)
       main_menu += %Q{<li class="#{item_selected ? 'selected' : 'common'}"><a href="#{url}">#{val['label']}</a></li>}
-      if item_selected and val['sub_menu']
-        val['sub_menu'].each do |k, v|
-          sub_selected = app_menu_selected(v)
-          sub_url = app_menu_url(v)
-          scnd_menu += %Q{<li class="#{sub_selected ? 'selected' : 'common'}"><a href="#{sub_url}">#{v['label']}</a></li>}
-        end
-        scnd_menu = %Q{<div class="application_submenu"><ul class='submenu'>#{scnd_menu}</ul></div>}
-      end
+#      if item_selected and val['sub_menu']
+#        val['sub_menu'].each do |k, v|
+#          sub_selected = app_menu_selected(v)
+#          sub_url = app_menu_url(v)
+#          scnd_menu += %Q{<li class="#{sub_selected ? 'selected' : 'common'}"><a href="#{sub_url}">#{v['label']}</a></li>}
+#        end
+#        scnd_menu = %Q{<div class="application_submenu"><ul class='submenu'>#{scnd_menu}</ul></div>}
+#      end
     end
-    %Q{<div class="application_menu"><ul class="mainmenu">#{main_menu}</ul>#{scnd_menu}</div>}.html_safe
+    %Q{<div class="application_menu"><ul>#{main_menu}</ul></div>}.html_safe
   end
 
   protected

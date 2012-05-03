@@ -9,7 +9,7 @@ class Apps::NewCustomerController < ApplicationController
 			@application.new_customer_application = Apps::NewCustomerApplication.new(params[:apps_new_customer_application])
 			@application.owner = current_user
 			@application.type = Apps::Application::TYPE_NEW_CUSTOMER
-			redirect_to apps_home_path, :notice => 'განცხადება შექმნილია.' if @application.save
+			redirect_to apps_new_customer_path(:id => @application.id), :notice => 'განცხადება შექმნილია.' if @application.save
 		else
 			applicant = Apps::Applicant.new(:mobile => current_user.mobile, :email => current_user.email)
       new_customer_application = Apps::NewCustomerApplication.new(:voltage => Apps::NewCustomerApplication::VOLTAGE_220)
@@ -18,8 +18,15 @@ class Apps::NewCustomerController < ApplicationController
 	end
 
 	def show
+	  @title = 'განცხადების დეტალები'
     @application = Apps::Application.where(:_id => params[:id]).first
     # XXX
+	end
+
+	def delete
+    @application = Apps::Application.where(:_id => params[:id]).first
+    @application.destroy
+    redirect_to apps_home_path, :notice => 'განცხადება წაშლილია.'
 	end
 
 end
