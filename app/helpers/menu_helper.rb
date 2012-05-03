@@ -6,7 +6,7 @@ module MenuHelper
   # ძირითადი მენიუს შექმნა
   def main_menu
     html = ''
-    YAML.load_file('config/main_menu.yml').each do |key, val|
+    YAML.load_file('config/menus/main_menu.yml').each do |key, val|
       item_class = page_match?(val['select']) ? 'active' : 'common'
       html += %Q{<li class="#{item_class}"><a href="#{val['url']}">#{val['label']}</a></li>}
     end

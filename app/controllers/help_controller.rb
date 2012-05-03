@@ -5,7 +5,7 @@ class HelpController < ApplicationController
 
   # დახმარების გვერდები.
   def index
-    @tutorials = YAML.load_file('config/help.yml')
+    @tutorials = YAML.load_file('config/menus/help.yml')
     @tutorial = params[:tutorial]
     @section = params[:section]
     if @tutorial and @section
