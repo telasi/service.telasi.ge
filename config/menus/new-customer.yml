@@ -1,0 +1,4 @@
+home:
+  label: ძირითადი
+  url: /apps/new_customer/show/:id
+  select: site/index

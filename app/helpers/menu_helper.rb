@@ -39,9 +39,9 @@ module MenuHelper
 
   private
 
-  def app_menu_url(item)
-    url = item['url'] ? item['url'] : item['sub_menu'].first[1]['url']
-    url[':org_id'] = current_org.id.to_s if url[':org_id']
+  def app_menu_url(item, opts = {})
+    url = item['url']
+    opts.each { |k,v| url[":#{k}"] = v if url[":#{k}"] }
     url
   end
 
@@ -56,19 +56,15 @@ module MenuHelper
     end
   end
 
+
   public
 
   # ქმნის პროგრამის ძირითად მენიუს.
-  def application_menu
+  def application_menu(path, opts = {})
     main_menu = ''
-    scnd_menu = ''
-    #if admin_action
-    #  menu = YAML.load_file('config/admin_menu.yml')
-    #elsif current_org
-    #  menu = YAML.load_file('config/app_menu.yml')
-    #end
+    menu = YAML.load_file(path)
     menu.each do |key, val|
-      url = app_menu_url(val)
+      url = app_menu_url(val, opts)
       item_selected = app_menu_selected(val)
       main_menu += %Q{<li class="#{item_selected ? 'selected' : 'common'}"><a href="#{url}">#{val['label']}</a></li>}
       if item_selected and val['sub_menu']
