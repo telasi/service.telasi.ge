@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h2>
+    <%= app_number(@application) %>
+    <small>
+      <%= @application.created_at.strftime('%d-%b-%Y %H:%M') %>
+      <span class="badge badge-important"><%= app_type(@application) %></span>
+    </small>
+  </h2>
+</div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ყველა განცხადება'), apps_home_url, :class => 'btn' %>
+  <%= link_to icon_text('trash', 'განცხადების წაშლა'), apps_new_customer_delete_path(:id => @application.id), :class => 'btn', :method => :delete, :confirm => 'ნამდვილად გინდათ ამ განცხადების წაშლა?' %>
+</div>
+
+<%= application_menu 'config/menus/new-customer.yml', :id => @application.id %>

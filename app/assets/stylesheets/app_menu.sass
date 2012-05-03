@@ -1,0 +1,47 @@
+@import 'functions'
+
+.application_menu ul
+  position: relative
+  margin: 10px 0 0 0
+  font-size: 12px
+  font-weight: bold
+  background: #FAFAFA
+  background: -moz-linear-gradient(#FAFAFA,#EAEAEA)
+  background: -webkit-linear-gradient(#FAFAFA,#EAEAEA)
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')"
+  border: 1px solid #EAEAEA
+  border-bottom-color: #CACACA
+  border-radius: 3px
+  li
+    list-style-type: none
+    margin: 0
+    display: table-cell
+    width: 1%
+    a
+      display: block
+      text-align: center
+      line-height: 35px
+      font-size: 12px
+      color: #777
+      text-decoration: none
+      text-shadow: 0 1px 0 white
+      border-right: 1px solid #EEE
+      border-right-color: rgba(0, 0, 0, 0.04)
+      border-left: 1px solid #FCFCFC
+      border-left-color: rgba(255, 255, 255, 0.7)
+      border-bottom: 2px solid #DADADA
+    a:hover
+      color: #4183C4
+      border-bottom: 2px solid #CFDCE8
+      background: #FAFBFD
+      background: -moz-linear-gradient(#FAFBFD,#DCE6EF)
+      background: -webkit-linear-gradient(#FAFBFD,#DCE6EF)
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafbfd',endColorstr='#dce6ef')"
+  li.selected
+    a, a:hover
+      color: black
+      background: #FCFCFC
+      background: -moz-linear-gradient(#FCFCFC,#EBEBEB)
+      background: -webkit-linear-gradient(#FCFCFC,#EBEBEB)
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc',endColorstr='#ebebeb')"
+      border-bottom: 2px solid #D26911

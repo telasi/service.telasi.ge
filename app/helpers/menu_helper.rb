@@ -66,14 +66,6 @@ module MenuHelper
       url = app_menu_url(val, opts)
       item_selected = app_menu_selected(val)
       main_menu += %Q{<li class="#{item_selected ? 'selected' : 'common'}"><a href="#{url}">#{val['label']}</a></li>}
-#      if item_selected and val['sub_menu']
-#        val['sub_menu'].each do |k, v|
-#          sub_selected = app_menu_selected(v)
-#          sub_url = app_menu_url(v)
-#          scnd_menu += %Q{<li class="#{sub_selected ? 'selected' : 'common'}"><a href="#{sub_url}">#{v['label']}</a></li>}
-#        end
-#        scnd_menu = %Q{<div class="application_submenu"><ul class='submenu'>#{scnd_menu}</ul></div>}
-#      end
     end
     %Q{<div class="application_menu"><ul>#{main_menu}</ul></div>}.html_safe
   end
