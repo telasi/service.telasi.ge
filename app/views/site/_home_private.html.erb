@@ -3,7 +3,7 @@
     TODO: აქ უნდა დაიწეროს ახალი ამბები.
   </div>
   <div class="span4">
-    <%= render :partial => 'users/info' %>
+    <%= render :partial => 'users/info', :locals => {:user => current_user} %>
     <div class="well well-actions">
 		 <ul class="nav nav-list">
 				<li><%= link_to icon_text('pencil', 'მონაცემების შეცვლა'), account_path %></li>

@@ -1,1 +1,33 @@
 <%= render :partial => 'apps/new_customer/header' %>
+<div class="row">
+  <div class="span5">
+    <div class="well">
+      <h4>ინფორმაცია აპლიკანტზე</h4>
+      <table class="table">
+      	<tr>
+          <th class="right" width="100">საიდ.ნომერი</th>
+          <td class="muted"><%= @application.applicant.tin %></td>
+        </tr>
+        <tr>
+          <th class="right">დასახელება</th>
+          <td class="muted"><%= @application.applicant.name %></td>
+        </tr>
+        <tr>
+          <th class="right">მობილური</th>
+          <td class="muted"><%= C12.format_mobile(@application.applicant.mobile) %></td>
+        </tr>
+        <tr>
+          <th class="right">ელ.ფოსტა</th>
+          <td class="muted"><%= mail_to @application.applicant.email %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="well">
+      <h4>მომხმარებელი, რომელმაც შეავსო ეს განაცხადი</h4>
+      <%= render :partial => 'users/info', :locals => {:user => @application.owner} %>
+    </div>
+  </div>
+  <div class="span7">
+    TODO: place more info here
+  </div>
+</div>
