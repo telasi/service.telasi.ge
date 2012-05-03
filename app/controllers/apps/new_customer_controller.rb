@@ -23,6 +23,22 @@ class Apps::NewCustomerController < ApplicationController
     # XXX
 	end
 
+	def customers
+	  @title = 'აბონენტები'
+    @application = Apps::Application.where(:_id => params[:id]).first
+    # XXX
+	end
+
+	def notes
+    @title = 'შენიშვნები'
+    @application = Apps::Application.where(:_id => params[:id]).first
+	end
+
+	def docs
+    @title = 'დოკუმენტები'
+    @application = Apps::Application.where(:_id => params[:id]).first
+	end
+
 	def delete
     @application = Apps::Application.where(:_id => params[:id]).first
     @application.destroy
