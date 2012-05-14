@@ -47,10 +47,23 @@ class Apps::NewCustomerController < ApplicationController
     if request.post?
       @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
       @item.new_customer_application = @application.new_customer_application
-      redirect_to apps_new_customer_path(id: @application.id) if @item.save
+      redirect_to apps_new_customer_items_path(id: @application.id) if @item.save
     else
       @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: @application.new_customer_application.voltage, personal_use: true)
     end
+  end
+
+  # აბონენტის წაშლა.
+  def edit_item
+    @title = 'აბონენტის რედაქტირება'
+    @application = Apps::Application.where(_id: params[:id]).first
+  end
+
+  # აბონენტის ჩანაწერის წაშლა.
+  def delete_item
+    app = Apps::Application.where(_id: params[:id]).first
+    item = app.new_customer_application.new_customer_items.where(_id: params[:item_id]).destroy_all
+    redirect_to apps_new_customer_items_path(id: app.id)
   end
 
   ### შენიშვნების მართვა

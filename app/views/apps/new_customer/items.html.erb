@@ -11,6 +11,7 @@
       <th>აბონენტი</th>
       <th width="200">ძაბვის საფეხური</th>
       <th width="200">სიმძლავრე</th>
+      <th width="16"><%= icon('cog') %></th>
     </tr>
   </thead>
   <tbody>
@@ -23,11 +24,14 @@
           </td>
           <td class="right"><%= item.voltage %> კვ</td>
           <td class="right"><%= C12.number_format item.power %> კვტ</td>
+          <td>
+            <%= link_to icon('trash', :tooltip => 'წაშლა', :tooltip_placement => :left), apps_new_customer_delete_item_path(item_id: item.id), :method => :delete, :confirm => 'ნამდვილად გინდათ ჩანაწერის წაშლა?' %>
+          </td>
         </tr>
       <% end %>
     <% else %>
       <tr>
-        <td colspan="3" class="muted">აბონენტების სია ცარიელია</td>
+        <td colspan="4" class="muted">აბონენტების სია ცარიელია</td>
       </tr>
     <% end -%>
   </tbody>

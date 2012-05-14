@@ -36,7 +36,7 @@ class Apps::NewCustomerItem
   end
 
   def validate_power
-    errors.add(:power, 'სიმძლავრე უნდა იყოს მეტი 0-ზე.') if self.power <= 0
+    errors.add(:power, 'სიმძლავრე უნდა იყოს მეტი 0-ზე.') if self.power.nil? or self.power <= 0
   end
 
   def on_before_save
