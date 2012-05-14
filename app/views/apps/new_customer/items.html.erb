@@ -19,7 +19,11 @@
       <% @application.new_customer_application.new_customer_items.each do |item| %>
         <tr>
           <td>
-            <%= item.name %><br>
+            <% if item.type == Apps::NewCustomerItem::TYPE_DETAIL %>
+              <%= item.name %>
+            <% else -%>
+              ჯამური: <strong><%= item.count %></strong> აბონენტი
+            <% end -%><br>
             <span class="muted"><%= item.address %></span>
           </td>
           <td class="right"><%= item.voltage %> კვ</td>

@@ -45,6 +45,7 @@ class Apps::NewCustomerItem
     else
       self.tin = nil
       self.name = nil
+      self.count = 1 if self.count.nil? or self.count <= 0
     end
   end
 
