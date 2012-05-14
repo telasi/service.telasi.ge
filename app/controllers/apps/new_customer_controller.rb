@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Apps::NewCustomerController < ApplicationController
 
+  # ახალი განცხადება.
   def new
     @title = 'ქსელზე მიერთება: ახალი განცხადება'
     if request.post?
@@ -17,31 +18,55 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # განცხადების ნახვა: ძირითადი გვერდი.
   def show
     @title = 'განცხადების დეტალები'
-    @application = Apps::Application.where(:_id => params[:id]).first
+    @application = Apps::Application.where(_id: params[:id]).first
     # XXX
   end
 
-  def customers
-    @title = 'აბონენტები'
-    @application = Apps::Application.where(:_id => params[:id]).first
-  end
-
-  def notes
-    @title = 'შენიშვნები'
-    @application = Apps::Application.where(:_id => params[:id]).first
-  end
-
-  def docs
-    @title = 'დოკუმენტები'
-    @application = Apps::Application.where(:_id => params[:id]).first
-  end
-
+  # განცხადების წაშლა.
   def delete
-    @application = Apps::Application.where(:_id => params[:id]).first
+    @application = Apps::Application.where(_id: params[:id]).first
     @application.destroy
     redirect_to apps_home_path, :notice => 'განცხადება წაშლილია.'
+  end
+
+  ### აბონენტების მართვა
+
+  # განცხადების ნახვა: კლიენტების სია.
+  def items
+    @title = 'აბონენტები'
+    @application = Apps::Application.where(_id: params[:id]).first
+  end
+
+  # ახალი აბონენტის დამატება.
+  def new_item
+    @title = 'ახალი აბონენტი'
+    @application = Apps::Application.where(_id: params[:id]).first
+    if request.post?
+      @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
+      @item.new_customer_application = @application.new_customer_application
+      redirect_to apps_new_customer_path(id: @application.id) if @item.save
+    else
+      @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: @application.new_customer_application.voltage, personal_use: true)
+    end
+  end
+
+  ### შენიშვნების მართვა
+
+  # განცხადების ნახვა: შენიშვნების სია.
+  def notes
+    @title = 'შენიშვნები'
+    @application = Apps::Application.where(_id: params[:id]).first
+  end
+
+  ### დოკუმენტების მართვა
+
+  # განცხადების ნახვა: დოკუმენტაციის ნახვა.
+  def docs
+    @title = 'დოკუმენტები'
+    @application = Apps::Application.where(_id: params[:id]).first
   end
 
 end

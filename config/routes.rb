@@ -34,7 +34,10 @@ TelasiService::Application.routes.draw do
   		delete '/delete/:id', :action => :delete, :as => :new_customer_delete
   		scope '/show/:id', :controller => :new_customer do
         get '/',          :action => :show,      :as => :new_customer
-  		  get '/customers', :action => :customers, :as => :new_customer_customers
+        scope '/items' do
+          get   '/',    :action => :items,    :as => :new_customer_items
+          match '/new', :action => :new_item, :as => :new_customer_new_item
+        end
   		  get '/notes',     :action => :notes,     :as => :new_customer_notes
   		  get '/docs',      :action => :docs,      :as => :new_customer_docs
   		end

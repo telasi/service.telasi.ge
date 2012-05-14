@@ -1,0 +1,34 @@
+<%= render :partial => 'apps/new_customer/header' %>
+<p class="muted">
+  აქ ასახეთ ქსელში ჩასართველი აბონენტ(ებ)ის შესახებ ინფორმაცია.
+</p>
+<div class="btn-toolbar">
+  <%= link_to icon_text('plus', 'ახალი ჩანაწერი'), apps_new_customer_new_item_path, :class => 'btn' %>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>აბონენტი</th>
+      <th width="200">ძაბვის საფეხური</th>
+      <th width="200">სიმძლავრე</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @application.new_customer_application.new_customer_items.any? %>
+      <% @application.new_customer_application.new_customer_items.each do |item| %>
+        <tr>
+          <td>
+            <%= item.name %><br>
+            <span class="muted"><%= item.address %></span>
+          </td>
+          <td class="right"><%= item.voltage %> კვ</td>
+          <td class="right"><%= C12.number_format item.power %> კვტ</td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="3" class="muted">აბონენტების სია ცარიელია</td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>

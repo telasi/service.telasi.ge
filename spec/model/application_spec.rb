@@ -34,6 +34,19 @@ describe Apps::NewCustomerApplication do
   it { should be_embedded_in(:application).of_type(Apps::Application) }
 end
 
+describe Apps::NewCustomerItem do
+  it { should be_mongoid_document }
+  it { should be_timestamped_document }
+  it { should have_field(:type).of_type(String) }
+  it { should have_field(:address).of_type(String) }
+  it { should have_field(:voltage).of_type(String) }
+  it { should have_field(:power).of_type(Float) }
+  it { should have_field(:personal_use).of_type(Boolean) }
+  it { should have_field(:count).of_type(Integer) }
+  it { should have_field(:tin).of_type(String) }
+  it { should have_field(:name).of_type(String) }
+end
+
 describe 'ახალი აბონენტის ტარიფების ინიციალიზაცია' do
   before(:all) do
     @tariffs = Apps::NewCustomerTariff.tariffs

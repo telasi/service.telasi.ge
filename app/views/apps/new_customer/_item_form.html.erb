@@ -1,0 +1,35 @@
+<script type="text/javascript">
+  $(function() {
+    Telasi.setFormWaitingOnSubmit('item-form');
+    $('[name="apps_new_customer_item[type]"]').change(function(evt) {
+      reset_detail_and_summary();
+    });
+    reset_detail_and_summary();
+  });
+  function reset_detail_and_summary() {
+  	if ($(':checked=[name="apps_new_customer_item[type]"]').val() == 'detail') {
+  	  $('#detail').show();
+  	  $('#summary').hide();
+  	} else {
+  	  $('#detail').hide();
+  	  $('#summary').show();
+  	}
+  }
+</script>
+<%= simple_form_for @item, url: request.url, html: {id: 'item-form', class: 'form-horizontal'} do |f| -%>
+  <%= f.input :address, label: 'მისამართი', input_html: {autofocus: true, class: 'span8'} %>
+  <%= f.input :voltage, label: 'ძაბვის საფეხური', collection: Apps::NewCustomerApplication::VOLTAGES_HUMAN, as: :radio_buttons, item_wrapper_class: 'inline' %>
+  <%= f.input :power, label: 'სიმძლავრე (კვტ.)', input_html: {class: 'span2'} %>
+  <%= f.input :personal_use, label: 'საყოფაცხოვრებო?', as: :boolean %>
+  <%= f.input :type, label: 'ჩანაწერის ტიპი', collection: new_customer_item_type, as: :radio_buttons, item_wrapper_class: 'inline' %>
+  <div id="summary" style="display: none;">
+  	<%= f.input :count, label: 'აბონენტების ჯამური რაოდენობა', input_html: {class: 'span2'} %>
+  </div>
+  <div id="detail" style="display: none;">
+    <%= f.input :tin, label: 'საიდენტიფიკაციო ან პირადი ნომერი', input_html: {class: 'span2'} %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+    <%= link_to 'გაუქმება', apps_new_customer_items_path(id: @application.id), class: 'btn' %>
+  </div>
+<% end -%>

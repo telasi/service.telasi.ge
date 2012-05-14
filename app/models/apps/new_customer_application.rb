@@ -1,6 +1,4 @@
 # -*- encoding : utf-8 -*-
-
-# ახალი აბონენტის მიერთების განაცხადი.
 class Apps::NewCustomerApplication
   VOLTAGE_220 = '0.220'
   VOLTAGE_380 = '0.380'
@@ -29,4 +27,5 @@ class Apps::NewCustomerApplication
   field :power, type: Float
   field :tariff, type: Integer
   embedded_in :application, :class_name => 'Apps::Application'
+  embeds_many :new_customer_items, class_name: 'Apps::NewCustomerItem'
 end

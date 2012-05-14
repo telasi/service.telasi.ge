@@ -28,4 +28,8 @@ module AppsHelper
     end
   end
 
+  def new_customer_item_type
+    {'ჯამური' => Apps::NewCustomerItem::TYPE_SUMMARY, 'ინდივიდუალური' => Apps::NewCustomerItem::TYPE_DETAIL}
+  end
+
 end

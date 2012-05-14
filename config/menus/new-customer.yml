@@ -4,8 +4,8 @@ main:
   select: new_customer/show
 customers:
   label: აბონენტები
-  url: /apps/new_customer/show/:id/customers
-  select: new_customer/customers
+  url: /apps/new_customer/show/:id/items
+  select: new_customer/items new_customer/new_item new_customer/edit_item
 notes:
   label: შენიშვნები
   url: /apps/new_customer/show/:id/notes
