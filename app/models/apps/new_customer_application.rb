@@ -30,5 +30,18 @@ class Apps::NewCustomerApplication
 
   # ტარიფის გათვლა.
   def calculate
+    self.calculations.destroy_all
+    VOLTAGES.each do |v|
+      items = self.items.where(voltage: v)
+      power = items.inject(0){ |sum, x| sum + x[:power] }
+      tariff = Apps::NewCustomerTariff.tariff_for(v, power)
+      if tariff
+        self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: tariff.id, amount: tariff.price_gel, days: tariff.days_to_complete) if power > 0
+      else
+        self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: nil) if power > 0
+      end
+    end
+    self.save
   end
+
 end

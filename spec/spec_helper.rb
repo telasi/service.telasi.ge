@@ -16,6 +16,9 @@ require 'capybara/rspec'
 require 'factory_girl'
 require 'includes'
 
+HTTPI.log = false
+Savon.log = false
+
 Capybara.javascript_driver = :webkit
 Capybara.default_wait_time = 5
 Capybara.current_driver = :webkit

@@ -30,5 +30,12 @@ class Apps::NewCustomerTariff
       init_tariffs if @@tariffs.empty?
       @@tariffs
     end
+
+    # აბრუნებს ტარიფის მნიშვნელობას მოცემული ვოლტაჟის და სიმძლავრისთვის.
+    def tariff_for(voltage, power)
+      Apps::NewCustomerTariff.tariffs.each do |t|
+        return t if t.voltage == voltage and power >= t.power_from and power <= t.power_to
+      end
+    end
   end
 end

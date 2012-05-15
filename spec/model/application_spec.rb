@@ -51,10 +51,10 @@ end
 describe Apps::NewCustomerCalculation do
   it { should be_mongoid_document }
   it { should have_field(:voltage).of_type(String) }
-  it { should have_field(:power).of_type(Float) }
+  it { should have_field(:power).of_type(Integer) }
   it { should have_field(:tariff_id).of_type(Integer) }
   it { should have_field(:amount).of_type(Float) }
-  it { should have_field(:error).of_type(String) }
+  it { should have_field(:days).of_type(Integer) }
   it { should be_embedded_in(:application).of_type(Apps::NewCustomerApplication) }
 end
 
@@ -77,5 +77,35 @@ describe 'ახალი აბონენტის ტარიფები�
     its(:power_to) { should == 10 }
     its(:days_to_complete) { should == 35 }
     its(:price_gel) { should == 400 }
+  end
+end
+
+describe 'ახალი აბონენტის გამოთვლა' do
+  before(:all) do
+    applicant = Apps::Applicant.new(tin: '02001000490', mobile: '595335514', email: 'dimitri@c12.ge', address: 'ქ. აბაშა, კაჭარავას 35')
+    @newapp = Apps::NewCustomerApplication.new
+    @app = Apps::Application.new(applicant: applicant, new_customer_application: @newapp, type: Apps::Application::TYPE_NEW_CUSTOMER)
+    @app.save ; @newapp.reload
+    @newapp.items << Apps::NewCustomerItem.new(voltage: Apps::NewCustomerApplication::VOLTAGE_220, address: 'ქ. თბილისი, ჯიქიას 7', type: Apps::NewCustomerItem::TYPE_SUMMARY, power: 1, personal_use: true)
+    @newapp.items << Apps::NewCustomerItem.new(voltage: Apps::NewCustomerApplication::VOLTAGE_220, address: 'ქ. თბილისი, ჯიქიას 7', type: Apps::NewCustomerItem::TYPE_SUMMARY, power: 2, personal_use: true)
+    @newapp.save
+  end
+  subject { @newapp }
+  it { should_not be_nil }
+  its(:items) { should_not be_empty }
+  context 'გაანგარიშება' do
+    before(:all) do
+      @newapp.calculate
+    end
+    subject { @newapp.calculations }
+    it { should_not be_empty }
+    its(:size) { should == 1 }
+  end
+  context 'გაანგარიშების ანალიზი' do
+    subject { @newapp.calculations.first }
+    its(:power) { should == 3 }
+    its(:tariff_id) { should == 1 }
+    its(:amount) { should == 400 }
+    its(:days) { should == 35 }
   end
 end
