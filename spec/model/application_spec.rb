@@ -29,9 +29,9 @@ describe Apps::NewCustomerApplication do
   it { should be_mongoid_document }
   it { should have_field(:status).of_type(Integer) }
   it { should have_field(:voltage).of_type(String) }
-  it { should have_field(:power).of_type(Float) }
-  it { should have_field(:tariff).of_type(Integer) }
   it { should be_embedded_in(:application).of_type(Apps::Application) }
+  it { should embed_many(:items).of_type(Apps::NewCustomerItem) }
+  it { should embed_many(:calculations).of_type(Apps::NewCustomerCalculation) }
 end
 
 describe Apps::NewCustomerItem do
@@ -45,6 +45,17 @@ describe Apps::NewCustomerItem do
   it { should have_field(:count).of_type(Integer) }
   it { should have_field(:tin).of_type(String) }
   it { should have_field(:name).of_type(String) }
+  it { should be_embedded_in(:application).of_type(Apps::NewCustomerApplication) }
+end
+
+describe Apps::NewCustomerCalculation do
+  it { should be_mongoid_document }
+  it { should have_field(:voltage).of_type(String) }
+  it { should have_field(:power).of_type(Float) }
+  it { should have_field(:tariff_id).of_type(Integer) }
+  it { should have_field(:amount).of_type(Float) }
+  it { should have_field(:error).of_type(String) }
+  it { should be_embedded_in(:application).of_type(Apps::NewCustomerApplication) }
 end
 
 describe 'ახალი აბონენტის ტარიფების ინიციალიზაცია' do

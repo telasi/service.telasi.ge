@@ -24,8 +24,11 @@ class Apps::NewCustomerApplication
   include Mongoid::Document
   field :status, type: Integer, default: STATUS_INITIAL
   field :voltage, type: String
-  field :power, type: Float
-  field :tariff, type: Integer
   embedded_in :application, :class_name => 'Apps::Application'
-  embeds_many :new_customer_items, class_name: 'Apps::NewCustomerItem'
+  embeds_many :items, class_name: 'Apps::NewCustomerItem', inverse_of: :application
+  embeds_many :calculations, class_name: 'Apps::NewCustomerCalculation', inverse_of: :application
+
+  # ტარიფის გათვლა.
+  def calculate
+  end
 end

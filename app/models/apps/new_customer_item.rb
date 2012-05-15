@@ -16,7 +16,7 @@ class Apps::NewCustomerItem
   field :tin,     type: String
   field :name,    type: String
   field :comment, type: String
-  embedded_in :new_customer_application, class_name: 'Apps::NewCustomerApplication'
+  embedded_in :application, class_name: 'Apps::NewCustomerApplication', inverse_of: :items
 
   validates_presence_of :type
   validates_presence_of :address, message: 'ჩაწერეთ მისამართი.'
