@@ -36,6 +36,7 @@ class Apps::NewCustomerTariff
       Apps::NewCustomerTariff.tariffs.each do |t|
         return t if t.voltage == voltage and power >= t.power_from and power <= t.power_to
       end
+      nil
     end
   end
 end

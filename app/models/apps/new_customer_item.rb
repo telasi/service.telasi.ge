@@ -26,6 +26,7 @@ class Apps::NewCustomerItem
   validate :validate_type
   validate :validate_power
   before_save :on_before_save
+  after_save  :on_after_save
 
   private
 
@@ -49,4 +50,7 @@ class Apps::NewCustomerItem
     end
   end
 
+  def on_after_save
+    self.application.calculate
+  end
 end

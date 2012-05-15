@@ -1,0 +1,36 @@
+<h4>ქსელზე მიერთების ღირებულება და ვადები</h4>
+<hr>
+<% if @application.new_customer_application.calculations.any? -%>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th width="25%">ძაბვა</th>
+        <th width="25%">სიმძლავრე</th>
+        <th width="25%">ღირებულება</th>
+        <th width="25%">შესრულება</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @application.new_customer_application.calculations.each do |calc| -%>
+        <tr>
+          <td class="right"><%= calc.voltage %> კვ</td>
+          <td class="right"><%= calc.power %> კვტ</td>
+          <% if calc.tariff_id -%>
+            <td class="right"><%= C12.number_format calc.amount %> ლარი</td>
+            <td class="right"><%= calc.days %> დღე</td>
+          <% else -%>
+            <td colspan="2">
+              <div class="alert alert-error" style="padding: 0; text-align: center; margin: 0;">სიმძლავრე არ შეესაბამება ძაბვას!</div>
+            </td>
+          <% end -%>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+<% else -%>
+  <div class="well muted">
+    ქსელზე მიერთების ღირებულების და ვადების დასადგენად შეიყვანეთ ინფორმაცია
+    ჩასართველი <%= link_to 'აბონენტების', apps_new_customer_items_path(id: @application.id) %>
+    შესახებ.
+  </div>
+<% end -%>
