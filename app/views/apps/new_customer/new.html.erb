@@ -10,15 +10,14 @@
   <h2>ახალი განცხადება <small>ქსელზე მიერთების</small></h2>
 </div>
 <%= simple_form_for(@application, :url => request.url, :html => {:id => 'new-customer-form'}) do |f| -%>
-  <h3>ინფორმაცია აპლიკანტზე</h3>
   <p class="muted">
-    პირველ რიგში განსაზღვრეთ ინფორმაცია იმ პირის შესახებ, ვისაც შემოაქვს განცხადება.
+    განსაზღვრეთ ინფორმაცია იმ პირის შესახებ, ვისაც შემოაქვს განცხადება.
   </p>
   <%= simple_fields_for @application.applicant do |applicant_form| %>
     <%= applicant_form.input :tin, :label => 'საიდენტიფიკაციო კოდი ან პირადი ნომერი', :input_html => {:autofocus => true} %>
     <p class="muted description">
       იურიდიული პირის შემთხვევაში ჩაწერეთ ამ პირის საიდენტიფიკაციო ნომერი.
-      ფიზიკური პირის შემთხვევაში მიუთითეთ მისი პირადი ნომერი.
+      ფიზიკური პირის შემთხვევაში &mdash; მისი პირადი ნომერი.
     </p>
     <%= applicant_form.input :mobile, :label => 'მობილური ტელეფონის ნომერი' %>
     <p class="muted description">
@@ -32,21 +31,6 @@
     <p class="muted description">
       ამ მისამართზე მიიღებთ შეტყობინებებს წერილობითი სახით.
     </p>
-  <% end -%>
-  <h3>ძაბვის საფეხური</h3>
-  <p class="muted">
-    აარჩიეთ სასურველი ძაბვის საფეხური:
-  </p>
-  <%= simple_fields_for @application.new_customer_application do |new_customer_form| %>
-  	<%= new_customer_form.input :voltage, :label => 'ძაბვის საფეხური', :collection => Apps::NewCustomerApplication::VOLTAGES_HUMAN, :as => :radio_buttons, :item_wrapper_class => 'inline', :label => false %>
-  	<div class="well">
-	  <h4 style="margin: 0 0 10px 0">რომელი ძაბვის საფეხური ავარჩიო?</h4>
-	  <ul class="muted">
-	    <li>აარჩიეთ <strong>220 ვოლტი</strong> თუ გსურთ 1 ან 2 ფიზიკური პირის მიერთება და ჯამური სიმძლავრე არ აღემატება 10კვტ-ს;</li>
-	    <li>აარჩიეთ <strong>380 ვოლტი</strong> თუ გსურთ კომერციული ობიექტის ან 2-ზე მეტი ფიზიკური პირის მიერთება;</li>
-	    <li>აარჩიეთ <strong>6/10 კილოვოლტი</strong> მხოლოდ განსაკუთრებულ შემთხვევაში: როდესაც საკუთარი ქვესადგურის მფლობელი ბრძანდებით.</li>
-	  </ul>
-    </div>
   <% end -%>
   <div class="form-actions">
     <%= f.submit 'განცხადების შექმნა', :class => ['btn', 'btn-primary'] %>

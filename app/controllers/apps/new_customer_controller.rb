@@ -7,14 +7,13 @@ class Apps::NewCustomerController < ApplicationController
     if request.post?
       @application = Apps::Application.new(params[:apps_application])
       @application.applicant = Apps::Applicant.new(params[:apps_applicant])
-      @application.new_customer_application = Apps::NewCustomerApplication.new(params[:apps_new_customer_application])
       @application.owner = current_user
+      @application.new_customer_application = Apps::NewCustomerApplication.new
       @application.type = Apps::Application::TYPE_NEW_CUSTOMER
       redirect_to apps_new_customer_path(:id => @application.id), :notice => 'განცხადება შექმნილია.' if @application.save
     else
       applicant = Apps::Applicant.new(:mobile => current_user.mobile, :email => current_user.email)
-      new_customer_application = Apps::NewCustomerApplication.new(:voltage => Apps::NewCustomerApplication::VOLTAGE_220)
-      @application = Apps::Application.new(:applicant => applicant, :new_customer_application => new_customer_application)
+      @application = Apps::Application.new(:applicant => applicant)
     end
   end
 
@@ -46,10 +45,10 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
     if request.post?
       @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
-      @item.new_customer_application = @application.new_customer_application
+      @item.application = @application.new_customer_application
       redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი შექმნილია.' if @item.save
     else
-      @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: @application.new_customer_application.voltage, personal_use: true)
+      @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: Apps::NewCustomerApplication::VOLTAGE_220, personal_use: true)
     end
   end
 
@@ -57,7 +56,7 @@ class Apps::NewCustomerController < ApplicationController
   def edit_item
     @title = 'აბონენტის რედაქტირება'
     @application = Apps::Application.where(_id: params[:id]).first
-    @item = @application.new_customer_application.new_customer_items.where(_id: params[:item_id]).first
+    @item = @application.new_customer_application.items.where(_id: params[:item_id]).first
     if request.put?
       redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი განახლებურია.' if @item.update_attributes(params[:apps_new_customer_item])
     end
@@ -66,7 +65,7 @@ class Apps::NewCustomerController < ApplicationController
   # აბონენტის ჩანაწერის წაშლა.
   def delete_item
     app = Apps::Application.where(_id: params[:id]).first
-    item = app.new_customer_application.new_customer_items.where(_id: params[:item_id]).destroy_all
+    item = app.new_customer_application.items.where(_id: params[:item_id]).destroy_all
     redirect_to apps_new_customer_items_path(id: app.id)
   end
 

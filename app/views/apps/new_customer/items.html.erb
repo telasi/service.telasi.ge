@@ -15,8 +15,8 @@
     </tr>
   </thead>
   <tbody>
-    <% if @application.new_customer_application.new_customer_items.any? %>
-      <% @application.new_customer_application.new_customer_items.each do |item| %>
+    <% if @application.new_customer_application.items.any? %>
+      <% @application.new_customer_application.items.each do |item| %>
         <tr>
           <td>
             <% if item.type == Apps::NewCustomerItem::TYPE_DETAIL %>
