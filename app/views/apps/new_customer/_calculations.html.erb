@@ -27,6 +27,10 @@
       <% end -%>
     </tbody>
   </table>
+  <p>
+    სულ გადასახდელია <strong><%= C12.number_format @application.new_customer_application.amount %></strong> ლარი;
+    სამუშაოების შესრულდება <strong><%= @application.new_customer_application.days %></strong> კალენდარულ დღეში.
+  </p>
 <% else -%>
   <div class="well muted">
     ქსელზე მიერთების ღირებულების და ვადების დასადგენად შეიყვანეთ ინფორმაცია

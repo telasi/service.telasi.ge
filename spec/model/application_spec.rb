@@ -29,6 +29,8 @@ describe Apps::NewCustomerApplication do
   it { should be_mongoid_document }
   it { should have_field(:status).of_type(Integer) }
   it { should have_field(:voltage).of_type(String) }
+  it { should have_field(:amount).of_type(Float) }
+  it { should have_field(:days).of_type(Integer) }
   it { should be_embedded_in(:application).of_type(Apps::Application) }
   it { should embed_many(:items).of_type(Apps::NewCustomerItem) }
   it { should embed_many(:calculations).of_type(Apps::NewCustomerCalculation) }
