@@ -13,4 +13,4 @@ notes:
 docs:
   label: დოკუმენტები
   url: /apps/new_customer/show/:id/docs
-  select: new_customer/docs
+  select: new_customer/docs new_customer/new_doc

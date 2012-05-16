@@ -230,6 +230,7 @@ DEPENDENCIES
   c12-commons
   capybara
   capybara-webkit
+  carrierwave
   carrierwave-mongoid
   coffee-rails (~> 3.2.1)
   email_spec

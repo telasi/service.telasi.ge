@@ -85,4 +85,24 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
   end
 
+  # ახალი დოკუმენტის ატვირთვა.
+  def new_doc
+    @title = 'ახალი დოკუმენტის ატვირთვა'
+    @application = Apps::Application.where(_id: params[:id]).first
+    if request.post?
+      @doc = Document.new(params[:document])
+      @doc.documentable = @application
+      @doc.save
+      redirect_to apps_new_customer_docs_path, :notice => 'ფაილის ატვირთულია.'
+    else
+      @doc = Document.new
+    end    
+  end
+
+  # დოკუმენტის ჩამოტვირთვა.
+  def download_doc
+    @doc = Document.where(_id: params[:doc_id]).first
+    send_data @doc.file.retrieve_from_store!(@doc.file.path)
+  end
+
 end
