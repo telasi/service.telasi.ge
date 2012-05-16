@@ -9,8 +9,7 @@
   <thead>
     <tr>
       <th>აბონენტი</th>
-      <th width="200">ძაბვის საფეხური</th>
-      <th width="200">სიმძლავრე</th>
+      <th width="250">ძაბვის საფეხური / სიმძლავრე</th>
       <th width="16"><%= icon('cog') %></th>
     </tr>
   </thead>
@@ -20,14 +19,16 @@
         <tr>
           <td>
             <% if item.type == Apps::NewCustomerItem::TYPE_DETAIL %>
-              <%= item.name %>
+              <%= item.name %> <span class="muted">&mdash; <%= item.tin %></span>
             <% else -%>
               ჯამური: <strong><%= item.count %></strong> აბონენტი
             <% end -%><br>
             <span class="muted"><%= item.address %></span>
           </td>
-          <td class="right"><%= item.voltage %> კვ</td>
-          <td class="right"><%= C12.number_format item.power %> კვტ</td>
+          <td class="right">
+            <%= item.voltage %> კვ / <%= C12.number_format item.power %> კვტ <br>
+            <span class="muted"><%= item.personal_use ? 'საყოფაცხოვრებო' : 'არა-საყოფაცხოვრებო' %></span>
+          </td>
           <td>
             <%= link_to icon('pencil', :tooltip => 'შეცვლა', :tooltip_placement => :left), apps_new_customer_edit_item_path(item_id: item.id) %>
             <br>
