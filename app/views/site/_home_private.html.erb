@@ -1,6 +1,11 @@
 <div class="row">
   <div class="span8">
-    TODO: აქ უნდა დაიწეროს ახალი ამბები.
+    <div class="page-header">
+      <h3>სერვისები</h3>
+    </div>
+    <ul class="nav nav-list">
+      <li><%= link_to icon_text('file', 'ელექტრონული განცხადებები'), apps_home_path %></li>
+    </ul>
   </div>
   <div class="span4">
     <%= render :partial => 'users/info', :locals => {:user => current_user} %>
@@ -10,11 +15,6 @@
 				<li><%= link_to icon_text('lock', 'პაროლის შეცვლა'), change_password_path %></li>
 				<li><%= link_to icon_text('picture', 'გამოსახულების შეცვლა'), user_photo_path %></li>
 			</ul>
-		</div>
-		<div class="well well-actions">
-		  <ul class="nav nav-list">
-		    <li><%= link_to icon_text('file', 'თქვენი განცხადებები'), apps_home_path %></li>
-		  </ul>
 		</div>
   </div>
 </div>
