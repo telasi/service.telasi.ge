@@ -104,4 +104,11 @@ class Apps::NewCustomerController < ApplicationController
     send_data @doc.file.read, filename: @doc.file.path, disposition: 'inline'
   end
 
+  # წაშლა.
+  def delete_doc
+    doc = Document.where(_id: params[:doc_id]).first
+    doc.destroy
+    redirect_to apps_new_customer_docs_path, :notice => 'ფაილის წაშლილია.'
+  end
+
 end
