@@ -92,8 +92,7 @@ class Apps::NewCustomerController < ApplicationController
     if request.post?
       @doc = Document.new(params[:document])
       @doc.documentable = @application
-      @doc.save
-      redirect_to apps_new_customer_docs_path, :notice => 'ფაილის ატვირთულია.'
+      redirect_to apps_new_customer_docs_path, :notice => 'ფაილის ატვირთულია.' if @doc.save
     else
       @doc = Document.new
     end    

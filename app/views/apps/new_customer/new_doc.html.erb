@@ -3,8 +3,9 @@
   <h3>ახალი ფაილის ატვირთვა</h3>
 </div>
 <%= simple_form_for(@doc, url: request.url, :html => {:id => 'doc-form', :multipart => true}) do |f| -%>
-  <%= f.file_field :file %>
+  <%= f.input :comment, label: 'ჩაწერეთ კომენტარი', input_html: {autofocus: true, class: 'span6'}%>
+  <%= f.file_field :file if @doc.new? %>
   <div class="form-actions">
-    <%= f.submit 'ფაილის ატვირთვა' %>
+    <%= f.submit 'ფაილის ატვირთვა', class: ['btn', 'btn-primary'] %>
   </div>
 <% end -%>
