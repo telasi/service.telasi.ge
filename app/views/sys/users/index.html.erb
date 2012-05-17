@@ -1,3 +1,24 @@
 <div class="page-header">
   <h2>მომხმარებლების მართვა</h2>
 </div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="45" class="center"><%= icon('picture') %></th>
+      <th>მომხმარებელი</th>
+      <th width="200">როლები</th>
+    </tr>
+  </thead>
+  <% @users.each do |u| -%>
+    <tr>
+      <td width="45" class="center"><%= image_tag(u.normal_photo) %></td>
+      <td>
+        <%= u.full_name %><br>
+        <span class="muted"><%= mail_to u.email %> <%= C12.format_mobile u.mobile %></span>
+      </td>
+      <td>
+        <%= render partial: 'users/roles', locals: {user: u} %>
+      </td>
+    </tr>
+  <% end %>
+</table>

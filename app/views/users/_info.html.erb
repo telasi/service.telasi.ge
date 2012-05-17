@@ -5,9 +5,7 @@
       <strong><%= user.full_name %></strong><br>
       e: <%= mail_to user.email %><br>
       m: <%= C12.format_mobile(user.mobile) %><br>
-      <% if user.sys_admin -%>
-        <span class="badge badge-important">სისადმინი</span>
-      <% end -%>
+      <%= render partial: 'users/roles', locals: {user: user} %>
     </td>
   </tr>
 </table>
