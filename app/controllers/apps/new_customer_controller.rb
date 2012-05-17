@@ -98,6 +98,16 @@ class Apps::NewCustomerController < ApplicationController
     end    
   end
 
+  # დოკუმენტის რედაქტირება.
+  def edit_doc
+    @title = 'დოკუმენტის რედაქტირება'
+    @application = Apps::Application.where(_id: params[:id]).first
+    @doc = Document.where(_id: params[:doc_id]).first
+    if request.put?
+      redirect_to apps_new_customer_docs_path, notice: 'ფაილი განახლებულია.' if @doc.update_attributes(params[:document])
+    end
+  end
+
   # დოკუმენტის ჩამოტვირთვა.
   def download_doc
     @doc = Document.where(_id: params[:doc_id]).first

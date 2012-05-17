@@ -26,6 +26,7 @@
             <span class="muted"><%= doc.file.file.content_type %></span>
           </td>
           <td>
+            <%= link_to icon('pencil', tooltip: 'შეცვლა', tooltip_placement: 'left'), apps_new_customer_edit_doc_path(doc_id: doc.id) %>
             <%= link_to icon('trash', tooltip: 'წაშლა', tooltip_placement: 'left'), apps_new_customer_delete_doc_path(doc_id: doc.id), method: :delete, confirm: 'ნამდვილად გინდათ წაშლა?' %>
           </td>
         </tr>

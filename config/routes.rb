@@ -44,6 +44,7 @@ TelasiService::Application.routes.draw do
   		  scope '/docs', :controller => :new_customer do
           get    '/',                 action: :docs,         as: :new_customer_docs
           match  '/new',              action: :new_doc,      as: :new_customer_new_doc
+          match  '/edit/:doc_id',     action: :edit_doc,     as: :new_customer_edit_doc
           get    '/download/:doc_id', action: :download_doc, as: :new_customer_download_doc
           delete '/delete/:doc_id',   action: :delete_doc,   as: :new_customer_delete_doc
   		  end

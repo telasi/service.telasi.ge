@@ -1,0 +1,13 @@
+<script type="text/javascript">
+  $(function() {
+    Telasi.setFormWaitingOnSubmit('doc-form');
+  });
+</script>
+<%= simple_form_for(@doc, url: request.url, :html => {:id => 'doc-form', :multipart => true}) do |f| -%>
+  <%= f.input :comment, label: 'ფაილის აღწერილობა', input_html: {autofocus: true, class: 'span8'}%>
+  <%= f.file_field :file if @doc.new? %>
+  <div class="form-actions">
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+    <%= link_to 'გაუქმება', apps_new_customer_docs_path, class: 'btn' %>
+  </div>
+<% end -%>

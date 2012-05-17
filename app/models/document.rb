@@ -7,5 +7,5 @@ class Document
   field :comment, type: String
   mount_uploader :file, DocumentUploader
   validates_presence_of :file
-  validates_presence_of :comment, message: 'ჩაწერეთ კომენტარი'
+  validates_presence_of :comment, message: 'ჩაწერეთ აღწერილობა'
 end
