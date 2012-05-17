@@ -102,7 +102,7 @@ class Apps::NewCustomerController < ApplicationController
   # დოკუმენტის ჩამოტვირთვა.
   def download_doc
     @doc = Document.where(_id: params[:doc_id]).first
-    send_data @doc.file.retrieve_from_store!(@doc.file.path)
+    send_data @doc.file.read, filename: @doc.file.path, disposition: 'inline'
   end
 
 end

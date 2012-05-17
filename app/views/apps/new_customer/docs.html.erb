@@ -10,6 +10,8 @@
     <tr>
       <th>სახელწოდება</th>
       <th width="150">ზომა</th>
+      <th width="150">ტიპი</th>
+      <th width="16"><%= icon('cog') %></th>
     </tr>
   </thead>
   <tbody>
@@ -18,11 +20,15 @@
         <tr>
           <td><%= link_to doc.file.path, apps_new_customer_download_doc_path(doc_id: doc.id) %></td>
           <td class="right"><%= doc.file.size %></td>
+          <td><%= doc.file.file.content_type %></td>
+          <td>
+            <%= link_to icon('trash', tooltip: 'წაშლა', tooltip_placement: 'left') %>
+          </td>
         </tr>
       <% end -%>
     <% else -%>
       <tr>
-        <td colspan="3" class="muted">დოკუმენტები არ არის.</td>
+        <td colspan="4" class="muted">დოკუმენტები არ არის.</td>
       </tr>
     <% end -%>
   </tbody>
