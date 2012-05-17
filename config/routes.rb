@@ -23,6 +23,13 @@ TelasiService::Application.routes.draw do
     match '/photo',           :action => :photo,          :as => :user_photo
   end
 
+  # სისტემური ადმინისტრატორის მოქმედებები
+  namespace :sys do
+    scope '/users', :controller => :users do
+      get '/', action: :index, as: :users
+    end
+  end
+  
   # განცხადებები
   namespace :apps do
   	scope :controller => :applications do

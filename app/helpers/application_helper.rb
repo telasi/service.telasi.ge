@@ -13,12 +13,12 @@ module ApplicationHelper
   # როლი შეიძლება გადმოსცეთ მასივის ან ცალკეული სიმბოლოს სახით.
   def with_role?(user, role)
     if role.is_a? Array
-      role.each { |r| return true if with_role?(employee, r) }
+      role.each { |r| return true if with_role?(user, r) }
       false
     elsif role.to_sym == :all
       true
     else
-      employee.send role.to_sym if employee.respond_to?(role.to_sym)
+      user.send role.to_sym if user.respond_to?(role.to_sym)
     end
   end
 

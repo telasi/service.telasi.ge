@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DocumentUploader < CarrierWave::Uploader::Base
   storage :grid_fs
 
