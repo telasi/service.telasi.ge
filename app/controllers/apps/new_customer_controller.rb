@@ -46,7 +46,10 @@ class Apps::NewCustomerController < ApplicationController
     if request.post?
       @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
       @item.application = @application.new_customer_application
-      redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი შექმნილია.' if @item.save
+      if @item.save
+        @application.new_customer_application.calculate
+        redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი შექმნილია.'
+      end
     else
       @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: Apps::NewCustomerApplication::VOLTAGE_220, personal_use: true)
     end
@@ -58,7 +61,10 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
     @item = @application.new_customer_application.items.where(_id: params[:item_id]).first
     if request.put?
-      redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი განახლებურია.' if @item.update_attributes(params[:apps_new_customer_item])
+      if @item.update_attributes(params[:apps_new_customer_item])
+        @application.new_customer_application.calculate
+        redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი განახლებურია.'
+      end
     end
   end
 
@@ -66,7 +72,8 @@ class Apps::NewCustomerController < ApplicationController
   def delete_item
     app = Apps::Application.where(_id: params[:id]).first
     item = app.new_customer_application.items.where(_id: params[:item_id]).destroy_all
-    redirect_to apps_new_customer_items_path(id: app.id)
+    app.new_customer_application.calculate
+    redirect_to apps_new_customer_items_path(id: app.id), notice: 'აბონენტი წაშლილია.'
   end
 
   ### შენიშვნების მართვა
