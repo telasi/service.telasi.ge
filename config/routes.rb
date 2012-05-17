@@ -29,7 +29,7 @@ TelasiService::Application.routes.draw do
       get '/', action: :index, as: :users
     end
   end
-  
+
   # განცხადებები
   namespace :apps do
   	scope :controller => :applications do
