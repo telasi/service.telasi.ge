@@ -1,20 +1,23 @@
 <h4>ინფორმაცია აპლიკანტზე</h4>
 <hr>
-  <table class="table table-bordered table-striped">
-    <tr>
-      <th class="right" width="100">საიდ.ნომერი</th>
-      <td class="muted"><%= applicant.tin %></td>
-    </tr>
-    <tr>
-      <th class="right">დასახელება</th>
-      <td class="muted"><%= applicant.name %></td>
-    </tr>
-    <tr>
-      <th class="right">მობილური</th>
-      <td class="muted"><%= C12.format_mobile(applicant.mobile) %></td>
-    </tr>
-    <tr>
-      <th class="right">ელ.ფოსტა</th>
-      <td class="muted"><%= mail_to applicant.email %></td>
-    </tr>
-  </table>
+<div class="btn-toolbar">
+  <%= link_to icon_text('pencil', 'აპლიკანტის მონაცემების შეცვლა'), nil, class: 'btn' %>
+</div>
+<table class="table table-bordered table-striped">
+  <tr>
+    <th class="right" width="100">საიდ.ნომერი</th>
+    <td class="muted"><%= applicant.tin %></td>
+  </tr>
+  <tr>
+    <th class="right">დასახელება</th>
+    <td class="muted"><%= applicant.name %></td>
+  </tr>
+  <tr>
+    <th class="right">მობილური</th>
+    <td class="muted"><%= C12.format_mobile(applicant.mobile) %></td>
+  </tr>
+  <tr>
+    <th class="right">ელ.ფოსტა</th>
+    <td class="muted"><%= mail_to applicant.email %></td>
+  </tr>
+</table>

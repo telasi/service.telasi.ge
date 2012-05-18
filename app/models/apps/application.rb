@@ -14,4 +14,9 @@ class Apps::Application
   embeds_one :applicant, :class_name => 'Apps::Applicant'
   embeds_one :new_customer_application, :class_name => 'Apps::NewCustomerApplication'
   has_many :documents, as: :documentable
+
+  def self.by_user(user)
+    where(owner_id: user.id)
+  end
+
 end
