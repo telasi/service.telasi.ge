@@ -26,8 +26,9 @@ TelasiService::Application.routes.draw do
   # სისტემური ადმინისტრატორის მოქმედებები
   namespace :sys do
     scope '/users', :controller => :users do
-      get   '/',         action: :index, as: :users
-      match '/edit/:id', action: :edit,  as: :edit_user
+      get   '/',            action: :index,  as: :users
+      match '/edit/:id',    action: :edit,   as: :edit_user
+      delete '/delete/:id', action: :delete, as: :delete_user
     end
   end
 

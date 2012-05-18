@@ -15,5 +15,12 @@ class Sys::UsersController < ApplicationController
       redirect_to sys_users_path, notice: 'მომხმარებელი შეცვლილია.' if @user.update_attributes(params[:user]) 
     end
   end
-  
+
+  # მომხმარებლის წაშლა.
+  def delete
+    user = User.where(_id: params[:id]).first
+    user.delete
+    redirect_to sys_users_path, notice: 'მომხმარებელი წაშლილია.'
+  end
+
 end

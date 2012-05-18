@@ -22,6 +22,7 @@
       </td>
       <td>
         <%= link_to icon('pencil', tooltip: 'შეცვლა', tooltip_placement: :left), sys_edit_user_path(id: u.id) %>
+        <%= link_to icon('trash',  tooltip: 'წაშლა',  tooltip_placement: :left), sys_delete_user_path(id: u.id), method: :delete, confirm: 'ნამდვილად გინდათ წაშლა?' unless u == current_user %>
       </td>
     </tr>
   <% end %>
