@@ -1,0 +1,21 @@
+<script type="text/javascript">
+  $(function() { Telasi.setFormWaitingOnSubmit('user-form'); });
+</script>
+<div class="page-header">
+  <h3>მომხმარებლის შეცვლა</h3>
+</div>
+<%= simple_form_for(@user, url: request.url, html: {id: 'user-form', class: 'form-horizontal'}) do |f| -%>
+  <h4>ძირითადი მონაცემები <small>სახელი, გვარი და საკონტაქტო ინფორმაცია</small></h4> <hr>
+  <%= f.input :email, label: 'ელ.ფოსტა', input_html: {autofocus: true} %>
+  <%= f.input :password, label: 'პაროლი' %>
+  <%= f.input :first_name, label: 'სახელი' %>
+  <%= f.input :last_name, label: 'გვარი' %>
+  <%= f.input :email_confirmed, as: 'boolean', label: false, inline_label: 'დადასტურებული ელ.ფოსტა?' %>
+  <h4>როლები <small>რისი გაკეთება შეუძლია ამ მომხმარებელს?</small></h4> <hr>
+  <%= f.input :sys_admin, as: 'boolean', label: false, inline_label: 'არის თუ არა სისტემური ადმინისტრატორი?' %>
+  <%= f.input :new_cust_admin, as: 'boolean', label: false, inline_label: 'არის თუ არა ახალი აბონენტების განცხადებათა ადმინისტრატორი?' %>
+  <div class="form-actions">
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+    <%= link_to 'გაუქმება', sys_users_path, class: 'btn' %>
+  </div>
+<% end -%>

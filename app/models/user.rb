@@ -27,6 +27,9 @@ class User
   # არის თუ არა ეს სისტემური ადმინისტრატორი?
   field :sys_admin, type: Boolean
 
+  # ახალი აბონენტის რეგისტრაციის ადმინისტრატორი.
+  field :new_cust_admin, type: Boolean
+
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
   field :email_confirmed, type: Boolean
 

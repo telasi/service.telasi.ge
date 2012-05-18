@@ -12,6 +12,7 @@ describe User do
   it { should have_field(:first_name).of_type(String) }
   it { should have_field(:last_name).of_type(String) }
   it { should have_field(:sys_admin).of_type(Boolean) }
+  it { should have_field(:new_cust_admin).of_type(Boolean) }
   it { should have_field(:email_confirmed).of_type(Boolean) }
   it { should have_field(:mobile_confirmed).of_type(Boolean) }
   it { should have_field(:email_confirm_hash).of_type(String) }

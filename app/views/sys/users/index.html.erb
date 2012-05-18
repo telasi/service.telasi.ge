@@ -5,8 +5,9 @@
   <thead>
     <tr>
       <th width="45" class="center"><%= icon('picture') %></th>
-      <th>მომხმარებელი</th>
-      <th width="200">როლები</th>
+      <th width="300">მომხმარებელი</th>
+      <th>როლები</th>
+      <th width="16"><%= icon('cog') %></th>
     </tr>
   </thead>
   <% @users.each do |u| -%>
@@ -19,6 +20,10 @@
       <td>
         <%= render partial: 'users/roles', locals: {user: u} %>
       </td>
+      <td>
+        <%= link_to icon('pencil', tooltip: 'შეცვლა', tooltip_placement: :left), sys_edit_user_path(id: u.id) %>
+      </td>
     </tr>
   <% end %>
 </table>
+<%= paginate @users %>
