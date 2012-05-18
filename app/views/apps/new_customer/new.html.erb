@@ -1,39 +1,4 @@
-<style type="text/css">
-  .description { margin: -16px 0 16px 0; }
-</style>
-<script type="text/javascript">
-  $(function() {
-    Telasi.setFormWaitingOnSubmit('new-customer-form');
-  });
-</script>
 <div class="page-header">
   <h2>ახალი განცხადება <small>ქსელზე მიერთების</small></h2>
 </div>
-<%= simple_form_for(@application, :url => request.url, :html => {:id => 'new-customer-form'}) do |f| -%>
-  <p class="muted">
-    განსაზღვრეთ ინფორმაცია იმ პირის შესახებ, ვისაც შემოაქვს განცხადება.
-  </p>
-  <%= simple_fields_for @application.applicant do |applicant_form| %>
-    <%= applicant_form.input :tin, :label => 'საიდენტიფიკაციო კოდი ან პირადი ნომერი', :input_html => {:autofocus => true} %>
-    <p class="muted description">
-      იურიდიული პირის შემთხვევაში ჩაწერეთ ამ პირის საიდენტიფიკაციო ნომერი.
-      ფიზიკური პირის შემთხვევაში &mdash; მისი პირადი ნომერი.
-    </p>
-    <%= applicant_form.input :mobile, :label => 'მობილური ტელეფონის ნომერი' %>
-    <p class="muted description">
-      ამ განცხადების განახლების შესახებ შეტყობინებას მიიღებთ ამ მობილურის ნომერზე.
-    </p>
-    <%= applicant_form.input :email, :label => 'ელექტრონული ფოსტა' %>
-    <p class="muted description">
-      ამ განცხადების განახლების შესახებ შეტყობინებას მიიღებთ ამ ელექტრონულ ფოსტაზე.
-    </p>
-    <%= applicant_form.input :address, :label => 'აპლიკანტის იურიდიული ან საცხოვრებელი მისამართი', :input_html => {:class => :span8} %>
-    <p class="muted description">
-      ამ მისამართზე მიიღებთ შეტყობინებებს წერილობითი სახით.
-    </p>
-  <% end -%>
-  <div class="form-actions">
-    <%= f.submit 'განცხადების შექმნა', :class => ['btn', 'btn-primary'] %>
-    <%= link_to 'გაუქმება', apps_home_url, :class => 'btn' %>
-  </div>
-<% end -%>
+<%= render partial: 'apps/new_customer/form' %>

@@ -39,8 +39,9 @@ TelasiService::Application.routes.draw do
   	end
   	# ქსელზე მიერთება
   	scope '/new_customer', :controller => :new_customer do
-  		match  '/new',        :action => :new,    :as => :new_customer_new
-  		delete '/delete/:id', :action => :delete, :as => :new_customer_delete
+  		match  '/new',        action: :new,    as: :new_customer_new
+  		match  '/edit/:id',   action: :edit,   as: :new_customer_edit
+  		delete '/delete/:id', action: :delete, as: :new_customer_delete
   		scope '/show/:id', :controller => :new_customer do
         get '/',          :action => :show,      :as => :new_customer
         scope '/items' do

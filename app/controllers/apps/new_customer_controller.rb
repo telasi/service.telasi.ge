@@ -17,6 +17,15 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # განცხადების რედაქტირება.
+  def edit
+    @title = 'აპლიკანტის შეცვლა'
+    @application = Apps::Application.where(_id: params[:id]).first
+    if request.put?
+      redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.' if @application.applicant.update_attributes(params[:apps_applicant])
+    end
+  end
+
   # განცხადების ნახვა: ძირითადი გვერდი.
   def show
     @title = 'განცხადების დეტალები'
