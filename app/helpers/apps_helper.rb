@@ -1,6 +1,24 @@
 # -*- encoding : utf-8 -*-
 module AppsHelper
 
+  def app_row_class(app)
+    case app.type
+    when Apps::Application::TYPE_NEW_CUSTOMER
+      status = app.new_customer_application.status
+      if status == Apps::NewCustomerApplication::STATUS_SENT
+        'warning'
+      elsif status == Apps::NewCustomerApplication::STATUS_CANCELED
+        'error'
+      elsif status == Apps::NewCustomerApplication::STATUS_RECEIVED
+        'success'
+      elsif status == Apps::NewCustomerApplication::STATUS_COMPLETE
+        'canceled'
+      else
+        'normal'
+      end
+    end
+  end
+
   def app_type(app)
     case app.type
     when Apps::Application::TYPE_NEW_CUSTOMER

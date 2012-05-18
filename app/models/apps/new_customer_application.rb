@@ -30,6 +30,18 @@ class Apps::NewCustomerApplication
   embeds_many :items, class_name: 'Apps::NewCustomerItem', inverse_of: :application
   embeds_many :calculations, class_name: 'Apps::NewCustomerCalculation', inverse_of: :application
 
+  # განაცხადის გაგზავნა თელასში.
+  def send!
+    return false unless self.status == STATUS_INITIAL
+    return false unless self.amount
+    prev = Apps::Application.where(:"new_customer_application.status".ne => STATUS_INITIAL).desc(:number).last
+    self.application.number = (prev.nil? ? 0 : prev.number) + 1
+    if self.application.save
+      self.status = STATUS_SENT
+      self.save
+    end
+  end
+
   # ტარიფის გათვლა.
   def calculate
     self.calculations.destroy_all

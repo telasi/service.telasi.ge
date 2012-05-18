@@ -9,7 +9,7 @@ class Apps::Application
   TYPE_NEW_CUSTOMER = 'new_customer'
 
   field :type,   type: String
-  field :number, type: String
+  field :number, type: Integer
   belongs_to :owner, :class_name => 'User'
   embeds_one :applicant, :class_name => 'Apps::Applicant'
   embeds_one :new_customer_application, :class_name => 'Apps::NewCustomerApplication'

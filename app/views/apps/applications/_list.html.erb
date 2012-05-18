@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped coloring">
   <thead>
     <tr>
       <th width="150">№ და ტიპი</th>
@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <% @applications.each do |app| -%>
-      <tr>
+      <tr class="<%= app_row_class(app) %>">
       	<td>
       	  <%= app_link(app) %><br>
       	  <span class="muted"><%= app_type(app) %></span>

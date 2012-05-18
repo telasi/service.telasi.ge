@@ -7,6 +7,7 @@ describe Apps::Application do
 	it { should have_field(:type).of_type(String) }
 	it { should belong_to(:owner).of_type(User) }
 	it { should embed_one(:applicant).of_type(Apps::Applicant) }
+  it { should have_field(:number).of_type(Integer) }
 	it { should embed_one(:new_customer_application).of_type(Apps::NewCustomerApplication) }
 end
 
@@ -109,5 +110,23 @@ describe 'ახალი აბონენტის გამოთვლა' 
     its(:tariff_id) { should == 1 }
     its(:amount) { should == 400 }
     its(:days) { should == 35 }
+  end
+  context 'გაგზავნა' do
+    before(:all) do
+      @resp = @newapp.send!
+      @app.reload
+    end
+    context do
+      subject { @resp }
+      it { should == true }
+    end
+    context do
+      subject { @newapp }
+      its(:status) { should == 1 }
+    end
+    context do
+      subject { @app }
+      its(:number) { should == 1 }
+    end
   end
 end
