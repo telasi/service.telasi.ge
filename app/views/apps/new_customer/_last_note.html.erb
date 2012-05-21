@@ -1,0 +1,15 @@
+<h4>ბოლო შენიშვნა</h4>
+<hr>
+<% log = @application.logs.last %>
+<table class="table">
+  <tr>
+    <td width="45"><%= image_tag log.user.small_photo %></td>
+    <td>
+      <strong><%= log.user.full_name %></strong>
+      <span class="badge badge-info"><%= log.created_at.strftime('%d-%B-%Y %H:%M') %></span>
+      <div style="margin-top: 8px;">
+        <%= kramdown log.text %>
+      </div>
+    </td>
+  </tr>
+</table>
