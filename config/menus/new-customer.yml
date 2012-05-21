@@ -6,11 +6,11 @@ customers:
   label: აბონენტები
   url: /apps/new_customer/show/:id/items
   select: new_customer/items new_customer/new_item new_customer/edit_item
-notes:
-  label: შენიშვნები
-  url: /apps/new_customer/show/:id/notes
-  select: new_customer/notes
 docs:
   label: დოკუმენტები
   url: /apps/new_customer/show/:id/docs
   select: new_customer/docs new_customer/new_doc
+notes:
+  label: შენიშვნები
+  url: /apps/new_customer/show/:id/notes
+  select: new_customer/notes

@@ -1,1 +1,16 @@
 <%= render :partial => 'apps/new_customer/header' %>
+<table class="table table-stripped">
+  <% @logs.each do |log| -%>
+    <tr>
+      <td width="16"></td>
+      <td width="45"><%= image_tag log.user.small_photo, style: 'border: 1px solid #aaa' %></td>
+      <td>
+        <strong class="muted"><%= log.user.full_name %></strong>
+        <span class="badge"><%= log.created_at.strftime('%d-%b-%Y %H:%M') %></span>
+        <div class="log text" style="margin-top: 8px;">
+          <%= log.text %>
+        </div>
+      </td>
+    </tr>
+  <% end -%>
+<table>

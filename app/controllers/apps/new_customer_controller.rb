@@ -10,6 +10,7 @@ class Apps::NewCustomerController < ApplicationController
       @application.owner = current_user
       @application.new_customer_application = Apps::NewCustomerApplication.new
       @application.type = Apps::Application::TYPE_NEW_CUSTOMER
+      @application.add_log(current_user, 'განცხადება შექმნილია.', Log::CREATE)
       redirect_to apps_new_customer_path(:id => @application.id), :notice => 'განცხადება შექმნილია.' if @application.save
     else
       applicant = Apps::Applicant.new(:mobile => current_user.mobile, :email => current_user.email)
@@ -91,6 +92,7 @@ class Apps::NewCustomerController < ApplicationController
   def notes
     @title = 'შენიშვნები'
     @application = Apps::Application.where(_id: params[:id]).first
+    @logs = @application.logs.desc(:created_at)
   end
 
   ### დოკუმენტების მართვა
