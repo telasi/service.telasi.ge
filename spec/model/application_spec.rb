@@ -94,23 +94,30 @@ describe 'ახალი აბონენტის გამოთვლა' 
     @newapp.items << Apps::NewCustomerItem.new(voltage: Apps::NewCustomerApplication::VOLTAGE_220, address: 'ქ. თბილისი, ჯიქიას 7', type: Apps::NewCustomerItem::TYPE_SUMMARY, power: 2, personal_use: true)
     @newapp.save
   end
-  subject { @newapp }
-  it { should_not be_nil }
-  its(:items) { should_not be_empty }
-  context 'გაანგარიშება' do
-    before(:all) do
-      @newapp.calculate
-    end
-    subject { @newapp.calculations }
-    it { should_not be_empty }
-    its(:size) { should == 1 }
+  context 'აპლიკაციის ანალიზი' do
+    subject { @app }
+    its(:number) { should be_nil }
+    its(:private) { should == true }
   end
-  context 'გაანგარიშების ანალიზი' do
-    subject { @newapp.calculations.first }
-    its(:power) { should == 3 }
-    its(:tariff_id) { should == 1 }
-    its(:amount) { should == 400 }
-    its(:days) { should == 35 }
+  context do
+    subject { @newapp }
+    it { should_not be_nil }
+    its(:items) { should_not be_empty }
+    context 'გაანგარიშება' do
+      before(:all) do
+        @newapp.calculate
+      end
+      subject { @newapp.calculations }
+      it { should_not be_empty }
+      its(:size) { should == 1 }
+    end
+    context 'გაანგარიშების ანალიზი' do
+      subject { @newapp.calculations.first }
+      its(:power) { should == 3 }
+      its(:tariff_id) { should == 1 }
+      its(:amount) { should == 400 }
+      its(:days) { should == 35 }
+    end
   end
   context 'გაგზავნა' do
     before(:all) do
@@ -128,6 +135,7 @@ describe 'ახალი აბონენტის გამოთვლა' 
     context do
       subject { @app }
       its(:number) { should == 1 }
+      its(:private) { should == false }
     end
   end
 end
