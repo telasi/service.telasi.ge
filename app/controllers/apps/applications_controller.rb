@@ -5,7 +5,7 @@ class Apps::ApplicationsController < ApplicationController
 	def index
     @title = 'განცხადებები'
     if current_user.new_cust_admin
-      rel = Apps::Application
+      rel = Apps::Application.where('$or' => [{private: false}, {owner_id: current_user.id}] )
     else
       rel = Apps::Application.by_user(current_user)
     end

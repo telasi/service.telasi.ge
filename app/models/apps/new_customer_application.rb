@@ -36,12 +36,17 @@ class Apps::NewCustomerApplication
     return false unless self.amount
     prev = Apps::Application.where(:"new_customer_application.status".ne => STATUS_INITIAL).desc(:number).last
     self.application.number = (prev.nil? ? 0 : prev.number) + 1
+    self.application.private = false
     if self.application.save
       self.status = STATUS_SENT
       self.save
     end
   end
 
+  # 
+  def approve!
+  end
+  
   # ტარიფის გათვლა.
   def calculate
     self.calculations.destroy_all

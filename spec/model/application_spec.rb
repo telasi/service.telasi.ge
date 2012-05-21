@@ -5,9 +5,10 @@ describe Apps::Application do
 	it { should be_mongoid_document }
 	it { should be_timestamped_document }
 	it { should have_field(:type).of_type(String) }
+  it { should have_field(:number).of_type(Integer) }
+	it { should have_field(:private).of_type(Boolean) }
 	it { should belong_to(:owner).of_type(User) }
 	it { should embed_one(:applicant).of_type(Apps::Applicant) }
-  it { should have_field(:number).of_type(Integer) }
 	it { should embed_one(:new_customer_application).of_type(Apps::NewCustomerApplication) }
 end
 
