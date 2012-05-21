@@ -39,9 +39,13 @@ TelasiService::Application.routes.draw do
   	end
   	# ქსელზე მიერთება
   	scope '/new_customer', :controller => :new_customer do
-  		match  '/new',        action: :new,    as: :new_customer_new
-  		match  '/edit/:id',   action: :edit,   as: :new_customer_edit
-  		delete '/delete/:id', action: :delete, as: :new_customer_delete
+  		match  '/new',          action: :new,      as: :new_customer_new
+  		match  '/edit/:id',     action: :edit,     as: :new_customer_edit
+  		delete '/delete/:id',   action: :delete,   as: :new_customer_delete
+  		post   '/send/:id',     action: :send,     as: :new_customer_send
+  		post   '/approve/:id',  action: :approve,  as: :new_customer_approve
+  		post   '/deprove/:id',  action: :deprove,  as: :new_customer_deprove
+  		post   '/complete/:id', action: :complete, as: :new_customer_complete
   		scope '/show/:id', :controller => :new_customer do
         get '/',          :action => :show,      :as => :new_customer
         scope '/items' do
@@ -50,7 +54,10 @@ TelasiService::Application.routes.draw do
           match  '/edit/:item_id',   action: :edit_item,   as: :new_customer_edit_item
           delete '/delete/:item_id', action: :delete_item, as: :new_customer_delete_item
         end
-  		  get '/notes',     :action => :notes,     :as => :new_customer_notes
+        scope '/notes' do
+          get   '/',    action: :notes,   as: :new_customer_notes
+          match '/new', action: new_note, as: :new_customer_new_note
+        end
   		  scope '/docs', :controller => :new_customer do
           get    '/',                 action: :docs,         as: :new_customer_docs
           match  '/new',              action: :new_doc,      as: :new_customer_new_doc
