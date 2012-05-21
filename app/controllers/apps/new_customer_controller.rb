@@ -92,7 +92,7 @@ class Apps::NewCustomerController < ApplicationController
   def notes
     @title = 'შენიშვნები'
     @application = Apps::Application.where(_id: params[:id]).first
-    @logs = @application.logs.desc(:created_at).paginate(page: params[:page], per_page: 10)
+    @logs = @application.logs.desc(:created_at).paginate(page: params[:page], per_page: 5)
   end
 
   def new_note
