@@ -6,4 +6,10 @@ class SiteController < ApplicationController
     @title = 'საწყისი'
   end
 
+  # MARKDOWN ტექსტის გენერაცია.
+  def markdown
+    @text = params[:text]
+    render layout: false
+  end
+  
 end

@@ -13,4 +13,4 @@ docs:
 notes:
   label: შენიშვნები
   url: /apps/new_customer/show/:id/notes
-  select: new_customer/notes
+  select: new_customer/notes new_customer/new_note

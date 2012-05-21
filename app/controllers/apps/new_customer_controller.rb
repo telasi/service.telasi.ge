@@ -95,6 +95,19 @@ class Apps::NewCustomerController < ApplicationController
     @logs = @application.logs.desc(:created_at).paginate(page: params[:page], per_page: 10)
   end
 
+  def new_note
+    @title = 'შენიშვნები'
+    @application = Apps::Application.where(_id: params[:id]).first
+    if request.post?
+      @log = Log.new(params[:log])
+      @log.user = current_user
+      @application.logs << @log
+      redirect_to apps_new_customer_notes_path, notice: 'შენიშვნა დამატებულია' if @application.save
+    else
+      @log = Log.new
+    end
+  end
+
   ### დოკუმენტების მართვა
 
   # განცხადების ნახვა: დოკუმენტაციის ნახვა.

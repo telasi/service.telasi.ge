@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'kramdown'
+
 module ApplicationHelper
   def current_user
     controller.current_user
@@ -22,4 +24,7 @@ module ApplicationHelper
     end
   end
 
+  def kramdown(text)
+    return Kramdown::Document.new(text).to_html.html_safe
+  end
 end

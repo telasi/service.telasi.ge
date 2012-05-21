@@ -5,9 +5,11 @@ class Log
 
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :type, type: String
+  field :type, type: String, default: COMMON
   field :text, type: String
 
+  validates_presence_of :text, message: 'ჩაწერეთ შენიშვნა'
+  
   belongs_to  :user
   embedded_in :loggable, polymorphic: true
 

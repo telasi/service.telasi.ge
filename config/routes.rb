@@ -4,6 +4,7 @@ TelasiService::Application.routes.draw do
 
   # საიტის მოქმედებები
   get '/home', :controller => :site, :action => :index, :as => :home
+  post '/markdown', controller: :site, action: :markdown
 
   # დახმარება
   scope '/help', :controller => :help do

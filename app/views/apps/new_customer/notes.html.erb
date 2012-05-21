@@ -1,4 +1,8 @@
 <%= render :partial => 'apps/new_customer/header' %>
+<div class="btn-toolbar">
+  <%= link_to icon_text('plus', 'ახალი შენიშვნა'), apps_new_customer_new_note_path, class: :btn %>
+  <span class="muted" style="padding-left: 10px;">ჩაწერეთ განცხადებასთან დაკავშირებული ნებისმიერი შენიშვნა.</span>
+</div>
 <table class="table table-stripped">
   <% @logs.each do |log| -%>
     <tr>
@@ -10,7 +14,7 @@
         <strong class="muted"><%= log.user.full_name %></strong>
         <span class="badge badge-info"><%= log.created_at.strftime('%d-%b-%Y %H:%M') %></span>
         <div class="log text" style="margin-top: 8px;">
-          <%= log.text %>
+          <%= kramdown log.text %>
         </div>
       </td>
     </tr>

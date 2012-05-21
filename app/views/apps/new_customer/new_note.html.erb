@@ -1,0 +1,37 @@
+<script type="text/javascript">
+  $(function() {
+    $('#btn-preview').click(function() {
+      var url = '<%= markdown_url %>';
+      $.post(url, {text: $('#log_text').val()}, function(data) {
+        $('#pnl-preview').html(data);
+      });
+    });
+  });
+</script>
+<%= render :partial => 'apps/new_customer/header' %>
+<div class="page-header">
+  <h3>ახალი შენიშვნა</h3>
+</div>
+<div class="row">
+  <div class="span9">
+    <%= simple_form_for(@log, url: request.url) do |f| -%>
+      <%= f.input :text, label: 'ჩაწერეთ აქ თქვენი შენიშვნა:', as: 'text', input_html: {autofocus: true, rows: 5, style: 'width: 690px;'} %>
+      <div class="form-actions">
+        <%= link_to 'წინასწარ ნახვა', '#', class: 'btn', id: 'btn-preview' %>
+        <div class="pull-right">
+          <%= f.submit 'შენიშვნის დამატება', class: ['btn', 'btn-primary'] %>
+          <%= link_to 'გაუქმება', apps_new_customer_notes_path, class: 'btn' %>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+  <div class="span3">
+    <ul>
+      <li><em>დახრილი</em> ტექსტის ჩასაწერად გამოიყენეთ: <code>*დახრილი*</code> ან <code>_დახრილი_</code>.</li>
+      <li><strong>სქელი</strong> ტექსტის ჩასაწერად გამოიყენეთ: <code>**სქელი**</code> ან <code>__სქელი__</code>.</li>
+      <li>ასევე შეგიძლიათ გამოიყენოთ სხვა ბრძანებები, რომელიც <a href="http://daringfireball.net/projects/markdown/" target="out">markdown</a> ფორმატითაა განსაზღვრული.</li>
+    </ul>
+  </div>
+</div>
+<div id="pnl-preview">
+</div>
