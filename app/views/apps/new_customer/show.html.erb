@@ -1,12 +1,11 @@
 <%= render :partial => 'apps/new_customer/header' %>
+<%= render partial: 'apps/new_customer/calculations' %>
+
 <div class="row">
-  <div class="span5">
+  <div class="span6">
     <%= render partial: 'apps/new_customer/applicant', locals: {applicant: @application.applicant} %>
-    <h4>მომხმარებელი, რომელმაც შეავსო ეს განაცხადი</h4>
-    <hr>
-    <%= render :partial => 'users/info', :locals => {:user => @application.owner} %>
   </div>
-  <div class="span7">
-    <%= render partial: 'apps/new_customer/calculations' %>
+  <div class="span6">
+    <%= render partial: 'apps/new_customer/other_actions' %>
   </div>
 </div>
