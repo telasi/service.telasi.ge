@@ -13,10 +13,10 @@ class Apps::NewCustomerApplication
   STATUS_SENT     = 1
 
   # დავალებაა არაა მიღებული.
-  STATUS_CANCELED = 2
+  STATUS_DEPROVED = 2
 
   # დავალება მიღებულია.
-  STATUS_RECEIVED = 3
+  STATUS_APPROVED = 3
 
   # დავალება დასრულებულია.
   STATUS_COMPLETE = 4
@@ -43,10 +43,27 @@ class Apps::NewCustomerApplication
     end
   end
 
-  # 
+  # განცხადების "დადასტურება".
   def approve!
+    return false unless self.status == STATUS_SENT
+    self.status = STATUS_APPROVED
+    self.save
   end
-  
+
+  # განცხადების "უარყოფა".
+  def deprove!
+    return false unless self.status == STATUS_SENT
+    self.status = STATUS_DEPROVED
+    self.save
+  end
+
+  # განცხადების "დასრულება".
+  def complete!
+    return false unless self.status == STATUS_APPROVED
+    self.status = STATUS_COMPLETE
+    self.save
+  end
+
   # ტარიფის გათვლა.
   def calculate
     self.calculations.destroy_all
