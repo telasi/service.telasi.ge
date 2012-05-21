@@ -10,6 +10,7 @@ describe Apps::Application do
 	it { should belong_to(:owner).of_type(User) }
 	it { should embed_one(:applicant).of_type(Apps::Applicant) }
 	it { should embed_one(:new_customer_application).of_type(Apps::NewCustomerApplication) }
+  it { should embed_many(:logs).of_type(Log) }
 end
 
 describe Apps::Applicant do

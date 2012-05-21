@@ -14,6 +14,7 @@ class Apps::Application
   belongs_to :owner, :class_name => 'User'
   embeds_one :applicant, :class_name => 'Apps::Applicant'
   embeds_one :new_customer_application, :class_name => 'Apps::NewCustomerApplication'
+  embeds_many :logs, as: :loggable
   has_many :documents, as: :documentable
 
   def self.by_user(user)

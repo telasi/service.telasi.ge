@@ -7,9 +7,9 @@ module AppsHelper
       status = app.new_customer_application.status
       if status == Apps::NewCustomerApplication::STATUS_SENT
         'warning'
-      elsif status == Apps::NewCustomerApplication::STATUS_CANCELED
+      elsif status == Apps::NewCustomerApplication::STATUS_DEPROVED
         'error'
-      elsif status == Apps::NewCustomerApplication::STATUS_RECEIVED
+      elsif status == Apps::NewCustomerApplication::STATUS_APPROVED
         'success'
       elsif status == Apps::NewCustomerApplication::STATUS_COMPLETE
         'canceled'
