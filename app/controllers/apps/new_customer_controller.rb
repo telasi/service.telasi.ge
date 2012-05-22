@@ -31,7 +31,6 @@ class Apps::NewCustomerController < ApplicationController
   def show
     @title = 'განცხადების დეტალები'
     @application = Apps::Application.where(_id: params[:id]).first
-    # XXX
   end
 
   # განცხადების გაგზავნა.
@@ -39,6 +38,7 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.send!
       @application.add_log(current_user, 'განცხადება გაგზავნილია.', Log::SHARE)
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} miRebulia warmoebaSi.") if Magti::SEND
       redirect_to apps_new_customer_path, notice: 'განცხადება გაგზავნილია.'
     else
       redirect_to apps_new_customer_path
@@ -49,7 +49,7 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.approve!
       @application.add_log(current_user, 'განცხადება მიღებულია.', Log::OK)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%08d' % @application.number} miRebulia warmoebaSi.") if Magti::SEND
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} dadasturebulia.") if Magti::SEND
       redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
     else
       redirect_to apps_new_customer_path
@@ -60,7 +60,7 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.deprove!
       @application.add_log(current_user, 'განცხადება გაუქმებულია.', Log::BAN)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%08d' % @application.number} gauqmebulia.") if Magti::SEND
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} gauqmebulia.") if Magti::SEND
       redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
     else
       redirect_to apps_new_customer_path
@@ -71,10 +71,14 @@ class Apps::NewCustomerController < ApplicationController
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.to_sent!
       @application.add_log(current_user, 'განცხადება დაბრუნებულია წარმოებაში.', Log::SHARE)
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} dabrunebulia warmoebaSi.") if Magti::SEND
       redirect_to apps_new_customer_path, notice: 'განცხადება დაბრუნებულია წარმოებაში.'
     else
       redirect_to apps_new_customer_path
     end
+  end
+
+  def complete
   end
 
   # განცხადების წაშლა.

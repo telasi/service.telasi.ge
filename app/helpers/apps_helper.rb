@@ -42,7 +42,7 @@ module AppsHelper
     if app.number.blank?
       tooltiped_text '<ნომრის გარეშე>', 'განცხადებას ნომერი მიენიჭება თელასში გამოგზავნის შემდეგ', :right
     else
-      "№%08d" % app.number
+      "№%06d" % app.number
     end
   end
 
