@@ -14,6 +14,8 @@
           <% if @application.new_customer_application.sent? %>
             <%= link_to icon_text('ok-sign', 'წარმოებაში მიღება', white: true), apps_new_customer_approve_path(id: @application.id), class: ['btn', 'btn-success'], method: :post, confirm: 'ადასტურებთ განცხადების წამოებაში მიღებას?' %>
             <%= link_to icon_text('ban-circle', 'გაუქმება', white: true), apps_new_customer_deprove_path(id: @application.id), class: ['btn', 'btn-danger'], method: :post, confirm: 'ადასტურებთ განცხადების გაუქმებას?' %>
+          <% elsif @application.new_customer_application.approved? or @application.new_customer_application.deproved? %>
+            <%= link_to icon_text('share', 'წარმოებაში დაბრუნება'), apps_new_customer_to_sent_path(id: @application.id), class: 'btn', method: :post, confirm: 'ადასტურებთ განცხადების წამოებაში დაბრუნებას?' %>
           <% end -%>
         </div>
       <% end -%>

@@ -40,13 +40,15 @@ TelasiService::Application.routes.draw do
   	end
   	# ქსელზე მიერთება
   	scope '/new_customer', :controller => :new_customer do
-  		match  '/new',          action: :new,      as: :new_customer_new
-  		match  '/edit/:id',     action: :edit,     as: :new_customer_edit
-  		delete '/delete/:id',   action: :delete,   as: :new_customer_delete
-  		post   '/send/:id',     action: :sendapp,     as: :new_customer_send
-  		post   '/approve/:id',  action: :approve,  as: :new_customer_approve
-  		post   '/deprove/:id',  action: :deprove,  as: :new_customer_deprove
-  		post   '/complete/:id', action: :complete, as: :new_customer_complete
+  		match  '/new',             action: :new,         as: :new_customer_new
+  		match  '/edit/:id',        action: :edit,        as: :new_customer_edit
+  		delete '/delete/:id',      action: :delete,      as: :new_customer_delete
+  		post   '/send/:id',        action: :sendapp,     as: :new_customer_send
+  		post   '/approve/:id',     action: :approve,     as: :new_customer_approve
+  		post   '/deprove/:id',     action: :deprove,     as: :new_customer_deprove
+  		post   '/to_sent/:id',     action: :to_sent,     as: :new_customer_to_sent 
+  		post   '/complete/:id',    action: :complete,    as: :new_customer_complete
+  		post   '/to_complete/:id', action: :to_complete, as: :new_customer_to_complete
   		scope '/show/:id', :controller => :new_customer do
         get '/',          :action => :show,      :as => :new_customer
         scope '/items' do

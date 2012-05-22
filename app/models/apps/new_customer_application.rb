@@ -77,6 +77,13 @@ class Apps::NewCustomerApplication
     self.save
   end
 
+  # განცხადების მობრუნება წარმოებაში.
+  def to_sent!
+    return false unless self.approved? or self.deproved?
+    self.status = STATUS_SENT
+    self.save
+  end
+  
   # განცხადების "დასრულება".
   def complete!
     return false unless self.approved?
