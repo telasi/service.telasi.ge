@@ -9,6 +9,7 @@ gem 'mongoid_session_store'
 
 gem 'rs.ge'
 gem 'c12-commons'
+gem 'magti'
 
 gem 'will_paginate_mongoid'
 gem 'bootstrap-will_paginate'

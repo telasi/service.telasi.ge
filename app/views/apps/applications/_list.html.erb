@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th width="150">№ და ტიპი</th>
-      <th width="300">განმცხადებელი</th>
+      <th width="300">აპლიკანტი</th>
       <th width="125">თარიღები</th>
       <th></th>
     </tr>
@@ -21,7 +21,7 @@
         </td>
         <td>
           <%= tooltiped_text app.created_at.strftime('%d-%b-%Y %H:%M'), 'შექმნის თარიღი', :left %><br>
-          <span class="muted"><%= tooltiped_text app.created_at.strftime('%d-%b-%Y %H:%M'), 'ბოლო ცვლილების თარიღი', :left %></span>
+          <span class="muted"><%= tooltiped_text app.updated_at.strftime('%d-%b-%Y %H:%M'), 'ბოლო ცვლილების თარიღი', :left %></span>
         </td>
         <td></td>
       </tr>
