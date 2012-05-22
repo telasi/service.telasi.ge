@@ -1,20 +1,37 @@
 # -*- encoding : utf-8 -*-
 module AppsHelper
-
   def app_row_class(app)
     case app.type
     when Apps::Application::TYPE_NEW_CUSTOMER
       status = app.new_customer_application.status
       if status == Apps::NewCustomerApplication::STATUS_SENT
-        'warning'
+        'sent'
       elsif status == Apps::NewCustomerApplication::STATUS_DEPROVED
-        'error'
+        'deproved'
       elsif status == Apps::NewCustomerApplication::STATUS_APPROVED
-        'success'
+        'approved'
       elsif status == Apps::NewCustomerApplication::STATUS_COMPLETE
-        'canceled'
+        'complete'
       else
-        'normal'
+        'initial'
+      end
+    end
+  end
+
+  def app_status(app)
+    case app.type
+    when Apps::Application::TYPE_NEW_CUSTOMER
+      status = app.new_customer_application.status
+      if status == Apps::NewCustomerApplication::STATUS_SENT
+        'წარმოებაში'
+      elsif status == Apps::NewCustomerApplication::STATUS_DEPROVED
+        'გაუქმებული'
+      elsif status == Apps::NewCustomerApplication::STATUS_APPROVED
+        'დადასტურებული'
+      elsif status == Apps::NewCustomerApplication::STATUS_COMPLETE
+        'დასრულებული'
+      else
+        'წინასწარი'
       end
     end
   end
