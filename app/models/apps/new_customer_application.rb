@@ -30,9 +30,29 @@ class Apps::NewCustomerApplication
   embeds_many :items, class_name: 'Apps::NewCustomerItem', inverse_of: :application
   embeds_many :calculations, class_name: 'Apps::NewCustomerCalculation', inverse_of: :application
 
+  def initial?
+    self.status == STATUS_INITIAL
+  end
+
+  def sent?
+    self.status == STATUS_SENT
+  end
+
+  def approved?
+    self.status == STATUS_APPROVED
+  end
+
+  def deproved?
+    self.status == STATUS_DEPROVED
+  end
+
+  def complete?
+    self.status == STATUS_COMPLETE
+  end
+
   # განაცხადის გაგზავნა თელასში.
   def send!
-    return false unless self.status == STATUS_INITIAL
+    return false unless self.initial?
     return false unless self.amount
     prev = Apps::Application.where(:"new_customer_application.status".ne => STATUS_INITIAL).desc(:number).last
     self.application.number = (prev.nil? ? 0 : prev.number) + 1
@@ -45,21 +65,21 @@ class Apps::NewCustomerApplication
 
   # განცხადების "დადასტურება".
   def approve!
-    return false unless self.status == STATUS_SENT
+    return false unless self.sent?
     self.status = STATUS_APPROVED
     self.save
   end
 
   # განცხადების "უარყოფა".
   def deprove!
-    return false unless self.status == STATUS_SENT
+    return false unless self.sent?
     self.status = STATUS_DEPROVED
     self.save
   end
 
   # განცხადების "დასრულება".
   def complete!
-    return false unless self.status == STATUS_APPROVED
+    return false unless self.approved?
     self.status = STATUS_COMPLETE
     self.save
   end

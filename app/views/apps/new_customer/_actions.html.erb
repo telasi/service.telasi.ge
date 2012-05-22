@@ -1,0 +1,26 @@
+<% if @application.new_customer_application.amount %>
+  <div class="alert alert-info alert-block">
+    <p>
+      სულ გადასახდელია <strong><%= C12.number_format @application.new_customer_application.amount %></strong> ლარი;
+      სამუშაო შესრულდება მიღებიდან <strong><%= @application.new_customer_application.days %></strong> კალენდარული დღის განმავლობაში.
+    </p>
+    <% if @application.new_customer_application.initial? -%>
+      <div class="btn-toolbar">
+        <%= link_to icon_text('share', 'თელასში გაგზავნა', white: true), apps_new_customer_send_path(id: @application.id), class: ['btn', 'btn-primary'], method: :post, confirm: 'ნამდვილად გინდათ ამ განცხადების გაგზავნა?' %>
+      </div>
+    <% else -%>
+      <%= role_content :new_cust_admin do -%>
+        <div class="btn-toolbar">
+          <% if @application.new_customer_application.sent? %>
+            <%= link_to icon_text('ok-sign', 'წარმოებაში მიღება', white: true), apps_new_customer_approve_path(id: @application.id), class: ['btn', 'btn-success'], method: :post, confirm: 'ადასტურებთ განცხადების წამოებაში მიღებას?' %>
+            <%= link_to icon_text('ban-circle', 'გაუქმება', white: true), apps_new_customer_deprove_path(id: @application.id), class: ['btn', 'btn-danger'], method: :post, confirm: 'ადასტურებთ განცხადების გაუქმებას?' %>
+          <% end -%>
+        </div>
+      <% end -%>
+    <% end -%>
+  </div>
+<% else -%>
+  <div class="alert alert-error">
+    გთხოვთ გაასწოროთ შეცდომები.
+  </div>
+<% end -%>

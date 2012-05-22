@@ -37,8 +37,34 @@ class Apps::NewCustomerController < ApplicationController
   # განცხადების გაგზავნა.
   def sendapp
     @application = Apps::Application.where(_id: params[:id]).first
-    @application.add_log(current_user, 'განცხადება გაგზავნილია.', Log::SHARE) if @application.new_customer_application.send!
-    redirect_to apps_new_customer_path
+    if @application.new_customer_application.send!
+      @application.add_log(current_user, 'განცხადება გაგზავნილია.', Log::SHARE)
+      redirect_to apps_new_customer_path, notice: 'განცხადება გაგზავნილია.'
+    else
+      redirect_to apps_new_customer_path
+    end
+  end
+
+  def approve
+    @application = Apps::Application.where(_id: params[:id]).first
+    if @application.new_customer_application.approve!
+      @application.add_log(current_user, 'განცხადება მიღებულია.', Log::OK)
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%08d' % @application.number} miRebulia warmoebaSi.") if Magti::SEND
+      redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
+    else
+      redirect_to apps_new_customer_path
+    end
+  end
+
+  def deprove
+    @application = Apps::Application.where(_id: params[:id]).first
+    if @application.new_customer_application.deprove!
+      @application.add_log(current_user, 'განცხადება გაუქმებულია.', Log::BAN)
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%08d' % @application.number} gauqmebulia.") if Magti::SEND
+      redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
+    else
+      redirect_to apps_new_customer_path
+    end
   end
 
   # განცხადების წაშლა.

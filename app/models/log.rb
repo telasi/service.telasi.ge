@@ -3,6 +3,10 @@ class Log
   COMMON = 'common'
   CREATE = 'create'
   SHARE  = 'share'
+  OK = 'ok'
+  BAN = 'ban'
+  COMPLETE = 'complete'
+  ERROR = 'error'
 
   include Mongoid::Document
   include Mongoid::Timestamps
