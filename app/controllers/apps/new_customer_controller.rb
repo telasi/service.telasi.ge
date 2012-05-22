@@ -34,6 +34,13 @@ class Apps::NewCustomerController < ApplicationController
     # XXX
   end
 
+  # განცხადების გაგზავნა.
+  def sendapp
+    @application = Apps::Application.where(_id: params[:id]).first
+    @application.add_log(current_user, 'განცხადება გაგზავნილია.', Log::SHARE) if @application.new_customer_application.send!
+    redirect_to apps_new_customer_path
+  end
+
   # განცხადების წაშლა.
   def delete
     @application = Apps::Application.where(_id: params[:id]).first

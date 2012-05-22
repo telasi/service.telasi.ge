@@ -2,6 +2,7 @@
 class Log
   COMMON = 'common'
   CREATE = 'create'
+  SHARE  = 'share'
 
   include Mongoid::Document
   include Mongoid::Timestamps

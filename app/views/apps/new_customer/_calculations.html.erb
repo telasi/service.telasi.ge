@@ -29,9 +29,16 @@
   </table>
   <p>
     <% if @application.new_customer_application.amount %>
-      <div class="alert alert-info">
-        სულ გადასახდელია <strong><%= C12.number_format @application.new_customer_application.amount %></strong> ლარი;
-        სამუშაო შესრულდება მიღებიდან <strong><%= @application.new_customer_application.days %></strong> კალენდარული დღის განმავლობაში.
+      <div class="alert alert-info alert-block">
+        <p class="alert">
+          სულ გადასახდელია <strong><%= C12.number_format @application.new_customer_application.amount %></strong> ლარი;
+          სამუშაო შესრულდება მიღებიდან <strong><%= @application.new_customer_application.days %></strong> კალენდარული დღის განმავლობაში.
+        </p>
+        <div class="btn-toolbar">
+          <% if @application.new_customer_application.status == Apps::NewCustomerApplication::STATUS_INITIAL %>
+            <%= link_to icon_text('share', 'თელასში გაგზავნა', white: true), apps_new_customer_send_path(id: @application.id), class: ['btn', 'btn-danger'], method: :post, confirm: 'ნამდვილად გინდათ ამ განცხადების გაგზავნა?' %>
+          <% end %>
+        </div>
       </div>
     <% else -%>
       <div class="alert alert-error">

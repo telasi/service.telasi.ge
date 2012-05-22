@@ -43,7 +43,7 @@ TelasiService::Application.routes.draw do
   		match  '/new',          action: :new,      as: :new_customer_new
   		match  '/edit/:id',     action: :edit,     as: :new_customer_edit
   		delete '/delete/:id',   action: :delete,   as: :new_customer_delete
-  		post   '/send/:id',     action: :send,     as: :new_customer_send
+  		post   '/send/:id',     action: :sendapp,     as: :new_customer_send
   		post   '/approve/:id',  action: :approve,  as: :new_customer_approve
   		post   '/deprove/:id',  action: :deprove,  as: :new_customer_deprove
   		post   '/complete/:id', action: :complete, as: :new_customer_complete

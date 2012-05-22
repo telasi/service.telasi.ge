@@ -4,6 +4,8 @@ module LogHelper
     case log.type
     when Log::CREATE
       icon('plus')
+    when Log::SHARE
+      icon('share')
     end
   end
 end
