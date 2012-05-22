@@ -10,6 +10,8 @@ module LogHelper
       icon('ok-sign')
     when Log::BAN
       icon('ban-circle')
+    when Log::COMPLETE
+      icon('lock')
     end
   end
 end

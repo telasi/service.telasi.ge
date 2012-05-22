@@ -79,7 +79,7 @@ class Apps::NewCustomerApplication
 
   # განცხადების მობრუნება წარმოებაში.
   def to_sent!
-    return false unless self.approved? or self.deproved?
+    return false unless self.approved? or self.deproved? or self.complete?
     self.status = STATUS_SENT
     self.save
   end

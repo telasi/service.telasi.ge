@@ -45,6 +45,7 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # განცხადების დადასტურება.
   def approve
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.approve!
@@ -56,6 +57,7 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # განცხადების დადასტურება.
   def deprove
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.deprove!
@@ -67,6 +69,7 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # წარმოებაში დაბრუნება.
   def to_sent
     @application = Apps::Application.where(_id: params[:id]).first
     if @application.new_customer_application.to_sent!
@@ -78,7 +81,16 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # დასრულება.
   def complete
+    @application = Apps::Application.where(_id: params[:id]).first
+    if @application.new_customer_application.complete!
+      @application.add_log(current_user, 'განცხადება შესრულებულია.', Log::COMPLETE)
+      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} Sesrulebulia.") if Magti::SEND
+      redirect_to apps_new_customer_path, notice: 'განცხადება შესრულებულია.'
+    else
+      redirect_to apps_new_customer_path
+    end
   end
 
   # განცხადების წაშლა.
