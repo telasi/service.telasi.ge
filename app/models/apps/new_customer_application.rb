@@ -54,7 +54,7 @@ class Apps::NewCustomerApplication
   def send!
     return false unless self.initial?
     return false unless self.amount
-    prev = Apps::Application.where(:"new_customer_application.status".ne => STATUS_INITIAL).desc(:number).last
+    prev = Apps::Application.where(:"new_customer_application.status".ne => STATUS_INITIAL).desc(:number).first
     self.application.number = (prev.nil? ? 0 : prev.number) + 1
     self.application.private = false
     if self.application.save

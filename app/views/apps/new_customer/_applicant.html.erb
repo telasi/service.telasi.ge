@@ -5,12 +5,11 @@
 </div>
 <table class="table table-bordered table-striped">
   <tr>
-    <th class="right" width="100">საიდ.ნომერი</th>
-    <td class="muted"><%= applicant.tin %></td>
-  </tr>
-  <tr>
-    <th class="right">დასახელება</th>
-    <td class="muted"><%= applicant.name %></td>
+    <th class="right" width="100">აპლიკანტი</th>
+    <td class="muted">
+      <span class="badge badge-inverse"><%= applicant.tin %></span>
+      <%= applicant.name %>
+    </td>
   </tr>
   <tr>
     <th class="right">მობილური</th>
@@ -19,5 +18,9 @@
   <tr>
     <th class="right">ელ.ფოსტა</th>
     <td class="muted"><%= mail_to applicant.email %></td>
+  </tr>
+  <tr>
+    <th class="right">მისამართი</th>
+    <td class="muted"><%= applicant.address %></td>
   </tr>
 </table>
