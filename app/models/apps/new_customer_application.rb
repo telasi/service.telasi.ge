@@ -98,11 +98,22 @@ class Apps::NewCustomerApplication
     self.days = 0
     VOLTAGES.each do |v|
       items = self.items.where(voltage: v)
-      power = items.inject(0){ |sum, x| sum + x[:power] }
-      tariff = Apps::NewCustomerTariff.tariff_for(v, power)
+      if v == VOLTAGE_220
+        tariff = nil
+        count = items.inject(0){ |cnt, x| cnt + (x.tin.nil? ? x.count : 1) }
+        power = items.inject(0){ |sum, x| sum + x[:power] * ( x.tin.nil? ? x.count : 1 ) }
+        items.each do |item|
+          tariff = Apps::NewCustomerTariff.tariff_for(v, item.power)
+          break if tariff.nil?
+        end
+      else
+        count = 1
+        power = items.inject(0){ |sum, x| sum + x[:power] * ( v == VOLTAGE_220 && x.tin.nil? ? x.count : 1 ) }
+        tariff = Apps::NewCustomerTariff.tariff_for(v, power)
+      end
       if tariff
         if power > 0
-          self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: tariff.id, amount: tariff.price_gel, days: tariff.days_to_complete)
+          self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: tariff.id, amount: tariff.price_gel * count, days: tariff.days_to_complete)
           self.amount += tariff.price_gel unless self.amount.nil?
           self.days = tariff.days_to_complete if self.days < tariff.days_to_complete
         end
