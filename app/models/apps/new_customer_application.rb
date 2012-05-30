@@ -114,7 +114,7 @@ class Apps::NewCustomerApplication
       if tariff
         if power > 0
           self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: tariff.id, amount: tariff.price_gel * count, days: tariff.days_to_complete)
-          self.amount += tariff.price_gel unless self.amount.nil?
+          self.amount += tariff.price_gel * count unless self.amount.nil?
           self.days = tariff.days_to_complete if self.days < tariff.days_to_complete
         end
       else
