@@ -1,6 +1,5 @@
 <% if @application.new_customer_application.amount %>
   <div class="alert alert-info alert-block">
-    <h3>შემდეგი მოქმედებები</h3>
     <% if @application.new_customer_application.initial? -%>
       <div class="btn-toolbar">
         <%= link_to icon_text('share', 'თელასში გაგზავნა', white: true), apps_new_customer_send_path(id: @application.id), class: ['btn', 'btn-primary'], method: :post, confirm: 'ნამდვილად გინდათ ამ განცხადების გაგზავნა?' %>

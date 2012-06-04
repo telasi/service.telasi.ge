@@ -57,6 +57,12 @@ TelasiService::Application.routes.draw do
           match  '/edit/:item_id',   action: :edit_item,   as: :new_customer_edit_item
           delete '/delete/:item_id', action: :delete_item, as: :new_customer_delete_item
         end
+        scope '/payments' do
+          get    '/',               action: :payments,        as: :new_customer_payments
+          match  '/new',            action: :new_payment,     as: :new_customer_new_payment
+          match  '/edit/:pay_id',   action: :edit_payment,    as: :new_customer_edit_payment
+          delete '/delete/:pay_id', action: :delete_payment,  as: :new_customer_delete_payment
+        end
         scope '/notes' do
           get   '/',    action: :notes,    as: :new_customer_notes
           match '/new', action: :new_note, as: :new_customer_new_note

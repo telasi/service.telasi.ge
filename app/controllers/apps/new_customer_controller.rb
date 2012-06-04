@@ -211,4 +211,11 @@ class Apps::NewCustomerController < ApplicationController
     redirect_to apps_new_customer_docs_path, :notice => 'ფაილის წაშლილია.'
   end
 
+  ### გადახდების მართვა.
+
+  def payments
+    @title = 'გადახდები'
+    @application = Apps::Application.where(_id: params[:id]).first
+  end
+
 end

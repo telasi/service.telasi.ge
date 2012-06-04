@@ -6,6 +6,10 @@ customers:
   label: აბონენტები
   url: /apps/new_customer/show/:id/items
   select: new_customer/items new_customer/new_item new_customer/edit_item
+payments:
+  label: გადახდები
+  url: /apps/new_customer/show/:id/payments
+  select: new_customer/payments new_customer/new_payment new_customer/edit_payment
 docs:
   label: დოკუმენტები
   url: /apps/new_customer/show/:id/docs
