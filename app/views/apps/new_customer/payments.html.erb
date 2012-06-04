@@ -1,3 +1,11 @@
 <%= render :partial => 'apps/new_customer/header' %>
 
-PAYMENTS
+<p class="muted">
+  აქ  თავმოყრილია ინფორმაცია თქვენი გადახდების შესახებ.
+</p>
+
+<div class="btn-toolbar">
+  <%= role_content :new_cust_admin do %>
+    <%= link_to icon_text('plus', 'ახალი გადახდა'), apps_new_customer_new_payment_path, class: 'btn' %>
+  <% end %>
+</div>

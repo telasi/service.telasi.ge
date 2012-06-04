@@ -16,6 +16,7 @@ class Apps::Application
   embeds_one :new_customer_application, :class_name => 'Apps::NewCustomerApplication'
   embeds_many :logs, as: :loggable, cascade_callbacks: true
   has_many :documents, as: :documentable
+  has_many :payments, class_name: 'Apps::Payment'
 
   def self.by_user(user)
     where(owner_id: user.id)

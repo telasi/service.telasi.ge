@@ -213,8 +213,15 @@ class Apps::NewCustomerController < ApplicationController
 
   ### გადახდების მართვა.
 
+  # გადახდების მთავარი გვერდი.
   def payments
     @title = 'გადახდები'
+    @application = Apps::Application.where(_id: params[:id]).first
+  end
+
+  # ახალი გადახდა.
+  def new_payment
+    @title = 'ახალი გადახდა'
     @application = Apps::Application.where(_id: params[:id]).first
   end
 

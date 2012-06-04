@@ -11,6 +11,7 @@ describe Apps::Application do
 	it { should embed_one(:applicant).of_type(Apps::Applicant) }
 	it { should embed_one(:new_customer_application).of_type(Apps::NewCustomerApplication) }
   it { should embed_many(:logs).of_type(Log) }
+  it { should have_many(:documents).of_type(Document) }
 end
 
 describe Apps::Applicant do
@@ -26,6 +27,14 @@ describe Apps::Applicant do
 	it { should validate_presence_of(:mobile) }
 	it { should validate_presence_of(:email) }
 	it { should validate_presence_of(:address) }
+end
+
+describe Apps::Payment do
+  it { should be_mongoid_document }
+  it { should be_timestamped_document }
+  it { should have_field(:date).of_type(Date) }
+  it { should have_field(:amount).of_type(Float) }
+  it { should belong_to(:application).of_type(Apps::Application) }
 end
 
 describe Apps::NewCustomerApplication do
@@ -116,7 +125,7 @@ describe 'ახალი აბონენტის გამოთვლა' 
       subject { @newapp.calculations.first }
       its(:power) { should == 3 }
       its(:tariff_id) { should == 1 }
-      its(:amount) { should == 400 }
+      its(:amount) { should == 800 }
       its(:days) { should == 35 }
     end
   end
