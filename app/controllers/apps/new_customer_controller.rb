@@ -263,6 +263,13 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
+  # გადახდის წაშლა.
+  def delete_payment
+    pay = Apps::Payment.find(params[:pay_id])
+    pay.destroy
+    redirect_to apps_new_customer_payments_path, notice: 'გადახდა წაშლილია.'
+  end
+
   private
 
   def process_application
