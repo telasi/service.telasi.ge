@@ -245,7 +245,10 @@ class Apps::NewCustomerController < ApplicationController
       if request.post?
         @pay = Apps::Payment.new(params[:apps_payment])
         @pay.application = @application
-        redirect_to apps_new_customer_payments_path, notice: 'გადახდა გატარებულია.' if @pay.save
+        if @pay.save
+          @application.recalculate!
+          redirect_to apps_new_customer_payments_path, notice: 'გადახდა გატარებულია.'
+        end
       else
         @pay = Apps::Payment.new(date: Date.today)
       end
@@ -258,7 +261,10 @@ class Apps::NewCustomerController < ApplicationController
       @title = 'გადახდის შეცვლა'
       @pay = Apps::Payment.find(params[:pay_id])
       if request.put?
-        redirect_to apps_new_customer_payments_path, notice: 'გადახდა შეცვლილია.' if @pay.update_attributes(params[:apps_payment])
+        if @pay.update_attributes(params[:apps_payment])
+          @application.recalculate!
+          redirect_to apps_new_customer_payments_path, notice: 'გადახდა შეცვლილია.'
+        end
       end
     end
   end
@@ -267,6 +273,7 @@ class Apps::NewCustomerController < ApplicationController
   def delete_payment
     pay = Apps::Payment.find(params[:pay_id])
     pay.destroy
+    pay.application.recalculate!
     redirect_to apps_new_customer_payments_path, notice: 'გადახდა წაშლილია.'
   end
 

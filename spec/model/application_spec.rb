@@ -7,6 +7,9 @@ describe Apps::Application do
 	it { should have_field(:type).of_type(String) }
   it { should have_field(:number).of_type(Integer) }
 	it { should have_field(:private).of_type(Boolean) }
+	it { should have_field(:total).of_type(Float) }
+  it { should have_field(:paid).of_type(Float) }
+  it { should have_field(:remaining).of_type(Float) }
 	it { should belong_to(:owner).of_type(User) }
 	it { should embed_one(:applicant).of_type(Apps::Applicant) }
 	it { should embed_one(:new_customer_application).of_type(Apps::NewCustomerApplication) }
@@ -34,7 +37,7 @@ describe Apps::Payment do
   it { should be_timestamped_document }
   it { should have_field(:date).of_type(Date) }
   it { should have_field(:amount).of_type(Float) }
-  it { should have_fiedl(:comment).of_type(String) }
+  it { should have_field(:comment).of_type(String) }
   it { should belong_to(:application).of_type(Apps::Application) }
 end
 

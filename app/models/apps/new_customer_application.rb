@@ -26,8 +26,8 @@ class Apps::NewCustomerApplication
   field :voltage, type: String
   field :amount,  type: Float
   field :days,    type: Integer
-  embedded_in :application, :class_name => 'Apps::Application'
-  embeds_many :items, class_name: 'Apps::NewCustomerItem', inverse_of: :application
+  embedded_in :application,  class_name: 'Apps::Application'
+  embeds_many :items,        class_name: 'Apps::NewCustomerItem',        inverse_of: :application
   embeds_many :calculations, class_name: 'Apps::NewCustomerCalculation', inverse_of: :application
 
   def initial?
@@ -83,7 +83,7 @@ class Apps::NewCustomerApplication
     self.status = STATUS_SENT
     self.save
   end
-  
+
   # განცხადების "დასრულება".
   def complete!
     return false unless self.approved?
