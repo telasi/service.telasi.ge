@@ -38,6 +38,7 @@ class Apps::Application
     end
     self.paid = self.payments.inject(0) { |sum, pay| sum += pay.amount }
     self.remaining = self.total - self.paid
+    self.save
   end
 
 end

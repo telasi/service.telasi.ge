@@ -33,6 +33,18 @@
           <%= C12.number_format @application.new_customer_application.amount %> ლარი
         </td>
       </tr>
+      <tr>
+        <th colspan="2"><%= link_to 'გადახდილი თანხა:', apps_new_customer_payments_path %></th>
+        <td colspan="2" class="right">
+          <%= C12.number_format @application.paid %> ლარი
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">დარჩა გადასახდელი</th>
+        <td colspan="2" class="right">
+          <%= C12.number_format @application.remaining %> ლარი
+        </td>
+      </tr>
     </tfoot>
   </table>
   <%= render partial: 'apps/new_customer/actions' %>
