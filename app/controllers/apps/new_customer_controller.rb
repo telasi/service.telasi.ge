@@ -21,149 +21,163 @@ class Apps::NewCustomerController < ApplicationController
   # განცხადების რედაქტირება.
   def edit
     @title = 'აპლიკანტის შეცვლა'
-    @application = Apps::Application.where(_id: params[:id]).first
-    if request.put?
-      redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.' if @application.applicant.update_attributes(params[:apps_applicant])
+    process_application do
+      if request.put?
+        redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.' if @application.applicant.update_attributes(params[:apps_applicant])
+      end
     end
   end
 
   # განცხადების ნახვა: ძირითადი გვერდი.
   def show
     @title = 'განცხადების დეტალები'
-    @application = Apps::Application.where(_id: params[:id]).first
+    process_application
   end
 
   # განცხადების გაგზავნა.
   def sendapp
-    @application = Apps::Application.where(_id: params[:id]).first
-    if @application.new_customer_application.send!
-      @application.add_log(current_user, 'განცხადება გაგზავნილია.', Log::SHARE)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} miRebulia warmoebaSi.") if Magti::SEND
-      redirect_to apps_new_customer_path, notice: 'განცხადება გაგზავნილია.'
-    else
-      redirect_to apps_new_customer_path
+    process_application do
+      if @application.new_customer_application.send!
+        @application.add_log(current_user, 'განცხადება გაგზავნილია.', Log::SHARE)
+        Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} miRebulia warmoebaSi.") if Magti::SEND
+        redirect_to apps_new_customer_path, notice: 'განცხადება გაგზავნილია.'
+      else
+        redirect_to apps_new_customer_path
+      end
     end
   end
 
   # განცხადების დადასტურება.
   def approve
-    @application = Apps::Application.where(_id: params[:id]).first
-    if @application.new_customer_application.approve!
-      @application.add_log(current_user, 'განცხადება მიღებულია.', Log::OK)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} dadasturebulia.") if Magti::SEND
-      redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
-    else
-      redirect_to apps_new_customer_path
+    process_application do
+      if @application.new_customer_application.approve!
+        @application.add_log(current_user, 'განცხადება მიღებულია.', Log::OK)
+        Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} dadasturebulia.") if Magti::SEND
+        redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
+      else
+        redirect_to apps_new_customer_path
+      end
     end
   end
 
   # განცხადების დადასტურება.
   def deprove
-    @application = Apps::Application.where(_id: params[:id]).first
-    if @application.new_customer_application.deprove!
-      @application.add_log(current_user, 'განცხადება გაუქმებულია.', Log::BAN)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} gauqmebulia.") if Magti::SEND
-      redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
-    else
-      redirect_to apps_new_customer_path
+    process_application do
+      if @application.new_customer_application.deprove!
+        @application.add_log(current_user, 'განცხადება გაუქმებულია.', Log::BAN)
+        Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} gauqmebulia.") if Magti::SEND
+        redirect_to apps_new_customer_path, notice: 'განცხადება დადასტურებულია.'
+      else
+        redirect_to apps_new_customer_path
+      end
     end
   end
 
   # წარმოებაში დაბრუნება.
   def to_sent
-    @application = Apps::Application.where(_id: params[:id]).first
-    if @application.new_customer_application.to_sent!
-      @application.add_log(current_user, 'განცხადება დაბრუნებულია წარმოებაში.', Log::SHARE)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} dabrunebulia warmoebaSi.") if Magti::SEND
-      redirect_to apps_new_customer_path, notice: 'განცხადება დაბრუნებულია წარმოებაში.'
-    else
-      redirect_to apps_new_customer_path
+    process_application do
+      if @application.new_customer_application.to_sent!
+        @application.add_log(current_user, 'განცხადება დაბრუნებულია წარმოებაში.', Log::SHARE)
+        Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} dabrunebulia warmoebaSi.") if Magti::SEND
+        redirect_to apps_new_customer_path, notice: 'განცხადება დაბრუნებულია წარმოებაში.'
+      else
+        redirect_to apps_new_customer_path
+      end
     end
   end
 
   # დასრულება.
   def complete
-    @application = Apps::Application.where(_id: params[:id]).first
-    if @application.new_customer_application.complete!
-      @application.add_log(current_user, 'განცხადება შესრულებულია.', Log::COMPLETE)
-      Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} Sesrulebulia.") if Magti::SEND
-      redirect_to apps_new_customer_path, notice: 'განცხადება შესრულებულია.'
-    else
-      redirect_to apps_new_customer_path
+    process_application do
+      if @application.new_customer_application.complete!
+        @application.add_log(current_user, 'განცხადება შესრულებულია.', Log::COMPLETE)
+        Magti.send_sms(@application.applicant.mobile, "Tqveni gancxadeba #{'#%06d' % @application.number} Sesrulebulia.") if Magti::SEND
+        redirect_to apps_new_customer_path, notice: 'განცხადება შესრულებულია.'
+      else
+        redirect_to apps_new_customer_path
+      end
     end
   end
 
   # განცხადების წაშლა.
   def delete
-    @application = Apps::Application.where(_id: params[:id]).first
-    @application.destroy
-    redirect_to apps_home_path, :notice => 'განცხადება წაშლილია.'
+    process_application do
+      @application.destroy
+      redirect_to apps_home_path, notice: 'განცხადება წაშლილია.'
+    end
   end
 
   ### აბონენტების მართვა
 
   # განცხადების ნახვა: კლიენტების სია.
   def items
-    @title = 'აბონენტები'
-    @application = Apps::Application.where(_id: params[:id]).first
+    process_application do
+      @title = 'აბონენტები'
+    end
   end
 
   # ახალი აბონენტის დამატება.
   def new_item
-    @title = 'ახალი აბონენტი'
-    @application = Apps::Application.where(_id: params[:id]).first
-    if request.post?
-      @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
-      @item.application = @application.new_customer_application
-      if @item.save
-        @application.new_customer_application.calculate
-        redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი შექმნილია.'
+    process_application
+      @title = 'ახალი აბონენტი'
+      if request.post?
+        @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
+        @item.application = @application.new_customer_application
+        if @item.save
+          @application.new_customer_application.calculate
+          redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი შექმნილია.'
+        end
+      else
+        @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: Apps::NewCustomerApplication::VOLTAGE_220, personal_use: true)
       end
-    else
-      @item = Apps::NewCustomerItem.new(type: Apps::NewCustomerItem::TYPE_DETAIL, voltage: Apps::NewCustomerApplication::VOLTAGE_220, personal_use: true)
     end
   end
 
   # აბონენტის წაშლა.
   def edit_item
-    @title = 'აბონენტის რედაქტირება'
-    @application = Apps::Application.where(_id: params[:id]).first
-    @item = @application.new_customer_application.items.where(_id: params[:item_id]).first
-    if request.put?
-      if @item.update_attributes(params[:apps_new_customer_item])
-        @application.new_customer_application.calculate
-        redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი განახლებურია.'
+    process_application do
+      @title = 'აბონენტის რედაქტირება'
+      @item = @application.new_customer_application.items.where(_id: params[:item_id]).first
+      if request.put?
+        if @item.update_attributes(params[:apps_new_customer_item])
+          @application.new_customer_application.calculate
+          redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი განახლებურია.'
+        end
       end
     end
   end
 
   # აბონენტის ჩანაწერის წაშლა.
   def delete_item
-    app = Apps::Application.where(_id: params[:id]).first
-    item = app.new_customer_application.items.where(_id: params[:item_id]).destroy_all
-    app.new_customer_application.calculate
-    redirect_to apps_new_customer_items_path(id: app.id), notice: 'აბონენტი წაშლილია.'
+    process_application do
+      item = @application.new_customer_application.items.where(_id: params[:item_id]).destroy_all
+      @application.new_customer_application.calculate
+      redirect_to apps_new_customer_items_path(id: @application.id), notice: 'აბონენტი წაშლილია.'
+    end
   end
 
   ### შენიშვნების მართვა
 
   # განცხადების ნახვა: შენიშვნების სია.
   def notes
-    @title = 'შენიშვნები'
-    @application = Apps::Application.where(_id: params[:id]).first
-    @logs = @application.logs.desc(:created_at).paginate(page: params[:page], per_page: 5)
+    process_application do
+      @title = 'შენიშვნები'
+      @logs = @application.logs.desc(:created_at).paginate(page: params[:page], per_page: 5)
+    end
   end
 
+  # ახალი შენიშვნის დამატება.
   def new_note
-    @title = 'შენიშვნები'
-    @application = Apps::Application.where(_id: params[:id]).first
-    if request.post?
-      @log = Log.new(params[:log])
-      @log.user = current_user
-      @application.logs << @log
-      redirect_to apps_new_customer_notes_path, notice: 'შენიშვნა დამატებულია' if @application.save
-    else
-      @log = Log.new
+    process_application do
+      @title = 'შენიშვნები'
+      if request.post?
+        @log = Log.new(params[:log])
+        @log.user = current_user
+        @application.logs << @log
+        redirect_to apps_new_customer_notes_path, notice: 'შენიშვნა დამატებულია' if @application.save
+      else
+        @log = Log.new
+      end
     end
   end
 
@@ -171,30 +185,33 @@ class Apps::NewCustomerController < ApplicationController
 
   # განცხადების ნახვა: დოკუმენტაციის ნახვა.
   def docs
-    @title = 'დოკუმენტები'
-    @application = Apps::Application.where(_id: params[:id]).first
+    process_application do
+      @title = 'დოკუმენტები'
+    end
   end
 
   # ახალი დოკუმენტის ატვირთვა.
   def new_doc
-    @title = 'ახალი დოკუმენტის ატვირთვა'
-    @application = Apps::Application.where(_id: params[:id]).first
-    if request.post?
-      @doc = Document.new(params[:document])
-      @doc.documentable = @application
-      redirect_to apps_new_customer_docs_path, :notice => 'ფაილის ატვირთულია.' if @doc.save
-    else
-      @doc = Document.new
-    end    
+    process_application do
+      @title = 'ახალი დოკუმენტის ატვირთვა'
+      if request.post?
+        @doc = Document.new(params[:document])
+        @doc.documentable = @application
+        redirect_to apps_new_customer_docs_path, :notice => 'ფაილის ატვირთულია.' if @doc.save
+      else
+        @doc = Document.new
+      end
+    end
   end
 
   # დოკუმენტის რედაქტირება.
   def edit_doc
-    @title = 'დოკუმენტის რედაქტირება'
-    @application = Apps::Application.where(_id: params[:id]).first
-    @doc = Document.where(_id: params[:doc_id]).first
-    if request.put?
-      redirect_to apps_new_customer_docs_path, notice: 'ფაილი განახლებულია.' if @doc.update_attributes(params[:document])
+    process_application do
+      @title = 'დოკუმენტის რედაქტირება'
+      @doc = Document.where(_id: params[:doc_id]).first
+      if request.put?
+        redirect_to apps_new_customer_docs_path, notice: 'ფაილი განახლებულია.' if @doc.update_attributes(params[:document])
+      end
     end
   end
 
@@ -215,14 +232,27 @@ class Apps::NewCustomerController < ApplicationController
 
   # გადახდების მთავარი გვერდი.
   def payments
-    @title = 'გადახდები'
-    @application = Apps::Application.where(_id: params[:id]).first
+    process_application do
+      @title = 'გადახდები'
+    end
   end
 
   # ახალი გადახდა.
   def new_payment
-    @title = 'ახალი გადახდა'
-    @application = Apps::Application.where(_id: params[:id]).first
+    process_application do
+      @title = 'ახალი გადახდა'
+    end
+  end
+
+  private
+
+  def process_application
+    @application = Apps::Application.where(_id: (params[:app_id] || params[:id])).first
+    if @application
+      yield if block_given?
+    else
+      redirect_to apps_home_path, notice: 'ასეთი გამოსახულება ვერ მოიძებნა.'
+    end
   end
 
 end
