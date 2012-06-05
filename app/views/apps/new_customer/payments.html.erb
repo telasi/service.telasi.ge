@@ -9,3 +9,32 @@
     <%= link_to icon_text('plus', 'ახალი გადახდა'), apps_new_customer_new_payment_path, class: 'btn' %>
   <% end %>
 </div>
+
+<% if @payments.any? %>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th width="100">თარიღი</th>
+        <th width="150">თანხა</th>
+        <th>შენიშვნა</th>
+        <th class="center" width="50"><%= icon 'cog' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @payments.each do |pay| %>
+        <tr>
+          <td><%= pay.date.strftime('%d-%b-%Y') %></td>
+          <td class="right"><%= C12.number_format pay.amount %> ლარი</td>
+          <td class="muted"><%= pay.comment %></td>
+          <td class="center">
+            <%= role_content :new_cust_admin do %>
+              <%= link_to icon('pencil', tooltip: 'შეცვლა'), apps_new_customer_edit_payment_path(pay_id: pay.id) %>
+              <%= link_to icon('trash', tooltip: 'წაშლა'), apps_new_customer_delete_payment_path(pay_id: pay.id), method: 'delete', confirm: 'ნამდვილად გინდათ გადახდის წაშლა?' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+<% end %>

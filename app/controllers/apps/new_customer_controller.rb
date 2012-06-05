@@ -234,6 +234,7 @@ class Apps::NewCustomerController < ApplicationController
   def payments
     process_application do
       @title = 'გადახდები'
+      @payments = Apps::Payment.where(application_id: @application.id).asc(:created_at)
     end
   end
 
@@ -247,6 +248,17 @@ class Apps::NewCustomerController < ApplicationController
         redirect_to apps_new_customer_payments_path, notice: 'გადახდა გატარებულია.' if @pay.save
       else
         @pay = Apps::Payment.new(date: Date.today)
+      end
+    end
+  end
+
+  # გადახდის შეცვლა.
+  def edit_payment
+    process_application do
+      @title = 'გადახდის შეცვლა'
+      @pay = Apps::Payment.find(params[:pay_id])
+      if request.put?
+        redirect_to apps_new_customer_payments_path, notice: 'გადახდა შეცვლილია.' if @pay.update_attributes(params[:apps_payment])
       end
     end
   end
