@@ -118,7 +118,7 @@ class Apps::NewCustomerController < ApplicationController
 
   # ახალი აბონენტის დამატება.
   def new_item
-    process_application
+    process_application do
       @title = 'ახალი აბონენტი'
       if request.post?
         @item = Apps::NewCustomerItem.new(params[:apps_new_customer_item])
@@ -146,7 +146,7 @@ class Apps::NewCustomerController < ApplicationController
       end
     end
   end
-
+  
   # აბონენტის ჩანაწერის წაშლა.
   def delete_item
     process_application do
