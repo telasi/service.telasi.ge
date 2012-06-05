@@ -7,6 +7,9 @@
   });
 </script>
 <%= simple_form_for(@application, :url => request.url, :html => {:id => 'new-customer-form'}) do |f| -%>
+  <div class="page-header">
+    <h4>საკონტაქტო ინფორმაცია</h4>
+  </div>
   <p class="muted">
     განსაზღვრეთ ინფორმაცია იმ პირის შესახებ, ვისაც შემოაქვს განცხადება.
   </p>
@@ -28,6 +31,14 @@
     <p class="muted description">
       ამ მისამართზე მიიღებთ შეტყობინებებს წერილობითი სახით.
     </p>
+    <div class="page-header">
+      <h4>საბანკო ანგარიში</h4>
+    </div>
+    <p class="muted">
+      საბანკო ანგარიშზე მონაცემების შევსება სავალდებულოა იურიდიული პირებისათვის.
+    </p>
+    <%= applicant_form.input :bank_mfo, label: 'ბანკის კოდი' %>
+    <%= applicant_form.input :bank_acc, label: 'ანგარიშის ნომერი' %>
   <% end -%>
   <div class="form-actions">
     <%= f.submit 'განცხადების შექმნა', :class => ['btn', 'btn-primary'] %>
