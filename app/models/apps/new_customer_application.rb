@@ -125,6 +125,7 @@ class Apps::NewCustomerApplication
       end
     end
     self.save
+    self.application.recalculate!
   end
 
 end
