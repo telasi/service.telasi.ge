@@ -25,5 +25,5 @@ class Apps::Application
   def add_log(user, text, type=Log::COMMON)
     self.logs << Log.new(user: user, text:text, type: type)
   end
-  
+
 end

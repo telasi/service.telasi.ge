@@ -1,0 +1,9 @@
+<%= simple_form_for(@pay, url: request.url, html: {id: 'pay-form', class: 'form-horizontal'}) do |f| %>
+  <%= f.input :amount, label: 'თანხა', required: true, input_html: { autofocus: true, class: 'span2' } %>
+  <%= f.input :date, label: 'თარიღი', as: :date_picker %>
+  <%= f.input :comment, label: 'შენიშვნა', input_html: { class: 'span8' } %>
+  <div class="form-actions">
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+    <%= link_to 'გაუქმება', apps_new_customer_payments_path, class: 'btn' %>
+  </div>
+<% end %>

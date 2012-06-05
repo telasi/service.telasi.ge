@@ -241,6 +241,13 @@ class Apps::NewCustomerController < ApplicationController
   def new_payment
     process_application do
       @title = 'ახალი გადახდა'
+      if request.post?
+        @pay = Apps::Payment.new(params[:apps_payment])
+        @pay.application = @application
+        redirect_to apps_new_customer_payments_path, notice: 'გადახდა გატარებულია.' if @pay.save
+      else
+        @pay = Apps::Payment.new(date: Date.today)
+      end
     end
   end
 

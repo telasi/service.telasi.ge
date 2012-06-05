@@ -34,6 +34,7 @@ describe Apps::Payment do
   it { should be_timestamped_document }
   it { should have_field(:date).of_type(Date) }
   it { should have_field(:amount).of_type(Float) }
+  it { should have_fiedl(:comment).of_type(String) }
   it { should belong_to(:application).of_type(Apps::Application) }
 end
 
