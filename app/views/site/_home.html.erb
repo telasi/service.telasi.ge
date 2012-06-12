@@ -1,1 +1,21 @@
-<%= render :partial => 'site/index_presenter' %>
+<style type="text/css">
+  .index-top-image { height: 250px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; overflow: hidden; border: 1px solid #aaa; }
+  .index-top h2 { font-size: 19px; }
+</style>
+<div class="row index-top">
+  <div class="span6">
+    <div class="index-top-image" style="background: url(/assets/payments_01.png) no-repeat 50% 50%;"></div>
+    <div>
+      <h2>დავალიანების გადახდა</h2>
+      <p>ნახეთ თქვენი ზუსტი დავალიენება.</p>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="index-top-image" style="background: url(/assets/high_voltage01.png) no-repeat 50% 50%;"></div>
+    <div>
+      <h2>ქსელზე მიერთება</h2>
+      <p>ჯერ არ ხართ თელასის აბონენტი? ახალი ელექტრონული სერვისის მეშვეობით ჩვენს ქსელზე მიერთება ძალიან მარტივია.</p>
+      <p><%= link_to 'მეტი ინფორმაცია', site_new_customer_url %></p>
+    </div>
+  </div>
+</div>

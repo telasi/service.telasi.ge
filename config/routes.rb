@@ -3,20 +3,26 @@ TelasiService::Application.routes.draw do
   get 'site/index'
 
   # საიტის მოქმედებები
-  get '/home', :controller => :site, :action => :index, :as => :home
-  post '/markdown', controller: :site, action: :markdown
+  get '/home',         controller: :site, action: :index,        as: :home
+  get '/new_customer', controller: :site, action: :new_customer, as: :site_new_customer
+  post '/markdown',    controller: :site, action: :markdown
 
   # მოქმედებები მომხმარებელზე
-  scope '/user', :controller => :users do
-    match '/register',        :action => :register
-    get   '/confirm',         :action => :confirm
-    match '/login',           :action => :login
-    match '/account',         :action => :account
-    match '/change_password', :action => :change_password
-    match '/restore',         :action => :restore,        :as => :restore_password
-    match '/new_password',    :action => :new_password,   :as => :new_password
-    get   '/logout',          :action => :logout
-    match '/photo',           :action => :photo,          :as => :user_photo
+  scope '/user', controller: :users do
+    match '/register',        action: :register
+    get   '/confirm',         action: :confirm
+    match '/login',           action: :login
+    match '/account',         action: :account
+    match '/change_password', action: :change_password
+    match '/restore',         action: :restore,        as: :restore_password
+    match '/new_password',    action: :new_password,   as: :new_password
+    get   '/logout',          action: :logout
+    match '/photo',           action: :photo,          as: :user_photo
+  end
+
+  # დავალიანების მოქმედებები
+  scope '/debt', controller: :debt do
+    get '/', action: :index, as: :debt
   end
 
   # სისტემური ადმინისტრატორის მოქმედებები
