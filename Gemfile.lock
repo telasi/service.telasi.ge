@@ -23,6 +23,7 @@ GEM
       activesupport (= 3.2.5)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-oracle_enhanced-adapter (1.4.1)
     activeresource (3.2.5)
       activemodel (= 3.2.5)
       activesupport (= 3.2.5)
@@ -183,6 +184,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-oci8 (2.1.2)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.8)
     sass (3.1.19)
@@ -238,6 +240,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-oracle_enhanced-adapter (~> 1.4.0)
   bootstrap-will_paginate
   bson_ext (~> 1.5)
   c12-commons
@@ -259,6 +262,7 @@ DEPENDENCIES
   rails (~> 3.2.0)
   rs.ge
   rspec-rails (~> 2.6)
+  ruby-oci8 (~> 2.1.0)
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0.0)
   sqlite3

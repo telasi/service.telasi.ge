@@ -4,6 +4,9 @@ gem 'rails', '~> 3.2.0'
 
 gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
+gem 'sqlite3'
+gem 'ruby-oci8', '~> 2.1.0'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 
 gem 'mongoid_session_store'
 
@@ -18,7 +21,6 @@ gem 'mongoid-paperclip'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
-gem 'sqlite3'
 gem 'kramdown'
 
 group :assets do
