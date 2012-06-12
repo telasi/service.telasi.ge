@@ -31,4 +31,3 @@ module Telasi::StandardPhoto
       :path => ":rails_root/public/photos/#{base.name.downcase}/:id/:style/:basename.:extension"
   end
 end
-

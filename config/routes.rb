@@ -6,11 +6,6 @@ TelasiService::Application.routes.draw do
   get '/home', :controller => :site, :action => :index, :as => :home
   post '/markdown', controller: :site, action: :markdown
 
-  # დახმარება
-  scope '/help', :controller => :help do
-    get '/(:tutorial/:section)', :action => :index, :as => :help
-  end
-
   # მოქმედებები მომხმარებელზე
   scope '/user', :controller => :users do
     match '/register',        :action => :register

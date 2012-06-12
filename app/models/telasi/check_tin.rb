@@ -18,4 +18,3 @@ module Telasi::CheckTin
     base.validate :check_tin
   end
 end
-

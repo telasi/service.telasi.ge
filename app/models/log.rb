@@ -14,7 +14,7 @@ class Log
   field :text, type: String
 
   validates_presence_of :text, message: 'ჩაწერეთ შენიშვნა'
-  
+
   belongs_to  :user
   embedded_in :loggable, polymorphic: true
 
