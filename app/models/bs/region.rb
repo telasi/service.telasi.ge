@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Bs::Region < ActiveRecord::Base
-  self.table_name  = 'region'
+  self.table_name  = 'bs.region'
   self.primary_key = :regionkey
 
   def address

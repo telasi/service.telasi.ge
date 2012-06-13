@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Bs::Address < ActiveRecord::Base
-  self.table_name  = 'address'
+  self.table_name  = 'bs.address'
   self.primary_key = :premisekey
   belongs_to :street,   class_name: 'Bs::Street',   foreign_key: :streetkey
   belongs_to :region,   class_name: 'Bs::Region',   foreign_key: :regionkey

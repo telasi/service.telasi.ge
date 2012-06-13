@@ -44,13 +44,20 @@
         <h4>დავალიანება</h4>
       </div>
       <div class="row">
-        <div class="span3 center">
-          <div class="logo"><%= image_tag 'telasi2.png' %></div>
-          <div><span class="number badge badge-success"><%= C12.number_format @customer.balance %></span> ლარი</div>
+        <div class="span1">
+          &nbsp;
         </div>
-        <div class="span3 center">
+        <div class="span2 center">
+          <div class="logo"><%= image_tag 'telasi2.png' %></div>
+          <div><span class="number badge badge-warning"><%= C12.number_format @customer.balance %></span> ლარი</div>
+        </div>
+        <div class="span2 center">
           <div class="logo"><%= image_tag 'meria.png' %></div>
-          <div><span class="number badge badge-info"><%= C12.number_format @customer.trash_customer.balance %></span> ლარი</div>
+          <div><span class="number badge badge-success"><%= C12.number_format @customer.trash_customer.balance %></span> ლარი</div>
+        </div>
+        <div class="span2 center">
+          <div class="logo"><%= image_tag 'water.png' %></div>
+          <div><span class="number badge badge-info"><%= C12.number_format @customer.water_items.last.ch_person %></span> ლარი</div>
         </div>
       </div>
     <% elsif @not_found %>
