@@ -28,8 +28,12 @@
           <td><%= @customer.address %></td>
         </tr>
         <tr>
-          <th class="right">ბიზნეს-ცენტრი</th>
-          <td></td>
+          <th class="right">აბონენტს ემსახურება</th>
+          <td>
+            <span class="muted">ბიზნეს-ცენტრი:</span> <strong><%= @customer.address.region.regionname.to_ka %></strong><br>
+            <span class="muted">ტელეფონი:</span> <%= @customer.address.region.phone %><br>
+            <span class="muted">მისამართი:</span> <%= @customer.address.region.address %>
+          </td>
         </tr>
       </table>
       <!---->
