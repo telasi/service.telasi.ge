@@ -18,7 +18,21 @@
       <div class="page-header">
         <h3>აბონენტი №<%= @customer.accnumb.to_ka %></h3>
       </div>
-      <%= @customer.custname.to_ka %> <br>
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th width="150" class="right">დასახელება</th>
+          <td><%= @customer.custname.to_ka %> <br></td>
+        </tr>
+        <tr>
+          <th class="right">მისამართი</th>
+          <td><%= @customer.address %></td>
+        </tr>
+        <tr>
+          <th class="right">ბიზნეს-ცენტრი</th>
+          <td></td>
+        </tr>
+      </table>
+      <!---->
       <%= C12.number_format @customer.balance %>
     <% elsif @not_found %>
       აბონენტი ვერ მოიძებნა.
