@@ -22,7 +22,7 @@ TelasiService::Application.routes.draw do
 
   # დავალიანების მოქმედებები
   scope '/debt', controller: :debt do
-    get '/', action: :index, as: :debt
+    match '/', action: :index, as: :debt
   end
 
   # სისტემური ადმინისტრატორის მოქმედებები
