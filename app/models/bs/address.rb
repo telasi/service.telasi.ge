@@ -2,7 +2,6 @@
 class Bs::Address < ActiveRecord::Base
   self.table_name  = 'address'
   self.primary_key = :premisekey
-  belongs_to :customer, class_name: 'Bs::Customer', foreign_key: :custkey
   belongs_to :street,   class_name: 'Bs::Street',   foreign_key: :streetkey
   belongs_to :region,   class_name: 'Bs::Region',   foreign_key: :regionkey
 

@@ -1,3 +1,7 @@
+<style type="text/css">
+  .logo { height: 75px; }
+  .number { font-family: Courier; font-size: 18px; }
+</style>
 <div class="row">
   <div class="span4">
     <div class="page-header">
@@ -36,8 +40,19 @@
           </td>
         </tr>
       </table>
-      <!---->
-      <%= C12.number_format @customer.balance %>
+      <div class="page-header">
+        <h4>დავალიანება</h4>
+      </div>
+      <div class="row">
+        <div class="span3 center">
+          <div class="logo"><%= image_tag 'telasi2.png' %></div>
+          <div><span class="number badge badge-success"><%= C12.number_format @customer.balance %></span> ლარი</div>
+        </div>
+        <div class="span3 center">
+          <div class="logo"><%= image_tag 'meria.png' %></div>
+          <div><span class="number badge badge-info"><%= C12.number_format @customer.trash_customer.balance %></span> ლარი</div>
+        </div>
+      </div>
     <% elsif @not_found %>
       აბონენტი ვერ მოიძებნა.
     <% else %>
