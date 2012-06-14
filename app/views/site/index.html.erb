@@ -1,5 +1,59 @@
-<% if current_user -%>
-  <%= render :partial => 'site/home_private' %>
-<% else -%>
-  <%= render :partial => 'site/home' %>
-<% end -%>
+<style type="text/css">
+  .telasi { background: url(/assets/telasi128.png) no-repeat 0 50%; padding: 32px 0 32px 136px; margin: 0 0 16px 0; min-height: 64px; border-bottom: 3px dotted #56f; }
+  .features-image { height: 250px; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; overflow: hidden; border: 1px solid #aaa; }
+  .features h2 { font-size: 18px; }
+</style>
+<div class="telasi">
+  <p>
+    მოგესალმებით <strong>&quot;სს თელასის&quot; ელექტრონული მომსახურეობის</strong> ვებ-გვერდზე.
+    მისი მეშვეობით თქვენ შეგიძლიათ მიიღოთ და აკონტროლოთ თელასთან დაკავშირებული ინფორმაცია.
+  </p>
+  <p>
+    წინადადებების და შენიშვნებისთვის, მოგვწეროთ ელექტრონულ ფოსტაზე <%= support_email %>.
+  </p>
+</div>
+<div class="row features">
+  <div class="span6">
+    <div class="features-image" style="background: url(/assets/index/switch.png) no-repeat 50% 50%;"></div>
+    <div>
+      <h2>დავალიანების ნახვა</h2>
+      <p>ნახეთ ელექტროენერგიის, დასუფთავების და წყლის დავალიანება. სერვისი ხელმისაწვდომია ნებისმიერ დროს და ადგილას.</p>
+      <p><%= link_to 'დავალიანების ნახვა', debt_url %></p>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="features-image" style="background: url(/assets/index/horizont.png) no-repeat 50% 50%;"></div>
+    <div>
+      <h2>ქსელზე მიერთება</h2>
+      <p>ჯერ არ ხართ თელასის აბონენტი? ახალი ელექტრონული სერვისის მეშვეობით თელასის ქსელზე მიერთება ძალიან მარტივია.</p>
+      <p><%= link_to 'ქსელზე მიერთება', apps_home_url %></p>
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <div class="span6">
+      <% if current_user %>
+        <div class="page-header">
+          <h3>თქვენი ანგარიში</h3>
+        </div>
+        <%= render :partial => 'users/info', :locals => {:user => current_user} %>
+        <div class="well well-actions">
+          <ul class="nav nav-list">
+    	    <li><%= link_to icon_text('pencil', 'მონაცემების შეცვლა'), account_path %></li>
+            <li><%= link_to icon_text('lock', 'პაროლის შეცვლა'), change_password_path %></li>
+            <li><%= link_to icon_text('picture', 'გამოსახულების შეცვლა'), user_photo_path %></li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+    <div class="span6">
+      <%= role_content :sys_admin do -%>
+        <div class="page-header">
+          <h3>ადმინისტრირება</h3>
+        </div>
+        <ul class="nav nav-list">
+          <li><%= link_to icon_text('user', 'მომხმარებლების მართვა'), sys_users_path %></li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
