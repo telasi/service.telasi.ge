@@ -1,8 +1,12 @@
 # -*- encoding : utf-8 -*-
 module CustomerHelper
 
+  def balance(customer)
+    customer.balance - (customer.pre_payment || 0)
+  end
+
   def trash_balance(customer)
-    customer.trash_customer ? customer.trash_customer.curr_balance : nil
+    customer.trash_customer ? (customer.trash_customer.curr_balance - (@customer.pre_trash_payment || 0)) : nil
   end
 
   def water_balance(customer)
@@ -13,7 +17,7 @@ module CustomerHelper
   def cut_candidate(item_bill)
     if item_bill
       customer = item_bill.customer
-      customer.balance > 0.50 or (trash_balance(customer) || 0) > 0.50 or (water_balance(customer) || 0) > 0.50
+      balance(customer) > 0.50 or (trash_balance(customer) || 0) > 0.50 or (water_balance(customer) || 0) > 0.50
     else
       false
     end

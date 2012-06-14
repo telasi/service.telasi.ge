@@ -26,13 +26,13 @@
   <div class="span3 center">
     <div class="logo"><%= image_tag 'telasi2.png' %></div>
     <div>
-      <span class="number badge badge-warning"><%= C12.number_format(@customer.balance - (@customer.pre_payment || 0)) %></span> ლარი
+      <span class="number badge badge-warning"><%= C12.number_format(balance(@customer)) %></span> ლარი
     </div>
   </div>
   <div class="span3 center">
     <div class="logo"><%= image_tag 'meria.png' %></div>
     <div>
-      <span class="number badge badge-success"><%= C12.number_format((trash_balance(@customer) || 0) - (@customer.pre_trash_payment || 0)) %></span> ლარი
+      <span class="number badge badge-success"><%= C12.number_format(trash_balance(@customer) || 0) %></span> ლარი
     </div>
   </div>
   <div class="span3 center">
