@@ -1,3 +1,8 @@
+<style type="text/css">
+  .logo { height: 75px; }
+  .number { font-family: Courier; font-size: 18px; }
+  .note { color: #aaa; padding: 50px 0 25px 0; text-align: center; }
+</style>
 <div class="row">
   <div class="span4">
     <div class="page-header">
@@ -17,7 +22,7 @@
     <% if @customer %>
       <%= render partial: 'debt/customer' %>
     <% elsif @not_found %>
-      აბონენტი ვერ მოიძებნა.
+      <%= render partial: 'debt/not_found' %>
     <% else %>
       <%= render partial: 'debt/find_customer' %>
     <% end %>
