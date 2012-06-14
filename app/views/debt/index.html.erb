@@ -1,7 +1,3 @@
-<style type="text/css">
-  .logo { height: 75px; }
-  .number { font-family: Courier; font-size: 18px; }
-</style>
 <div class="row">
   <div class="span4">
     <div class="page-header">
@@ -19,51 +15,11 @@
   </div>
   <div class="span8">
     <% if @customer %>
-      <div class="page-header">
-        <h3>აბონენტი №<%= @customer.accnumb.to_ka %></h3>
-      </div>
-      <table class="table table-bordered table-striped">
-        <tr>
-          <th width="150" class="right">დასახელება</th>
-          <td><%= @customer.custname.to_ka %> <br></td>
-        </tr>
-        <tr>
-          <th class="right">მისამართი</th>
-          <td><%= @customer.address %></td>
-        </tr>
-        <tr>
-          <th class="right">აბონენტს ემსახურება</th>
-          <td>
-            <span class="muted">ბიზნეს-ცენტრი:</span> <strong><%= @customer.address.region.regionname.to_ka %></strong><br>
-            <span class="muted">ტელეფონი:</span> <%= @customer.address.region.phone %><br>
-            <span class="muted">მისამართი:</span> <%= @customer.address.region.address %>
-          </td>
-        </tr>
-      </table>
-      <div class="page-header">
-        <h4>დავალიანება</h4>
-      </div>
-      <div class="row">
-        <div class="span1">
-          &nbsp;
-        </div>
-        <div class="span2 center">
-          <div class="logo"><%= image_tag 'telasi2.png' %></div>
-          <div><span class="number badge badge-warning"><%= C12.number_format @customer.balance %></span> ლარი</div>
-        </div>
-        <div class="span2 center">
-          <div class="logo"><%= image_tag 'meria.png' %></div>
-          <div><span class="number badge badge-success"><%= C12.number_format @customer.trash_customer.curr_balance %></span> ლარი</div>
-        </div>
-        <div class="span2 center">
-          <div class="logo"><%= image_tag 'water.png' %></div>
-          <div><span class="number badge badge-info"><%= C12.number_format @customer.water_items.last.new_balance %></span> ლარი</div>
-        </div>
-      </div>
+      <%= render partial: 'debt/customer' %>
     <% elsif @not_found %>
       აბონენტი ვერ მოიძებნა.
     <% else %>
-      ჩაწერეთ თქვენი აბონენტის ნომერში ველში მარცხნივ.
+      <%= render partial: 'debt/find_customer' %>
     <% end %>
   </div>
 </div>
