@@ -17,7 +17,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def validate_login
-    redirect_to login_url, alert: 'აღნიშნული მოქმედების შესასრულებლად საჭიროა ავტორიზაცია.' unless current_user
+    unless current_user
+      session[:return_url] = request.url
+      redirect_to login_url, alert: 'აღნიშნული მოქმედების შესასრულებლად საჭიროა ავტორიზაცია.'
+    end
   end
 
 end
