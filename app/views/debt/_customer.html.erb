@@ -32,10 +32,14 @@
   </div>
   <div class="span2 center">
     <div class="logo"><%= image_tag 'meria.png' %></div>
-    <div><span class="number badge badge-success"><%= C12.number_format @customer.trash_customer.curr_balance %></span> ლარი</div>
+    <div>
+      <span class="number badge badge-success"><%= trash_balance(@customer) %></span> ლარი
+    </div>
   </div>
   <div class="span2 center">
     <div class="logo"><%= image_tag 'water.png' %></div>
-    <div><span class="number badge badge-info"><%= C12.number_format @customer.water_items.last.new_balance %></span> ლარი</div>
+    <div>
+      <span class="number badge badge-info"><%= water_balance(@customer) %></span> ლარი
+    </div>
   </div>
 </div>
