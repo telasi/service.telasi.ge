@@ -22,7 +22,7 @@
 <div class="page-header">
   <h4>დავალიანება</h4>
 </div>
-<div class="row">
+<div class="row debt">
   <div class="span1">
     &nbsp;
   </div>
@@ -33,13 +33,35 @@
   <div class="span2 center">
     <div class="logo"><%= image_tag 'meria.png' %></div>
     <div>
-      <span class="number badge badge-success"><%= trash_balance(@customer) %></span> ლარი
+      <span class="number badge badge-success"><%= C12.number_format(trash_balance(@customer) || 0) %></span> ლარი
     </div>
   </div>
   <div class="span2 center">
     <div class="logo"><%= image_tag 'water.png' %></div>
     <div>
-      <span class="number badge badge-info"><%= water_balance(@customer) %></span> ლარი
+      <span class="number badge badge-info"><%= C12.number_format(water_balance(@customer) || 0) %></span> ლარი
     </div>
   </div>
+</div>
+<div class="page-header">
+  <h4>ბოლო ქვითარი / ჩაჭრა</h4>
+  <% last_bill = @customer.item_bills.last %>
+</div>
+<div>
+  <p>
+    ბოლო ქვითარი დაიბეჭდა:
+    <strong>
+      <% if last_bill.billdate %>
+        <%= last_bill.billdate.strftime('%d-%B-%Y') %>
+      <% else %>
+        --
+      <% end %>
+    </strong>
+  </p>
+  <% if cut_candidate(last_bill) %>
+    <div class="alert alert-error alert-block">
+      <p>თქვენ გემუქრებათ ელ. ენერგიის მიწოდების შეზღუდვა. გთხოვთ დროულად დაფაროთ დავალიანება!</p>
+      <p>გათიშვის სავარაუდო თარიღია: <code><%= (last_bill.billdate + 10.days).strftime('%d-%B-%Y') %></code>.</p>
+    </div>
+  <% end %>
 </div>

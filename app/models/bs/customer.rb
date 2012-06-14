@@ -5,4 +5,5 @@ class Bs::Customer < ActiveRecord::Base
   belongs_to :address, class_name: 'Bs::Address', foreign_key: :premisekey
   has_one  :trash_customer, class_name: 'Bs::TrashCustomer', foreign_key: :custkey
   has_many :water_items,    class_name: 'Bs::WaterItem',     foreign_key: :custkey, order: 'year, month'
+  has_many :item_bills,     class_name: 'Bs::ItemBill',      foreign_key: :custkey, order: 'itemkey'
 end
