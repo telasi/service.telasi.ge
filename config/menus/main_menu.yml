@@ -6,3 +6,7 @@ debt:
   label: დავალიანება
   url: /debt
   select: debt
+apps:
+  label: განცხადებები
+  url: /apps
+  select: applications new_customer
