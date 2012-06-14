@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Apps::ApplicationsController < ApplicationController
 
+  before_filter :validate_login
+
   # განცხადებების საწყისი გვერდი.
 	def index
     @title = 'განცხადებები'
