@@ -17,6 +17,9 @@ class DebtController < ApplicationController
     unless cust
       bs_cust = Bs::Customer.where(accnumb: params[:accnumb].to_geo).first
       cust = UserCustomer.new(user: current_user, custkey: bs_cust.custkey, custname: bs_cust.custname.to_ka, accnumb: bs_cust.accnumb.to_ka)
+      cust.last_balance       = bs_cust.normal_balance
+      cust.last_trash_balance = bs_cust.normal_trash_balance
+      cust.last_water_balance = bs_cust.normal_water_balance
       cust.save
     end
     redirect_to debt_url(accnumb: params[:accnumb]), notice: 'აბონენტი დამატებულია'
