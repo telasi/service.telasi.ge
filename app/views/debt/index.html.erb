@@ -16,7 +16,7 @@
       </p>
       <div class="form-actions">
         <%= button_tag icon_text('search', 'ძებნა', white: true), class: ['btn', 'btn-success'] %>
-        <% if current_user and @customer %>
+        <% if current_user and @customer and not (current_user.accnumbs || []).include?(@customer.accnumb.to_ka) %>
           <%= link_to icon_text('plus-sign', 'დამატება', white: true), add_customer_url(accnumb: params[:accnumb]), class: ['btn', 'btn-inverse'], method: 'post' %>
         <% end %>
       </div>

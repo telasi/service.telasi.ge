@@ -13,4 +13,20 @@ class UserCustomer
 
   belongs_to :user, inverse_of: :customers
 
+  before_create  :on_before_create
+  before_destroy :on_before_destroy
+
+  private
+
+  def on_before_create
+    self.user.accnumbs = [] unless self.user.accnumbs
+    self.user.accnumbs << self.accnumb unless self.user.accnumbs.include?(self.accnumb)
+    self.user.save
+  end
+
+  def on_before_destroy
+    self.user.accnumbs.delete(self.accnumb)
+    self.user.save
+  end
+
 end

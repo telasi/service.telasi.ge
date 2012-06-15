@@ -42,6 +42,9 @@ class User
   # პაროლის აღდგენის კოდი
   field :new_password_hash, type: String
 
+  # აბონენტის ნომერი.
+  field :accnumbs, type: Array
+
   # ასოირებული აბონენტები.
   has_many :customers, class_name: 'UserCustomer', inverse_of: :user
 
