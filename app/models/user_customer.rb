@@ -19,12 +19,28 @@ class UserCustomer
   def self.notify
     UserCustomer.all.each do |cust|
       bs_cust = Bs::Customer.where(custkey: cust.custkey).first
+      # electricity
       if bs_cust.normal_balance > cust.last_balance
-        Magti.send_sms '595335514', "ab. ##{cust.accnumb} // Tqveni vali gaizarda: #{C12.number_format bs_cust.normal_balance} GEL"
+        Magti.send_sms cust.mobile, "ab. ##{cust.accnumb} // Tqveni vali gaizarda: #{C12.number_format bs_cust.normal_balance} GEL"
       elsif bs_cust.normal_balance < cust.last_balance
-        Magti.send_sms '595335514', "ab. ##{cust.accnumb} // Tqveni vali Semcirda: #{C12.number_format bs_cust.normal_balance} GEL"
+        Magti.send_sms cust.mobile, "ab. ##{cust.accnumb} // Tqveni vali Semcirda: #{C12.number_format bs_cust.normal_balance} GEL"
       end
+      # trash
+      if bs_cust.normal_trash_balance > cust.last_trash_balance
+        Magti.send_sms cust.mobile, "ab. ##{cust.accnumb} // Tqveni dasufTavebis vali gaizarda: #{C12.number_format bs_cust.normal_trash_balance} GEL"
+      elsif bs_cust.normal_trash_balance < cust.last_trash_balance
+        Magti.send_sms cust.mobile, "ab. ##{cust.accnumb} // Tqveni dasufTavebis vali Semcirda: #{C12.number_format bs_cust.normal_trash_balance} GEL"
+      end
+      # water
+      if bs_cust.normal_water_balance > cust.last_water_balance
+        Magti.send_sms cust.mobile, "ab. ##{cust.accnumb} // Tqveni wylis vali gaizarda: #{C12.number_format bs_cust.normal_water_balance} GEL"
+      elsif bs_cust.normal_water_balance < cust.last_water_balance
+        Magti.send_sms cust.mobile, "ab. ##{cust.accnumb} // Tqveni wylis vali Semcirda: #{C12.number_format bs_cust.normal_water_balance} GEL"
+      end
+      # update balances
       cust.last_balance = bs_cust.normal_balance
+      cust.last_trash_balance = bs_cust.normal_trash_balance
+      cust.last_water_balance = bs_cust.normal_water_balance
       cust.save
     end if Magti::SEND
   end
