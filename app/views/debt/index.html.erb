@@ -21,14 +21,14 @@
         <% end %>
       </div>
     <% end %>
-    <% if current_user and current_user.accnumbs and current_user.accnumbs.any? %>
+    <% if current_user and current_user.customers.any? %>
       <div class="page-header">
         <h4>თქვენი აბონენტები</h4>
       </div>
-      <% current_user.accnumbs.each do |accnumb| %>
+      <% current_user.customers.each do |cust| %>
         <div style="padding: 3px 0;">
-          <code><%= link_to accnumb, debt_url(accnumb: accnumb) %>
-          <%= link_to '&times;'.html_safe, remove_customer_url(accnumb: accnumb), style: 'color: #D14;', method: :delete %></code>
+          <code><%= link_to cust.accnumb, debt_url(accnumb: cust.accnumb) %>
+          <%= link_to '&times;'.html_safe, remove_customer_url(accnumb: cust.accnumb), style: 'color: #D14;', method: :delete %></code>
         </div>
       <% end%>
     <% end %>

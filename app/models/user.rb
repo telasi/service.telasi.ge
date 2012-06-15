@@ -42,8 +42,8 @@ class User
   # პაროლის აღდგენის კოდი
   field :new_password_hash, type: String
 
-  # ამ მომხმარებელთან ასოცირებული ანგარიშის ნომრები.
-  field :accnumbs, type: Array
+  # ასოირებული აბონენტები.
+  has_many :customers, class_name: 'UserCustomer', inverse_of: :user
 
   # შემოწმების ოპერაციები
   validates_presence_of :salt
