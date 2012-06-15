@@ -27,4 +27,21 @@ class Bs::Customer < ActiveRecord::Base
     0
   end
 
+  def normal_balance
+    self.balance - (self.pre_payment || 0)
+  end
+
+  def normal_trash_balance
+    self.trash_customer ? (self.trash_customer.curr_balance - (self.pre_trash_payment || 0)) : 0
+  end
+
+  def normal_water_balance
+    water_item = self.water_items.last
+    (water_item ? water_item.new_balance : 0) - (self.pre_water_payment || 0)
+  end
+
+  def cut_candidate?
+    self.normal_balance > 0.50 or self.normal_trash_balance > 0.50 or self.normal_water_balance > 0.50
+  end
+
 end
