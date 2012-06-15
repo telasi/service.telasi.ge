@@ -24,8 +24,8 @@ class DebtController < ApplicationController
 
   # აბონენტის წაშლა.
   def remove_customer
-    #current_user.accnumbs.delete(params[:accnumb])
-    #current_user.save
+    cust = current_user.customers.where(accnumb: params[:accnumb]).first
+    cust.destroy if cust
     redirect_to debt_url(accnumb: params[:accnumb]), notice: 'აბონენტი წაშლილია'
   end
 
