@@ -16,6 +16,10 @@ class UserCustomer
   before_create  :on_before_create
   before_destroy :on_before_destroy
 
+  def self.notify
+    Magti.send_sms '595335514', 'TEST FROM: whenever' if Magti::SEND
+  end
+
   private
 
   def on_before_create
