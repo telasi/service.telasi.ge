@@ -17,7 +17,16 @@ class UserCustomer
   before_destroy :on_before_destroy
 
   def self.notify
-    Magti.send_sms '595335514', 'TEST FROM: whenever' if Magti::SEND
+    UserCustomer.all.each do |cust|
+      bs_cust = Bs::Customer.where(custkey: cust.custkey).first
+      if bs_cust.normal_balance > cust.last_balance
+        Magti.send_sms '595335514', "ab. ##{cust.accnumb} // Tqveni vali gaizarda: #{C12.number_format bs_cust.normal_balance} GEL"
+      elsif bs_cust.normal_balance < cust.last_balance
+        Magti.send_sms '595335514', "ab. ##{cust.accnumb} // Tqveni vali Semcirda: #{C12.number_format bs_cust.normal_balance} GEL"
+      end
+      cust.last_balance = bs_cust.normal_balance
+      cust.save
+    end if Magti::SEND
   end
 
   private
