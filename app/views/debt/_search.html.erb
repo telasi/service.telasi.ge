@@ -20,7 +20,8 @@
   <% current_user.customers.each do |cust| %>
     <div style="padding: 3px 0;">
       <code><%= link_to cust.accnumb, debt_url(accnumb: cust.accnumb) %>
-      <%= link_to '&times;'.html_safe, remove_customer_url(accnumb: cust.accnumb), style: 'color: #D14;', method: :delete %></code>
+        <%= link_to '&times;'.html_safe, remove_customer_url(accnumb: cust.accnumb), style: 'color: #D14;', method: :delete %></code>
+      <span class="muted"><%= cust.custname %></span>
     </div>
   <% end%>
 <% end %>
