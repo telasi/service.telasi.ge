@@ -1,8 +1,40 @@
+<style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=false">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(41.73671113669874, 44.78321313858032);
+    var myOptions = {
+      center: myLatlng,
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      animation: google.maps.Animation.DROP,
+      title:"ცენტრალური ფილიალი"
+    });
+    var infowindow = new google.maps.InfoWindow({
+        content: "<h2>ცენტრალური ფილიალი</h2>"
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  }
+  $(function() {
+    initialize();
+  });
+</script>
+
 <div class="page-header">
   <h3>აბონენტი №<%= @customer.accnumb.to_ka %></h3>
 </div>
-<%= gmaps4rails({longitude: 0, latitude: 10}) %>
-
 <table class="table table-bordered table-striped">
   <tr>
     <th width="150" class="right">დასახელება</th>
@@ -10,7 +42,9 @@
   </tr>
   <tr>
     <th class="right">მისამართი</th>
-    <td><%= @customer.address %></td>
+    <td>
+      <%= @customer.address %>
+    </td>
   </tr>
   <tr>
     <th class="right">აბონენტს ემსახურება</th>
@@ -18,6 +52,7 @@
       <span class="muted">ბიზნეს-ცენტრი:</span> <strong><%= @customer.address.region.regionname.to_ka %></strong><br>
       <span class="muted">ტელეფონი:</span> <%= @customer.address.region.phone %><br>
       <span class="muted">მისამართი:</span> <%= @customer.address.region.address %>
+      <div id="map_canvas" style="width:500px; height:300px"></div>
     </td>
   </tr>
 </table>
