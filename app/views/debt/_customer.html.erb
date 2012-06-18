@@ -1,5 +1,6 @@
 <style type="text/css">
   #map_canvas { width: 462px; height: 462px; }
+  #map_canvas img { max-width: 100%; }
 </style>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=false">
 </script>
@@ -30,6 +31,8 @@
   });
 </script>
 
+<div id="map_canvas"></div>
+
 <div class="page-header">
   <h3>აბონენტი №<%= @customer.accnumb.to_ka %></h3>
 </div>
@@ -50,7 +53,7 @@
       <span class="muted">ბიზნეს-ცენტრი:</span> <strong><%= @customer.address.region.regionname.to_ka %></strong><br>
       <span class="muted">ტელეფონი:</span> <%= @customer.address.region.phone %><br>
       <span class="muted">მისამართი:</span> <%= @customer.address.region.address %>
-      <div id="map_canvas"></div>
+      
     </td>
   </tr>
 </table>
