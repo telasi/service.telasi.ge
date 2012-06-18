@@ -1,6 +1,8 @@
 <div class="page-header">
   <h3>აბონენტი №<%= @customer.accnumb.to_ka %></h3>
 </div>
+<%= gmaps4rails({longitude: 0, latitude: 10}) %>
+
 <table class="table table-bordered table-striped">
   <tr>
     <th width="150" class="right">დასახელება</th>
