@@ -82,6 +82,7 @@ GEM
     factory_girl (3.4.0)
       activesupport (>= 3.0.0)
     ffi (1.0.11)
+    gmaps4rails (1.5.2)
     gyoku (0.4.5)
       builder (>= 2.1.2)
     hike (1.2.1)
@@ -130,7 +131,7 @@ GEM
     multi_xml (0.5.1)
     nokogiri (1.5.4)
     nori (1.1.0)
-    paperclip (3.0.4)
+    paperclip (3.1.1)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -188,7 +189,7 @@ GEM
       rspec (~> 2.10.0)
     ruby-oci8 (2.1.2)
     ruby-rc4 (0.1.5)
-    rubyzip (0.9.8)
+    rubyzip (0.9.9)
     sass (3.1.19)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   composite_primary_keys (~> 5)
   email_spec
   factory_girl
+  gmaps4rails
   jquery-rails
   jquery-ui-rails
   kramdown

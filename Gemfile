@@ -23,6 +23,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 gem 'kramdown'
+gem 'gmaps4rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.0'
