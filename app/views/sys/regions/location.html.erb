@@ -1,0 +1,34 @@
+<style type="text/css">
+  .map-container { position: fixed; top: 40px; bottom: 0; left: 0; right: 0; background: white; }
+  .map-container .details { width: 250px; background: #fafafa; position: absolute; top: 0; left: 0; bottom: 0; padding: 0 10px; }
+  #map { position: absolute; left: 250px; right: 0; top: 0; bottom: 0; }
+</style>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(<%= @region.latitude%>, <%= @region.longitude %>);
+    var myOptions = {
+      center: myLatlng,
+      zoom: 18,
+      mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    var map = new google.maps.Map(document.getElementById("map"), myOptions);
+    var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title:"<%= @region.name %>"
+      });
+  }
+  $(function() {
+    initialize();
+  });
+</script>
+<div class="map-container">
+  <div class="details">
+    <h3><%= @region.name %></h3>
+    <p class="muted"><%= @region.address %></p>
+    <p class="muted"><%= @region.phone %></p>
+  </div>
+  <div id="map"></div>
+</div>
