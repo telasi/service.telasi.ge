@@ -34,6 +34,9 @@ TelasiService::Application.routes.draw do
       match '/edit/:id',    action: :edit,   as: :edit_user
       delete '/delete/:id', action: :delete, as: :delete_user
     end
+    scope '/regions', controller: :regions do
+      get '/', action: :index, as: :regions
+    end
   end
 
   # განცხადებები
