@@ -14,8 +14,12 @@
     var map = new google.maps.Map(document.getElementById("map"), myOptions);
     var marker = new google.maps.Marker({ position: myLatlng, map: map, title:"<%= @region.name %>", draggable: true });
     google.maps.event.addListener(marker, 'dragend', function() {
-      //map.setZoom(8);
-      map.setCenter(marker.getPosition());
+      var url = '<%= sys_set_location_url %>';
+      var lat = marker.getPosition().lat();
+      var lng = marker.getPosition().lng();
+      $.post(url, {lat: lat, lng: lng}, function() {
+        console.log(lat + ' : ' + lng);
+      });
     });
   }
   $(function() {

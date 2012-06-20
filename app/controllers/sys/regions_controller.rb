@@ -19,4 +19,13 @@ class Sys::RegionsController < ApplicationController
     @region = Ext::Region.find(params[:id])
   end
 
+  # მდებარეობის შეცვლა.
+  def setloc
+    region = Ext::Region.find(params[:id])
+    region.latitude = params[:lat];
+    region.longitude = params[:lng];
+    region.save
+    render text: 'ok'
+  end
+
 end
