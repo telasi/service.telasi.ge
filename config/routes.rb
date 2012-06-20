@@ -36,7 +36,9 @@ TelasiService::Application.routes.draw do
     end
     scope '/regions', controller: :regions do
       get  '/',           action: :index,        as: :regions
-      get  '/region/:id', action: :region,       as: :region_location
+      get  '/show/:id',   action: :region,       as: :region
+      match '/edit/:id',  action: :edit,         as: :edit_region
+      get  '/'
       post '/setloc/:id', action: :set_location, as: :set_location
       post '/sync',       action: :sync_regions, as: :sync_regions
     end

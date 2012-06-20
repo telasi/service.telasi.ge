@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h2><%= @region.name %> <small>რეგიონის შეცვლა</small></h2>
+</div>
+<%= simple_form_for @region, url: request.url, html: {class: 'form-horizontal'} do |f| %>
+  <%= f.input :name, label: 'დასახელება', input_html: {class: 'span6', autofocus: true}  %>
+  <%= f.input :address, label: 'მისამართი', input_html: {class: 'span6'} %>
+  <%= f.input :phone, label: 'ტელეფონი', input_html: {class: 'span6'}  %>
+  <div class="form-actions">
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+    <%= link_to 'გაუქმება', sys_region_url, class: 'btn' %>
+  </div>
+<% end %>

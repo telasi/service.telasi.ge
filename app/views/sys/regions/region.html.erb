@@ -28,13 +28,15 @@
 </script>
 <div class="map-container">
   <div class="details">
-    <%= link_to icon_text('arrow-left', 'სიაში'), sys_regions_url, class: ['btn', 'btn-mini'] %>
+    <div class="btn-toolbar">
+      <%= link_to icon_text('arrow-left', 'სიაში'), sys_regions_url, class: ['btn', 'btn-mini'] %>
+      <%= link_to icon_text('pencil', 'შეცვლა'), sys_edit_region_url, class: ['btn', 'btn-mini'] %>
+    </div>
     <div class="page-header">
     <h3><%= @region.name %></h3>
     </div>
     <p class="muted"><%= @region.address %></p>
     <p class="muted"><%= @region.phone %></p>
-    
   </div>
   <div id="map"></div>
 </div>

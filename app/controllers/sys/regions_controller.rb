@@ -28,4 +28,13 @@ class Sys::RegionsController < ApplicationController
     redirect_to sys_regions_path, notice: 'რეგიონები სინქრონიზებულია.'
   end
 
+  # შეცვლა.
+  def edit
+    @title = 'რეგიონის შეცვლა'
+    @region = Ext::Region.find(params[:id])
+    if request.put?
+      redirect_to sys_region_url if @region.update_attributes(params[:ext_region])
+    end
+  end
+
 end
