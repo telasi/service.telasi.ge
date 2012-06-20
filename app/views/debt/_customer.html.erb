@@ -1,7 +1,7 @@
 <style type="text/css">
   .map-container { position: fixed; top: 40px; bottom: 0; left: 0; right: 0; background: white; }
   .map-container .details { width: 250px; background: #fafafa; position: absolute; top: 0; left: 0; bottom: 0; padding: 10px 10px; }
-  #map { width: 700px; height: 400px; }
+  #map { width: 700px; height: 500px; }
   #map label { width: auto; display:inline; }
   #map img { max-width: none; max-height: none; }
 </style>
@@ -10,11 +10,11 @@
 <script type="text/javascript">
   function initialize() {
     var myLatlng = new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>);
-    var myOptions = { center: myLatlng, zoom: 17, mapTypeId: google.maps.MapTypeId.HYBRID };
+    var myOptions = { center: myLatlng, zoom: 16, mapTypeId: google.maps.MapTypeId.HYBRID };
     var map = new google.maps.Map(document.getElementById("map"), myOptions);
     var marker = new google.maps.Marker({ position: myLatlng, map: map, animation: google.maps.Animation.DROP, title:"ცენტრალური ფილიალი" });
     var infowindow = new google.maps.InfoWindow({
-        content: '<h3>ბ/ც "<%= @region.name %>"</h3><p class="muted"><%= @region.address %></p>'
+        content: '<h3>ბ/ც "<%= @region.name %>"</h3><p class="muted"><%= @region.address %></p><p>ტელ: <%= @region.phone %></p>'
     });
     infowindow.open(map, marker);
     google.maps.event.addListener(marker, 'click', function() {
