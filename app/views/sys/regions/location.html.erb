@@ -1,6 +1,6 @@
 <style type="text/css">
   .map-container { position: fixed; top: 40px; bottom: 0; left: 0; right: 0; background: white; }
-  .map-container .details { width: 250px; background: #fafafa; position: absolute; top: 0; left: 0; bottom: 0; padding: 0 10px; }
+  .map-container .details { width: 250px; background: #fafafa; position: absolute; top: 0; left: 0; bottom: 0; padding: 10px 10px; }
   #map { position: absolute; left: 250px; right: 0; top: 0; bottom: 0; }
   #map label { width: auto; display:inline; }
   #map img { max-width: none; max-height: none; }
@@ -12,7 +12,11 @@
     var myLatlng = new google.maps.LatLng(<%= @region.latitude%>, <%= @region.longitude %>);
     var myOptions = { center: myLatlng, zoom: 18, mapTypeId: google.maps.MapTypeId.HYBRID };
     var map = new google.maps.Map(document.getElementById("map"), myOptions);
-    var marker = new google.maps.Marker({ position: myLatlng, map: map, title:"<%= @region.name %>" });
+    var marker = new google.maps.Marker({ position: myLatlng, map: map, title:"<%= @region.name %>", draggable: true });
+    google.maps.event.addListener(marker, 'dragend', function() {
+      //map.setZoom(8);
+      map.setCenter(marker.getPosition());
+    });
   }
   $(function() {
     initialize();
@@ -20,9 +24,13 @@
 </script>
 <div class="map-container">
   <div class="details">
+    <%= link_to icon_text('arrow-left', 'სიაში'), sys_regions_url, class: ['btn', 'btn-mini'] %>
+    <div class="page-header">
     <h3><%= @region.name %></h3>
+    </div>
     <p class="muted"><%= @region.address %></p>
     <p class="muted"><%= @region.phone %></p>
+    
   </div>
   <div id="map"></div>
 </div>
