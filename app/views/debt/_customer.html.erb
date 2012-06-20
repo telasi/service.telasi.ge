@@ -1,18 +1,19 @@
 <style type="text/css">
   .map-container { position: fixed; top: 40px; bottom: 0; left: 0; right: 0; background: white; }
   .map-container .details { width: 250px; background: #fafafa; position: absolute; top: 0; left: 0; bottom: 0; padding: 10px 10px; }
-  #map { width: 700px; height: 500px; }
+  #map { width: 700px; height: 450px; }
   #map label { width: auto; display:inline; }
   #map img { max-width: none; max-height: none; }
+  .debt { padding: 32px 0; }
 </style>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=false">
 </script>
 <script type="text/javascript">
   function initialize() {
     var myLatlng = new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>);
-    var myOptions = { center: myLatlng, zoom: 16, mapTypeId: google.maps.MapTypeId.HYBRID };
+    var myOptions = { center: myLatlng, zoom: 16, mapTypeId: google.maps.MapTypeId.ROADMAP };
     var map = new google.maps.Map(document.getElementById("map"), myOptions);
-    var marker = new google.maps.Marker({ position: myLatlng, map: map, animation: google.maps.Animation.DROP, title:"ცენტრალური ფილიალი" });
+    var marker = new google.maps.Marker({ position: myLatlng, map: map, animation: google.maps.Animation.DROP, title: '<%= @region.name %>' });
     var infowindow = new google.maps.InfoWindow({
         content: '<h3>ბ/ც "<%= @region.name %>"</h3><p class="muted"><%= @region.address %></p><p>ტელ: <%= @region.phone %></p>'
     });
@@ -25,36 +26,14 @@
     initialize();
   });
 </script>
-
+<div class="page-header">
+  <h3>
+    <%= @customer.custname.to_ka %>
+    <span class="badge badge-warning" style="font-size: 0.8em;">№<%= @customer.accnumb.to_ka %></span>
+    <small><%= @customer.address %></small>
+  </h3>
+</div>
 <div id="map"></div>
-
-<div class="page-header">
-  <h3>აბონენტი №<%= @customer.accnumb.to_ka %></h3>
-</div>
-<table class="table table-bordered table-striped">
-  <tr>
-    <th width="150" class="right">დასახელება</th>
-    <td><%= @customer.custname.to_ka %> <br></td>
-  </tr>
-  <tr>
-    <th class="right">მისამართი</th>
-    <td>
-      <%= @customer.address %>
-    </td>
-  </tr>
-  <tr>
-    <th class="right">აბონენტს ემსახურება</th>
-    <td>
-      <span class="muted">ბიზნეს-ცენტრი:</span> <strong><%= @customer.address.region.regionname.to_ka %></strong><br>
-      <span class="muted">ტელეფონი:</span> <%= @customer.address.region.phone %><br>
-      <span class="muted">მისამართი:</span> <%= @customer.address.region.address %>
-      
-    </td>
-  </tr>
-</table>
-<div class="page-header">
-  <h4>დავალიანება</h4>
-</div>
 <div class="row debt">
   <div class="span3 center">
     <div class="logo"><%= image_tag 'telasi2.png' %></div>
@@ -75,11 +54,8 @@
     </div>
   </div>
 </div>
-<div class="page-header">
-  <h4>ქვითარი</h4>
-  <% last_bill = @customer.item_bills.last %>
-</div>
 <div>
+  <% last_bill = @customer.item_bills.last %>
   <p>
     ბოლო ქვითარი დაიბეჭდა:
     <code><strong>
@@ -101,3 +77,4 @@
     </div>
   <% end %>
 </div>
+
