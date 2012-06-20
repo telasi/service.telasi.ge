@@ -7,7 +7,11 @@ class DebtController < ApplicationController
     unless params[:accnumb].blank?
       accnumb = params[:accnumb].to_geo
       @customer = Bs::Customer.where(accnumb: accnumb).first
-      @not_found = true unless @customer
+      if @customer
+        @region = Ext::Region.where(regionkey: @customer.address.region.regionkey).first
+      else
+        @not_found = true
+      end
     end
   end
 

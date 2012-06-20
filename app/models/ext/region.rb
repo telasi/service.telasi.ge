@@ -14,14 +14,14 @@ class Ext::Region
 
   def self.sync
     Bs::Region.where(regtpkey: 2).each do |reg|
-      # if reg.base_regionkey
-      #   region = Ext::Region.where(regionkey: reg.regionkey).first || Ext::Region.new(regionkey: reg.regionkey)
-      #   region.type = reg.regtpkey
-      #   region.name = reg.regionname.split('/').first.to_ka.strip
-      #   region.address = reg.address unless region.address
-      #   region.phone = reg.phone unless region.phone
-      #   region.save
-      # end
+      if reg.regionname.index('/').nil? and reg.regionkey < 400
+        region = Ext::Region.where(regionkey: reg.regionkey).first || Ext::Region.new(regionkey: reg.regionkey)
+        region.type = reg.regtpkey
+        region.name = reg.regionname.to_ka.strip
+        region.address = reg.address unless region.address
+        region.phone = reg.phone unless region.phone
+        region.save
+      end
     end
   end
 
