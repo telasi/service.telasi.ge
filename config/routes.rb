@@ -35,10 +35,10 @@ TelasiService::Application.routes.draw do
       delete '/delete/:id', action: :delete, as: :delete_user
     end
     scope '/regions', controller: :regions do
-      get  '/',           action: :index,    as: :regions
-      post '/sync',       action: :sync,     as: :region_sync
-      get  '/loc/:id',    action: :location, as: :region_location
-      post '/setloc/:id', action: :setloc,   as: :set_location
+      get  '/',           action: :index,        as: :regions
+      get  '/region/:id', action: :region,       as: :region_location
+      post '/setloc/:id', action: :set_location, as: :set_location
+      post '/sync',       action: :sync_regions, as: :sync_regions
     end
   end
 

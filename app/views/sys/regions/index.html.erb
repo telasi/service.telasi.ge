@@ -2,7 +2,7 @@
   <h2>რეგიონები</h2>
 </div>
 <div class="btn-toolbar">
-  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_region_sync_path, method: :post, class: 'btn', data: {confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'} %>
+  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_regions_path, method: :post, class: 'btn', data: {confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'} %>
 </div>
 <table class="table table-bordered table-striped">
   <thead>
@@ -11,19 +11,15 @@
       <th width="250">დასახელება</th>
       <th>მისამართი</th>
       <th>ტელეფონი</th>
-      <th class="center" width="16"><%= icon 'cog' %></th>
     </tr>
   </thead>
   <tbody>
     <% @regions.each do |reg| %>
       <tr>
         <td class="right"><%= reg.regionkey %></td>
-        <td><%= reg.name %></td>
+        <td><%= link_to reg.name, sys_region_location_url(id: reg.id) %></td>
         <td><%= reg.address %></td>
         <td><%= reg.phone %></td>
-        <td class="center">
-          <%= link_to icon('screenshot', tooltip: 'მდებარეობა', tooltip_placement: :left), sys_region_location_url(id: reg.id) %>
-        </td>
       </tr>
     <% end %>
   </tbody>

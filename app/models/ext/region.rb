@@ -13,15 +13,15 @@ class Ext::Region
   field :longitude, type: Float, default: 44.78496193885803
 
   def self.sync
-    Bs::Region.all.each do |reg|
-      if reg.base_regionkey
-        region = Ext::Region.where(regionkey: reg.regionkey).first || Ext::Region.new(regionkey: reg.regionkey)
-        region.type = reg.regtpkey
-        region.name = reg.regionname.split('/').first.to_ka.strip
-        region.address = reg.address unless region.address
-        region.phone = reg.phone unless region.phone
-        region.save
-      end
+    Bs::Region.where(regtpkey: 2).each do |reg|
+      # if reg.base_regionkey
+      #   region = Ext::Region.where(regionkey: reg.regionkey).first || Ext::Region.new(regionkey: reg.regionkey)
+      #   region.type = reg.regtpkey
+      #   region.name = reg.regionname.split('/').first.to_ka.strip
+      #   region.address = reg.address unless region.address
+      #   region.phone = reg.phone unless region.phone
+      #   region.save
+      # end
     end
   end
 
