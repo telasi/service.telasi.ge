@@ -47,6 +47,12 @@
       map.setZoom(large_view);
       return false;
     });
+    $('.all-regions-link').click(function() {
+      infowindow.close();
+      map.setCenter(default_position);
+      map.setZoom(default_zoom);
+      return false;
+    });
   });
 </script>
 <div class="map-canvas">
@@ -55,6 +61,9 @@
       <h3>ბიზნეს-ცენტრები</h3>
     </div>
     <div class="regions">
+      <div class="region">
+        <a href="#" class="all-regions-link">ყველა ბ/ც</a>
+      </div>
       <%
         cnt = 0
         @regions.each do |reg|
