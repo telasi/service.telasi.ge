@@ -27,6 +27,10 @@ TelasiService::Application.routes.draw do
     delete '/remove/:accnumb', action: :remove_customer, as: :remove_customer
   end
 
+  scope '/map', controller: :map do
+    get '/', action: :index, as: :map
+  end
+
   # სისტემური ადმინისტრატორის მოქმედებები
   namespace :sys do
     scope '/users', :controller => :users do
