@@ -1,0 +1,81 @@
+<style type="text/css">
+  .map-canvas { position: fixed; top: 40px; left: 0; right: 0; bottom: 0; background: white; }
+  #map { position: absolute; top: 0; left: 400px; right: 0; bottom: 0;; }
+  #map label { width: auto; display:inline; }
+  #map img { max-width: none; max-height: none; }
+  .side { padding: 10px; position: absolute; top: 0; bottom: 0; left: 0; width: 380px; overflow: auto; }
+  .region { padding: 5px; }
+  .regions { padding-bottom: 16px; }
+  .note { line-height: 30px; padding-top: 8px; }
+</style>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=false">
+</script>
+<script type="text/javascript">
+  var region_data = [
+    <% @regions.each do |reg| %>
+      {name: '<%=reg.name%>', address: '<%=reg.address%>', latitude: <%=reg.latitude%>, longitude: <%=reg.longitude%>},
+    <% end %>
+  ];
+  var markers = [];
+  var map = null;
+  var infowindow = new google.maps.InfoWindow({ content: '(no-info)' });
+  var default_position = new google.maps.LatLng(41.7341651833187, 44.78496193885803);
+  var default_zoom = 12;
+  var large_view = 16;
+  function initialize() {
+    var myOptions = { center: default_position, zoom: default_zoom, mapTypeId: google.maps.MapTypeId.ROADMAP };
+    map = new google.maps.Map(document.getElementById("map"), myOptions);
+    for (var i = 0, l = region_data.length; i < l; i++) {
+      var region = region_data[i];
+      var pos = new google.maps.LatLng(region.latitude, region.longitude);
+      var marker = new google.maps.Marker({ position: pos, map: map, animation: google.maps.Animation.DROP, title: region.name });
+      marker.info_html = '<h3>ბ/ც "' + region.name  +'"</h3><p class="muted">' + region.address + '</p><p>ტელ: ' + region.phone + '</p>';
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(this.info_html);
+        infowindow.open(map, this);
+      });
+      markers.push(marker);
+    }
+  }
+  $(function() {
+    initialize();
+    $('.region-link').click(function(evnt) {
+      var marker = markers[$(evnt.target).attr('data-index')];
+      infowindow.setContent(marker.info_html);
+      infowindow.open(map, marker);
+      map.setCenter(marker.getPosition());
+      map.setZoom(large_view);
+      return false;
+    });
+  });
+</script>
+<div class="map-canvas">
+  <div class="side">
+    <div class="page-header">
+      <h3>ბიზნეს-ცენტრები</h3>
+    </div>
+    <div class="regions">
+      <%
+        cnt = 0
+        @regions.each do |reg|
+      -%>
+        <div class="region">
+          <%= region_icons(reg, small: true) %>
+          <a href="#" class="region-link" data-index="<%= cnt %>"><%= reg.name %></a>
+        </div>
+      <%
+        cnt += 1
+        end
+      -%>
+    </div>
+    <div class="well">
+      <h4>აღნიშვნები</h4>
+      <div class="note">
+        <%= image_tag 'sun16.png' %> &mdash; თელასის ბიზნეს-ცენტრი <br>
+        <%= image_tag 'clean16.png' %> &mdash; დასუფთავების სამსახურის ბიზნეს-ცენტრი
+      </div>
+    </div>
+  </div>
+  <div id="map">
+  </div>
+</div>
