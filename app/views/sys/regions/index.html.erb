@@ -17,7 +17,7 @@
     <% @regions.each do |reg| %>
       <tr>
         <td class="right"><%= reg.regionkey %></td>
-        <td><%= link_to reg.name, sys_region_url(id: reg.id) %></td>
+        <td><%= link_to reg.name, sys_region_url(id: reg.id) %> <%= region_icons(reg, small: true) %></td>
         <td><%= reg.address %></td>
         <td><%= reg.phone %></td>
       </tr>
