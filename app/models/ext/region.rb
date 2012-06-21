@@ -11,6 +11,8 @@ class Ext::Region
   field :phone,     type: String
   field :latitude,  type: Float, default: 41.7341651833187
   field :longitude, type: Float, default: 44.78496193885803
+  field :show_on_map,  type: Boolean, default: false
+  field :trash_office, type: Boolean, default: false
 
   def self.sync
     Bs::Region.where(regtpkey: 2).each do |reg|
