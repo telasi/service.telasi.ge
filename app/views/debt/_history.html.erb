@@ -1,0 +1,41 @@
+<style type="text/css">
+  .pagination a { padding: 0 12px; line-height: 32px; }
+  .accnumb { font-size: 0.9em; }
+  .decorated { padding-left: 24px !important; }
+  .date { background: url(/assets/date.png) no-repeat 4px 50%; }
+  .power { background: url(/assets/power.png) no-repeat 4px 50%; }
+  .estimate { background: url(/assets/estimate.png) no-repeat 4px 50%; }
+  .money { background: url(/assets/money.png) no-repeat 4px 50%; }
+  .voucher { background: url(/assets/correction.png) no-repeat 4px 50%; }
+  .subsidy { background: url(/assets/support.png) no-repeat 4px 50%; }
+  .portion { background: url(/assets/portion.png) no-repeat 4px 50%; }
+  .service { background: url(/assets/service.png) no-repeat 4px 50%; }
+</style>
+<div class="page-header">
+  <h3>
+    ისტორია <span class="badge badge-warning accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
+  </h3>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="100">თარიღი</th>
+      <th>ოპერაცია</th>
+      <th width="100">ჩვენება (კვ.სთ)</th>
+      <th width="100">ხარჯი (კვ.სთ)</th>
+      <th width="100">ხარჯი (ლარი)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td class="decorated date center"><%= C12::KA.format_date(item.itemdate, format: :short) %></td>
+        <td class="decorated <%= billoperation_class(item.operation) %>"><%= link_to item.operation.billopername.to_ka %></td>
+        <td class="right"><%= C12.number_format item.reading, 3 %></td>
+        <td class="right"><%= C12.number_format item.kwt, 1 %></td>
+        <td class="right"><%= C12.number_format item.amount, 2 %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @items %>

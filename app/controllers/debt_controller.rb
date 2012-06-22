@@ -36,4 +36,11 @@ class DebtController < ApplicationController
     redirect_to debt_url(accnumb: params[:accnumb]), notice: 'აბონენტი წაშლილია'
   end
 
+  # აბონენტის ისტორია.
+  def history
+    @title = 'აბონენტის ისტორია'
+    @customer = Bs::Customer.where(accnumb: params[:accnumb]).first
+    @items = Bs::Item.where(custkey: @customer.custkey).order('itemkey DESC').paginate(page: params[:page], per_page: 10)
+  end
+
 end
