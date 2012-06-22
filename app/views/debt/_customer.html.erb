@@ -5,6 +5,10 @@
   #map label { width: auto; display:inline; }
   #map img { max-width: none; max-height: none; }
   .debt { padding: 32px 0; }
+  .history { padding: 32px 0 0 0; }
+  .logo { height: 64px; }
+  .number { font-family: Courier; font-size: 18px; }
+  .note { color: #aaa; padding: 50px 0 25px 0; text-align: center; }
 </style>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=false">
 </script>
@@ -41,17 +45,26 @@
     <div>
       <span class="number badge badge-warning"><%= C12.number_format(@customer.normal_balance) %></span> ლარი
     </div>
+    <div class="history center">
+      <%= link_to 'ისტორია', customer_history_url(accnumb: @customer.accnumb), class: ['btn', 'btn-warning'] %>
+    </div>
   </div>
   <div class="span3 center">
     <div class="logo"><%= image_tag 'meria.png' %></div>
     <div>
       <span class="number badge badge-success"><%= C12.number_format(@customer.normal_trash_balance) %></span> ლარი
     </div>
+    <div class="history center">
+      <%= link_to 'ისტორია', customer_history_url(accnumb: @customer.accnumb), class: ['btn', 'btn-success'] %>
+    </div>
   </div>
   <div class="span3 center">
     <div class="logo"><%= image_tag 'water.png' %></div>
     <div>
       <span class="number badge badge-info"><%= C12.number_format(@customer.normal_water_balance) %></span> ლარი
+    </div>
+    <div class="history center">
+      <%= link_to 'ისტორია', nil, class: ['btn', 'btn-info'], disabled: true %>
     </div>
   </div>
 </div>
