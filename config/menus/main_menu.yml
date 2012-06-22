@@ -3,7 +3,7 @@ home:
   url: /home
   select: site/index
 debt:
-  label: დავალიანება
+  label: ხარჯი
   url: /debt
   select: debt
 apps:
