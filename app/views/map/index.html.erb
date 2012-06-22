@@ -13,7 +13,7 @@
 <script type="text/javascript">
   var region_data = [
     <% @regions.each do |reg| %>
-      {name: '<%=reg.name%>', address: '<%=reg.address%>', latitude: <%=reg.latitude%>, longitude: <%=reg.longitude%>},
+      {name: '<%=reg.name%>', address: '<%=reg.address%>', latitude: <%=reg.latitude%>, longitude: <%=reg.longitude%>, phone: '<%=reg.phone%>'},
     <% end %>
   ];
   var markers = [];
