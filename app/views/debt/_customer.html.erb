@@ -13,7 +13,7 @@
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD_wcFfq6rCVz4A4HCMypFizALZ1IK3jZg&sensor=false">
 </script>
 <script type="text/javascript">
-  function initialize() {
+  function initializeMap() {
     var position = new google.maps.LatLng(<%= @region.latitude %>, <%= @region.longitude %>);
     var map_center = new google.maps.LatLng(<%= @region.latitude + 0.0014 %>, <%= @region.longitude %>);
     var map = new google.maps.Map(document.getElementById("map"), { center: map_center, zoom: 16, mapTypeId: google.maps.MapTypeId.ROADMAP });
@@ -28,7 +28,10 @@
     });
   }
   $(function() {
-    initialize();
+    initializeMap();
+    $('.disabled').click(function() {
+      return false;
+    });
   });
 </script>
 <div class="page-header">
@@ -64,7 +67,7 @@
       <span class="number badge badge-info"><%= C12.number_format(@customer.normal_water_balance) %></span> ლარი
     </div>
     <div class="history center">
-      <%= link_to 'ისტორია', nil, class: ['btn', 'btn-info'], disabled: true %>
+      <%= link_to 'ისტორია', nil, class: ['btn', 'btn-info', 'disabled'] %>
     </div>
   </div>
 </div>
