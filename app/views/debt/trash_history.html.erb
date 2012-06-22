@@ -1,0 +1,20 @@
+<style class="text/css">
+  .number { font-size: 16px; }
+</style>
+<div class="row">
+  <div class="span3">
+    <div class="page-header">
+      <h3>დავალიანება</h3>
+    </div>
+    <div>
+      <p class="center"><%= image_tag 'meria.png'%></p>
+      <p class="center"><span class="number badge badge-success"><%= C12.number_format(@customer.normal_trash_balance) %></span> ლარი</p>
+    </div>
+    <p class="btn-toolbar center">
+      <%= link_to icon_text('arrow-left', 'ყველა დავალიანება'), debt_url(accnumb: @customer.accnumb), class: ['btn', 'btn-mini']%>
+    </p>
+  </div>
+  <div class="span9">
+    <%= render partial: 'debt/trash_history' %>
+  </div>
+</div>

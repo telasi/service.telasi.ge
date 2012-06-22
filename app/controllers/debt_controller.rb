@@ -43,4 +43,11 @@ class DebtController < ApplicationController
     @items = Bs::Item.where(custkey: @customer.custkey).order('itemkey DESC').paginate(page: params[:page], per_page: 10)
   end
 
+  # აბონენტის დასუფთავების ისტორია.
+  def trash_history
+    @title = 'დასუფთავების ისტორია'
+    @customer = Bs::Customer.where(accnumb: params[:accnumb]).first
+    @items = Bs::TrashItem.where(custkey: @customer.custkey).order('trashitemid DESC').paginate(page: params[:page], per_page: 10)
+  end
+
 end

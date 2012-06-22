@@ -52,7 +52,7 @@
       <span class="number badge badge-warning"><%= C12.number_format(@customer.normal_balance) %></span> ლარი
     </div>
     <div class="history center">
-      <%= link_to 'ისტორიის ნახვა', customer_history_url(accnumb: @customer.accnumb), class: ['btn', 'btn-warning'] %>
+      <%= link_to 'ისტორიის ნახვა', history_url(accnumb: @customer.accnumb), class: ['btn', 'btn-warning'] %>
     </div>
   </div>
   <div class="span3 center">
@@ -61,7 +61,7 @@
       <span class="number badge badge-success"><%= C12.number_format(@customer.normal_trash_balance) %></span> ლარი
     </div>
     <div class="history center">
-      <%= link_to 'ისტორიის ნახვა', customer_history_url(accnumb: @customer.accnumb), class: ['btn', 'btn-success'] %>
+      <%= link_to 'ისტორიის ნახვა', trash_history_url(accnumb: @customer.accnumb), class: ['btn', 'btn-success'] %>
     </div>
   </div>
   <div class="span3 center">

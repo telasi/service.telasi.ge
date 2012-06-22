@@ -13,7 +13,7 @@
 </style>
 <div class="page-header">
   <h3>
-    <%= @customer.custname.to_ka%> <span class="badge badge-warning accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
+    <%= @customer.custname.to_ka%> <span class="badge badge-success accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
   </h3>
 </div>
 <table class="table table-bordered table-striped">
@@ -21,19 +21,15 @@
     <tr>
       <th width="100">თარიღი</th>
       <th>ოპერაცია</th>
-      <th width="100">ჩვენება (კვ.სთ)</th>
-      <th width="100">ხარჯი (კვ.სთ)</th>
       <th width="100">ხარჯი (ლარი)</th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td class="decorated date center"><%= C12::KA.format_date(item.itemdate, format: :short) %></td>
-        <td class="decorated <%= billoperation_class(item.operation) %>"><%= link_to item.operation.billopername.to_ka %></td>
-        <td class="right"><%= C12.number_format item.reading, 3 %></td>
-        <td class="right"><%= C12.number_format item.kwt, 1 %></td>
-        <td class="right"><%= C12.number_format item.amount, 2 %></td>
+        <td class="decorated date"><%= C12::KA.format_date(item.operdate, format: :short) %></td>
+        <td><%= link_to item.operation.description.to_ka %></td>
+        <td class="right"><%= C12.number_format item.amount %></td>
       </tr>
     <% end %>
   </tbody>

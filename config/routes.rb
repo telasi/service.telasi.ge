@@ -22,10 +22,13 @@ TelasiService::Application.routes.draw do
 
   # დავალიანების მოქმედებები
   scope '/debt', controller: :debt do
-    match  '/',                 action: :index,           as: :debt
+    # debt
+    get    '/',                 action: :index,           as: :debt
     post   '/add/:accnumb',     action: :add_customer,    as: :add_customer
     delete '/remove/:accnumb',  action: :remove_customer, as: :remove_customer
-    get    '/history/:accnumb', action: :history,         as: :customer_history
+    # history
+    get    '/history/:accnumb',       action: :history,       as: :history
+    get    '/trash_history/:accnumb', action: :trash_history, as: :trash_history
   end
 
   scope '/map', controller: :map do
