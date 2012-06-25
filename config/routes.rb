@@ -23,7 +23,7 @@ TelasiService::Application.routes.draw do
   # აბონენტზე ინფორმაციის მიღება
   scope '/customer', controller: :customer do
     # ზოგადი
-    get    '/',                 action: :index,           as: :debt
+    get    '/(:accnumb)',       action: :index,           as: :debt
     post   '/add/:accnumb',     action: :add_customer,    as: :add_customer
     delete '/remove/:accnumb',  action: :remove_customer, as: :remove_customer
     # ისტორიის ნახვა

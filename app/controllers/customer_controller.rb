@@ -40,6 +40,7 @@ class CustomerController < ApplicationController
   def history
     @title = 'აბონენტის ისტორია'
     @customer = Bs::Customer.where(accnumb: params[:accnumb]).first
+    @pre_payment = @customer.pre_payment
     @items = Bs::Item.where(custkey: @customer.custkey).order('itemkey DESC').paginate(page: params[:page], per_page: 10)
   end
 

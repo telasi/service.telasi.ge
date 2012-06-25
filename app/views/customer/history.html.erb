@@ -4,24 +4,41 @@
 </style>
 <div class="row">
   <div class="span3">
-    <div class="page-header">
-      <h3>დავალიანება</h3>
+    <!-- customer's debt  -->
+    <div class="debt">  
+      <div class="page-header">
+        <h3>დავალიანება</h3>
+      </div>
+      <div>
+        <p class="center"><%= image_tag 'telasi2.png'%></p>
+        <p class="center"><span class="number badge badge-warning"><%= C12.number_format(@customer.normal_balance) %></span> ლარი</p>
+      </div>
     </div>
-    <div>
-      <p class="center"><%= image_tag 'telasi2.png'%></p>
-      <p class="center"><span class="number badge badge-warning"><%= C12.number_format(@customer.normal_balance) %></span> ლარი</p>
-    </div>
-    <p class="btn-toolbar center">
-      <%= link_to icon_text('arrow-left', 'ყველა დავალიანება'), debt_url(accnumb: @customer.accnumb), class: ['btn', 'btn-mini']%>
-    </p>
+    <% if @pre_payment != 0 %> <!-- pre-payment information-->
+      <div class="pre-payment">
+        <div class="page-header">
+          <h4>წინასწარი გადახდა</h4>
+        </div>
+        <div class="center">
+          <span class="badge badge-important number"><%= C12.number_format @customer.pre_payment %></span> ლარი
+        </div>
+        <div class="alert alert-block alert-info" style="margin-top: 8px;">
+          <strong>წინასწარი</strong> არის გადახდა, რომელიც ჯერ არ შემოწმებულა და, შესაბამისად,
+          <u>არ ასახულა თქვენს ბრუნვის ისტორიაში</u>.
+        </div>
+      </div>
+    <% end %>
   </div>
   <div class="span9">
     <div class="page-header">
       <h3>
-        <%= @customer.custname.to_ka%>
+        <%= link_to @customer.custname.to_ka, debt_url(accnumb: @customer.accnumb) %>
         <span class="badge badge-warning accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
         <small><%= @customer.address.to_s %></small>
       </h3>
+    </div>
+    <div class="btn-toolbar">
+      <%= link_to icon_text('arrow-left', 'უკან დაბრუნება'), debt_url(accnumb: @customer.accnumb), class: ['btn', 'btn-small']%>
     </div>
     <%= render partial: 'customer/history' %>
   </div>
