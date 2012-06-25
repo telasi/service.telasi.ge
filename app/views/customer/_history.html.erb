@@ -19,18 +19,26 @@
       <th width="100">ჩვენება (კვ.სთ)</th>
       <th width="100">ხარჯი (კვ.სთ)</th>
       <th width="100">ხარჯი (ლარი)</th>
+      <th width="100">ბალანსი</th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td class="date-field center"><%= C12::KA.format_date(item.itemdate, format: :short) %></td>
-        <td class="<%= billoperation_class(item.operation) %>">
-          <%= link_to item.operation.billopername.to_ka, history_item_url(accnumb: @customer.accnumb, itemkey: item.itemkey) %>
-        </td>
-        <td class="right"><%= C12.number_format item.reading, 3 %></td>
-        <td class="right"><%= C12.number_format item.kwt, 1 %></td>
-        <td class="right"><%= C12.number_format item.amount, 2 %></td>
+        <td class="date-field"><%= C12::KA.format_date(item.itemdate, format: :short) %></td>
+        <% if item.reading != 0 %>
+          <td class="<%= billoperation_class(item.operation) %>">
+            <%= link_to item.operation.billopername.to_ka, history_item_url(accnumb: @customer.accnumb, itemkey: item.itemkey) %>
+          </td>
+          <td class="right"><%= C12.number_format item.reading, 3 %></td>
+          <td class="right"><%= C12.number_format item.kwt, 1 %></td>
+        <% else %>
+          <td class="<%= billoperation_class(item.operation) %>" colspan="3">
+            <%= link_to item.operation.billopername.to_ka, history_item_url(accnumb: @customer.accnumb, itemkey: item.itemkey) %>
+          </td>
+        <% end %>
+        <td class="right"><%= C12.number_format item.normal_amount, 2 %></td>
+        <td class="right"><%= C12.number_format item.normal_balance, 2 %></td>
       </tr>
     <% end %>
   </tbody>
