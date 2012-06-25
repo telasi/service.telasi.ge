@@ -4,19 +4,19 @@ module CustomerHelper
   def billoperation_class(operation)
     case operation.opertpkey
     when 1
-      'power'
+      'item-power'
     when 2
-      'estimate'
+      'item-estimate'
     when 3
-      'money'
+      'item-money'
     when 4
-      'voucher'
+      'item-voucher'
     when 5
-      'subsidy'
+      'item-subsidy'
     when 9
-      'service'
+      'item-service'
     when 12
-      'portion'
+      'item-portion'
     else
       operation.opertpkey
     end

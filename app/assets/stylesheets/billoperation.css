@@ -1,0 +1,8 @@
+.date-field { padding-left: 24px !important; background: url(/assets/date.png) no-repeat 4px 50%; }
+.item-power { padding-left: 24px !important; background: url(/assets/power.png) no-repeat 4px 50%; }
+.item-estimate { padding-left: 24px !important; background: url(/assets/estimate.png) no-repeat 4px 50%; }
+.item-money { padding-left: 24px !important; background: url(/assets/money.png) no-repeat 4px 50%; }
+.item-voucher { padding-left: 24px !important; background: url(/assets/correction.png) no-repeat 4px 50%; }
+.item-subsidy { padding-left: 24px !important; background: url(/assets/support.png) no-repeat 4px 50%; }
+.item-portion { padding-left: 24px !important; background: url(/assets/portion.png) no-repeat 4px 50%; }
+.item-service { padding-left: 24px !important; background: url(/assets/service.png) no-repeat 4px 50%; }
