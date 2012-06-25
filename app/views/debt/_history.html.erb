@@ -9,34 +9,47 @@
   .subsidy { background: url(/assets/support.png) no-repeat 4px 50%; }
   .portion { background: url(/assets/portion.png) no-repeat 4px 50%; }
   .service { background: url(/assets/service.png) no-repeat 4px 50%; }
+  #item { display: none; }
 </style>
 <div class="page-header">
   <h3>
-    <%= @customer.custname.to_ka%> <span class="badge badge-warning accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
+    <%= @customer.custname.to_ka%>
+    <span class="badge badge-warning accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
+    <small><%= @customer.address.to_s %></small>
   </h3>
 </div>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th width="100">თარიღი</th>
-      <th>ოპერაცია</th>
-      <th width="100">ჩვენება (კვ.სთ)</th>
-      <th width="100">ხარჯი (კვ.სთ)</th>
-      <th width="100">ხარჯი (ლარი)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
+<div id="history">
+  <p class="muted">
+    დააჭირეთ ოპერაციის დასახელებაზე, დეტალური ინფორმაციის სანახავად.
+  </p>
+  <table class="table table-bordered table-striped">
+    <thead>
       <tr>
-        <td class="decorated date center"><%= C12::KA.format_date(item.itemdate, format: :short) %></td>
-        <td class="decorated <%= billoperation_class(item.operation) %>"><%= link_to item.operation.billopername.to_ka %></td>
-        <td class="right"><%= C12.number_format item.reading, 3 %></td>
-        <td class="right"><%= C12.number_format item.kwt, 1 %></td>
-        <td class="right"><%= C12.number_format item.amount, 2 %></td>
+        <th width="100">თარიღი</th>
+        <th>ოპერაცია</th>
+        <th width="100">ჩვენება (კვ.სთ)</th>
+        <th width="100">ხარჯი (კვ.სთ)</th>
+        <th width="100">ხარჯი (ლარი)</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<div class="paginate-thin">
-  <%= paginate @items %>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td class="decorated date center"><%= C12::KA.format_date(item.itemdate, format: :short) %></td>
+          <td class="decorated <%= billoperation_class(item.operation) %>">
+            <%= item.operation.billopername.to_ka %>
+          </td>
+          <td class="right"><%= C12.number_format item.reading, 3 %></td>
+          <td class="right"><%= C12.number_format item.kwt, 1 %></td>
+          <td class="right"><%= C12.number_format item.amount, 2 %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="paginate-thin">
+    <%= paginate @items %>
+  </div>
+</div>
+<div id="item">
+  this is item
 </div>
