@@ -4,8 +4,8 @@ home:
   select: site/index
 debt:
   label: ხარჯი
-  url: /debt
-  select: debt
+  url: /customer
+  select: customer
 apps:
   label: რუკა
   url: /map

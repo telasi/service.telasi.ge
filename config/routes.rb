@@ -20,14 +20,16 @@ TelasiService::Application.routes.draw do
     match '/photo',           action: :photo,          as: :user_photo
   end
 
-  # დავალიანების მოქმედებები
-  scope '/debt', controller: :debt do
-    # debt
+  # აბონენტზე ინფორმაციის მიღება
+  scope '/customer', controller: :customer do
+    # ზოგადი
     get    '/',                 action: :index,           as: :debt
     post   '/add/:accnumb',     action: :add_customer,    as: :add_customer
     delete '/remove/:accnumb',  action: :remove_customer, as: :remove_customer
-    # history
+    # ისტორიის ნახვა
     get    '/history/:accnumb',       action: :history,       as: :history
+    get    '/history/:accnumb/item/:itemkey', action: :history,       as: :history_item
+    # დასუფთავების ისტორია
     get    '/trash_history/:accnumb', action: :trash_history, as: :trash_history
   end
 

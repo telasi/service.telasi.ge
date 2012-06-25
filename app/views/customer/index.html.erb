@@ -3,15 +3,15 @@
 </style>
 <div class="row">
   <div class="span3">
-    <%= render partial: 'debt/search' %>
+    <%= render partial: 'customer/search' %>
   </div>
   <div class="span9">
     <% if @customer %>
-      <%= render partial: 'debt/customer' %>
+      <%= render partial: 'customer/customer' %>
     <% elsif @not_found %>
-      <%= render partial: 'debt/not_found' %>
+      <%= render partial: 'customer/not_found' %>
     <% else %>
-      <%= render partial: 'debt/find_customer' %>
+      <%= render partial: 'customer/find_customer' %>
     <% end %>
   </div>
 </div>
