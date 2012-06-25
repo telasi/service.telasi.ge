@@ -19,7 +19,7 @@
       <td class="right"><%= oper.billoperkey %></td>
       <td class="right"><%= oper.opertpkey %></td>
       <td><%= oper.billopername %></td>
-      <td class="muted"><%= oper.description %></td>
+      <td class="muted"><%= kramdown oper.description if oper.description %></td>
       <td><%= link_to icon('pencil', tooltip: 'შეცვლა'), sys_billoperation_edit_url(id: oper.id) %></td>
     </tr>
   <% end %>

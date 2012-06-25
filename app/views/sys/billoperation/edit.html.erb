@@ -1,0 +1,10 @@
+<div class="page-header">
+  <h2>ოპერაციის რედაქტირება: <%= @operation.billopername%></h2>
+</div>
+<%= simple_form_for @operation, url: request.url do |f| %>
+  <%= f.input :description, label: 'აღწერა', as: :text, input_html: {style: 'height: 100px; width: 500px;'} %>
+  <div class="form-actions">
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+    <%= link_to 'გაუქმება', sys_billoperations_url, class: 'btn' %>
+  </div>
+<% end %>

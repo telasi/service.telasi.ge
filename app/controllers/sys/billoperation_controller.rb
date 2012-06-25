@@ -11,4 +11,11 @@ class Sys::BilloperationController < ApplicationController
     redirect_to sys_billoperations_url, notice: 'ოპერაციები სინქრონიზირებულია.'
   end
 
+  def edit
+    @operation = Ext::Billoperation.find(params[:id])
+    if request.put?
+      redirect_to sys_billoperations_url, notice: 'ოპერაცია შეცვლილია.' if @operation.update_attributes(params[:ext_billoperation])
+    end
+  end
+
 end
