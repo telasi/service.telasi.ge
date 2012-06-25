@@ -52,6 +52,11 @@ TelasiService::Application.routes.draw do
       post '/setloc/:id', action: :set_location, as: :set_location
       post '/sync',       action: :sync_regions, as: :sync_regions
     end
+    scope '/billoperation', controller: :billoperation do
+      get '/', action: :index, as: :billoperations
+      post '/sync', action: :sync, as: :billoperation_sync
+      match '/edit/:id', action: :edit, as: :billoperation_edit
+    end
   end
 
   # განცხადებები

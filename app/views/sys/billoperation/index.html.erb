@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>ბილინგის ოპერაციები</h2>
+</div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_billoperation_sync_url, class: 'btn', method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="50">ID</th>
+      <th width="50">ტიპი</th>
+      <th width="300">დასახელება</th>
+      <th>აღწერილობა</th>
+      <th width="16"><%= icon('cog') %></th>
+    </tr>
+  </thead>
+  <% @operations.each do |oper| %>
+    <tr>
+      <td class="right"><%= oper.billoperkey %></td>
+      <td class="right"><%= oper.opertpkey %></td>
+      <td><%= oper.billopername %></td>
+      <td class="muted"><%= oper.description %></td>
+      <td><%= link_to icon('pencil', tooltip: 'შეცვლა'), sys_billoperation_edit_url(id: oper.id) %></td>
+    </tr>
+  <% end %>
+</table>
