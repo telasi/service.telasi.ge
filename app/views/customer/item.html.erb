@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h3>ოპერაციის დეტალები</h3>
+</div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ისტორია სრულად'), history_url(accnumb: @customer.accnumb), class: 'btn' %>
+</div>
+<hr>
+<div class="row">
+  <div class="span4">
+    <h4 style="padding-bottom: 8px;">ოპერაციის შინაარსი</h4>
+    <div class="well">
+      <div class="<%= billoperation_class(@item.operation) %>">
+        <strong><%= @item.operation.billopername.to_ka %></strong>
+      </div>
+      <div style="margin-top: 10px;" class="muted">
+        <% if @item.operation.ext_operation.description %>
+          <%= kramdown @item.operation.ext_operation.description %>
+        <% else %>
+          ამ ოპერაციას არ აქვს აღწერილობა.
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="span4">
+    B
+  </div>
+  <div class="span4">
+    C
+  </div>
+</div>
