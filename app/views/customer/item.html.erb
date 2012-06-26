@@ -6,6 +6,10 @@
 </div>
 <div class="btn-toolbar">
   <%= link_to icon_text('arrow-left', 'ისტორია სრულად'), history_url(accnumb: @customer.accnumb), class: 'btn' %>
+  <div class="pull-right">
+    <%= link_to '&larr; შემდეგი'.html_safe, history_item_url(accnumb: @customer.accnumb, itemkey: @next.itemkey), class: 'btn' if @next %>
+    <%= link_to 'წინა &rarr;'.html_safe, history_item_url(accnumb: @customer.accnumb, itemkey: @prev.itemkey), class: 'btn' if @prev %>
+  </div>
 </div>
 <hr>
 <div class="row">

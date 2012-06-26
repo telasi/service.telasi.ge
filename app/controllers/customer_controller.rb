@@ -49,6 +49,8 @@ class CustomerController < ApplicationController
     @title = 'ოპერაციის დეტალები'
     @customer = Bs::Customer.where(accnumb: params[:accnumb]).first
     @item = Bs::Item.where(custkey: @customer.custkey, itemkey: params[:itemkey]).first
+    @prev = Bs::Item.where('custkey = ? and itemkey < ?', @customer.custkey, params[:itemkey]).order('itemkey desc').first
+    @next = Bs::Item.where('custkey = ? and itemkey > ?', @customer.custkey, params[:itemkey]).order('itemkey asc').first
   end
 
   # აბონენტის დასუფთავების ისტორია.
