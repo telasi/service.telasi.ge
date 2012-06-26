@@ -24,7 +24,12 @@
             <%= link_to item.operation.billopername.to_ka, history_item_url(accnumb: @customer.accnumb, itemkey: item.itemkey) %>
           </td>
           <td class="right"><%= C12.number_format item.reading, 3 %></td>
-          <td class="right"><%= C12.number_format item.kwt, 1 %></td>
+          <td class="right"><%= C12.number_format item.kwt, 2 %></td>
+        <% elsif item.kwt != 0 %>
+          <td class="<%= billoperation_class(item.operation) %>" colspan="2">
+            <%= link_to item.operation.billopername.to_ka, history_item_url(accnumb: @customer.accnumb, itemkey: item.itemkey) %>
+          </td>
+          <td class="right"><%= C12.number_format item.kwt, 2 %></td>
         <% else %>
           <td class="<%= billoperation_class(item.operation) %>" colspan="3">
             <%= link_to item.operation.billopername.to_ka, history_item_url(accnumb: @customer.accnumb, itemkey: item.itemkey) %>
