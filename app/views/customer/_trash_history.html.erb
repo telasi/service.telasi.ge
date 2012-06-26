@@ -28,7 +28,7 @@
     <% @items.each do |item| %>
       <tr>
         <td class="date-field"><%= C12::KA.format_date(item.operdate, format: :short) %></td>
-        <% if item.kwt %>
+        <% if item.kwt and item.kwt != 0 %>
           <td><%= item.operation.description.to_ka %></td>
           <td class="right"><%= C12.number_format item.kwt %></td>
         <% else %>
