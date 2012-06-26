@@ -1,3 +1,6 @@
+<style type="text/css">
+  h4.common {padding-bottom: 8px;}
+</style>
 <div class="page-header">
   <h3>ოპერაციის დეტალები</h3>
 </div>
@@ -7,7 +10,7 @@
 <hr>
 <div class="row">
   <div class="span4">
-    <h4 style="padding-bottom: 8px;">ოპერაციის შინაარსი</h4>
+    <h4 class="common">ოპერაციის შინაარსი</h4>
     <div class="well">
       <div class="<%= billoperation_class(@item.operation) %>">
         <strong><%= @item.operation.billopername.to_ka %></strong>
@@ -20,11 +23,39 @@
         <% end %>
       </div>
     </div>
+    <h4 class="common">ოპერაციის თარიღები</h4>
+    <div class="well" style="line-height: 24px;">
+      ოპერაცია: <span class="date-field"><strong><%= C12::KA.format_date @item.itemdate %></strong></span><br/>
+      შეყვანა: <span class="muted"><%= C12::KA.format_date @item.enterdate %> <%= @item.enterdate.strftime('%H:%M:%S')%></span>
+    </div>
   </div>
-  <div class="span4">
-    B
-  </div>
-  <div class="span4">
-    C
+  <div class="span8">
+    <h4 class="common">ძირითადი მონაცემები</h4>
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th width="200">ოპერაცია</th>
+        <td class="<%= billoperation_class(@item.operation) %>"><%= @item.operation.billopername.to_ka %></td>
+      </tr>
+      <% if @item.reading != 0 %>
+        <tr>
+          <th>ჩვენება</th>
+          <td class="item-power"><code><%= C12.number_format @item.reading, 3 %></code> კვ.სთ</td>
+        </tr>
+      <% end %>
+      <% if @item.kwt != 0 %>
+        <tr>
+          <th>ხარჯი</th>
+          <td class="item-power"><code><%= C12.number_format @item.kwt, 2 %></code> კვ.სთ</td>
+        </tr>
+      <% end %>
+      <tr>
+        <th>თანხა</th>
+        <td class="item-money"><code><%= C12.number_format @item.normal_amount %></code> ლარი</td>
+      </tr>
+      <tr>
+        <th>საბუთის №</th>
+        <td><%= @item.itemnumber.to_ka if @item.itemnumber %></td>
+      </tr>
+    </table>
   </div>
 </div>
