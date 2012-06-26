@@ -1,34 +1,41 @@
 <style type="text/css">
   .accnumb { font-size: 0.8em; }
-  .decorated { padding-left: 24px !important; }
-  .date { background: url(/assets/date.png) no-repeat 4px 50%; }
-  .power { background: url(/assets/power.png) no-repeat 4px 50%; }
-  .estimate { background: url(/assets/estimate.png) no-repeat 4px 50%; }
-  .money { background: url(/assets/money.png) no-repeat 4px 50%; }
-  .voucher { background: url(/assets/correction.png) no-repeat 4px 50%; }
-  .subsidy { background: url(/assets/support.png) no-repeat 4px 50%; }
-  .portion { background: url(/assets/portion.png) no-repeat 4px 50%; }
-  .service { background: url(/assets/service.png) no-repeat 4px 50%; }
 </style>
 <div class="page-header">
   <h3>
-    <%= @customer.custname.to_ka%> <span class="badge badge-success accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
+    <%= link_to @customer.custname.to_ka, debt_url(accnumb: @customer.accnumb) %>
+    <span class="badge badge-success accnumb">აბ. №<%= @customer.accnumb.to_ka %></span>
+    <small><%= @customer.address %></small>
   </h3>
+</div>
+<p class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ყველა დავალიანება'), debt_url(accnumb: @customer.accnumb), class: ['btn', 'btn-small'] %>
+</p>
+<div class="page-header">
+  <h4>ბრუნვის ისტორია</h4>
 </div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th width="100">თარიღი</th>
       <th>ოპერაცია</th>
+      <th width="100">ხარჯი (კვ.სთ)</th>
       <th width="100">ხარჯი (ლარი)</th>
+      <th width="100">ბალანსი</th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td class="decorated date"><%= C12::KA.format_date(item.operdate, format: :short) %></td>
-        <td><%= link_to item.operation.description.to_ka %></td>
-        <td class="right"><%= C12.number_format item.amount %></td>
+        <td class="date-field"><%= C12::KA.format_date(item.operdate, format: :short) %></td>
+        <% if item.kwt %>
+          <td><%= item.operation.description.to_ka %></td>
+          <td class="right"><%= C12.number_format item.kwt %></td>
+        <% else %>
+          <td colspan="2"><%= item.operation.description.to_ka %></td>
+        <% end %>
+        <td class="right"><%= C12.number_format item.normal_amount %></td>
+        <td class="right"><%= C12.number_format item.normal_balance %></td>
       </tr>
     <% end %>
   </tbody>
