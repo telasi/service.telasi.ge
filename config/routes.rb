@@ -60,6 +60,7 @@ TelasiService::Application.routes.draw do
     scope '/gis', controller: :gis do
       get '/transformators', action: :transformators  , as: :transformators
       post '/sync_transformators', action: :sync_transformators, as: :sync_transformators
+      get '/logs', action: :logs, as: :gis_logs
     end
   end
 
