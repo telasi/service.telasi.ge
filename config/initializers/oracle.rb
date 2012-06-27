@@ -1,2 +1,4 @@
 # -*- encoding : utf-8 -*-
-Gis::Base.establish_connection :gis
+
+# GIS connection
+Gis::Transformator.establish_connection :gis

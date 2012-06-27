@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h2>სატრანსფორმატორო ჯიხურები</h2>
+</div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_transformators_path, class: 'btn', method: :post, action: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="100">ტრანსფორმატორი</th>
+      <th width="150">აბონენტი</th>
+      <th width="150">ანგარიში</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transformators.each do |tr| %>
+      <tr class="<%= tr.custkey.nil? ? 'error' : (tr.acckey.nil? ? 'warning' : 'success') %>">
+        <td>
+          <strong><%= tr.tp_name %></strong> /
+          <span class="muted"><%= tr.tr_name %></span>
+        </td>
+        <td>
+          <strong><%= tr.accnumb %></strong> /
+          <span class="muted"><%= tr.custname %></span>
+        </td>
+        <td>
+          <strong><%= tr.accid %></strong>
+        </td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
