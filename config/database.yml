@@ -17,3 +17,11 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+gis:
+  adapter:  oracle_enhanced
+  host:     192.168.1.85
+  username: dimitri
+  password: 123456
+  database: orcl
+  port:     1521

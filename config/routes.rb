@@ -57,6 +57,9 @@ TelasiService::Application.routes.draw do
       post '/sync', action: :sync, as: :billoperation_sync
       match '/edit/:id', action: :edit, as: :billoperation_edit
     end
+    scope '/gis', controller: :gis do
+      get '/', action: :index, as: :gis
+    end
   end
 
   # განცხადებები
