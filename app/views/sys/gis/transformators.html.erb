@@ -1,7 +1,11 @@
 <div class="page-header">
-  <h2>სატრანსფორმატორო ჯიხურები</h2>
+  <h2>ტრანსფორმატორები</h2>
 </div>
 <div class="btn-toolbar">
+  <div class="pull-right">
+    <%= link_to 'ყველა', sys_transformators_url(filter: 'all') %> |
+    <%= link_to 'მხოლოდ პრობლემური', sys_transformators_url(filter: 'problem') %>
+  </div>
   <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_transformators_path, class: 'btn', method: :post, action: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
 </div>
 <table class="table table-bordered table-striped">
