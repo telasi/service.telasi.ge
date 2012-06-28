@@ -18,7 +18,8 @@ class Gis::SmsLog < ActiveRecord::Base
     Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).desc(:log_id).each do |log|
       log.reload
       if log.sms_status == Ext::GisLog::STATUS_FOR_SENT
-        pair = Ext::GisLog.where(objectid: log.objectid, :_id.ne => log.id, :log_date.gte => (log.log_date - DIFF)).first
+        pair = Ext::GisLog.where(objectid: log.objectid, :_id.ne => log.id,
+          :sms_status => Ext::GisLog::STATUS_FOR_SENT, :log_date.gte => (log.log_date - DIFF)).first
         if pair and pair.enabled? != log.enabled?
           # log
           log.pair = pair
