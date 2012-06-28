@@ -7,6 +7,8 @@ class Ext::GisLog
   STATUS_SENT_CANCELED = 1
   STATUS_SENT = 2
 
+  TRANSFORMATOR = 'mv_tr_pnt'
+
   field :log_id, type: Integer
   field :table_name, type: String
   field :objectid, type: Integer
@@ -15,11 +17,13 @@ class Ext::GisLog
   field :log_date, type: DateTime
   field :sms_status, type: Integer
 
+  belongs_to :pair, class_name: 'Ext::GisLog'
+
   index :log_id
   index :objectid
 
   def object
-    if self.table_name = 'mv_tr_pnt'
+    if self.table_name = Ext::GisLog::TRANSFORMATOR
       Ext::Transformator.where(objectid: self.objectid).first
     end
   end

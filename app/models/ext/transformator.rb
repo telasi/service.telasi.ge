@@ -44,7 +44,7 @@ class Ext::Transformator
   end
 
   def to_s
-    "#{self.tp_name} -> #{self.tr_name}"
+    "#{self.tp_name} &rarr; #{self.tr_name}"
   end
 
 end
