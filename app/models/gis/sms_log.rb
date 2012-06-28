@@ -4,7 +4,7 @@ class Gis::SmsLog < ActiveRecord::Base
   self.table_name = 'mv_dispetch.sms_log'
   self.primary_key = :sms_log_id
 
-  DIFF = 300 # sec
+  DIFF = 300.seconds # sec
 
   def self.sync
     # getting last logs
