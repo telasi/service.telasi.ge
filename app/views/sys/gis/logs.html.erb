@@ -1,3 +1,27 @@
 <div class="page-header">
   <h2>ლოგები</h2>
 </div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_gis_logs_path, class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>ობიექტი</th>
+      <th width="100">მომხმარებელი</th>
+      <th width="150">თარიღი</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr>
+        <td>
+          <%= icon_text (log.enabled? ? 'ok-circle' : 'remove-circle'), log.object %>
+        </td>
+        <td><%= log.username.downcase %></td>
+        <td><%= log.log_date.strftime('%d-%b-%Y %H:%M:%S') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @logs %>

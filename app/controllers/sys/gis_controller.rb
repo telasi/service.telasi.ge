@@ -15,6 +15,12 @@ class Sys::GisController < ApplicationController
 
   def logs
     @title = 'ლოგები'
+    @logs = Ext::GisLog.desc(:log_id).paginate(page: params[:page], per_page: 20)
+  end
+
+  def sync_logs
+    Gis::SmsLog.sync
+    redirect_to sys_gis_logs_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
 end

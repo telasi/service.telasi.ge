@@ -61,6 +61,7 @@ TelasiService::Application.routes.draw do
       get '/transformators', action: :transformators  , as: :transformators
       post '/sync_transformators', action: :sync_transformators, as: :sync_transformators
       get '/logs', action: :logs, as: :gis_logs
+      post '/sync_logs', action: :sync_logs, as: :sync_gis_logs
     end
   end
 
