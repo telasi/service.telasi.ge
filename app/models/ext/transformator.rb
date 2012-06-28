@@ -4,17 +4,21 @@ class Ext::Transformator
   include Mongoid::Timestamps
 
   # gis part
-  field :objectid
-  field :account
-  field :tp_name
-  field :tr_name
+  field :objectid, type: Integer
+  field :account,  type: Integer
+  field :tp_name,  type: String
+  field :tr_name,  type: String
 
   # bs part
-  field :custkey
-  field :accnumb
-  field :custname
-  field :acckey
-  field :accid
+  field :custkey,  type: Integer
+  field :accnumb,  type: String
+  field :custname, type: String
+  field :acckey,   type: Integer
+  field :accid,    type: String
+
+  # totals
+  field :street_count, type: Integer
+  field :customer_count, type: Integer
 
   # indices
   index [[:tp_name, Mongo::ASCENDING], [:tr_name, Mongo::ASCENDING]]
