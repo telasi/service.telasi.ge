@@ -14,6 +14,8 @@
       <th width="100">ტრანსფორმატორი</th>
       <th width="150">აბონენტი</th>
       <th width="150">ანგარიში</th>
+      <th width="100">აბონენტები</th>
+      <th width="100">ქუჩები</th>
       <th></th>
     </tr>
   </thead>
@@ -30,7 +32,10 @@
         </td>
         <td>
           <strong><%= tr.accid %></strong>
+          <span class="muted"><%= tr.acckey %></span>
         </td>
+        <td class="right"><%= tr.account_count %></td>
+        <td class="right"><%= tr.street_count %></td>
         <td></td>
       </tr>
     <% end %>

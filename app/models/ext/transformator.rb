@@ -18,7 +18,7 @@ class Ext::Transformator
 
   # totals
   field :street_count, type: Integer
-  field :customer_count, type: Integer
+  field :account_count, type: Integer
 
   # indices
   index [[:tp_name, Mongo::ASCENDING], [:tr_name, Mongo::ASCENDING]]
@@ -41,7 +41,24 @@ class Ext::Transformator
         if account
           tr.acckey = account.acckey
           tr.accid  = account.accid
+          tr.account_count = Bs::Accrel.where(base_acckey: account.acckey).count
+          if tr.account_count == 0
+            tr.street_count = 0
+          else
+            tr.street_count = Bs::Accrel.connection.execute(%Q{
+              SELECT count(*) FROM (SELECT adrs.streetkey FROM
+                bs.accrel ar
+                INNER JOIN bs.account acc ON ar.acckey = acc.acckey
+                INNER JOIN bs.address adrs ON acc.premisekey = adrs.premisekey
+              WHERE base_acckey=#{account.acckey}
+              GROUP BY adrs.streetkey)
+            }).fetch[0].to_i
+          end
         end
+      end
+      unless tr.account
+        tr.account_count = 0
+        tr.street_count = 0
       end
       tr.save
     end
