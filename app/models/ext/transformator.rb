@@ -16,7 +16,7 @@ class Ext::Transformator
   field :acckey,   type: Integer
   field :accid,    type: String
 
-  # totals
+  # account data
   field :street_count, type: Integer
   field :account_count, type: Integer
 
