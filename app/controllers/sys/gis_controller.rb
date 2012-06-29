@@ -14,6 +14,11 @@ class Sys::GisController < ApplicationController
     redirect_to sys_transformators_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
+  def sync_transformator
+    Ext::Transformator.find(params[:id]).sync
+    redirect_to sys_transformators_url(page: params[:page]), notice: 'სინქრონიზაცია დასრულებულია.'
+  end
+
   def logs
     @title = 'ლოგები'
     @logs = Ext::GisLog.desc(:log_id).paginate(page: params[:page], per_page: 10)

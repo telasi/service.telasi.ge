@@ -16,7 +16,7 @@
       <th width="150">ანგარიში</th>
       <th width="100">აბონენტები</th>
       <th width="100">ქუჩები</th>
-      <th></th>
+      <th class="center"><%= icon('cog') %></th>
     </tr>
   </thead>
   <tbody>
@@ -36,7 +36,9 @@
         </td>
         <td class="right"><%= tr.account_count %></td>
         <td class="right"><%= tr.street_count %></td>
-        <td></td>
+        <td class="center">
+          <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_transformator_url(id: tr.id, page: params[:page]), class: ['btn', 'btn-mini'], method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
