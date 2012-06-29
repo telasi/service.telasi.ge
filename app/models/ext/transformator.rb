@@ -56,7 +56,7 @@ class Ext::Transformator
           end
         end
       end
-      unless tr.account
+      unless tr.acckey
         tr.account_count = 0
         tr.street_count = 0
       end

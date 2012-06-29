@@ -4,8 +4,9 @@ class Sys::GisController < ApplicationController
   def transformators
     @title = 'ტრანსფორმატორები'
     rel = Ext::Transformator
-    rel = rel.where(acckey: nil) if params[:filter] == 'problem'
-    @transformators = rel.asc(:tp_name, :tr_name)
+    session[:gis_tr_filter] = params[:filter] if params[:filter]
+    rel = rel.where(acckey: nil) if session[:gis_tr_filter] == 'problem'
+    @transformators = rel.asc(:tp_name, :tr_name).paginate(page: params[:page], per_page: 10)
   end
 
   def sync_transformators
