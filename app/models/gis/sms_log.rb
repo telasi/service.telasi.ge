@@ -7,14 +7,23 @@ class Gis::SmsLog < ActiveRecord::Base
   DIFF = 5.minutes
 
   def self.sync
-    # getting last logs
+    Gis::SmsLog.sync_new_logs
+    Gis::SmsLog.pair_logs
+    #Gis::SmsLog.send_messages
+  end
+
+  private
+
+  def self.sync_new_logs
     last_id = Ext::GisLog.max(:log_id) || 0
     Gis::SmsLog.where('table_name = ? AND sms_log_id > ?', Ext::GisLog::TRANSFORMATOR, last_id).each do |glog|
       Ext::GisLog.new(log_id: glog.sms_log_id, table_name: glog.table_name, objectid: glog.objectid,
         gis_status: glog.status, username: glog.user_name, log_date: glog.enter_date,
         sms_status: Ext::GisLog::STATUS_FOR_SENT).save
     end
-    # filter logs
+  end
+
+  def self.pair_logs
     Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).desc(:log_id).each do |log|
       log.reload
       if log.sms_status == Ext::GisLog::STATUS_FOR_SENT
@@ -32,6 +41,22 @@ class Gis::SmsLog < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def self.send_messages
+    on = Ext::GisMessage.new
+    off = Ext::GisMessage.new
+    Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).asc(:log_id).each do |log|
+      if log.enabled?
+        on.logs << log
+      else
+        off.logs << log
+      end
+      log.sms_status = Ext::GisLog::STATUS_FOR_SENT
+      log.save
+    end
+    on.save  unless on.logs.empty?
+    off.save unless off.logs.empty?
   end
 
 end

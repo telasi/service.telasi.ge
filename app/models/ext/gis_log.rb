@@ -18,6 +18,7 @@ class Ext::GisLog
   field :sms_status, type: Integer
 
   belongs_to :pair, class_name: 'Ext::GisLog'
+  belongs_to :message, class_name: 'Ext::GisMessage'
 
   index :log_id
   index :objectid
