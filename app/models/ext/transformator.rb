@@ -37,23 +37,11 @@ class Ext::Transformator
         tr.accnumb = customer.accnumb
         tr.custname = customer.custname.to_ka
         accid = "#{customer.accnumb}-#{gis_tr.tr_name[1]}"
-        account = Bs::Account.where(custkey: customer.custkey, accid: accid).first
+        account = Bs::Account.where(custkey: tr.custkey, accid: accid).first
         if account
           tr.acckey = account.acckey
           tr.accid  = account.accid
-          tr.account_count = Bs::Accrel.where(base_acckey: account.acckey).count
-          if tr.account_count == 0
-            tr.street_count = 0
-          else
-            tr.street_count = Bs::Accrel.connection.execute(%Q{
-              SELECT count(*) FROM (SELECT adrs.streetkey FROM
-                bs.accrel ar
-                INNER JOIN bs.account acc ON ar.acckey = acc.acckey
-                INNER JOIN bs.address adrs ON acc.premisekey = adrs.premisekey
-              WHERE base_acckey=#{account.acckey}
-              GROUP BY adrs.streetkey)
-            }).fetch[0].to_i
-          end
+          tr.sync
         end
       end
       unless tr.acckey
@@ -61,6 +49,25 @@ class Ext::Transformator
         tr.street_count = 0
       end
       tr.save
+    end
+  end
+
+  def sync
+    if self.acckey
+      account = Bs::Account.find(self.acckey)
+      self.account_count = Bs::Accrel.where(base_acckey: self.acckey).count
+      if self.account_count == 0
+        self.street_count = 0
+      else
+        self.street_count = Bs::Accrel.connection.execute(%Q{
+          SELECT count(*) FROM (SELECT adrs.streetkey FROM
+            bs.accrel ar
+            INNER JOIN bs.account acc ON ar.acckey = acc.acckey
+            INNER JOIN bs.address adrs ON acc.premisekey = adrs.premisekey
+          WHERE base_acckey=#{account.acckey}
+          GROUP BY adrs.streetkey)
+        }).fetch[0].to_i
+      end
     end
   end
 
