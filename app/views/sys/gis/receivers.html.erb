@@ -7,3 +7,51 @@
 <div class="btn-toolbar">
   <%= link_to icon_text('plus', 'ახალი მიმღები'), sys_gis_new_receiver_path, class: 'btn' %>
 </div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>სახელი, გვარი</th>
+      <th width="250">ელ.ფოსტა</th>
+      <th width="100">მობილური</th>
+    </tr>
+  </thead>
+  <% @receivers.each do |r| %>
+    <tr>
+      <td>
+        <div><strong><%= r.name %></strong><div>
+        <div style="margin-top: 5px; padding-top: 5px; border-top: 1px dashed #ccc;">
+          <%= link_to icon_text('pencil', 'შეცვლა'), sys_gis_edit_receiver_url(id: r.id) %> |
+          <%= link_to icon_text('trash', 'წაშლა'), sys_gis_delete_receiver_url(id: r.id), method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?' %>
+        </div>
+      </td>
+      <td>
+        <% if r.email_on %>
+          <div>
+            <%= image_tag 'fff/accept.png'%>
+            <%= mail_to r.email_on %>
+          </div>
+        <% end %>
+        <% if r.email_off %>
+          <div>
+            <%= image_tag 'fff/cancel.png'%>
+            <%= mail_to r.email_off %>
+          </div>
+        <% end %>
+      </td>
+      <td>
+        <% if r.mobile_on %>
+          <div>
+            <%= image_tag 'fff/accept.png'%>
+            <%= r.mobile_on %>
+          </div>
+        <% end %>
+        <% if r.mobile_off %>
+          <div>
+            <%= image_tag 'fff/cancel.png'%>
+            <%= r.mobile_off %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
