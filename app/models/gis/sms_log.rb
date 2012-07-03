@@ -44,10 +44,10 @@ class Gis::SmsLog < ActiveRecord::Base
   end
 
   def self.send_messages
-     on = Ext::GisMessage.create(on: true)
+    on = Ext::GisMessage.create(on: true)
     off = Ext::GisMessage.create(on: false)
     Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).asc(:log_id).each do |log|
-      if log.created_at < (Time.now - DIFF)
+      if log.log_date < (Time.now - DIFF)
         if log.enabled?
           log.message = on
         else
@@ -57,6 +57,8 @@ class Gis::SmsLog < ActiveRecord::Base
         log.save
       end
     end
+    on.reload.sync
+    off.reload.sync
     on.destroy if on.reload.logs.empty?
     off.destroy if off.reload.logs.empty?
   end

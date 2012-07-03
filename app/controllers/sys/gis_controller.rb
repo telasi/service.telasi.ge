@@ -64,4 +64,11 @@ class Sys::GisController < ApplicationController
     redirect_to sys_gis_receivers_url, notice: 'მიმღები წაშლილია.'
   end
 
+# შეტყობინებები.
+
+  def messages
+    @title = 'შეტყობინებების რეესტრი'
+    @messages = Ext::GisMessage.desc(:created_at).paginate(page: params[:page], per_page: 10)
+  end
+
 end

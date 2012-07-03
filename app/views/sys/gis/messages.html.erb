@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h2>შეტყობინებები</h2>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="16"><%= icon('picture') %></th>
+      <th width="150">გაგზავნის თარიღი</th>
+      <th>მოკლე ცნობა</th>
+      <th width="16"><%= icon('cog') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.each do |msg| %>
+      <tr>
+        <td>
+          <% if msg.on %>
+            <%= image_tag 'fff/accept.png' %>
+          <% else %>
+            <%= image_tag 'fff/cancel.png' %>
+          <% end %>
+        </td>
+        <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%S') %></td>
+        <td>
+          <code><%= msg.tp_count %></code> ტრანსფორმატორი;
+          <code><%= msg.street_count %></code> ქუჩა;
+          <code><%= msg.account_count %></code> მრიცხველი;
+        </td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @messages %>
