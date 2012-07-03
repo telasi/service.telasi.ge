@@ -41,6 +41,13 @@ class Sys::GisController < ApplicationController
   end
 
   def new_receiver
+    @title = 'ახალი მიმღები'
+    if request.post?
+      @receiver = Gis::Receiver.new(params[:gis_receiver])
+      redirect_to sys_gis_receivers_url, notice: 'მიმღები შექმნილია.' if @receiver.save
+    else
+      @receiver = Gis::Receiver.new(active: true)
+    end
   end
 
 end
