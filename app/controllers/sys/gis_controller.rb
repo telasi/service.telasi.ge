@@ -50,4 +50,12 @@ class Sys::GisController < ApplicationController
     end
   end
 
+  def edit_receiver
+    @title = 'მიმღების შეცვლა'
+    @receiver = Gis::Receiver.find(params[:id])
+    if request.put?
+      redirect_to sys_gis_receivers_url, notice: 'მიმღები განახლებულია.' if @receiver.update_attributes(params[:gis_receiver])
+    end
+  end
+
 end
