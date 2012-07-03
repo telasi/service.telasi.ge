@@ -2,5 +2,6 @@
 class Ext::GisMessage
   include Mongoid::Document
   include Mongoid::Timestamps
-  has_many :logs, class_name: 'Ext::GisLog'
+  field :on, type: Boolean
+  has_many :logs, class_name: 'Ext::GisLog', inverse_of: :message
 end
