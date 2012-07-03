@@ -63,11 +63,13 @@
   <div class="span4">
     <%= role_content :sys_admin do -%>
       <div class="page-header">
-        <h3>GIS კონფიგურაცია</h3>
+        <h3>GIS შეტყობინებები</h3>
       </div>
       <ul class="nav nav-list">
+        <li><%= link_to icon_text('envelope', 'შეტყობინებების ნახვა') %></li>
+        <li><%= link_to icon_text('list', 'ქსელის ლოგები'), sys_gis_logs_path %></li>
         <li><%= link_to icon_text('star', 'ტრანსფორმატორები'), sys_transformators_path %></li>
-        <li><%= link_to icon_text('list', 'ლოგები'), sys_gis_logs_path %></li>
+        <li><%= link_to icon_text('user', 'დაგზავნის პარამეტრები'), sys_gis_receivers_url %></li>
       </ul>
     <% end %>
   </div>

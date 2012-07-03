@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Sys::GisController < ApplicationController
 
+# ტრანსპფორმატორების მართვა.
+
   def transformators
     @title = 'ტრანსფორმატორები'
     rel = Ext::Transformator
@@ -19,6 +21,8 @@ class Sys::GisController < ApplicationController
     redirect_to sys_transformators_url(page: params[:page]), notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
+# ლოგების მართვა.
+
   def logs
     @title = 'ლოგები'
     @logs = Ext::GisLog.desc(:log_id).paginate(page: params[:page], per_page: 10)
@@ -27,6 +31,16 @@ class Sys::GisController < ApplicationController
   def sync_logs
     Gis::SmsLog.sync
     redirect_to sys_gis_logs_url, notice: 'სინქრონიზაცია დასრულებულია.'
+  end
+
+# მიმღებთა სიის მართვა.
+
+  def receivers
+    @title = 'დაგზავნის პარამეტრები'
+    @receivers = Gis::Receiver.asc(:name)
+  end
+
+  def new_receiver
   end
 
 end
