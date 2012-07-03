@@ -71,7 +71,8 @@ TelasiService::Application.routes.draw do
       match '/receiver/edit/:id', action: :edit_receiver, as: :gis_edit_receiver
       delete '/receiver/:id', action: :delete_receiver, as: :gis_delete_receiver
       # messages
-      get '/messages', action: :messages, :as => :gis_messages
+      get '/messages', action: :messages, as: :gis_messages
+      get '/message/:id', action: :message, as: :gis_message
     end
   end
 

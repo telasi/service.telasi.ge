@@ -1,0 +1,9 @@
+<div class="page-header">
+  <h2>
+    <% if @message.on %><%= image_tag 'fff/accept.png' %><% else %><%= image_tag 'fff/cancel.png' %><% end %>
+    <%= C12::KA.format_date @message.created_at, format: :short %> <small><%= @message.created_at.strftime('%H:%M:%S') %></small>
+  </h2>
+</div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'სიაში დაბრუნება'), sys_gis_messages_url, class: 'btn' %>
+</div>

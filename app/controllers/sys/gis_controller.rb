@@ -71,4 +71,9 @@ class Sys::GisController < ApplicationController
     @messages = Ext::GisMessage.desc(:created_at).paginate(page: params[:page], per_page: 10)
   end
 
+  def message
+    @title = 'შეტყობინების დეტალები'
+    @message = Ext::GisMessage.find(params[:id])
+  end
+
 end

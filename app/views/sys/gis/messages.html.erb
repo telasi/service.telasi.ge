@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <% @messages.each do |msg| %>
-      <tr>
+      <tr class="<%= msg.sent ? 'success' : 'warning' %>">
         <td>
           <% if msg.on %>
             <%= image_tag 'fff/accept.png' %>
@@ -20,13 +20,15 @@
             <%= image_tag 'fff/cancel.png' %>
           <% end %>
         </td>
-        <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%S') %></td>
+        <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%M:%S') %></td>
         <td>
           <code><%= msg.tp_count %></code> ტრანსფორმატორი;
           <code><%= msg.street_count %></code> ქუჩა;
           <code><%= msg.account_count %></code> მრიცხველი;
         </td>
-        <td></td>
+        <td>
+          <%= link_to icon('eye-open'), sys_gis_message_url(id: msg.id) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
