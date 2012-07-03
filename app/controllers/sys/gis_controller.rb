@@ -58,4 +58,10 @@ class Sys::GisController < ApplicationController
     end
   end
 
+  def delete_receiver
+    receiver = Gis::Receiver.find(params[:id])
+    receiver.destroy
+    redirect_to sys_gis_receivers_url, notice: 'მიმღები წაშლილია.'
+  end
+
 end
