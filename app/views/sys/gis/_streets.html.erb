@@ -4,7 +4,7 @@
 <% if @streets.any? %>
   <div>
     <% @streets.each do |str| %>
-      <div><%= str.streetname.to_ka %></div>
+      <p><%= icon_text 'road', str.streetname.to_ka %></p>
     <% end %>
   </div>
 <% else %>

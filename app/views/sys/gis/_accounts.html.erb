@@ -3,11 +3,11 @@
 </div>
 <% if @relations.any? %>
   <% @relations.each do |rel| %>
-    <div class="customer">
+    <p class="customer">
       <code><%= rel.account.accid.to_ka %></code>
       <strong><%= rel.account.customer.custname.to_ka %></strong>
       <span class="muted"><%= rel.account.customer.address.to_s %></span>
-    </div>
+    </p>
   <% end %>
 <% else %>
   <p class="muted">სია ცარიელია</p>

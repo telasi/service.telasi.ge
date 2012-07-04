@@ -90,9 +90,13 @@ class Sys::GisController < ApplicationController
   def details
     @relations = Bs::Accrel.where(base_acckey: params[:tpid])
     @streets = []
+    @regions = []
     @relations.each do |rel|
-      street = rel.account.address.street
+      address = rel.account.address
+      street = address.street
+      region = address.region
       @streets.push(street) unless @streets.include?(street)
+      @regions.push(region) unless @regions.include?(region)
     end
     render partial: 'sys/gis/details'
   end
