@@ -18,7 +18,8 @@ class Ext::Transformator
   field :address,  type: String
 
   # account data
-  field :street_count, type: Integer
+  field :region_count,  type: Integer
+  field :street_count,  type: Integer
   field :account_count, type: Integer
 
   # indices
@@ -68,6 +69,14 @@ class Ext::Transformator
             INNER JOIN bs.address adrs ON acc.premisekey = adrs.premisekey
           WHERE base_acckey=#{account.acckey}
           GROUP BY adrs.streetkey)
+        }).fetch[0].to_i
+        self.region_count = Bs::Accrel.connection.execute(%Q{
+          SELECT count(*) FROM (SELECT adrs.regionkey FROM
+            bs.accrel ar
+            INNER JOIN bs.account acc ON ar.acckey = acc.acckey
+            INNER JOIN bs.address adrs ON acc.premisekey = adrs.premisekey
+          WHERE base_acckey=#{account.acckey}
+          GROUP BY adrs.regionkey)
         }).fetch[0].to_i
       end
     end

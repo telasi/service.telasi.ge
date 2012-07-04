@@ -23,8 +23,12 @@ class Ext::GisLog
   index :log_id
   index :objectid
 
+  def transformator?
+    self.table_name = Ext::GisLog::TRANSFORMATOR
+  end
+
   def object
-    if self.table_name = Ext::GisLog::TRANSFORMATOR
+    if transformator?
       Ext::Transformator.where(objectid: self.objectid).first
     end
   end
