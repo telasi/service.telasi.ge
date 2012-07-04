@@ -1,6 +1,21 @@
 <style type="text/css">
   .transformator {margin-bottom: 0;}
 </style>
+<script type="text/javascript">
+  var ids_in_process = [];
+  $(function() {
+    $('.account-list').click(function(evt) {
+      var id = $(evt.target).attr('data-tpid');
+      if (ids_in_process.indexOf(id) == -1) {
+        $(evt.target).text('დაელოდეთ...');
+        $.get('<%= sys_gis_accounts_url %>', {tpid: id}, function(data) {
+          $('#accounts-' + id).html(data);
+        });
+      }
+      return false;
+    });
+  });
+</script>
 <!-- Header -->
 
 <div class="page-header">
@@ -36,7 +51,9 @@
         <p class="muted"><%= log.object.address %></p>
       </div>
       <div class="span9">
-        XXX: აბონენტების და ქუჩების სია !!
+        <div id="accounts-<%= log.object.acckey %>">
+          <%= link_to "აბონენტების ნახვა (#{log.object.account_count})", nil, class: ['btn', 'btn-mini', 'account-list'], 'data-id' => log.id, 'data-tpid' => log.object.acckey %>
+        </div>
       </div>
     </div>
     <hr>
