@@ -2,6 +2,7 @@
 class String
   GEO = 'ÀÁÂÃÄÅÆÈÉÊËÌÍÏÐÑÒÓÔÖ×ØÙÚÛÜÝÞßàáãä'
   KA = 'აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ'
+  LAT = 'abgdevzTiklmnopJrstufqRySCcZwWxjh'
 
   def translate(from, to)
     txt = ""
@@ -18,6 +19,10 @@ class String
 
   def to_geo
     self.translate(KA, GEO)
+  end
+
+  def to_lat
+    self.translate("#{GEO}#{KA}", "#{LAT}#{LAT}")
   end
 
 end
