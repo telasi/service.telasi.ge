@@ -21,4 +21,10 @@ class Ext::GisMessage
     self.save
   end
 
+  def sms_text
+    text = self.on ? 'CarTva: ' : 'gaTiSva: '
+    text += "#{self.tp_count} transformatori; #{self.street_count} quCa; #{self.account_count} mricxveli."
+    text
+  end
+
 end

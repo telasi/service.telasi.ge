@@ -76,4 +76,13 @@ class Sys::GisController < ApplicationController
     @message = Ext::GisMessage.find(params[:id])
   end
 
+  def send_message
+    @message = Ext::GisMessage.find(params[:id])
+    Gis::Receiver.where(active: true).each do |r|
+      mobile = @message.on ? r.mobile_on : r.mobile_off
+      Magti.send_sms(mobile, @message.sms_text)  if Magti::SEND and mobile 
+    end
+    redirect_to sys_gis_message_url(id: @message.id), notice: 'შეტყობინება გაგზავნილია.'
+  end
+
 end

@@ -6,4 +6,12 @@
 </div>
 <div class="btn-toolbar">
   <%= link_to icon_text('arrow-left', 'ყველა შეტყობინება'), sys_gis_messages_url, class: 'btn' %>
+  <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
+</div>
+
+<div class="page-header">
+  <h3>SMS შეტყობინების ტექსტი</h3>
+</div>
+<div>
+  <code><%= @message.sms_text %></code>
 </div>
