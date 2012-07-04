@@ -33,4 +33,8 @@ class Ext::GisLog
     self.gis_status == 1
   end
 
+  def date
+    self.log_date - Gis::CORR
+  end
+
 end
