@@ -1,3 +1,8 @@
+<style type="text/css">
+  .transformator {margin-bottom: 0;}
+</style>
+<!-- Header -->
+
 <div class="page-header">
   <h2>
     <% if @message.on %><%= image_tag 'fff/accept.png' %><% else %><%= image_tag 'fff/cancel.png' %><% end %>
@@ -9,9 +14,31 @@
   <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
 </div>
 
+<!-- Message text -->
+
 <div class="page-header">
   <h3>SMS შეტყობინების ტექსტი</h3>
 </div>
 <div>
   <code><%= @message.sms_text %></code>
+</div>
+
+<!-- Transformator text -->
+
+<div class="page-header">
+  <h3>ტრანსფორმატორების სია (<%= @message.tp_count %>)</h3>
+</div>
+<div>
+  <% @message.logs.each do |log| %>
+    <div class="row transformator">
+      <div class="span3">
+        <p><strong><%= log.object %></strong></p>
+        <p class="muted"><%= log.object.address %></p>
+      </div>
+      <div class="span9">
+        XXX: აბონენტების და ქუჩების სია !!
+      </div>
+    </div>
+    <hr>
+  <% end %>
 </div>

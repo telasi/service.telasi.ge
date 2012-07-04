@@ -15,6 +15,7 @@ class Ext::Transformator
   field :custname, type: String
   field :acckey,   type: Integer
   field :accid,    type: String
+  field :address,  type: String
 
   # account data
   field :street_count, type: Integer
@@ -56,6 +57,7 @@ class Ext::Transformator
     if self.acckey
       account = Bs::Account.find(self.acckey)
       self.account_count = Bs::Accrel.where(base_acckey: self.acckey).count
+      self.address = account.address.to_s
       if self.account_count == 0
         self.street_count = 0
       else
