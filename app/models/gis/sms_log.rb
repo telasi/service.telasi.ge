@@ -4,8 +4,6 @@ class Gis::SmsLog < ActiveRecord::Base
   self.table_name = 'mv_dispetch.sms_log'
   self.primary_key = :sms_log_id
 
-  DIFF = 5.minutes
-
   def self.sync
     Gis::SmsLog.sync_new_logs
     Gis::SmsLog.pair_logs
@@ -28,7 +26,7 @@ class Gis::SmsLog < ActiveRecord::Base
       log.reload
       if log.sms_status == Ext::GisLog::STATUS_FOR_SENT
         pair = Ext::GisLog.where(objectid: log.objectid, :_id.ne => log.id,
-          :sms_status => Ext::GisLog::STATUS_FOR_SENT, :log_date.gte => (log.log_date - DIFF)).first
+          :sms_status => Ext::GisLog::STATUS_FOR_SENT, :log_date.gte => (log.log_date - Gis::DIFF)).first
         if pair and pair.enabled? != log.enabled?
           # log
           log.pair = pair
@@ -47,7 +45,7 @@ class Gis::SmsLog < ActiveRecord::Base
     on = Ext::GisMessage.create(on: true)
     off = Ext::GisMessage.create(on: false)
     Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).asc(:log_id).each do |log|
-      if log.log_date < (Time.now - DIFF)
+      if log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
         if log.enabled?
           log.message = on
         else
