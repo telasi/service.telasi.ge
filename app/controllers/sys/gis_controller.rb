@@ -85,11 +85,16 @@ class Sys::GisController < ApplicationController
     redirect_to sys_gis_message_url(id: @message.id), notice: 'შეტყობინება გაგზავნილია.'
   end
 
-# აბონენტების სია.
+# აბონენტების, ქუჩების და ბიზნეს-ცენტრების სია.
 
-  def accounts
+  def details
     @relations = Bs::Accrel.where(base_acckey: params[:tpid])
-    render partial: 'sys/gis/accounts'
+    @streets = []
+    @relations.each do |rel|
+      street = rel.account.address.street
+      @streets.push(street) unless @streets.include?(street)
+    end
+    render partial: 'sys/gis/details'
   end
 
 end

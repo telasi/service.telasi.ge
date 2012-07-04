@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h4>ქუჩები (<%= @streets.size %>)</h4>
+</div>
+<% if @streets.any? %>
+  <div>
+    <% @streets.each do |str| %>
+      <div><%= str.streetname.to_ka %></div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="muted">სია ცარიელია</p>
+<% end %>

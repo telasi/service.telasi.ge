@@ -3,13 +3,15 @@
 </style>
 <script type="text/javascript">
   var ids_in_process = [];
+  var ids_in_process_streets = [];
   $(function() {
-    $('.account-list').click(function(evt) {
+    $('.details').click(function(evt) {
       var id = $(evt.target).attr('data-tpid');
       if (ids_in_process.indexOf(id) == -1) {
+        ids_in_process.push(id);
         $(evt.target).text('დაელოდეთ...');
-        $.get('<%= sys_gis_accounts_url %>', {tpid: id}, function(data) {
-          $('#accounts-' + id).html(data);
+        $.get('<%= sys_gis_details_url %>', {tpid: id}, function(data) {
+          $('#details-' + id).html(data);
         });
       }
       return false;
@@ -21,7 +23,7 @@
 <div class="page-header">
   <h2>
     <% if @message.on %><%= image_tag 'fff/accept.png' %><% else %><%= image_tag 'fff/cancel.png' %><% end %>
-    <%= C12::KA.format_date @message.created_at, format: :short %> <small><%= @message.created_at.strftime('%H:%M:%S') %></small>
+    <%= C12::KA.format_date @message.created_at %> <small><%= @message.created_at.strftime('%H:%M:%S') %></small>
   </h2>
 </div>
 <div class="btn-toolbar">
@@ -49,8 +51,12 @@
         <p class="muted"><%= log.object.address %></p>
       </div>
       <div class="span9">
-        <div id="accounts-<%= log.object.acckey %>">
-          <%= link_to "აბონენტების ნახვა (#{log.object.account_count})", nil, class: ['btn', 'btn-mini', 'account-list'], 'data-id' => log.id, 'data-tpid' => log.object.acckey %>
+        <div id="details-<%= log.object.acckey %>">
+          <div class="btn-toolbar">
+            <a href="#" class="btn btn-mini details" data-id="<%= log.id %>" data-tpid="<%= log.object.acckey %>">
+              ქუჩები (<%= log.object.street_count %>), აბონენტები (<%= log.object.account_count%>)
+            </a>
+          </div>
         </div>
       </div>
     </div>

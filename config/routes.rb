@@ -74,7 +74,7 @@ TelasiService::Application.routes.draw do
       get '/messages', action: :messages, as: :gis_messages
       get '/message/:id', action: :message, as: :gis_message
       post '/send/:id', action: :send_message, as: :gis_send
-      get '/accounts', action: :accounts, as: :gis_accounts
+      get '/details', action: :details, as: :gis_details
     end
   end
 
