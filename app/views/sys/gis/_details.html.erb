@@ -1,3 +1,10 @@
-<%= render partial: '/sys/gis/regions' %>
+<% if @transformator %>
+  <div class="page-header">
+    <h4>ბიზნეს-ცენტრი</h4>
+  </div>
+  <div>
+    <%= icon_text 'home', @transformator.regionname %>
+  </div>
+<% end %>
 <%= render partial: '/sys/gis/streets' %>
 <%= render partial: 'sys/gis/accounts' %>

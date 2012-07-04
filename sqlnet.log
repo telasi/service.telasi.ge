@@ -91,3 +91,4 @@ Fatal NI connect error 12170.
     TNS-00505: Message 505 not found; No message file for product=network, facility=TNS
     nt secondary err code: 60
     nt OS err code: 0
+  Client address: (ADDRESS=(PROTOCOL=tcp)(HOST=192.168.1.10)(PORT=1521))

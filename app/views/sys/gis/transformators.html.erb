@@ -12,12 +12,12 @@
   <thead>
     <tr>
       <th width="100">ტრანსფორმატორი</th>
-      <th width="150">აბონენტი</th>
-      <th width="150">ანგარიში</th>
-      <th width="75">ბ/ც</th>
+      <th width="75">აბონენტი</th>
+      <th width="75">ანგარიში</th>
+      <th>ბ/ც</th>
       <th width="75">ქუჩები</th>
       <th width="75">აბონენტები</th>
-      <th class="center"><%= icon('cog') %></th>
+      <th width="125" class="center"><%= icon('cog') %></th>
     </tr>
   </thead>
   <tbody>
@@ -28,14 +28,12 @@
           <span class="muted"><%= tr.tr_name %></span>
         </td>
         <td>
-          <strong><%= tr.accnumb %></strong> /
-          <span class="muted"><%= tr.custname %></span>
+          <strong><%= tr.accnumb %></strong>
         </td>
         <td>
           <strong><%= tr.accid %></strong>
-          <span class="muted"><%= tr.acckey %></span>
         </td>
-        <td class="right"><%= tr.region_count %></td>
+        <td><%= tr.regionname %></td>
         <td class="right"><%= tr.street_count %></td>
         <td class="right"><%= tr.account_count %></td>
         <td class="center">

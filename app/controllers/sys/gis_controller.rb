@@ -17,7 +17,9 @@ class Sys::GisController < ApplicationController
   end
 
   def sync_transformator
-    Ext::Transformator.find(params[:id]).sync
+    trans = Ext::Transformator.find(params[:id])
+    trans.sync
+    trans.save
     redirect_to sys_transformators_url(page: params[:page]), notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
@@ -89,14 +91,13 @@ class Sys::GisController < ApplicationController
 
   def details
     @relations = Bs::Accrel.where(base_acckey: params[:tpid])
+    @transformator = Ext::Transformator.where(acckey: params[:tpid]).first
     @streets = []
-    @regions = []
     @relations.each do |rel|
       address = rel.account.address
       street = address.street
       region = address.region
       @streets.push(street) unless @streets.include?(street)
-      @regions.push(region) unless @regions.include?(region)
     end
     render partial: 'sys/gis/details'
   end

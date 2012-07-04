@@ -22,6 +22,7 @@
         </td>
         <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%M:%S') %></td>
         <td>
+          <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
           <code><%= msg.tp_count %></code> ტრანსფორმატორი;
           <code><%= msg.street_count %></code> ქუჩა;
           <code><%= msg.account_count %></code> აბონენტი;
