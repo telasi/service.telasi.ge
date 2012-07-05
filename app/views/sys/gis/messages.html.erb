@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th width="16"><%= icon('picture') %></th>
+      <th width="100">ტიპი</th>
       <th width="150">გაგზავნის თარიღი</th>
       <th>მოკლე ცნობა</th>
       <th width="16"><%= icon('cog') %></th>
@@ -19,6 +20,10 @@
           <% else %>
             <%= image_tag 'fff/cancel.png' %>
           <% end %>
+        </td>
+        <td>
+          <%= gislog_typeicon(msg) %>
+          <%= gislog_type(msg) %>
         </td>
         <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%M:%S') %></td>
         <td>
