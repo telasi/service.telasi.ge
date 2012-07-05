@@ -19,7 +19,7 @@
         <td><%= section.station %></td>
         <td class="right"><%= section.voltage %> კვ</td>
         <td class="right"><%= section.number %></td>
-        <td>...</td>
+        <td><%= section.fiders.map{|f| f.number}.join('; ') %></td>
       </tr>
     <% end %>
   </tbody>
