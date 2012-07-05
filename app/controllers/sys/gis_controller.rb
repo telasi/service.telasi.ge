@@ -94,12 +94,9 @@ class Sys::GisController < ApplicationController
   end
 
   def send_message
-    @message = Ext::Gis::Message.find(params[:id])
-    Gis::Receiver.where(active: true).each do |r|
-      mobile = @message.on ? r.mobile_on : r.mobile_off
-      Magti.send_sms(mobile, @message.sms_text)  if Magti::SEND and mobile 
-    end
-    redirect_to sys_gis_message_url(id: @message.id), notice: 'შეტყობინება გაგზავნილია.'
+    msg = Ext::Gis::Message.find(params[:id])
+    Gis::Receiver.send_message(msg)
+    redirect_to sys_gis_message_url(id: msg.id), notice: 'შეტყობინება გაგზავნილია.'
   end
 
 # აბონენტების, ქუჩების და ბიზნეს-ცენტრების სია.

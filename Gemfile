@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 3.2.0'
+gem 'pony'
 
 gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
