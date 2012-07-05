@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h2>ფიდერები</h2>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="200">ქვესადგური</th>
+      <th width="75">ძაბვა</th>
+      <th width="75">სექცია</th>
+      <th width="75">ფიდერი</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @fiders.each do |fider| %>
+      <tr>
+        <td><%= fider.station %></td>
+        <td class="right"><%= fider.voltage %> კვ</td>
+        <td class="right"><%= fider.section_number %></td>
+        <td class="right"><%= fider.number %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @fiders %>

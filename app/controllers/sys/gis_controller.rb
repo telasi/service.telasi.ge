@@ -33,6 +33,11 @@ class Sys::GisController < ApplicationController
     redirect_to sys_sections_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
+  def fiders
+    @title = 'ფიდერები'
+    @fiders = Ext::Gis::Fider.asc(:station, :voltage, :section_number, :number).paginate(page: params[:page], per_page: 10)
+  end
+
 # ლოგების მართვა.
 
   def logs
