@@ -15,4 +15,8 @@ class Ext::Gis::Fider
   index :objectid
   index [[:station, Mongo::ASCENDING], [:voltage, Mongo::ASCENDING], [:number, Mongo::ASCENDING]]
 
+  def to_s
+    "#{station} #{voltage} კვ, სექცია #{section_number}, ფიდერი #{number}"
+  end
+
 end

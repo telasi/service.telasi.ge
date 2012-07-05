@@ -35,4 +35,8 @@ class Ext::Gis::Section
     end
   end
 
+  def to_s
+    "#{station} #{voltage} კვ, სექცია #{number}"
+  end
+
 end
