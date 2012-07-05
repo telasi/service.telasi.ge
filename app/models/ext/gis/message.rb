@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Ext::GisMessage
+class Ext::Gis::Message
   include Mongoid::Document
   include Mongoid::Timestamps
   field :on, type: Boolean
@@ -9,7 +9,7 @@ class Ext::GisMessage
   field :street_count, type: Integer, default: 0
   field :account_count, type: Integer, default: 0
   field :regionkeys, type: Array, default: []
-  has_many :logs, class_name: 'Ext::GisLog', inverse_of: :message
+  has_many :logs, class_name: 'Ext::Gis::Log', inverse_of: :message
 
   def sync
     self.logs.each do |log|

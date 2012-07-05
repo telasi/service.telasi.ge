@@ -13,28 +13,28 @@ class Gis::SmsLog < ActiveRecord::Base
   private
 
   def self.sync_new_logs
-    last_id = Ext::GisLog.max(:log_id) || 0
-    Gis::SmsLog.where('table_name = ? AND sms_log_id > ?', Ext::GisLog::TRANSFORMATOR, last_id).each do |glog|
-      Ext::GisLog.new(log_id: glog.sms_log_id, table_name: glog.table_name, objectid: glog.objectid,
+    last_id = Ext::Gis::Log.max(:log_id) || 0
+    Gis::SmsLog.where('table_name = ? AND sms_log_id > ?', Ext::Gis::Log::TRANSFORMATOR, last_id).each do |glog|
+      Ext::Gis::Log.new(log_id: glog.sms_log_id, table_name: glog.table_name, objectid: glog.objectid,
         gis_status: glog.status, username: glog.user_name, log_date: glog.enter_date,
-        sms_status: Ext::GisLog::STATUS_FOR_SENT).save
+        sms_status: Ext::Gis::Log::STATUS_FOR_SENT).save
     end
   end
 
   def self.pair_logs
-    Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).desc(:log_id).each do |log|
+    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT).desc(:log_id).each do |log|
       log.reload
-      if log.sms_status == Ext::GisLog::STATUS_FOR_SENT
-        pair = Ext::GisLog.where(objectid: log.objectid, :_id.ne => log.id,
-          :sms_status => Ext::GisLog::STATUS_FOR_SENT, :log_date.gte => (log.log_date - Gis::DIFF)).first
+      if log.sms_status == Ext::Gis::Log::STATUS_FOR_SENT
+        pair = Ext::Gis::Log.where(objectid: log.objectid, :_id.ne => log.id,
+          :sms_status => Ext::Gis::Log::STATUS_FOR_SENT, :log_date.gte => (log.log_date - Gis::DIFF)).first
         if pair and pair.enabled? != log.enabled?
           # log
           log.pair = pair
-          log.sms_status = Ext::GisLog::STATUS_SENT_CANCELED
+          log.sms_status = Ext::Gis::Log::STATUS_SENT_CANCELED
           log.save
           # pair
           pair.pair = log
-          pair.sms_status = Ext::GisLog::STATUS_SENT_CANCELED
+          pair.sms_status = Ext::Gis::Log::STATUS_SENT_CANCELED
           pair.save
         end
       end
@@ -42,16 +42,16 @@ class Gis::SmsLog < ActiveRecord::Base
   end
 
   def self.send_messages
-    on = Ext::GisMessage.create(on: true)
-    off = Ext::GisMessage.create(on: false)
-    Ext::GisLog.where(sms_status: Ext::GisLog::STATUS_FOR_SENT).asc(:log_id).each do |log|
+    on = Ext::Gis::Message.create(on: true)
+    off = Ext::Gis::Message.create(on: false)
+    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT).asc(:log_id).each do |log|
       if log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
         if log.enabled?
           log.message = on
         else
           log.message = off
         end
-        log.sms_status = Ext::GisLog::STATUS_SENT
+        log.sms_status = Ext::Gis::Log::STATUS_SENT
         log.save
       end
     end

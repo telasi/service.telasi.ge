@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Ext::GisLog
+class Ext::Gis::Log
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -17,19 +17,19 @@ class Ext::GisLog
   field :log_date, type: DateTime
   field :sms_status, type: Integer
 
-  belongs_to :pair, class_name: 'Ext::GisLog'
-  belongs_to :message, class_name: 'Ext::GisMessage', inverse_of: :logs
+  belongs_to :pair, class_name: 'Ext::Gis::Log'
+  belongs_to :message, class_name: 'Ext::Gis::Message', inverse_of: :logs
 
   index :log_id
   index :objectid
 
   def transformator?
-    self.table_name = Ext::GisLog::TRANSFORMATOR
+    self.table_name = Ext::Gis::Log::TRANSFORMATOR
   end
 
   def object
     if transformator?
-      Ext::Transformator.where(objectid: self.objectid).first
+      Ext::Gis::Transformator.where(objectid: self.objectid).first
     end
   end
 

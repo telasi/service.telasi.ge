@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Ext::Transformator
+class Ext::Gis::Transformator
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -30,7 +30,7 @@ class Ext::Transformator
 
   def self.sync
     Gis::Transformator.order('tp_name ASC, tr_name ASC').each do |gis_tr|
-      tr = Ext::Transformator.where(objectid: gis_tr.objectid).first || Ext::Transformator.new(objectid: gis_tr.objectid)
+      tr = Ext::Gis::Transformator.where(objectid: gis_tr.objectid).first || Ext::Gis::Transformator.new(objectid: gis_tr.objectid)
       tr.tp_name = gis_tr.tp_name
       tr.account = gis_tr.account
       tr.tr_name = gis_tr.tr_name

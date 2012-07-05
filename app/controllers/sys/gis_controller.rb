@@ -5,19 +5,19 @@ class Sys::GisController < ApplicationController
 
   def transformators
     @title = 'ტრანსფორმატორები'
-    rel = Ext::Transformator
+    rel = Ext::Gis::Transformator
     session[:gis_tr_filter] = params[:filter] if params[:filter]
     rel = rel.where(acckey: nil) if session[:gis_tr_filter] == 'problem'
     @transformators = rel.asc(:tp_name, :tr_name).paginate(page: params[:page], per_page: 10)
   end
 
   def sync_transformators
-    Ext::Transformator.sync
+    Ext::Gis::Transformator.sync
     redirect_to sys_transformators_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
   def sync_transformator
-    trans = Ext::Transformator.find(params[:id])
+    trans = Ext::Gis::Transformator.find(params[:id])
     trans.sync
     trans.save
     redirect_to sys_transformators_url(page: params[:page]), notice: 'სინქრონიზაცია დასრულებულია.'
@@ -31,7 +31,7 @@ class Sys::GisController < ApplicationController
 
   def logs
     @title = 'ლოგები'
-    @logs = Ext::GisLog.desc(:log_id).paginate(page: params[:page], per_page: 10)
+    @logs = Ext::Gis::Log.desc(:log_id).paginate(page: params[:page], per_page: 10)
   end
 
   def sync_logs
@@ -74,16 +74,16 @@ class Sys::GisController < ApplicationController
 
   def messages
     @title = 'შეტყობინებების რეესტრი'
-    @messages = Ext::GisMessage.desc(:created_at).paginate(page: params[:page], per_page: 10)
+    @messages = Ext::Gis::Message.desc(:created_at).paginate(page: params[:page], per_page: 10)
   end
 
   def message
     @title = 'შეტყობინების დეტალები'
-    @message = Ext::GisMessage.find(params[:id])
+    @message = Ext::Gis::Message.find(params[:id])
   end
 
   def send_message
-    @message = Ext::GisMessage.find(params[:id])
+    @message = Ext::Gis::Message.find(params[:id])
     Gis::Receiver.where(active: true).each do |r|
       mobile = @message.on ? r.mobile_on : r.mobile_off
       Magti.send_sms(mobile, @message.sms_text)  if Magti::SEND and mobile 
@@ -95,7 +95,7 @@ class Sys::GisController < ApplicationController
 
   def details
     @relations = Bs::Accrel.where(base_acckey: params[:tpid])
-    @transformator = Ext::Transformator.where(acckey: params[:tpid]).first
+    @transformator = Ext::Gis::Transformator.where(acckey: params[:tpid]).first
     @streets = []
     @relations.each do |rel|
       address = rel.account.address
