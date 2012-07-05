@@ -48,15 +48,23 @@
     <div class="row transformator">
       <div class="span3">
         <p><strong><%= log.object %></strong></p>
-        <p><%= icon 'home' %><%= log.object.regionname %></p>
-        <p class="muted"><%= log.object.address %></p>
+        <% if log.object.acckey %>
+          <p><%= icon 'home' %><%= log.object.regionname %></p>
+          <p class="muted"><%= log.object.address %></p>
+        <% end %>
       </div>
       <div class="span9">
         <div id="details-<%= log.object.acckey %>">
           <div class="btn-toolbar">
-            <a href="#" class="btn btn-mini details" data-id="<%= log.id %>" data-tpid="<%= log.object.acckey %>">
-              ქუჩები (<%= log.object.street_count %>), აბონენტები (<%= log.object.account_count%>)
-            </a>
+            <% if log.object.acckey %>
+              <a href="#" class="btn btn-mini details" data-id="<%= log.id %>" data-tpid="<%= log.object.acckey %>">
+                ქუჩები (<%= log.object.street_count %>), აბონენტები (<%= log.object.account_count%>)
+              </a>
+            <% else %>
+              <p class="muted">
+                <%= image_tag 'fff/error.png' %> ეს ობიექტი არაა სინქრონიზირებული ბილინგის ბაზასთან!
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
