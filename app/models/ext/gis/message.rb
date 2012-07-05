@@ -46,8 +46,8 @@ class Ext::Gis::Message
       end
     elsif self.transformator?
       if self.regionkeys.size == 1
-        region = Bs::Region.find(self.regionkey.first)
-        text += %Q{biznes centri "#{region.regionname.to_lat}"; }
+        region = Bs::Region.find(self.regionkeys.first)
+        text += %Q{biznes centri *#{region.regionname.to_lat}*; }
       else
         text += "#{self.regionkeys.size} biznes centri; "
       end
