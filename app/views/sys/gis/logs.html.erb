@@ -4,36 +4,5 @@
 <div class="btn-toolbar">
   <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_gis_logs_path, class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
 </div>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th width="100">ID</th>
-      <th width="100">ტიპი</th>
-      <th>ობიექტი</th>
-      <th width="100">მომხმარებელი</th>
-      <th width="150">თარიღი</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @logs.each do |log| %>
-      <tr class="<%= gislog_class(log) %>">
-        <td>
-          <%= log.log_id %>
-          <% if log.pair %>&rarr; <span class="muted"><%= log.pair.log_id %></span><% end %>
-        </td>
-        <td>
-          <%= gislog_typeicon(log) %>
-          <%= gislog_type(log) %>
-        </td>
-        <td>
-          <%= gislog_icon(log) %>
-          <%= log.object %>
-          <span class="muted"><%= log.object.address if log.transformator? %></span>
-        </td>
-        <td><%= log.username.downcase %></td>
-        <td><%= log.date.strftime('%d-%b-%Y %H:%M:%S') %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'sys/gis/logs', locals: {logs: @logs} %>
 <%= paginate @logs %>

@@ -1,25 +1,3 @@
-<style type="text/css">
-  .transformator {margin-bottom: 0;}
-</style>
-<script type="text/javascript">
-  var ids_in_process = [];
-  var ids_in_process_streets = [];
-  $(function() {
-    $('.details').click(function(evt) {
-      var id = $(evt.target).attr('data-tpid');
-      if (ids_in_process.indexOf(id) == -1) {
-        ids_in_process.push(id);
-        $(evt.target).text('დაელოდეთ...');
-        $.get('<%= sys_gis_details_url %>', {tpid: id}, function(data) {
-          $('#details-' + id).html(data);
-        });
-      }
-      return false;
-    });
-  });
-</script>
-
-<!-- Header -->
 <div class="page-header">
   <h2>
     <% if @message.on %><%= image_tag 'fff/accept.png' %><% else %><%= image_tag 'fff/cancel.png' %><% end %>
@@ -31,7 +9,6 @@
   <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
 </div>
 
-<!-- Message text -->
 <div class="page-header">
   <h3>SMS შეტყობინების ტექსტი</h3>
 </div>
@@ -39,36 +16,13 @@
   <code><%= @message.sms_text %></code>
 </div>
 
-<!-- Transformator text -->
+<% if @message.transformator? %>
+  <%= render partial: 'sys/gis/message_transformators', locals: {message: @message} %>
+<% end %>
+
 <div class="page-header">
-  <h3>ტრანსფორმატორების სია (<%= @message.tp_count %>)</h3>
+  <h3>ლოგები (<%= @message.logs.count %>)</h3>
 </div>
 <div>
-  <% @message.logs.each do |log| %>
-    <div class="row transformator">
-      <div class="span3">
-        <p><strong><%= log.object %></strong></p>
-        <% if log.object.acckey %>
-          <p><%= icon_text 'home', log.object.regionname %></p>
-          <p class="muted"><%= log.object.address %></p>
-        <% end %>
-      </div>
-      <div class="span9">
-        <div id="details-<%= log.object.acckey %>">
-          <div class="btn-toolbar">
-            <% if log.object.acckey %>
-              <a href="#" class="btn btn-mini details" data-id="<%= log.id %>" data-tpid="<%= log.object.acckey %>">
-                ქუჩები (<%= log.object.street_count %>), აბონენტები (<%= log.object.account_count%>)
-              </a>
-            <% else %>
-              <p class="muted">
-                <%= image_tag 'fff/error.png' %> ეს ობიექტი არაა სინქრონიზირებული ბილინგის ბაზასთან!
-              </p>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
-  <% end %>
+  <%= render partial: 'sys/gis/logs', locals: {logs: @message.logs} %>
 </div>

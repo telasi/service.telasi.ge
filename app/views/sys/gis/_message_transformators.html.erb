@@ -1,0 +1,49 @@
+<script type="text/javascript">
+  var ids_in_process = [];
+  var ids_in_process_streets = [];
+  $(function() {
+    $('.details').click(function(evt) {
+      var id = $(evt.target).attr('data-tpid');
+      if (ids_in_process.indexOf(id) == -1) {
+        ids_in_process.push(id);
+        $(evt.target).text('დაელოდეთ...');
+        $.get('<%= sys_gis_details_url %>', {tpid: id}, function(data) {
+          $('#details-' + id).html(data);
+        });
+      }
+      return false;
+    });
+  });
+</script>
+<div class="page-header">
+  <h3>ტრანსფორმატორების სია (<%= message.tp_count %>)</h3>
+</div>
+<div>
+  <% message.logs.each do |log| %>
+    <div class="row transformator">
+      <div class="span3">
+        <p><strong><%= log.object %></strong></p>
+        <% if log.object.acckey %>
+          <p><%= icon_text 'home', log.object.regionname %></p>
+          <p class="muted"><%= log.object.address %></p>
+        <% end %>
+      </div>
+      <div class="span9">
+        <div id="details-<%= log.object.acckey %>">
+          <div class="btn-toolbar">
+            <% if log.object.acckey %>
+              <a href="#" class="btn btn-mini details" data-id="<%= log.id %>" data-tpid="<%= log.object.acckey %>">
+                ქუჩები (<%= log.object.street_count %>), აბონენტები (<%= log.object.account_count%>)
+              </a>
+            <% else %>
+              <p class="muted">
+                <%= image_tag 'fff/error.png' %> ეს ობიექტი არაა სინქრონიზირებული ბილინგის ბაზასთან!
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+</div>
