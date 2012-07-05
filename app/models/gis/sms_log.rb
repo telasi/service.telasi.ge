@@ -61,8 +61,18 @@ class Gis::SmsLog < ActiveRecord::Base
     end
     on.reload.sync
     off.reload.sync
-    on.destroy  if on.reload.logs.empty?
-    off.destroy if off.reload.logs.empty?
+    # dealing with ON message
+    if on.reload.logs.empty?
+      on.destroy
+    else
+      Gis::Receiver.send_message(on) # sending SMS and EMAIL
+    end
+    # dealing with OFF message
+    if off.reload.logs.empty?
+      off.destroy
+    else
+      Gis::Receiver.send_message(off) # sending SMS and EMAIL
+    end
   end
 
 end

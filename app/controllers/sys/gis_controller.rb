@@ -85,7 +85,7 @@ class Sys::GisController < ApplicationController
 
   def messages
     @title = 'შეტყობინებების რეესტრი'
-    @messages = Ext::Gis::Message.desc(:created_at).paginate(page: params[:page], per_page: 10)
+    @messages = Ext::Gis::Message.desc(:created_at, :_id).paginate(page: params[:page], per_page: 10)
   end
 
   def message

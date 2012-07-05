@@ -27,7 +27,9 @@ class Gis::Receiver
           </html>}
         Pony.mail(:from => "Telasi.ge <support@telasi.ge>", to: email, html_body: body, subject: subject)
       rescue Exception => ex
-      end
+      end if email
+      msg.sent= true
+      msg.save
     end
   end
 
