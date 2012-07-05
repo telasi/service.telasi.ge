@@ -2,16 +2,25 @@
   <h2>ქვესადგურის სექციები</h2>
 </div>
 <div class="btn-toolbar">
-  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), nil, class: 'btn' %>
+  <%= link_to icon_text('refresh', 'სინქრონიზაცია'), sys_sync_sections_url, class: 'btn', method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?' %>
 </div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th width="200">ქვესადგური</th>
-      <th width="100">ძაბვა</th>
-      <th width="100">სექცია</th>
-      <th></th>
+      <th width="75">ძაბვა</th>
+      <th width="75">სექცია</th>
+      <th>ფიდერები</th>
     </tr>
   </thead>
-  <!-- TODO: station data here -->
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.station %></td>
+        <td class="right"><%= section.voltage %> კვ</td>
+        <td class="right"><%= section.number %></td>
+        <td>...</td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

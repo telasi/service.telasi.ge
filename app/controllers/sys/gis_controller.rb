@@ -25,11 +25,12 @@ class Sys::GisController < ApplicationController
 
   def sections
     @title = 'სექციები'
+    @sections = Ext::Gis::Section.asc(:station, :voltage, :number)
   end
 
-  def sync_stations
+  def sync_sections
     Ext::Gis::Section.sync
-    redirect_to sys_stations_url, notice: 'სინქრონიზაცია დასრულებულია.'
+    redirect_to sys_sections_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
 # ლოგების მართვა.

@@ -13,8 +13,12 @@ class String
     txt
   end
 
-  def to_ka
-    self.translate(GEO, KA)
+  def to_ka(deep = false)
+    if deep
+      self.translate("#{GEO}#{LAT}", "#{KA}#{KA}")
+    else
+      self.translate(GEO, KA)
+    end
   end
 
   def to_geo
