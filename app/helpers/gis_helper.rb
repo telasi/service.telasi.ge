@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module GisHelper
 
-  def gis_log_icon(log)
+  def gislog_icon(log)
     image_tag log.enabled? ? '/assets/fff/accept.png' : '/assets/fff/cancel.png'
   end
 
@@ -13,6 +13,20 @@ module GisHelper
       'error'
     when Ext::Gis::Log::STATUS_SENT
       'success'
+    end
+  end
+
+  def gislog_typeicon(log)
+    if log.transformator?
+      image_tag('fff/lightbulb.png')
+      # fff/lightning.png
+      # fff/disconnect.png
+    end
+  end
+
+  def gislog_type(log)
+    if log.transformator?
+      'ტრანს.'
     end
   end
 

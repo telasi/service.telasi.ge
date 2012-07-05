@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th width="100">ID</th>
+      <th width="100">ტიპი</th>
       <th>ობიექტი</th>
       <th width="100">მომხმარებელი</th>
       <th width="150">თარიღი</th>
@@ -21,8 +22,13 @@
           <% if log.pair %>&rarr; <span class="muted"><%= log.pair.log_id %></span><% end %>
         </td>
         <td>
-          <%= gis_log_icon(log) %>
+          <%= gislog_typeicon(log) %>
+          <%= gislog_type(log) %>
+        </td>
+        <td>
+          <%= gislog_icon(log) %>
           <%= log.object %>
+          <span class="muted"><%= log.object.address if log.transformator? %></span>
         </td>
         <td><%= log.username.downcase %></td>
         <td><%= log.date.strftime('%d-%b-%Y %H:%M:%S') %></td>
