@@ -25,7 +25,7 @@ class Sys::GisController < ApplicationController
 
   def sections
     @title = 'სექციები'
-    @sections = Ext::Gis::Section.asc(:station, :voltage, :number)
+    @sections = Ext::Gis::Section.asc(:station, :voltage, :number).paginate(page: params[:page], per_page: 10)
   end
 
   def sync_sections
