@@ -32,7 +32,19 @@ class Ext::Gis::Message
 
   def sms_text
     text = self.on ? 'CarTva: ' : 'gaTiSva: '
-    if self.transformator?
+    if self.section?
+      if self.logs.size == 1
+        text += %Q{qvesadguris seqcia *#{self.logs.first.object.to_s.to_lat}*}
+      else
+        text += %Q{#{self.logs.size} qvesadguris seqcia}
+      end
+    elsif self.fider?
+      if self.logs.size == 1
+        text += %Q{fideri *#{self.logs.first.object.to_s.to_lat}*}
+      else
+        text += %Q{#{self.logs.size} fideri}
+      end
+    elsif self.transformator?
       if self.regionkeys.size == 1
         region = Bs::Region.find(self.regionkey.first)
         text += %Q{biznes centri "#{region.regionname.to_lat}"; }
