@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Sys::GisController < ApplicationController
 
-# ტრანსპფორმატორების მართვა.
+# ქსელის ობიექტები.
 
   def transformators
     @title = 'ტრანსფორმატორები'
@@ -21,6 +21,10 @@ class Sys::GisController < ApplicationController
     trans.sync
     trans.save
     redirect_to sys_transformators_url(page: params[:page]), notice: 'სინქრონიზაცია დასრულებულია.'
+  end
+
+  def stations
+    @title = 'ქვესადგურები'
   end
 
 # ლოგების მართვა.
