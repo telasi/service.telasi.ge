@@ -15,7 +15,7 @@ class Gis::SmsLog < ActiveRecord::Base
   def self.sync_new_logs
     last_id = Ext::Gis::Log.max(:log_id) || 0
     Gis::SmsLog.where('table_name IN (?) AND sms_log_id > ?', [Ext::Gis::Log::SECTION, Ext::Gis::Log::FIDER, Ext::Gis::Log::TRANSFORMATOR], last_id).each do |l|
-      Ext::Gis::Log.new(log_id: l.sms_log_id, table_name: l.table_name, objectid: l.objectid,
+      Ext::Gis::Log.new(log_id: l.sms_log_id, table_name: l.table_name, objectid: l.oid,
         gis_status: l.status, username: l.user_name, log_date: l.enter_date,
         sms_status: Ext::Gis::Log::STATUS_FOR_SENT).save
     end

@@ -5,7 +5,6 @@ class Ext::Gis::Message
 
   # main flags
   field :on,   type: Boolean
-  field :sent, type: Boolean, default: false
   field :table_name, type: String
 
   # transformator parameters

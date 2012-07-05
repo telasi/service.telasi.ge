@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <% @messages.each do |msg| %>
-      <tr class="<%= msg.sent ? 'success' : 'warning' %>">
+      <tr>
         <td>
           <% if msg.on %>
             <%= image_tag 'fff/accept.png' %>
