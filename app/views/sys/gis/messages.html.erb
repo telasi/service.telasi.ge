@@ -27,10 +27,24 @@
         </td>
         <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%M:%S') %></td>
         <td>
-          <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
-          <code><%= msg.tp_count %></code> ტრანსფორმატორი;
-          <code><%= msg.street_count %></code> ქუჩა;
-          <code><%= msg.account_count %></code> აბონენტი;
+          <% if msg.section? %>
+            <% if msg.logs.size == 1 %>
+              ქვესადგურის სექცია <code><%= msg.logs.first.object %></code>
+            <% else %>
+              <code><%= msg.logs.size %></code> ქვესადგურის სექცია
+            <% end %>
+          <% elsif msg.fider? %>
+            <% if msg.logs.size == 1 %>
+              ფიდერი <code><%= msg.logs.first.object %></code>
+            <% else %>
+              <code><%= msg.logs.size %></code> ფიდერი
+            <% end %>
+          <% elsif msg.transformator? %>
+            <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
+            <code><%= msg.tp_count %></code> ტრანსფორმატორი;
+            <code><%= msg.street_count %></code> ქუჩა;
+            <code><%= msg.account_count %></code> აბონენტი;
+          <% end %>
         </td>
         <td>
           <%= link_to icon('eye-open'), sys_gis_message_url(id: msg.id) %>
