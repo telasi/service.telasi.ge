@@ -1,4 +1,8 @@
 <div class="page-header">
+  <div class="pull-right">
+    <%= gislog_typeicon @message %>
+    <%= gislog_type @message %>
+  </div>
   <h2>
     <% if @message.on %><%= image_tag 'fff/accept.png' %><% else %><%= image_tag 'fff/cancel.png' %><% end %>
     <%= C12::KA.format_date @message.created_at %> <small><%= @message.created_at.strftime('%H:%M:%S') %></small>
