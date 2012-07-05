@@ -58,8 +58,10 @@ TelasiService::Application.routes.draw do
       match '/edit/:id', action: :edit, as: :billoperation_edit
     end
     scope '/gis', controller: :gis do
-      # transformator actions
-      get '/transformators', action: :transformators  , as: :transformators
+      # network object actions
+      get '/transformators', action: :transformators, as: :transformators
+      get '/stations', action: :stations, as: :stations
+      get '/fiders', action: :fiders, as: :fiders
       post '/sync_transformators', action: :sync_transformators, as: :sync_transformators
       post '/sync_transformator/:id', action: :sync_transformator, as: :sync_transformator
       # log actions
