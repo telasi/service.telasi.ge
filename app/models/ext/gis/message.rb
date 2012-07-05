@@ -2,13 +2,19 @@
 class Ext::Gis::Message
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :on, type: Boolean
+
+  # main flags
+  field :on,   type: Boolean
   field :sent, type: Boolean, default: false
-  field :tp_count, type: Integer, default: 0
-  field :region_count, type: Integer, default: 0
-  field :street_count, type: Integer, default: 0
+  field :table_name, type: String
+
+  # transformator parameters
+  field :tp_count,      type: Integer, default: 0
+  field :region_count,  type: Integer, default: 0
+  field :street_count,  type: Integer, default: 0
   field :account_count, type: Integer, default: 0
-  field :regionkeys, type: Array, default: []
+  field :regionkeys,    type: Array, default: []
+
   has_many :logs, class_name: 'Ext::Gis::Log', inverse_of: :message
 
   def sync
@@ -34,6 +40,18 @@ class Ext::Gis::Message
     end
     text += "#{self.tp_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti."
     text
+  end
+
+  def section?
+    self.table_name == Ext::Gis::Log::SECTION
+  end
+
+  def fider?
+    self.table_name == Ext::Gis::Log::FIDER
+  end
+
+  def transformator?
+    self.table_name == Ext::Gis::Log::TRANSFORMATOR
   end
 
 end

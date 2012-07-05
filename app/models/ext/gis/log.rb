@@ -8,7 +8,7 @@ class Ext::Gis::Log
   STATUS_SENT = 2
 
   SECTION = 'hv_section_ln'
-  FIDER = 'hv_fiderswithes_pnt'
+  FIDER = 'hv_fiderswitches_pnt'
   TRANSFORMATOR = 'mv_tr_pnt'
 
   field :log_id, type: Integer

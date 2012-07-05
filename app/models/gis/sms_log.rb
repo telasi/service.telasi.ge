@@ -14,9 +14,9 @@ class Gis::SmsLog < ActiveRecord::Base
 
   def self.sync_new_logs
     last_id = Ext::Gis::Log.max(:log_id) || 0
-    Gis::SmsLog.where('table_name = ? AND sms_log_id > ?', Ext::Gis::Log::TRANSFORMATOR, last_id).each do |glog|
-      Ext::Gis::Log.new(log_id: glog.sms_log_id, table_name: glog.table_name, objectid: glog.objectid,
-        gis_status: glog.status, username: glog.user_name, log_date: glog.enter_date,
+    Gis::SmsLog.where('table_name IN (?) AND sms_log_id > ?', [Ext::Gis::Log::SECTION, Ext::Gis::Log::FIDER, Ext::Gis::Log::TRANSFORMATOR], last_id).each do |l|
+      Ext::Gis::Log.new(log_id: l.sms_log_id, table_name: l.table_name, objectid: l.objectid,
+        gis_status: l.status, username: l.user_name, log_date: l.enter_date,
         sms_status: Ext::Gis::Log::STATUS_FOR_SENT).save
     end
   end
@@ -26,7 +26,9 @@ class Gis::SmsLog < ActiveRecord::Base
       log.reload
       if log.sms_status == Ext::Gis::Log::STATUS_FOR_SENT
         pair = Ext::Gis::Log.where(objectid: log.objectid, :_id.ne => log.id,
-          :sms_status => Ext::Gis::Log::STATUS_FOR_SENT, :log_date.gte => (log.log_date - Gis::DIFF)).first
+          :sms_status => Ext::Gis::Log::STATUS_FOR_SENT, :log_date.gte => (log.log_date - Gis::DIFF),
+          :table_name => log.table_name
+        ).first
         if pair and pair.enabled? != log.enabled?
           # log
           log.pair = pair
@@ -42,22 +44,24 @@ class Gis::SmsLog < ActiveRecord::Base
   end
 
   def self.send_messages
-    on = Ext::Gis::Message.create(on: true)
-    off = Ext::Gis::Message.create(on: false)
-    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT).asc(:log_id).each do |log|
+    Gis::SmsLog.send_message_table(Ext::Gis::Log::SECTION)
+    Gis::SmsLog.send_message_table(Ext::Gis::Log::FIDER)
+    Gis::SmsLog.send_message_table(Ext::Gis::Log::TRANSFORMATOR)
+  end
+
+  def self.send_message_table(tbl)
+    on  = Ext::Gis::Message.create(on: true, table_name: tbl)
+    off = Ext::Gis::Message.create(on: false, table_name: tbl)
+    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT, table_name: tbl).asc(:log_id).each do |log|
       if log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
-        if log.enabled?
-          log.message = on
-        else
-          log.message = off
-        end
+        log.message    = log.enabled? ? on : off
         log.sms_status = Ext::Gis::Log::STATUS_SENT
         log.save
       end
     end
     on.reload.sync
     off.reload.sync
-    on.destroy if on.reload.logs.empty?
+    on.destroy  if on.reload.logs.empty?
     off.destroy if off.reload.logs.empty?
   end
 
