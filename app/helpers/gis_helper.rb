@@ -17,15 +17,21 @@ module GisHelper
   end
 
   def gislog_typeicon(log)
-    if log.transformator?
+    if log.section?
+      image_tag('fff/lightning.png')
+    elsif log.fider?
+      image_tag('fff/disconnect.png')
+    elsif log.transformator?
       image_tag('fff/lightbulb.png')
-      # fff/lightning.png
-      # fff/disconnect.png
     end
   end
 
   def gislog_type(log)
-    if log.transformator?
+    if log.section?
+      'სექცია'
+    elsif log.fider?
+      'ფიდერი'
+    elsif log.transformator?
       'ტრანს.'
     end
   end

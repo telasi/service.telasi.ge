@@ -7,6 +7,8 @@ class Ext::Gis::Log
   STATUS_SENT_CANCELED = 1
   STATUS_SENT = 2
 
+  SECTION = 'hv_section_ln'
+  FIDER = 'hv_fiderswithes_pnt'
   TRANSFORMATOR = 'mv_tr_pnt'
 
   field :log_id, type: Integer
@@ -23,14 +25,27 @@ class Ext::Gis::Log
   index :log_id
   index :objectid
 
+  def section?
+    self.table_name == Ext::Gis::Log::SECTION
+  end
+
+  def fider?
+    self.table_name == Ext::Gis::Log::FIDER
+  end
+
   def transformator?
-    self.table_name = Ext::Gis::Log::TRANSFORMATOR
+    self.table_name == Ext::Gis::Log::TRANSFORMATOR
   end
 
   def object
-    if transformator?
-      Ext::Gis::Transformator.where(objectid: self.objectid).first
+    if section?
+      rel = Ext::Gis::Section
+    elsif fider?
+      rel = Ext::Gis::Fider
+    elsif transformator?
+      rel = Ext::Gis::Transformator
     end
+    rel.where(objectid: self.objectid).first
   end
 
   def enabled?
