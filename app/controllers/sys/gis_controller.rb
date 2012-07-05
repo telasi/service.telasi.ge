@@ -23,8 +23,13 @@ class Sys::GisController < ApplicationController
     redirect_to sys_transformators_url(page: params[:page]), notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
-  def stations
-    @title = 'ქვესადგურები'
+  def sections
+    @title = 'სექციები'
+  end
+
+  def sync_stations
+    Ext::Gis::Section.sync
+    redirect_to sys_stations_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
 # ლოგების მართვა.

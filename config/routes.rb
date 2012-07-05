@@ -60,10 +60,11 @@ TelasiService::Application.routes.draw do
     scope '/gis', controller: :gis do
       # network object actions
       get '/transformators', action: :transformators, as: :transformators
-      get '/stations', action: :stations, as: :stations
+      get '/sections', action: :sections, as: :sections
       get '/fiders', action: :fiders, as: :fiders
       post '/sync_transformators', action: :sync_transformators, as: :sync_transformators
       post '/sync_transformator/:id', action: :sync_transformator, as: :sync_transformator
+      post '/sync_sections', action: :sync_sections, as: :sync_sections
       # log actions
       get '/logs', action: :logs, as: :gis_logs
       post '/sync_logs', action: :sync_logs, as: :sync_gis_logs
