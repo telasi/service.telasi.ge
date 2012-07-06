@@ -22,7 +22,7 @@ class Gis::Receiver
             <head><meta http-equiv="content-type" content="text/html; charset=utf-8" /></head>
             <body>
               <p>#{msg.sms_text.to_ka(true)}</p>
-              <p>მეტი ინფორმაციის მისაღებად მიჰყევით <a href="http://service.telasi.ge/sys/gis/message/#{msg.id.to_s}">ბმულს</a>.</p>
+              <p>დამატებითი ინფორმაციის მისაღებად მიჰყევით <a href="http://service.telasi.ge/sys/gis/message/#{msg.id.to_s}">ბმულს</a>.</p>
             </body>
           </html>}
         Pony.mail(:from => "Telasi.ge <support@telasi.ge>", to: email, html_body: body, subject: subject)
