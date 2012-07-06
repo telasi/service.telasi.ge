@@ -1,8 +1,4 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= gislog_typeicon @message %>
-    <%= gislog_type @message %>
-  </div>
   <h2>
     <% if @message.on %><%= image_tag 'fff/accept.png' %><% else %><%= image_tag 'fff/cancel.png' %><% end %>
     <%= C12::KA.format_date @message.created_at %> <small><%= @message.created_at.strftime('%H:%M:%S') %></small>
@@ -13,15 +9,49 @@
   <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
 </div>
 
-<div class="page-header">
-  <h3>SMS შეტყობინების ტექსტი</h3>
-</div>
-<div>
-  <code><%= @message.sms_text %></code>
-  (<%= @message.sms_text.size %> სიმბოლო)
+<div class="row" style="margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #eee;">
+  <div class="span6">
+    <div class="page-header">
+      <h3>შეჯამება</h3>
+    </div>
+    <div>
+      <%= render partial: 'sys/gis/message_info', locals: {msg: @message}%>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="page-header">
+      <h3><%= image_tag 'fff/comment.png'%> SMS შეტყობინება</h3>
+    </div>
+    <div>
+      <code><%= @message.sms_text %></code>
+      (<%= @message.sms_text.size %> სიმბოლო)
+    </div>
+  </div>
 </div>
 
-<% if @message.transformator? %>
+<% if @message.section_logs.any? %>
+  <div class="page-header">
+    <h3>სექციები (<%= @message.section_logs.size %>)</h3>
+  </div>
+  <% @message.section_logs.each do |log| %>
+    <div>
+      <%= image_tag 'fff/lightning.png'%> <strong><%= log.object %></strong>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @message.fider_logs.any? %>
+  <div class="page-header">
+    <h3>ფიდერები (<%= @message.fider_logs.size %>)</h3>
+  </div>
+  <% @message.fider_logs.each do |log| %>
+    <div>
+      <%= image_tag 'fff/disconnect.png'%> <strong><%= log.object %></strong>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @message.transformator_logs.any? %>
   <%= render partial: 'sys/gis/message_transformators', locals: {message: @message} %>
 <% end %>
 

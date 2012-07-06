@@ -45,7 +45,7 @@ class Ext::Gis::Message
       if self.fider_count == 1
         text += %Q{fideri *#{self.fider_logs.first.object.to_s.to_lat}*; }
       else
-        text += %Q{#{self.section_count} fideri; }
+        text += %Q{#{self.fider_count} fideri; }
       end
     end
     if self.transformator_count > 0

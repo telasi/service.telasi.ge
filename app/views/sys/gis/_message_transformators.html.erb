@@ -16,15 +16,15 @@
   });
 </script>
 <div class="page-header">
-  <h3>ტრანსფორმატორები (<%= message.tp_count %>)</h3>
+  <h3>ტრანსფორმატორები (<%= message.transformator_count %>)</h3>
 </div>
 <div>
-  <% message.logs.each do |log| %>
+  <% message.transformator_logs.each do |log| %>
     <div class="row transformator">
       <div class="span3">
-        <p><strong><%= log.object %></strong></p>
+        <p><%= image_tag 'fff/lightbulb.png' %> <strong><%= log.object %></strong></p>
         <% if log.object.acckey %>
-          <p><%= icon_text 'home', log.object.regionname %></p>
+          <p><%= icon('home') %> ბ/ც "<%= log.object.regionname %>"</p>
           <p class="muted"><%= log.object.address %></p>
         <% end %>
       </div>
