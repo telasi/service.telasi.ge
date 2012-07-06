@@ -5,10 +5,8 @@
   <thead>
     <tr>
       <th width="16"><%= icon('picture') %></th>
-      <th width="100">ტიპი</th>
       <th width="150">გაგზავნის თარიღი</th>
       <th>მოკლე ცნობა</th>
-      <th width="16"><%= icon('cog') %></th>
     </tr>
   </thead>
   <tbody>
@@ -22,32 +20,29 @@
           <% end %>
         </td>
         <td>
-          <%= gislog_typeicon(msg) %>
-          <%= gislog_type(msg) %>
+          <%= link_to "#{C12::KA.format_date msg.created_at, format: :short} #{msg.created_at.strftime('%H:%M:%S')}", sys_gis_message_url(id: msg.id) %>
         </td>
-        <td><%= C12::KA.format_date msg.created_at, format: :short %> <%= msg.created_at.strftime('%H:%M:%S') %></td>
         <td>
-          <% if msg.section? %>
-            <% if msg.logs.size == 1 %>
-              ქვესადგურის სექცია <code><%= msg.logs.first.object %></code>
+          <% if msg.section_count > 0 %>
+            <% if msg.section_count == 1 %>
+              ქვესადგურის სექცია <code><%= self.section_logs.first.object %></code>;
             <% else %>
-              <code><%= msg.logs.size %></code> ქვესადგურის სექცია
+              <code><%= msg.section_count %></code> ქვესადგურის სექცია;
             <% end %>
-          <% elsif msg.fider? %>
-            <% if msg.logs.size == 1 %>
-              ფიდერი <code><%= msg.logs.first.object %></code>
+          <% end %>
+          <% if msg.fider_count > 0 %>
+            <% if msg.fider_count == 1 %>
+              ფიდერი <code><%= self.fider_logs.first.object %></code>;
             <% else %>
-              <code><%= msg.logs.size %></code> ფიდერი
+              <code><%= msg.fider_count %></code> ფიდერი;
             <% end %>
-          <% elsif msg.transformator? %>
+          <% end %>
+          <% if msg.transformator_count > 0 %>
             <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
-            <code><%= msg.tp_count %></code> ტრანსფორმატორი;
+            <code><%= msg.transformator_count %></code> ტრანსფორმატორი;
             <code><%= msg.street_count %></code> ქუჩა;
             <code><%= msg.account_count %></code> აბონენტი;
           <% end %>
-        </td>
-        <td>
-          <%= link_to icon('eye-open'), sys_gis_message_url(id: msg.id) %>
         </td>
       </tr>
     <% end %>

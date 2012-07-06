@@ -44,15 +44,9 @@ class Gis::SmsLog < ActiveRecord::Base
   end
 
   def self.send_messages
-    Gis::SmsLog.send_message_table(Ext::Gis::Log::SECTION)
-    Gis::SmsLog.send_message_table(Ext::Gis::Log::FIDER)
-    Gis::SmsLog.send_message_table(Ext::Gis::Log::TRANSFORMATOR)
-  end
-
-  def self.send_message_table(tbl)
-    on  = Ext::Gis::Message.create(on: true, table_name: tbl)
-    off = Ext::Gis::Message.create(on: false, table_name: tbl)
-    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT, table_name: tbl).asc(:log_id).each do |log|
+    on  = Ext::Gis::Message.create(on: true)
+    off = Ext::Gis::Message.create(on: false)
+    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT).asc(:log_id).each do |log|
       if log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
         log.message    = log.enabled? ? on : off
         log.sms_status = Ext::Gis::Log::STATUS_SENT
@@ -61,13 +55,11 @@ class Gis::SmsLog < ActiveRecord::Base
     end
     on.reload.sync
     off.reload.sync
-    # dealing with ON message
     if on.reload.logs.empty?
       on.destroy
     else
       Gis::Receiver.send_message(on) # sending SMS and EMAIL
     end
-    # dealing with OFF message
     if off.reload.logs.empty?
       off.destroy
     else
