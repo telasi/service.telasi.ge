@@ -14,7 +14,7 @@ class Gis::Receiver
     Gis::Receiver.where(active: true).each do |r|
       mobile = msg.on ? r.mobile_on : r.mobile_off
       email  = msg.on ? r.email_on  : r.email_off
-      Magti.send_sms(mobile, msg.sms_text) if Magti::SEND and mobile 
+      Magti.send_sms(mobile, msg.sms_text) if Magti::SEND and (not mobile.blank?)
       begin
         subject = "#{msg.sms_text.to_ka(true)} // #{msg.sms_text}"
         body = %Q{<!DOCTYPE html>
@@ -27,7 +27,7 @@ class Gis::Receiver
           </html>}
         Pony.mail(:from => "Telasi.ge <support@telasi.ge>", to: email, html_body: body, subject: subject)
       rescue Exception => ex
-      end if email
+      end unless email.blank?
       msg.sent= true
       msg.save
     end
