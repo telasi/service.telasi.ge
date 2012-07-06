@@ -67,7 +67,7 @@
     <% end %>
   </div>
   <div class="span4">
-    <%= role_content :sys_admin do -%>
+    <%= role_content :sys_admin, :gis_viewer do -%>
       <div class="page-header">
         <h3>GIS შეტყობინებები</h3>
       </div>
@@ -78,20 +78,22 @@
         <li><%= link_to icon_text('envelope', 'შეტყობინებები'), sys_gis_messages_path %></li>
         <li><%= link_to icon_text('list', 'ქსელის ლოგები'), sys_gis_logs_path %></li>
       </ul>
-      <div class="page-header">
-        <h4>ქსელის ობიექტები</h4>
-      </div>
-      <ul class="nav nav-list">
-        <li><%= link_to icon_text('star', 'ქვესადგურის სექციები'), sys_sections_url %></li>
-        <li><%= link_to icon_text('star', 'ფიდერები'), sys_fiders_url %></li>
-        <li><%= link_to icon_text('star', 'ტრანსფორმატორები'), sys_transformators_path %></li>
-      </ul>
-      <div class="page-header">
-        <h4>პარამეტრები</h4>
-      </div>
-      <ul class="nav nav-list">
-        <li><%= link_to icon_text('user', 'შეტყობინების დაგზავნის სია'), sys_gis_receivers_url %></li>
-      </ul>
+      <%= role_content :sys_admin do %>
+        <div class="page-header">
+          <h4>ქსელის ობიექტები</h4>
+        </div>
+        <ul class="nav nav-list">
+          <li><%= link_to icon_text('star', 'ქვესადგურის სექციები'), sys_sections_url %></li>
+          <li><%= link_to icon_text('star', 'ფიდერები'), sys_fiders_url %></li>
+          <li><%= link_to icon_text('star', 'ტრანსფორმატორები'), sys_transformators_path %></li>
+        </ul>
+        <div class="page-header">
+          <h4>პარამეტრები</h4>
+        </div>
+        <ul class="nav nav-list">
+          <li><%= link_to icon_text('user', 'შეტყობინების დაგზავნის სია'), sys_gis_receivers_url %></li>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -14,6 +14,7 @@
   <h4>როლები <small>რისი გაკეთება შეუძლია ამ მომხმარებელს?</small></h4> <hr>
   <%= f.input :sys_admin, as: 'boolean', label: false, inline_label: 'არის თუ არა სისტემური ადმინისტრატორი?' %>
   <%= f.input :new_cust_admin, as: 'boolean', label: false, inline_label: 'არის თუ არა ახალი აბონენტების განცხადებათა ადმინისტრატორი?' %>
+  <%= f.input :gis_viewer, as: 'boolean', label: false, inline_label: 'GIS შეტყობინებების მნახველი' %>
   <div class="form-actions">
     <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
     <%= link_to 'გაუქმება', sys_users_path, class: 'btn' %>

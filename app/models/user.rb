@@ -30,6 +30,9 @@ class User
   # ახალი აბონენტის რეგისტრაციის ადმინისტრატორი.
   field :new_cust_admin, type: Boolean
 
+  # GIS ნახვა.
+  field :gis_viewer, type: Boolean
+
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
   field :email_confirmed, type: Boolean
 
