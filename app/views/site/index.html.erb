@@ -1,10 +1,14 @@
 <style type="text/css">
   .features-image { height: 250px; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; overflow: hidden; border: 1px solid #aaa; }
+  .features-image a { display: block; height: 250px; text-decoration: none; }
+  .features-image a:hover { text-decoration: none; }
   .features h2 { font-size: 18px; }
 </style>
 <div class="row features">
   <div class="span6">
-    <div class="features-image" style="background: url(/assets/index/debt.png) no-repeat 50% 50%;"></div>
+    <div class="features-image" style="background: url(/assets/index/debt.png) no-repeat 50% 50%;">
+      <%= link_to '', debt_url %>
+    </div>
     <div>
       <h2>ხარჯის შემოწმება</h2>
       <p>
@@ -16,7 +20,9 @@
     </div>
   </div>
   <div class="span6">
-    <div class="features-image" style="background: url(/assets/index/map01.png) no-repeat 50% 50%;"></div>
+    <div class="features-image" style="background: url(/assets/index/map01.png) no-repeat 50% 50%;">
+      <%= link_to '', map_url  %>
+    </div>
     <div>
       <h2>ბიზნესცენტრების რუკა</h2>
       <p>
