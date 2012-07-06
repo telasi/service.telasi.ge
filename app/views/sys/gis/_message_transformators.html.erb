@@ -1,19 +1,44 @@
 <script type="text/javascript">
-  var ids_in_process = [];
-  var ids_in_process_streets = [];
   $(function() {
     $('.details').click(function(evt) {
-      var id = $(evt.target).attr('data-tpid');
-      if (ids_in_process.indexOf(id) == -1) {
-        ids_in_process.push(id);
-        $(evt.target).text('დაელოდეთ...');
-        $.get('<%= sys_gis_details_url %>', {tpid: id}, function(data) {
-          $('#details-' + id).html(data);
-        });
+      var btn = evt.target;
+      var id = $(btn).attr('data-tpid');
+      if (btn.in_progress) {
+        // just ignore this!!
+      } else if (btn.for_close) {
+        $('#details-' + id).hide('');
+        btn.for_close = false;
+        $(btn).text(btn.originalText);
+        $(btn).removeClass('btn-danger');
+      } else {
+        if (btn.requested) {
+          $('#details-' + id).show('');
+          close_status(btn);
+        } else {
+          wait_status(btn);
+          $.get('<%= sys_gis_details_url %>', {tpid: id}, function(data) {
+            $('#details-' + id).html(data);
+            close_status(btn);
+            btn.requested = true;
+          });
+        }
       }
       return false;
     });
   });
+  function close_status(btn) {
+    $(btn).text('დახურვა');
+    $(btn).removeClass('btn-warning');
+    $(btn).addClass('btn-danger');
+    btn.in_progress = false;
+    btn.for_close = true;
+  }
+  function wait_status(btn) {
+    btn.originalText = $(btn).text();
+    btn.in_progress = true;
+    $(btn).text('დაელოდეთ...');
+    $(btn).addClass('btn-warning');
+  }
 </script>
 <div class="page-header">
   <h3>ტრანსფორმატორები (<%= message.transformator_count %>)</h3>
@@ -29,7 +54,7 @@
         <% end %>
       </div>
       <div class="span9">
-        <div id="details-<%= log.object.acckey %>">
+        <div>
           <div class="btn-toolbar">
             <% if log.object.acckey %>
               <a href="#" class="btn btn-mini details" data-id="<%= log.id %>" data-tpid="<%= log.object.acckey %>">
@@ -41,6 +66,7 @@
               </p>
             <% end %>
           </div>
+          <div id="details-<%= log.object.acckey %>"></div>
         </div>
       </div>
     </div>

@@ -6,8 +6,8 @@
 </div>
 <div class="btn-toolbar">
   <div class="pull-right">
-    <%= link_to '&larr; წინა'.html_safe, sys_gis_message_url(id: @prev.id), class: 'btn' if @prev %>
-    <%= link_to 'შემდეგი &rarr;'.html_safe, sys_gis_message_url(id: @next.id), class: 'btn' if @next %>
+    <%= link_to '&larr; შემდეგი'.html_safe, sys_gis_message_url(id: @next.id), class: 'btn' if @next %>
+    <%= link_to 'წინა &rarr;'.html_safe, sys_gis_message_url(id: @prev.id), class: 'btn' if @prev %>
   </div>
   <%= link_to icon_text('arrow-left', 'ყველა შეტყობინება'), sys_gis_messages_url, class: 'btn' %>
   <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
