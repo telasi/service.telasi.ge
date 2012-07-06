@@ -91,6 +91,8 @@ class Sys::GisController < ApplicationController
   def message
     @title = 'შეტყობინების დეტალები'
     @message = Ext::Gis::Message.find(params[:id])
+    @next = Ext::Gis::Message.where(:created_at.gte => @message.created_at, :_id.gt => @message.id).asc(:created_at, :_id).first
+    @prev = Ext::Gis::Message.where(:created_at.lte => @message.created_at, :_id.lt => @message.id).desc(:created_at, :_id).first
   end
 
   def send_message
