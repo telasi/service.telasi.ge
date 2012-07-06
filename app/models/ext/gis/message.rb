@@ -3,14 +3,12 @@ class Ext::Gis::Message
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  # main flags
   field :on,   type: Boolean
   field :sent, type: Boolean, default: false
-  field :table_name, type: String
 
-  # transformator parameters
-  field :tp_count,      type: Integer, default: 0
-  field :region_count,  type: Integer, default: 0
+  field :section_count, type: Integer, default: 0
+  field :fider_count,   type: Integer, default: 0
+  field :transformator_count, type: Integer, default: 0
   field :street_count,  type: Integer, default: 0
   field :account_count, type: Integer, default: 0
   field :regionkeys,    type: Array, default: []
@@ -19,8 +17,12 @@ class Ext::Gis::Message
 
   def sync
     self.logs.each do |log|
-      self.tp_count += 1
-      if log.transformator?
+      if log.section?
+        self.section_count += 1
+      elsif log.fider?
+        self.fider_count += 1
+      elsif log.transformator?
+        self.transformator_count += 1
         transformator = log.object
         self.street_count  += transformator.street_count
         self.account_count += transformator.account_count
@@ -32,40 +34,45 @@ class Ext::Gis::Message
 
   def sms_text
     text = self.on ? 'CarTva: ' : 'gaTiSva: '
-    if self.section?
-      if self.logs.size == 1
-        text += %Q{qvesadguris seqcia *#{self.logs.first.object.to_s.to_lat}*}
+    if self.section_count > 0
+      if self.section_count == 1
+        text += %Q{qvesadguris seqcia *#{self.section_logs.first.object.to_s.to_lat}*; }
       else
-        text += %Q{#{self.logs.size} qvesadguris seqcia}
+        text += %Q{#{self.section_count} qvesadguris seqcia; }
       end
-    elsif self.fider?
-      if self.logs.size == 1
-        text += %Q{fideri *#{self.logs.first.object.to_s.to_lat}*}
+    end
+    if self.fider_count > 0
+      if self.fider_count == 1
+        text += %Q{fideri *#{self.fider_logs.first.object.to_s.to_lat}*; }
       else
-        text += %Q{#{self.logs.size} fideri}
+        text += %Q{#{self.section_count} fideri; }
       end
-    elsif self.transformator?
+    end
+    if self.transformator_count > 0
       if self.regionkeys.size == 1
         region = Bs::Region.find(self.regionkeys.first)
         text += %Q{biznes centri *#{region.regionname.to_lat}*; }
       else
         text += "#{self.regionkeys.size} biznes centri; "
       end
-      text += "#{self.tp_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti."
+      text += "#{self.transformator_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti; "
     end
-    text
+    text.strip[0..-2] + '.' # remove last `;` and put `.` instead
   end
 
-  def section?
-    self.table_name == Ext::Gis::Log::SECTION
+  def section_logs
+    @__sectlogs = self.logs.find_all{|log| log.section?} || [] unless @__sectlogs
+    @__sectlogs
   end
 
-  def fider?
-    self.table_name == Ext::Gis::Log::FIDER
+  def fider_logs
+    @__fidlogs = self.logs.find_all{|log| log.fider?} || [] unless @__fidlogs
+    @__fidlogs
   end
 
-  def transformator?
-    self.table_name == Ext::Gis::Log::TRANSFORMATOR
+  def transformator_logs
+    @__trlogs = self.logs.find_all{|log| log.transformator?} || [] unless @__trlogs
+    @__trlogs
   end
 
 end
