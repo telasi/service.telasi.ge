@@ -10,7 +10,9 @@
     <%= link_to 'წინა &rarr;'.html_safe, sys_gis_message_url(id: @prev.id), class: 'btn' if @prev %>
   </div>
   <%= link_to icon_text('arrow-left', 'ყველა შეტყობინება'), sys_gis_messages_url, class: 'btn' %>
-  <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
+  <%= role_content :sys_admin do %>
+    <%= link_to icon_text('share', 'შეტყობინების გადაგზავნა'), sys_gis_send_url(id: @message.id), class: 'btn', method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?' %>
+  <% end %>
 </div>
 
 <div class="row" style="margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #eee;">
