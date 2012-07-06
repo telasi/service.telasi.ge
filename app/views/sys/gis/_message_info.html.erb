@@ -1,13 +1,13 @@
 <% if msg.section_count > 0 %>
   <% if msg.section_count == 1 %>
-    ქვესადგურის სექცია <code><%= self.section_logs.first.object %></code>;
+    ქვესადგურის სექცია <code><%= msg.section_logs.first.object %></code>;
   <% else %>
     <code><%= msg.section_count %></code> ქვესადგურის სექცია;
   <% end %>
 <% end %>
 <% if msg.fider_count > 0 %>
   <% if msg.fider_count == 1 %>
-    ფიდერი <code><%= self.fider_logs.first.object %></code>;
+    ფიდერი <code><%= msg.fider_logs.first.object %></code>;
   <% else %>
     <code><%= msg.fider_count %></code> ფიდერი;
   <% end %>
