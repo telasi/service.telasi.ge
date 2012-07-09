@@ -49,15 +49,18 @@ class Ext::Gis::Message
       end
     end
     if self.transformator_count > 0
-      if self.regionkeys.size == 1
-        region = Bs::Region.find(self.regionkeys.first)
-        text += %Q{biznes centri *#{region.regionname.to_lat}*; }
+      if self.regionkeys.size == 1 or self.regionkeys.size == 2
+        text += %Q{biznes centri #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; }
       else
         text += "#{self.regionkeys.size} biznes centri; "
       end
       text += "#{self.transformator_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti; "
     end
     text.strip[0..-2] + '.' # remove last `;` and put `.` instead
+  end
+
+  def regions
+    Bs::Region.where("regionkey IN (?)", self.regionkeys)
   end
 
   def section_logs

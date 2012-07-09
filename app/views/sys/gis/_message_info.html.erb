@@ -13,7 +13,11 @@
   <% end %>
 <% end %>
 <% if msg.transformator_count > 0 %>
-  <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
+  <% if msg.regionkeys.size == 1 or msg.regionkeys.size == 2%>
+    ბიზნეს ცენტრი: <code><%= msg.regions.map{|r| r.regionname.to_ka}.join(', ') %></code> ;
+  <% else %>
+    <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
+  <% end %>
   <code><%= msg.transformator_count %></code> ტრანსფორმატორი;
   <code><%= msg.street_count %></code> ქუჩა;
   <code><%= msg.account_count %></code> აბონენტი;
