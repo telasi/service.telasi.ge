@@ -14,7 +14,7 @@
 <% end %>
 <% if msg.transformator_count > 0 %>
   <% if msg.regionkeys.size == 1 or msg.regionkeys.size == 2%>
-    ბიზნეს ცენტრი: <code><%= msg.regions.map{|r| r.regionname.to_ka}.join(', ') %></code> ;
+    ბიზნეს ცენტრი <code><%= msg.regions.map{|r| r.regionname.to_ka}.join(', ') %></code>;
   <% else %>
     <code><%= msg.regionkeys.size %></code> ბიზნეს ცენტრი;
   <% end %>
