@@ -19,6 +19,10 @@ class Ext::Gis::Message
   has_many :logs, class_name: 'Ext::Gis::Log', inverse_of: :message
   index :search_text
 
+  def self.by_q(q)
+    self.search_by_q(q, :search_text)
+  end
+
   def sync
     self.logs.each do |log|
       if log.section?

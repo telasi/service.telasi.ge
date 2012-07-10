@@ -1,0 +1,29 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="16"><%= icon('picture') %></th>
+      <th width="150">გაგზავნის თარიღი</th>
+      <th>მოკლე ცნობა</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.each do |msg| %>
+      <tr class="<%= msg.sent ? 'success' : 'warning' %>">
+        <td>
+          <% if msg.on %>
+            <%= image_tag 'fff/accept.png' %>
+          <% else %>
+            <%= image_tag 'fff/cancel.png' %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "#{C12::KA.format_date msg.created_at, format: :short} #{msg.created_at.strftime('%H:%M:%S')}", sys_gis_message_url(id: msg.id) %>
+        </td>
+        <td>
+          <%= render partial: 'sys/gis/message_info', locals: {msg: msg}%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @messages %>
