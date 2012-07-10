@@ -13,7 +13,10 @@ class Ext::Gis::Message
   field :account_count, type: Integer, default: 0
   field :regionkeys,    type: Array, default: []
 
+  field :search_text, type: String
+
   has_many :logs, class_name: 'Ext::Gis::Log', inverse_of: :message
+  index :search_text
 
   def sync
     self.logs.each do |log|
@@ -29,6 +32,7 @@ class Ext::Gis::Message
         self.regionkeys << transformator.regionkey unless self.regionkeys.include?(transformator.regionkey)
       end
     end
+    self.search_text = logs.map{|l| l.object.to_s}.join('; ')
     self.save
   end
 
