@@ -109,10 +109,13 @@ class Sys::GisController < ApplicationController
 # შეტყობინებები.
 
   def messages
-    q = params[:q]
+    @q = params[:q] || session[:gismsg_q]
+    p = params[:page] || session[:gismsg_p]
+    session[:gismsg_q] = @q
+    session[:gismsg_p] = p
     @title = 'შეტყობინებების რეესტრი'
-    @messages = Ext::Gis::Message.by_q(q).desc(:created_at, :_id).paginate(page: params[:page], per_page: 10)
-    render :json => {:q => q, :d => render_to_string(:partial => 'sys/gis/message_list')} if request.xhr?
+    @messages = Ext::Gis::Message.by_q(@q).desc(:created_at, :_id).paginate(page: p, per_page: 10)
+    render :json => {:q => @q, :d => render_to_string(:partial => 'sys/gis/message_list')} if request.xhr?
   end
 
   def message

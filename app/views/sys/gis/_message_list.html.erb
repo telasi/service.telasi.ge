@@ -7,22 +7,26 @@
     </tr>
   </thead>
   <tbody>
-    <% @messages.each do |msg| %>
-      <tr class="<%= msg.sent ? 'success' : 'warning' %>">
-        <td>
-          <% if msg.on %>
-            <%= image_tag 'fff/accept.png' %>
-          <% else %>
-            <%= image_tag 'fff/cancel.png' %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to "#{C12::KA.format_date msg.created_at, format: :short} #{msg.created_at.strftime('%H:%M:%S')}", sys_gis_message_url(id: msg.id) %>
-        </td>
-        <td>
-          <%= render partial: 'sys/gis/message_info', locals: {msg: msg}%>
-        </td>
-      </tr>
+    <% if @messages.any? %>
+      <% @messages.each do |msg| %>
+        <tr class="<%= msg.sent ? 'success' : 'warning' %>">
+          <td>
+            <% if msg.on %>
+              <%= image_tag 'fff/accept.png' %>
+            <% else %>
+              <%= image_tag 'fff/cancel.png' %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "#{C12::KA.format_date msg.created_at, format: :short} #{msg.created_at.strftime('%H:%M:%S')}", sys_gis_message_url(id: msg.id) %>
+          </td>
+          <td>
+            <%= render partial: 'sys/gis/message_info', locals: {msg: msg}%>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td colspan="3" class="muted">სია ცარიელია</td></tr>
     <% end %>
   </tbody>
 </table>
