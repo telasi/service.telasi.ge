@@ -49,7 +49,7 @@ class Ext::Gis::Message
       end
     end
     if self.transformator_count > 0
-      if self.regionkeys.size == 1 or self.regionkeys.size == 2
+      if [1, 2, 3].include?(self.regionkeys.size)
         text += %Q{biznes centri #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; }
       else
         text += "#{self.regionkeys.size} biznes centri; "
