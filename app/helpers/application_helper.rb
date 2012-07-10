@@ -14,14 +14,7 @@ module ApplicationHelper
   # აქვს თუ არა მომხმარებელს არგუმენტში მოცემული როლი.
   # როლი შეიძლება გადმოსცეთ მასივის ან ცალკეული სიმბოლოს სახით.
   def with_role?(user, role)
-    if role.is_a? Array
-      role.each { |r| return true if with_role?(user, r) }
-      false
-    elsif role.to_sym == :all
-      true
-    else
-      user.send role.to_sym if user.respond_to?(role.to_sym)
-    end
+    user.has_role?(role)
   end
 
   def kramdown(text)

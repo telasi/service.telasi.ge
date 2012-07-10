@@ -11,9 +11,9 @@ class UsersController < ApplicationController
       elsif not user.email_confirmed
         flash.now[:alert] = 'ელ. ფოსტა არაა დადასტურებული.'
       else
-        url = session[:return_url] || home_url
-        session[:return_url] = nil
+        url = session[:return_url] || params[:return_url] || home_url
         session[:user_id] = user.id
+        session[:return_url] = nil
         redirect_to url
       end
     end

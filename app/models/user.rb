@@ -110,7 +110,18 @@ class User
   	self.new_password_hash = Digest::SHA1.hexdigest("#{self.email}#{rand 1000}dimitri#{Time.now}")
   	self.save
   end
-  
+
+  def has_role?(role)
+    if role.is_a? Array
+      role.each { |r| return true if self.has_role?(r) }
+      false
+    elsif role.to_sym == :all
+      true
+    else
+      self.send(role.to_sym) if self.respond_to?(role.to_sym)
+    end
+  end
+
   private
 
   def mobile_format
