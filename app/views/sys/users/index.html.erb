@@ -15,7 +15,10 @@
       <td width="45" class="center"><%= image_tag(u.normal_photo) %></td>
       <td>
         <%= u.full_name %><br>
-        <span class="muted"><%= mail_to u.email %> <%= C12.format_mobile u.mobile %></span>
+        <span class="muted">
+          <%= icon_text (u.email_confirmed ? 'ok-sign' : 'question-sign'), mail_to(u.email) %>
+          <%= C12.format_mobile u.mobile %>
+        </span>
       </td>
       <td>
         <%= render partial: 'users/roles', locals: {user: u} %>

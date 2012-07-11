@@ -4,7 +4,7 @@ class Sys::UsersController < ApplicationController
   # მომხმარებლების საწყისი გვერდი.
   def index
     @title = 'მომხმარებლები'
-    @users = User.desc(:_id).paginate(page: params[:page], per_page: 10)
+    @users = User.desc(:_id).paginate(page: params[:page], per_page: 5)
   end
 
   # მომხმარებლის რედაქტირება.
