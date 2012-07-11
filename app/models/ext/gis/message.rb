@@ -2,7 +2,7 @@
 class Ext::Gis::Message
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Ext::Queryable
+  include Telasi::Queryable
 
   field :on,   type: Boolean
   field :sent, type: Boolean, default: false

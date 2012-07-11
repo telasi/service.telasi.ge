@@ -3,6 +3,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Telasi::StandardPhoto
+  include Telasi::Queryable
 
   attr_accessor :password_confirmation
 
@@ -67,6 +68,9 @@ class User
   before_create :before_user_create
   before_update :before_user_update
 
+  index :email
+  index [[:email, Mongo::ASCENDING], [:mobile, Mongo::ASCENDING], [:first_name, Mongo::ASCENDING], [:last_name, Mongo::ASCENDING]]
+
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)
     user = User.where(:email => email).first
@@ -87,6 +91,10 @@ class User
   # ელ.ფოსტის შემოწმება.
   def self.correct_email?(email)
     not not (email =~ /^\S+@\S+$/)
+  end
+
+  def self.by_q(q)
+    self.search_by_q(q, :email, :mobile, :first_name, :last_name)
   end
 
   def password

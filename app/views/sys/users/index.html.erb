@@ -1,33 +1,14 @@
+<script type="text/javascript">
+  $(function() {
+    Telasi.simpleSearchSetup({url: '<%= sys_users_url %>'});
+  });
+</script>
 <div class="page-header">
   <h2>მომხმარებლების მართვა</h2>
 </div>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th width="45" class="center"><%= icon('picture') %></th>
-      <th width="300">მომხმარებელი</th>
-      <th>როლები</th>
-      <th width="16"><%= icon('cog') %></th>
-    </tr>
-  </thead>
-  <% @users.each do |u| -%>
-    <tr>
-      <td width="45" class="center"><%= image_tag(u.normal_photo) %></td>
-      <td>
-        <%= u.full_name %><br>
-        <span class="muted">
-          <%= icon_text (u.email_confirmed ? 'ok-sign' : 'question-sign'), mail_to(u.email) %>
-          <%= C12.format_mobile u.mobile %>
-        </span>
-      </td>
-      <td>
-        <%= render partial: 'users/roles', locals: {user: u} %>
-      </td>
-      <td>
-        <%= link_to icon('pencil', tooltip: 'შეცვლა', tooltip_placement: :left), sys_edit_user_path(id: u.id) %>
-        <%= link_to icon('trash',  tooltip: 'წაშლა',  tooltip_placement: :left), sys_delete_user_path(id: u.id), method: :delete, confirm: 'ნამდვილად გინდათ წაშლა?' unless u == current_user %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-<%= paginate @users %>
+<div class="btn-toolbar">
+  <input id="search-field" type="text" autofocus placeholder="ძებნა..."/>
+</div>
+<div id="search-result">
+  <%= render partial: 'sys/users/list' %>
+</div>

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Ext::Queryable
+module Telasi::Queryable
   module ClassMethods
     def search_by_q(q, *fields)
       words = q.split if q #.find_all{|word| word[0] != '@'} unless q.blank?
