@@ -13,7 +13,7 @@
 <div class="btn-toolbar">
   <%= link_to icon_text('arrow-left', 'ყველა განცხადება'), apps_home_url, :class => 'btn' %>
   <% if @application.new_customer_application.initial? or current_user.sys_admin -%>
-    <%= link_to icon_text('trash', 'განცხადების წაშლა'), apps_new_customer_delete_path(:id => @application.id), :class => 'btn', :method => :delete, :confirm => 'ნამდვილად გინდათ ამ განცხადების წაშლა?' %>
+    <%= link_to icon_text('trash', 'განცხადების წაშლა'), apps_new_customer_delete_path(:id => @application.id), :class => 'btn', :method => :delete, data: {confirm: 'ნამდვილად გინდათ ამ განცხადების წაშლა?'} %>
   <% end -%>
 </div>
 

@@ -16,7 +16,9 @@ require 'factory_girl'
 require 'includes'
 
 HTTPI.log = false
-Savon.log = false
+Savon.configure do |config|
+  config.log = false
+end
 
 Capybara.javascript_driver = :webkit
 Capybara.default_wait_time = 5

@@ -26,7 +26,7 @@ module MenuHelper
             <li>#{link_to 'ანგარიშის მართვა', account_url}</li>
             <li>#{link_to 'პაროლის შეცვლა', change_password_url}</li>
             <li class="divider"/>
-            <li>#{link_to 'გასვლა', logout_url, :confirm => 'ნამდვილად გინდათ გასვლა?'}</li>
+            <li>#{link_to 'გასვლა', logout_url, data: {confirm: 'ნამდვილად გინდათ გასვლა?'}}</li>
           </ul>
         </li>
       }
