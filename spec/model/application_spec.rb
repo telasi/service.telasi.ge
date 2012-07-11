@@ -155,3 +155,41 @@ describe 'ახალი აბონენტის გამოთვლა' 
     end
   end
 end
+
+describe 'ახალი აბონენტის გამოთვლა: 220kv 3 აბონენტი' do
+  before(:all) do
+    applicant = Apps::Applicant.new(tin: '02001000490', mobile: '595335514', email: 'dimitri@c12.ge', address: 'ქ. აბაშა, კაჭარავას 35')
+    @newapp = Apps::NewCustomerApplication.new
+    @app = Apps::Application.new(applicant: applicant, new_customer_application: @newapp, type: Apps::Application::TYPE_NEW_CUSTOMER)
+    @app.save ; @newapp.reload
+    @newapp.items << Apps::NewCustomerItem.new(voltage: Apps::NewCustomerApplication::VOLTAGE_220, address: 'ქ. თბილისი, ჯიქიას 7', type: Apps::NewCustomerItem::TYPE_SUMMARY, power: 9, personal_use: true)
+    @newapp.items << Apps::NewCustomerItem.new(voltage: Apps::NewCustomerApplication::VOLTAGE_220, address: 'ქ. თბილისი, ჯიქიას 7', type: Apps::NewCustomerItem::TYPE_SUMMARY, power: 9, personal_use: true)
+    @newapp.items << Apps::NewCustomerItem.new(voltage: Apps::NewCustomerApplication::VOLTAGE_220, address: 'ქ. თბილისი, ჯიქიას 7', type: Apps::NewCustomerItem::TYPE_SUMMARY, power: 9, personal_use: true)
+    @newapp.save
+  end
+  context 'აპლიკაციის ანალიზი' do
+    subject { @app }
+    its(:number) { should be_nil }
+    its(:private) { should == true }
+  end
+  context do
+    subject { @newapp }
+    it { should_not be_nil }
+    its(:items) { should_not be_empty }
+    context 'გაანგარიშება' do
+      before(:all) do
+        @newapp.calculate
+      end
+      subject { @newapp.calculations }
+      it { should_not be_empty }
+      its(:size) { should == 1 }
+    end
+    context 'გაანგარიშების ანალიზი' do
+      subject { @newapp.calculations.first }
+      its(:power) { should == 27 }
+      its(:tariff_id) { should == 3 }
+      its(:amount) { should == 4700 }
+      its(:days) { should == 40 }
+    end
+  end
+end

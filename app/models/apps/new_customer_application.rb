@@ -95,37 +95,53 @@ class Apps::NewCustomerApplication
   def calculate
     self.calculations.destroy_all
     self.amount = 0
-    self.days = 0
-    VOLTAGES.each do |v|
-      items = self.items.where(voltage: v)
-      if v == VOLTAGE_220
-        tariff = nil
-        count = items.inject(0){ |cnt, x| cnt + (x.tin.nil? ? x.count : 1) }
-        power = items.inject(0){ |sum, x| sum + x[:power] * ( x.tin.nil? ? x.count : 1 ) }
-        items.each do |item|
-          tariff = Apps::NewCustomerTariff.tariff_for(v, item.power)
-          break if tariff.nil?
-        end
-      else
-        count = 1
-        power = items.inject(0){ |sum, x| sum + x[:power] * ( v == VOLTAGE_220 && x.tin.nil? ? x.count : 1 ) }
-        tariff = Apps::NewCustomerTariff.tariff_for(v, power)
-      end
-      if tariff
-        if power > 0
-          self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: tariff.id, amount: tariff.price_gel * count, days: tariff.days_to_complete)
-          self.amount += tariff.price_gel * count unless self.amount.nil?
-          self.days = tariff.days_to_complete if self.days < tariff.days_to_complete
-        end
-      else
-        if power > 0
-          self.calculations << Apps::NewCustomerCalculation.new(voltage: v, power: power, tariff_id: nil)
-          self.amount = nil
-        end
-      end
-    end
+    self.days   = 0
+    calc_220_in_380 = cnt(VOLTAGE_220) > 2
+    calculate_voltage(VOLTAGE_220) unless calc_220_in_380
+    calculate_voltage(VOLTAGE_380, calc_220_in_380) 
+    calculate_voltage(VOLTAGE_610)
     self.save
     self.application.recalculate!
+  end
+
+  private
+
+  def cnt(volt)
+    self.items.where(voltage: volt).inject(0){ |cnt, x| cnt + (x.tin.nil? ? x.count : 1) }
+  end
+
+  def calculate_voltage(volt, with_220 = false)
+    items = self.items.where(voltage: volt)
+    items += self.items.where(voltage: VOLTAGE_220) if with_220
+    if volt == VOLTAGE_220
+      count = cnt(volt)
+      count += cnt(VOLTAGE_220) if with_220
+    else
+      count = 1
+    end
+    power = items.inject(0){ |sum, x| sum + x[:power] * ( volt == VOLTAGE_220 && x.tin.nil? ? x.count : 1 ) }
+    if volt == VOLTAGE_220
+      tariff = nil
+      items.each do |item|
+        tariff = Apps::NewCustomerTariff.tariff_for(volt, item.power)
+        break if tariff.nil?
+      end
+    else
+      tariff = Apps::NewCustomerTariff.tariff_for(volt, power)
+    end
+    # calculate amount
+    if tariff
+      if power > 0
+        self.calculations << Apps::NewCustomerCalculation.new(voltage: volt, power: power, tariff_id: tariff.id, amount: tariff.price_gel * count, days: tariff.days_to_complete)
+        self.amount += tariff.price_gel * count unless self.amount.nil?
+        self.days = tariff.days_to_complete if self.days < tariff.days_to_complete
+      end
+    else
+      if power > 0
+        self.calculations << Apps::NewCustomerCalculation.new(voltage: volt, power: power, tariff_id: nil)
+        self.amount = nil
+      end
+    end
   end
 
 end
