@@ -115,6 +115,7 @@ class Sys::GisController < ApplicationController
     session[:gismsg_p] = p
     @title = 'შეტყობინებების რეესტრი'
     @messages = Ext::Gis::Message.by_q(@q).desc(:created_at, :_id).paginate(page: p, per_page: 10)
+    @messages = Ext::Gis::Message.by_q(@q).desc(:created_at, :_id).paginate(page: 1, per_page: 10) if (@messages.empty? and p.to_i > 1)
     render :json => {:q => @q, :d => render_to_string(:partial => 'sys/gis/message_list')} if request.xhr?
   end
 
