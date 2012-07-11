@@ -7,6 +7,10 @@ debt:
   url: /customer
   select: customer
 apps:
+  label: განცხადებები
+  url: /apps
+  select: applications new_customer
+map:
   label: რუკა
   url: /map
   select: map
