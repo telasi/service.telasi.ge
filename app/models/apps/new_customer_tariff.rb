@@ -7,6 +7,7 @@ class Apps::NewCustomerTariff
   attr_accessor :voltage, :voltage_alt
   attr_accessor :power_from, :power_to
   attr_accessor :days_to_complete
+  attr_accessor :days_to_complete_without_resolution
   attr_accessor :price_gel
 
   @@tariffs = []
@@ -19,6 +20,7 @@ class Apps::NewCustomerTariff
         tariff.voltage = t['voltage']
         tariff.voltage_alt = t['voltage_alt']
         tariff.days_to_complete = t['days_to_complete'].to_i
+        tariff.days_to_complete_without_resolution = t['days_to_complete_without_resolution'].to_i
         tariff.price_gel = t['price_gel'].to_f
         tariff.power_from, tariff.power_to = t['power_kwt'].split('-').map{|p| p.to_i}
         @@tariffs << tariff

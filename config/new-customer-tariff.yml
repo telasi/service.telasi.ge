@@ -4,6 +4,7 @@ tariff_01:
   voltage_alt: '220 ვ'
   power_kwt: 1-10
   days_to_complete: 35
+  days_to_complete_without_resolution: 20
   price_gel: 400
 tariff_02:
   id: 2
@@ -11,6 +12,7 @@ tariff_02:
   voltage_alt: '380 ვ'
   power_kwt: 1-10
   days_to_complete: 35
+  days_to_complete_without_resolution: 20
   price_gel: 1200
 tariff_03:
   id: 3
@@ -18,6 +20,7 @@ tariff_03:
   voltage_alt: '380 ვ'
   power_kwt: 11-30
   days_to_complete: 40
+  days_to_complete_without_resolution: 20
   price_gel: 4700
 tariff_04:
   id: 4
@@ -25,6 +28,7 @@ tariff_04:
   voltage_alt: '380 ვ'
   power_kwt: 31-50
   days_to_complete: 40
+  days_to_complete_without_resolution: 20
   price_gel: 7000
 tariff_05:
   id: 5
@@ -32,6 +36,7 @@ tariff_05:
   voltage_alt: '380 ვ'
   power_kwt: 51-80
   days_to_complete: 45
+  days_to_complete_without_resolution: 20
   price_gel: 10500
 tariff_06:
   id: 6
@@ -39,6 +44,7 @@ tariff_06:
   voltage_alt: '380 ვ'
   power_kwt: 81-100
   days_to_complete: 45
+  days_to_complete_without_resolution: 20
   price_gel: 12000
 tariff_07:
   id: 7
@@ -46,6 +52,7 @@ tariff_07:
   voltage_alt: '380 ვ'
   power_kwt: 101-125
   days_to_complete: 45
+  days_to_complete_without_resolution: 20
   price_gel: 14000
 tariff_08:
   id: 8
@@ -53,6 +60,7 @@ tariff_08:
   voltage_alt: '380 ვ'
   power_kwt: 126-200
   days_to_complete: 45
+  days_to_complete_without_resolution: 20
   price_gel: 2150
 tariff_09:
   id: 9
@@ -60,6 +68,7 @@ tariff_09:
   voltage_alt: '380 ვ'
   power_kwt: 201-320
   days_to_complete: 60
+  days_to_complete_without_resolution: 20
   price_gel: 33000
 tariff_10:
   id: 10
@@ -67,6 +76,7 @@ tariff_10:
   voltage_alt: '380 ვ'
   power_kwt: 321-500
   days_to_complete: 60
+  days_to_complete_without_resolution: 20
   price_gel: 50500
 tariff_11:
   id: 11
@@ -74,6 +84,7 @@ tariff_11:
   voltage_alt: '380 ვ'
   power_kwt: 501-800
   days_to_complete: 90
+  days_to_complete_without_resolution: 20
   price_gel: 80000
 tariff_12:
   id: 12
@@ -81,6 +92,7 @@ tariff_12:
   voltage_alt: '380 ვ'
   power_kwt: 801-1000
   days_to_complete: 90
+  days_to_complete_without_resolution: 20
   price_gel: 100000
 tariff_13:
   id: 13
@@ -88,6 +100,7 @@ tariff_13:
   voltage_alt: '6/10 კვ'
   power_kwt: 1-500
   days_to_complete: 60
+  days_to_complete_without_resolution: 20
   price_gel: 48500
 tariff_14:
   id: 14
@@ -95,6 +108,7 @@ tariff_14:
   voltage_alt: '6/10 კვ'
   power_kwt: 501-1000
   days_to_complete: 90
+  days_to_complete_without_resolution: 40
   price_gel: 94000
 tariff_15:
   id: 15
@@ -102,6 +116,7 @@ tariff_15:
   voltage_alt: '6/10 კვ'
   power_kwt: 1001-1500
   days_to_complete: 90
+  days_to_complete_without_resolution: 40
   price_gel: 137000
 tariff_16:
   id: 16
@@ -109,6 +124,7 @@ tariff_16:
   voltage_alt: '6/10 კვ'
   power_kwt: 1501-2000
   days_to_complete: 90
+  days_to_complete_without_resolution: 40
   price_gel: 177000
 tariff_17:
   id: 17
@@ -116,6 +132,7 @@ tariff_17:
   voltage_alt: '6/10 კვ'
   power_kwt: 2001-3000
   days_to_complete: 90
+  days_to_complete_without_resolution: 40
   price_gel: 257500
 tariff_18:
   id: 18
@@ -123,4 +140,5 @@ tariff_18:
   voltage_alt: '6/10 კვ'
   power_kwt: 3001-5000
   days_to_complete: 90
+  days_to_complete_without_resolution: 40
   price_gel: 416000

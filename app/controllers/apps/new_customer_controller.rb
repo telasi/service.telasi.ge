@@ -23,7 +23,10 @@ class Apps::NewCustomerController < ApplicationController
     @title = 'აპლიკანტის შეცვლა'
     process_application do
       if request.put?
-        redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.' if @application.applicant.update_attributes(params[:apps_applicant]) and  @application.new_customer_application.update_attributes(params[:apps_new_customer_application])
+        @application.applicant.update_attributes(params[:apps_applicant])
+        @application.new_customer_application.update_attributes(params[:apps_new_customer_application])
+        @application.new_customer_application.calculate
+        redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.'
       end
     end
   end
