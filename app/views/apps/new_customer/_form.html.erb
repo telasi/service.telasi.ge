@@ -40,6 +40,18 @@
     <%= applicant_form.input :bank_mfo, label: 'ბანკის კოდი' %>
     <%= applicant_form.input :bank_acc, label: 'ანგარიშის ნომერი' %>
   <% end -%>
+  <%= simple_fields_for @application.new_customer_application do |newcust_form| %>
+    <div class="page-header">
+      <h4>ნებართვა</h4>
+    </div>
+    <p class="muted">
+      თუ ქსელზე მიერთება არ ითხოვს სპეციალური ნებართვის აღებას, სამუშაოს შესრულების ვადები მნიშვნელოვნად მცირდება.
+    </p>
+    <%= newcust_form.input :need_resolution, as: 'boolean', label: false, inline_label: 'საჭიროებს თუ არა სპეციალურ ნებართვას? ' %>
+  <% end -%>
+  <div class="alert alert-block">
+    განცხადების გაგზავნამდე თქვენ შეგეძლიათ ამ მონაცემების დაზუსტება.
+  </div>
   <div class="form-actions">
     <%= f.submit 'განცხადების შექმნა', :class => ['btn', 'btn-primary'] %>
     <%= link_to 'გაუქმება', @application.new? ? apps_home_url : apps_new_customer_path, :class => 'btn' %>

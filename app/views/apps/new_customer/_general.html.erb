@@ -1,0 +1,44 @@
+<h4>ზოგადი ინფორმაცია ამ განცხადებაზე</h4>
+<hr>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th class="right" width="150">აპლიკანტი</th>
+    <td class="muted">
+      <span class="badge badge-inverse"><%= applicant.tin %></span>
+      <%= applicant.name %>
+    </td>
+  </tr>
+  <tr>
+    <th class="right">მობილური</th>
+    <td class="muted"><%= C12.format_mobile(applicant.mobile) %></td>
+  </tr>
+  <tr>
+    <th class="right">ელ.ფოსტა</th>
+    <td class="muted"><%= mail_to applicant.email %></td>
+  </tr>
+  <tr>
+    <th class="right">მისამართი</th>
+    <td class="muted"><%= applicant.address %></td>
+  </tr>
+  <tr>
+    <th class="right">ბანკის ანგარიში</th>
+    <td>
+      <strong><%= applicant.bank_mfo %></strong>
+      <span class="muted"><%= applicant.bank_acc %></span>
+    </td>
+  </tr>
+  <tr>
+    <th class="right">საჭიროებს ნებართვა?</th>
+    <td>
+      <% if application.need_resolution%>
+        <span class="label label-important">კი</span>
+      <% else %>
+        <span class="label label-success">არა</span>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<div class="btn-toolbar">
+  <%= link_to icon_text('pencil', 'მონაცემების შეცვლა'), apps_new_customer_edit_path, class: 'btn' %>
+</div>

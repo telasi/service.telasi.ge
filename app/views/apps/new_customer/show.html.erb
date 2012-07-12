@@ -2,7 +2,7 @@
 <%= render partial: 'apps/new_customer/calculations' %>
 <div class="row">
   <div class="span6">
-    <%= render partial: 'apps/new_customer/applicant', locals: {applicant: @application.applicant} %>
+    <%= render partial: 'apps/new_customer/general', locals: {application: @application.new_customer_application, applicant: @application.applicant} %>
   </div>
   <div class="span6">
     <%= render partial: 'apps/new_customer/other_actions' %>

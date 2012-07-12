@@ -26,6 +26,7 @@ class Apps::NewCustomerApplication
   field :voltage, type: String
   field :amount,  type: Float
   field :days,    type: Integer
+  field :need_resolution, type: Boolean
   embedded_in :application,  class_name: 'Apps::Application'
   embeds_many :items,        class_name: 'Apps::NewCustomerItem',        inverse_of: :application
   embeds_many :calculations, class_name: 'Apps::NewCustomerCalculation', inverse_of: :application

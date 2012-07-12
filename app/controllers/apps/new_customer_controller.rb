@@ -8,13 +8,13 @@ class Apps::NewCustomerController < ApplicationController
       @application = Apps::Application.new(params[:apps_application])
       @application.applicant = Apps::Applicant.new(params[:apps_applicant])
       @application.owner = current_user
-      @application.new_customer_application = Apps::NewCustomerApplication.new
+      @application.new_customer_application = Apps::NewCustomerApplication.new(params[:new_customer_application])
       @application.type = Apps::Application::TYPE_NEW_CUSTOMER
       @application.add_log(current_user, 'განცხადება შექმნილია.', Log::CREATE)
       redirect_to apps_new_customer_path(:id => @application.id), :notice => 'განცხადება შექმნილია.' if @application.save
     else
       applicant = Apps::Applicant.new(:mobile => current_user.mobile, :email => current_user.email)
-      @application = Apps::Application.new(:applicant => applicant)
+      @application = Apps::Application.new(:applicant => applicant, new_customer_application: Apps::NewCustomerApplication.new(need_resolution: true))
     end
   end
 
@@ -23,7 +23,7 @@ class Apps::NewCustomerController < ApplicationController
     @title = 'აპლიკანტის შეცვლა'
     process_application do
       if request.put?
-        redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.' if @application.applicant.update_attributes(params[:apps_applicant])
+        redirect_to apps_new_customer_path, notice: 'აპლიკანტი შეცვლილია.' if @application.applicant.update_attributes(params[:apps_applicant]) and  @application.new_customer_application.update_attributes(params[:apps_new_customer_application])
       end
     end
   end
