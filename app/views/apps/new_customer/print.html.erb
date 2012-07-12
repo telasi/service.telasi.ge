@@ -1,0 +1,113 @@
+<style type="text/css">
+  .right { text-align: right; }
+  .center { text-align: center; }
+  h1 { font-size: 1.6em; }
+  h2 { font-size: 1.3em; }
+  .title { letter-spacing: 3mm; margin-top: 30mm; }
+  .field { padding: 5px 10px; display: inline-block; border-bottom: 1px solid black; }
+  .table { width: 100%; }
+  .table td { padding: 2mm; }
+  .table td.field { border-bottom: 1px solid black; }
+  .table td.note { padding:0; text-align: center; font-size: 0.5em; color: #aaa; }
+  .larger { font-size: 2em; }
+</style>
+<div class="page">
+  <p class="right" style="margin-top: 20mm;">
+    &quot;დამტკიცებულია&quot;<br><br>
+    საქართველოს ენერგეტიკისა და წყალმომარაგების<br>
+    მარეგულირებელი ეროვნული კომისიის<br>
+    2011 წლის 22 ნოემბრის №30/1 გადაწყვეტილებით
+  </p>
+  <h1 class="center title">განცხადება</h1>
+  <p class="center">გამანაწილებელ ქსელზე ახალი მომხარებლის მიერთების მოთხოვნის შესახებ</p>
+  <p>
+    განაცხადის შევსების  თარიღი:
+    <span class="field">
+      <% if @application.new_customer_application.send_date %>
+        <%= C12::KA.format_date @application.new_customer_application.send_date %>
+      <% else %>
+        <% 20.times do %>&nbsp;&nbsp;<% end %>
+      <% end %>
+    </span>
+  </p>
+
+  <h2 class="center">I. ზოგადი ინფორმაცია</h2>
+  <table class="table">
+    <tr>
+      <td>ელექტროენერგიის განაწილების ლიცენზიატი:</td>
+      <td style="width: 80mm;" class="field">სს &quot;თელასი&quot;</td>
+    </tr>
+    <tr>
+      <td>მიერთების მსურველი (განმცხადებლი):</td>
+      <td style="width: 80mm;" class="field">
+        <%= @application.applicant.name %>
+      </td>
+    </tr>
+    <tr>
+      <td class="note"></td>
+      <td style="width: 80mm;" class="note">(სახელი, გვარი ან იურიდიული პირის შემთხვევაში მისი სახელი (სახელწოდება), ან სხვა პირის შემთხვევაში მისი სახელწოდება)</td>
+    </tr>
+    <tr>
+      <td>საიდენტიფიკაციო კოდი:</td>
+      <td style="width: 80mm;" class="field">
+        <%= @application.applicant.tin %>
+      </td>
+    </tr>
+    <tr>
+      <td class="note"></td>
+      <td style="width: 80mm;" class="note">(იურიდიული პირის ან ინდმეწარმის ან სხვა მეწარმე სუბიექტის შემთხვევაში)</td>
+    </tr>
+  </table>
+  <p>მიერთების მსურველის (განმცხადებლის) საკონტაქტო ინფორმაცია:</p>
+  <table class="table">
+    <tr>
+      <td style="width: 35mm;">მისამართი:</td>
+      <td style="width: 140mm;" class="field">
+        <%= @application.applicant.address %>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 35mm;">მობილური:</td>
+      <td style="width: 140mm;" class="field">
+        <%= @application.applicant.mobile %>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 35mm;">ელ.ფოსტა:</td>
+      <td style="width: 140mm;" class="field">
+        <%= @application.applicant.email %>
+      </td>
+    </tr>
+  </table>
+  <p>
+    მიერთების მსურველის (განმცხადებლის) საბანკო რეკვიზიტები:
+    <span class="field">
+      <% if not @application.applicant.bank_mfo.blank? or not @application.applicant.bank_acc.blank? %>
+        <%= @application.applicant.bank_mfo %>
+        <%= @application.applicant.bank_acc %>
+      <% else %>
+        <% 110.times do %>&nbsp;&nbsp;<% end %>
+      <% end %>
+    </span>
+  </p>
+  <p>
+    ადგილი (მისამართი) სადაც უნდა მოხდეს ელექტრომომარაგება:
+    <span class="field">
+      <% if @application.new_customer_application.items.first %>
+        <%= @application.new_customer_application.items.first.address %>
+      <% else %>
+        <% 110.times do %>&nbsp;&nbsp;<% end %>
+      <% end %>
+    </span>
+  </p>
+  <p>
+    განაწილების ლიცენზიატის მიერ შეტყობინების გაგზავნის ფორმა:<br>
+    <span class="larger">☒</span> წერილობითი; <span class="larger">☒</span> ელექტრონული
+  </p>
+</div>
+<div class="page break">
+  <h2 class="center">
+    II. ერთი ან ორი აბონენტის მიერთების მოთხოვნის შემთხვევაში
+    <span class="larger">☐</span>
+  </h2>
+</div>

@@ -25,8 +25,13 @@ class Apps::NewCustomerApplication
   field :status,  type: Integer, default: STATUS_INITIAL
   field :voltage, type: String
   field :amount,  type: Float
+  field :count,   type: Integer, default: 0
   field :days,    type: Integer
   field :need_resolution, type: Boolean, default: true
+  field :send_date,    type: Time
+  field :approve_date, type: Time
+  field :deprove_date, type: Time
+  field :complete_date, type: Time
   embedded_in :application,  class_name: 'Apps::Application'
   embeds_many :items,        class_name: 'Apps::NewCustomerItem',        inverse_of: :application
   embeds_many :calculations, class_name: 'Apps::NewCustomerCalculation', inverse_of: :application
@@ -58,6 +63,7 @@ class Apps::NewCustomerApplication
     prev = Apps::Application.where(:"new_customer_application.status".ne => STATUS_INITIAL).desc(:number).first
     self.application.number = (prev.nil? ? 0 : prev.number) + 1
     self.application.private = false
+    self.send_date = Time.now
     if self.application.save
       self.status = STATUS_SENT
       self.save
@@ -68,6 +74,7 @@ class Apps::NewCustomerApplication
   def approve!
     return false unless self.sent?
     self.status = STATUS_APPROVED
+    self.approve_date = Time.now
     self.save
   end
 
@@ -75,6 +82,7 @@ class Apps::NewCustomerApplication
   def deprove!
     return false unless self.sent?
     self.status = STATUS_DEPROVED
+    self.deprove_date = Time.now
     self.save
   end
 
@@ -89,6 +97,7 @@ class Apps::NewCustomerApplication
   def complete!
     return false unless self.approved?
     self.status = STATUS_COMPLETE
+    self.complete_date = Time.now
     self.save
   end
 
@@ -96,6 +105,7 @@ class Apps::NewCustomerApplication
   def calculate
     self.calculations.destroy_all
     self.amount = 0
+    self.count  = 0
     self.days   = 0
     calc_220_in_380 = cnt(VOLTAGE_220) > 2
     calculate_voltage(VOLTAGE_220) unless calc_220_in_380

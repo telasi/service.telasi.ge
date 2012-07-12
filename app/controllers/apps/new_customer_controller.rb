@@ -110,7 +110,22 @@ class Apps::NewCustomerController < ApplicationController
     end
   end
 
-  ### აბონენტების მართვა
+  # განცხადების ბეჭდვა.
+  def print
+    @title = 'განცხადების ბეჭდვა'
+    process_application do
+      size = @application.new_customer_application.items.size
+      if size == 1 or size == 2
+        @item1 = @application.new_customer_application.items[0]
+        @item2 = @application.new_customer_application.items[1]
+        @item1 = nil if @item1 and @item1.tin.blank?
+        @item2 = nil if @item2 and @item2.tin.blank?
+      end
+      render layout: 'print'
+    end
+  end
+
+### აბონენტების მართვა
 
   # განცხადების ნახვა: კლიენტების სია.
   def items
@@ -231,7 +246,7 @@ class Apps::NewCustomerController < ApplicationController
     redirect_to apps_new_customer_docs_path, :notice => 'ფაილის წაშლილია.'
   end
 
-  ### გადახდების მართვა.
+### გადახდების მართვა.
 
   # გადახდების მთავარი გვერდი.
   def payments
