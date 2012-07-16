@@ -118,8 +118,14 @@ class Apps::NewCustomerController < ApplicationController
       if size == 1 or size == 2
         @item1 = @application.new_customer_application.items[0]
         @item2 = @application.new_customer_application.items[1]
-        @item1 = nil if @item1 and @item1.tin.blank?
-        @item2 = nil if @item2 and @item2.tin.blank?
+        @item1 = nil and @item2 = nil if (@item1 and @item1.tin.blank?) or (@item2 and @item2.tin.blank?)
+        if @item2
+          @count = 2
+        elsif @item1
+          @count = 1
+        else
+          @count = 0
+        end
       end
       render layout: 'print'
     end

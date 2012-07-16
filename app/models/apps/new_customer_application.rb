@@ -25,7 +25,6 @@ class Apps::NewCustomerApplication
   field :status,  type: Integer, default: STATUS_INITIAL
   field :voltage, type: String
   field :amount,  type: Float
-  field :count,   type: Integer, default: 0
   field :days,    type: Integer
   field :need_resolution, type: Boolean, default: true
   field :send_date,    type: Time
@@ -115,10 +114,19 @@ class Apps::NewCustomerApplication
     self.application.recalculate!
   end
 
+  def count_by_use(use = nil)
+    rel = use.nil? ? self.items : self.items.where(use: use)
+    rel.inject(0){ |cnt, x| cnt + (x.tin.blank? ? x.count : 1) }
+  end
+
+  def power
+    self.items.inject(0){ |pw, x| pw + x.power }
+  end
+
   private
 
   def cnt(volt)
-    self.items.where(voltage: volt).inject(0){ |cnt, x| cnt + (x.tin.nil? ? x.count : 1) }
+    self.items.where(voltage: volt).inject(0){ |cnt, x| cnt + (x.tin.blank? ? x.count : 1) }
   end
 
   def calculate_voltage(volt, with_220 = false)

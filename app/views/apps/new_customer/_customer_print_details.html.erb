@@ -1,0 +1,48 @@
+<p>
+  1. დაზუსტებული მისამართი, სადაც უნდა მოხდეს ელექტრომომარაგება:
+  <span class="field">
+    <% if item and item.address %><%= item.address %><% else %><% 25.times do %>&nbsp;&nbsp;<% end %><% end %>
+  </span>
+</p>
+<p>
+  2.აბონენტის (მოხმარებული ელ. ენერგიის საფასურის გადახდაზე პასუხისმგებელი პირის)
+  სახელი, გვარი ან იურიდიული პირის სახელი:
+  <span class="field">
+    <% if item and item.name %><%= item.name %><% else %><% 25.times do %>&nbsp;&nbsp;<% end %><% end %>
+  </span>
+</p>
+<p>
+  2.1. პირადი ნომერი ან საიდენტიფიკაციო კოდი
+  <span class="field">
+    <% if item and item.tin %><%= item.tin %><% else %><% 25.times do %>&nbsp;&nbsp;<% end %><% end %>
+  </span>
+</p>
+<p>
+  3. ელექტროენერგიის მოხმარების მიზანი: <br>
+  <%= print_checkbox((item and item.personal_use)) %> საყოფაცხოვრებო;
+  <%= print_checkbox((item and !item.personal_use)) %> არასაყოფაცხოვრებო.
+</p>
+<p>
+  4. უძრავი ქონების საკადასტრო კოდი (სადაც უნდა მოხდეს ელექტრომომარაგება):
+  <span class="field">
+    <% 25.times do %>&nbsp;&nbsp;<% end %>
+  </span>
+</p>
+<p>
+  5. მოთხოვნილი ძაბვის საფეხური:<br>
+  <%= print_checkbox((item and item.vol220?)) %> 220ვ;
+  <%= print_checkbox((item and item.vol380?)) %> 380ვ;
+  <%= print_checkbox((item and item.vol610?)) %> 6/10კვ;
+</p>
+<p>
+  6. მოთხოვნილი სიმძლავრე:
+  <span class="field">
+    <% if item and item.tin %><%= item.power %> კვტ<% else %><% 10.times do %>&nbsp;&nbsp;<% end %><% end %>
+  </span>
+</p>
+<p>
+  7. გამანაწილებელ ქსელზე მიერთების საფასური (შეთავაზებული პაკეტის მიხედვით):<br>
+  <span class="field">
+    <% if item %><%= C12.number_format item.quick_amount %> ლარი<% else %><% 10.times do %>&nbsp;&nbsp;<% end %><% end %>
+  </span>
+</p>

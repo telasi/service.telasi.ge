@@ -18,9 +18,10 @@
 </script>
 <%= simple_form_for @item, url: request.url, html: {id: 'item-form', class: 'form-horizontal'} do |f| -%>
   <%= f.input :address, label: 'მისამართი', input_html: {autofocus: true, class: 'span8'} %>
+  <%= f.input :address_code, label: 'საკადასტრო კოდი', input_html: {class: 'span5'} %>
   <%= f.input :voltage, label: 'ძაბვის საფეხური', collection: Apps::NewCustomerApplication::VOLTAGES_HUMAN, as: :radio_buttons, item_wrapper_class: 'inline' %>
   <%= f.input :power, label: 'სიმძლავრე (კვტ.)', input_html: {class: 'span2'} %>
-  <%= f.input :personal_use, label: 'საყოფაცხოვრებო?', as: :boolean %>
+  <%= f.input :use, label: 'მრიცხველის სახეობა', collection: new_customer_use_type, as: :radio_buttons, item_wrapper_class: 'inline' %>
   <%= f.input :type, label: 'ჩანაწერის ტიპი', collection: new_customer_item_type, as: :radio_buttons, item_wrapper_class: 'inline' %>
   <div id="summary" style="display: none;">
   	<%= f.input :count, label: 'აბონენტების ჯამური რაოდენობა', input_html: {class: 'span2'} %>

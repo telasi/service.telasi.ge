@@ -7,11 +7,16 @@ class Apps::NewCustomerItem
   TYPE_SUMMARY = 'summary'
   TYPE_DETAIL  = 'detail'
 
+  USE_PERSONAL = 0
+  USE_NOT_PERSONAL = 1
+  USE_SHARED = 2
+
   field :type,    type: String
   field :address, type: String
+  field :address_code, type: String
   field :voltage, type: String
   field :power,   type: Float
-  field :personal_use, type: Boolean
+  field :use,     type: Integer, default: USE_PERSONAL
   field :count,   type: Integer
   field :tin,     type: String
   field :name,    type: String
@@ -20,12 +25,33 @@ class Apps::NewCustomerItem
 
   validates_presence_of :type
   validates_presence_of :address, message: 'ჩაწერეთ მისამართი.'
+  validates_presence_of :address_code, message: 'ჩაწერეთ საკადასტრო კოდი.'
   validates_presence_of :voltage
   validates_numericality_of :power, message: 'ჩაწერეთ სწორი რიცხვითი მნიშვნელობა.'
 
   validate :validate_type
   validate :validate_power
   before_save :on_before_save
+
+  def quick_amount
+    Apps::NewCustomerTariff.tariff_for(self.voltage, self.power).price_gel
+  end
+
+  def vol220?
+    self.voltage == Apps::NewCustomerApplication::VOLTAGE_220
+  end
+
+  def vol380?
+    self.voltage == Apps::NewCustomerApplication::VOLTAGE_380
+  end
+
+  def vol610?
+    self.voltage == Apps::NewCustomerApplication::VOLTAGE_610
+  end
+
+  def personal_use
+    self.use == USE_PERSONAL
+  end
 
   private
 

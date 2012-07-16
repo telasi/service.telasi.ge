@@ -20,4 +20,11 @@ module ApplicationHelper
   def kramdown(text)
     return Kramdown::Document.new(text).to_html.html_safe
   end
+
+  def html_spaces(cnt = 3)
+    text = ''
+    cnt.times { text += '&nbsp;' }
+    text.html_safe
+  end
+
 end

@@ -1,4 +1,14 @@
 <style type="text/css">
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 10mm;
+      counter-increment: page;
+      @bottom-right {
+        content: "Page ";
+      }
+    }
+  }
   .right { text-align: right; }
   .center { text-align: center; }
   h1 { font-size: 1.6em; }
@@ -9,7 +19,10 @@
   .table td { padding: 2mm; }
   .table td.field { border-bottom: 1px solid black; }
   .table td.note { padding:0; text-align: center; font-size: 0.5em; color: #aaa; }
+  .table-bordered { border-collapse: collapse; }
+  .table-bordered td { border: 1px solid black; }
   .larger { font-size: 2em; }
+  .smaller { font-size: 0.8em; }
 </style>
 <div class="page">
   <p class="right" style="margin-top: 20mm;">
@@ -31,7 +44,7 @@
     </span>
   </p>
 
-  <h2 class="center">I. ზოგადი ინფორმაცია</h2>
+  <h2 class="center" style="margin-top: 10mm;">I. ზოგადი ინფორმაცია</h2>
   <table class="table">
     <tr>
       <td>ელექტროენერგიის განაწილების ლიცენზიატი:</td>
@@ -102,12 +115,136 @@
   </p>
   <p>
     განაწილების ლიცენზიატის მიერ შეტყობინების გაგზავნის ფორმა:<br>
-    <span class="larger">☒</span> წერილობითი; <span class="larger">☒</span> ელექტრონული
+    <%= print_checkbox(true) %> წერილობითი; <%= print_checkbox(true) %> ელექტრონული
   </p>
 </div>
 <div class="page break">
   <h2 class="center">
     II. ერთი ან ორი აბონენტის მიერთების მოთხოვნის შემთხვევაში
-    <span class="larger">☐</span>
+    <%= print_checkbox(@item1 || @item2) %>
   </h2>
+  <p class="center smaller">
+    (ივსება მხოლოდ მიერთების შედეგად ერთი ან ერთდროულად ორი აბონენტის რეგისტრაციის მოთხოვნის შემთხვევაში)
+  </p>
+  <p>
+    განაცხადით მოთხოვნილი აბონენტთა რაოდენობა:
+    <%= print_checkbox(@count == 1) %> ერთი;
+    <%= print_checkbox(@count == 2) %> ორი.  
+  </p>
+  <table class="table table-bordered">
+    <tr>
+      <td width="50%"><%= render partial: 'apps/new_customer/customer_print_details', locals: {item: @item1} %></td>
+      <td width="50%"><%= render partial: 'apps/new_customer/customer_print_details', locals: {item: @item2} %></td>
+    </tr>
+  </table>
+</div>
+<div class="page break">
+  <h2 class="center">
+    III. ერთდროულად სამი ან სამზე მეტი აბონენტის  მიერთების მოთხოვნის შემთხვევაში
+    <%= print_checkbox(@item1.nil?) %>
+  </h2>
+  <p class="center smaller">
+    (ივსება მხოლოდ მიერთების შედეგად ერთდროულად სამი ან სამზე მეტი ანობენტთა  რეგისტრაციის მოთხოვნის შემთხვევაში)
+  </p>
+  <p>
+    განაცხადით მოთხოვნილი აბონენტთა (ინდ.აღრიცხვა) საერთო რაოდენობა:
+    <span class="field">
+      <% if @item1.nil? %><%= @application.new_customer_application.count_by_use %><% end %>
+    </span>
+  </p>
+  <p>
+    საყოფაცხოვრებო და არასაყოფაცხოვრებო აბონენტთა რაოდენობა:
+  </p>
+  <p>
+    საყოფაცხოვრებო
+    <span class="field">
+      <% if @item1.nil? %>
+        <%= @application.new_customer_application.count_by_use(Apps::NewCustomerItem::USE_PERSONAL) %>
+      <% else %>
+        <%=html_spaces(10)%>
+      <% end %>
+    </span>;
+    არასაყოფაცხოვრებო
+    <span class="field">
+      <% if @item1.nil? %>
+        <%= @application.new_customer_application.count_by_use(Apps::NewCustomerItem::USE_NOT_PERSONAL) %>
+      <% else %>
+        <%=html_spaces(10)%>
+      <% end %>
+    </span>;
+    საერთო სარგებლობის
+    <span class="field">
+      <% if @item1.nil? %>
+        <%= @application.new_customer_application.count_by_use(Apps::NewCustomerItem::USE_SHARED) %>
+      <% else %>
+        <%= html_spaces(10) %>
+      <% end %>
+    </span>;
+  </p>
+  <p>
+    უძრავი ქონების საკადასტრო კოდი (სადაც უნდა მოხდეს ელექტრომომარაგება):
+    <span class="field">
+      <% if @item1.nil? and @application.new_customer_application.items.first %>
+        <%= @application.new_customer_application.items.first.address_code %>
+      <% else %>
+        <%= html_spaces(20) %>
+      <% end %>
+    </span>
+  </p>
+  <p>
+    საცხოვრებელი ბინის, საწარმოს ან სხვა სახის ობიექტის (ან ობიექტების) სამშენებლო-საპროექტო
+    დოკუმენტაციით განსაზღვრული (დადგენილი) მისაერთებელი სიმძლავრე:
+    <span class="field">
+      <% if @item1.nil? %>
+        <%= C12.number_format @application.new_customer_application.power %> კვტ
+      <% else %>
+        <%= html_spaces(20) %>
+      <% end %>
+    </span>
+  </p>
+  <p>
+    გამანაწილებელ ქსელზე მიერთების საფასური (შეთავაზებული პაკეტის მიხედვით):
+    <span class="field">
+      <% if @item1.nil? %>
+        <%= C12.number_format @application.new_customer_application.amount %> ლარი
+      <% else %>
+        <%= html_spaces(20) %>
+      <% end %>
+    </span>
+  </p>
+  
+  <h2 class="center">
+    IV. თანდართული დოკუმენტაცია:
+  </h2>
+  <p>
+    მიერთების საფასურის 50%-ის გადახდის დამადასტურებელი საბუთი
+    <%= print_checkbox %>
+  </p>
+  <p>
+    ერთდროულად სამი ან სამზე მეტი აბონენტის რეგისტრაციის მოთხოვნის შემთხვევაში:
+    <%= print_checkbox(@item1.nil?) %>
+  </p>
+  <p>
+    საპროექტო ორგანიზაციის მიერ დამოწმებული, მისაერთებელი ობიექტის "პროექტის ელექტრულ ნაწილზე"
+    ახსნა–განმარტებითი ბარათი (რომელიც დამუშავებულია, დამტკიცებული პროექტის არქიტექტურულ–სამშენებლო ნაწილის მონაცემების საფუძველზე)  
+    <%= print_checkbox(@item1.nil?) %>
+  </p>
+  <p>
+    აბონენტების მიხედვით დაზუსტებული მისამართები მოთხოვნილი ძაბვის საფეხური და მოთხოვნილი სიმძლავრეები
+    &mdash; შევსებული დანართი 1.1 მიხედვით;
+    <%= print_checkbox(@item1.nil?) %>
+  </p>
+
+  <h2 class="center">
+    V. განაცხადის პირობები
+  </h2>
+  <p>
+    1. ამ განაცხადის ხელმოწერით ვადასტურებ, რომ  განაწილების ლიცენზიატის მიერ ამ განაცხადის მიღებისა და მასში
+    ასახული პირობების შესრულების შემთხვევაში, შევასრულებ საქართველოს ენერგეტიკისა და წყალმომარაგების
+    მარეგულირებელი კომისიის მიერ დამტკიცებული "ელექტროენერგიის (სიმძლავრის) მიწოდებისა და მოხმარების წესებით"
+    განსაზღვრულ ვალდებულებებს, მათ შორის დროულად გადავიხდი გამანაწილებელ ქსელზე ახალი მომხმარებლის მიერთების დადგენილ საფასურს.
+  </p>
+  <p>
+    განმცხადებლის ხელმოწერა: <span class="field"><%= html_spaces(100) %></span>
+  </p>
 </div>

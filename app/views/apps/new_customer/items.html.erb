@@ -23,11 +23,11 @@
             <% else -%>
               ჯამური: <strong><%= item.count %></strong> აბონენტი
             <% end -%><br>
-            <span class="muted"><%= item.address %></span>
+            <span class="muted"><%= item.address %> &mdash; <%= item.address_code %></span>
           </td>
           <td class="right">
             <%= item.voltage %> კვ / <%= C12.number_format item.power %> კვტ <br>
-            <span class="muted"><%= item.personal_use ? 'საყოფაცხოვრებო' : 'არა-საყოფაცხოვრებო' %></span>
+            <span class="muted"><%= new_customer_use_name(item.use) %></span>
           </td>
           <td>
             <%= link_to icon('pencil', :tooltip => 'შეცვლა', :tooltip_placement => :left), apps_new_customer_edit_item_path(item_id: item.id) %>

@@ -67,4 +67,12 @@ module AppsHelper
     {'ჯამური' => Apps::NewCustomerItem::TYPE_SUMMARY, 'ინდივიდუალური' => Apps::NewCustomerItem::TYPE_DETAIL}
   end
 
+  def new_customer_use_type
+    {'საყოფაცხოვრებო' => Apps::NewCustomerItem::USE_PERSONAL, 'არა საყოფაცხოვრებო' => Apps::NewCustomerItem::USE_NOT_PERSONAL, 'საერთო სარგებლობის' => Apps::NewCustomerItem::USE_SHARED}
+  end
+
+  def new_customer_use_name(use)
+    {Apps::NewCustomerItem::USE_PERSONAL => 'საყოფაცხოვრებო', Apps::NewCustomerItem::USE_NOT_PERSONAL => 'არა საყოფაცხოვრებო', Apps::NewCustomerItem::USE_SHARED => 'საერთო სარგებლობის'}[use]
+  end
+
 end
