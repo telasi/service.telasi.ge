@@ -16,11 +16,11 @@
   .title { letter-spacing: 3mm; margin-top: 30mm; }
   .field { padding: 5px 10px; display: inline-block; border-bottom: 1px solid black; }
   .table { width: 100%; }
-  .table td { padding: 2mm; }
+  .table td, .table th { padding: 2mm; }
   .table td.field { border-bottom: 1px solid black; }
   .table td.note { padding:0; text-align: center; font-size: 0.5em; color: #aaa; }
   .table-bordered { border-collapse: collapse; }
-  .table-bordered td { border: 1px solid black; }
+  .table-bordered td, .table-bordered th { border: 1px solid black; }
   .larger { font-size: 2em; }
   .smaller { font-size: 0.8em; }
 </style>
@@ -248,3 +248,48 @@
     განმცხადებლის ხელმოწერა: <span class="field"><%= html_spaces(100) %></span>
   </p>
 </div>
+<% unless @item1 %>
+  <div class="page break">
+    <h2 class="center">დანართი 1.1</h2>
+    <p class="center">
+      აბონენტების მიხედვით დაზუსტებული მისამართები მოთხოვნილი ძაბვის საფეხური<br>
+      და მოთხოვნილი სიმძლავრეები
+    </p>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th width="15">#</th>
+          <th>აბონენტის დაზუსტებული მისამართი</th>
+          <th width="100">
+            აბონენტის (მოხმარებული ელ. ენერგიის საფასურის გადახდაზე პასუხისმგებელი პირის)
+            სახელი, გვარი ან იურიდიული პირის სახელი
+          </th>
+          <th width="100">პირადი ნომერი ან იურიდიული პირის საიდენტიფიკაციო კოდი</th>
+          <th width="100">მოთხოვნილი ძაბვის საფეხური (0,220, 0,380 ან 6/10 კვ.)</th>
+          <th width="100">მოთხოვნილი სიმძლავრე კვტ.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% i = 1; @application.new_customer_application.items.each do |item| %>
+          <tr>
+            <td class="right"><%= i %></td>
+            <td><%= item.address %></td>
+            <% if item.tin.blank? %>
+              <td colspan="2" class="center"><%= item.count %> აბონენტი</td>
+            <% else %>
+              <td><%= item.name %></td>
+              <td><%= item.tin %></td>
+            <% end %>
+            <td class="right"><%= item.voltage %></td>
+            <td class="right"><%= C12.number_format item.power %></td>
+          </tr>
+        <% i += 1; end %>
+      </tbody>
+    </table>
+    <p>
+      შენიშვნა: მოცემულ შემთხვევაში მისაერთებელი სიმძლავრის განსაზღვრა არ ხდება "მოთხოვნილი სიმძლავრის"
+      სვეტში არსებული მონაცემების დაჯამებით, არამედ &mdash; სამშენებლო-საპროექტო დოკუმენტაციით განსაზღვრული
+      (დადგენილი) მისაერთებელი სიმძლავრის მიხედვით.
+    </p>
+  </div>
+<% end %>
