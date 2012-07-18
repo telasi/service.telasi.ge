@@ -104,7 +104,6 @@ class Apps::NewCustomerApplication
   def calculate
     self.calculations.destroy_all
     self.amount = 0
-    self.count  = 0
     self.days   = 0
     calc_220_in_380 = cnt(VOLTAGE_220) > 2
     calculate_voltage(VOLTAGE_220) unless calc_220_in_380
