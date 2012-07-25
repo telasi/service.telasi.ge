@@ -41,29 +41,29 @@ class Ext::Gis::Message
     self.save
   end
 
-  def sms_text
-    text = self.on ? 'CarTva: ' : 'gaTiSva: '
+  def sms_text(ru = false)
+    text = self.on ? (ru ? 'Включение: ' : 'CarTva: ') : (ru ? 'Выключение: ' : 'gaTiSva: ')
     if self.section_count > 0
       if self.section_count == 1
-        text += %Q{qvesadguris seqcia *#{self.section_logs.first.object.to_s.to_lat}*; }
+        text += ru ? %Q{Секция *#{self.section_logs.first.object.to_s.to_lat}*; } : %Q{qvesadguris seqcia *#{self.section_logs.first.object.to_s.to_lat}*; }
       else
-        text += %Q{#{self.section_count} qvesadguris seqcia; }
+        text += %Q{#{self.section_count} секций; }
       end
     end
     if self.fider_count > 0
       if self.fider_count == 1
-        text += %Q{fideri *#{self.fider_logs.first.object.to_s.to_lat}*; }
+        text += ru ? %Q{Фидер *#{self.fider_logs.first.object.to_s.to_lat}*; } : %Q{fideri *#{self.fider_logs.first.object.to_s.to_lat}*; }
       else
-        text += %Q{#{self.fider_count} fideri; }
+        text += %Q{#{self.fider_count} фидеров; }
       end
     end
     if self.transformator_count > 0
       if [1, 2, 3].include?(self.regionkeys.size)
-        text += %Q{biznes centri #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; }
+        text += ru ? %Q{Бизнесс-центр #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; } : %Q{biznes centri #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; }
       else
-        text += "#{self.regionkeys.size} biznes centri; "
+        text += ru ? "#{self.regionkeys.size} бизнесс-центров; " : "#{self.regionkeys.size} biznes centri; "
       end
-      text += "#{self.transformator_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti; "
+      text += ru ?  "#{self.transformator_count} трансформаторов; #{self.street_count} улицы; #{self.account_count} абонентов; " : "#{self.transformator_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti; "
     end
     text.strip[0..-2] + '.' # remove last `;` and put `.` instead
   end
