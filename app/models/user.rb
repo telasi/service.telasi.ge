@@ -49,6 +49,9 @@ class User
   # აბონენტის ნომერი.
   field :accnumbs, type: Array
 
+  # მომხარებლის ენა.
+  field :language, type: String, default: 'ka'
+
   # ასოირებული აბონენტები.
   has_many :customers, class_name: 'UserCustomer', inverse_of: :user
 
