@@ -8,7 +8,7 @@ module MenuHelper
     html = ''
     YAML.load_file('config/menus/main_menu.yml').each do |key, val|
       item_class = page_match?(val['select']) ? 'active' : 'common'
-      html += %Q{<li class="#{item_class}"><a href="#{val['url']}">#{val['label']}</a></li>}
+      html += %Q{<li class="#{item_class}"><a href="#{val['url']}">#{t val['label']}</a></li>}
     end
     %Q{<ul class="nav">#{html}</ul>}.html_safe
   end
@@ -23,16 +23,16 @@ module MenuHelper
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li>#{link_to 'ანგარიშის მართვა', account_url}</li>
-            <li>#{link_to 'პაროლის შეცვლა', change_password_url}</li>
+            <li>#{link_to t(:user_account), account_url}</li>
+            <li>#{link_to t(:change_password), change_password_url}</li>
             <li class="divider"/>
-            <li>#{link_to 'გასვლა', logout_url, data: {confirm: 'ნამდვილად გინდათ გასვლა?'}}</li>
+            <li>#{link_to t(:logout), logout_url, data: {confirm: t(:logout_confirm)}}</li>
           </ul>
         </li>
       }
     else
       item_class = page_match?('users/login') ? 'active' : 'common'
-      menu = %Q{<li class="#{item_class}">#{link_to 'შესვლა', '/user/login'}</li>}
+      menu = %Q{<li class="#{item_class}">#{link_to t(:login), '/user/login'}</li>}
     end
     %Q{<ul class="nav pull-right">#{menu}</ul>}.html_safe
   end
@@ -65,7 +65,7 @@ module MenuHelper
     menu.each do |key, val|
       url = app_menu_url(val, opts)
       item_selected = app_menu_selected(val)
-      main_menu += %Q{<li class="#{item_selected ? 'selected' : 'common'}"><a href="#{url}">#{val['label']}</a></li>}
+      main_menu += %Q{<li class="#{item_selected ? 'selected' : 'common'}"><a href="#{url}">#{t val['label']}</a></li>}
     end
     %Q{<div class="application_menu"><ul>#{main_menu}</ul></div>}.html_safe
   end

@@ -54,14 +54,14 @@ class Ext::Gis::Message
       if self.fider_count == 1
         text += ru ? %Q{Фидер *#{self.fider_logs.first.object.to_s.to_lat}*; } : %Q{fideri *#{self.fider_logs.first.object.to_s.to_lat}*; }
       else
-        text += %Q{#{self.fider_count} фидеров; }
+        text += ru ? %Q{#{self.fider_count} фидеров; } : %Q{#{self.fider_count} fideri; }
       end
     end
     if self.transformator_count > 0
       if [1, 2, 3].include?(self.regionkeys.size)
         text += ru ? %Q{Бизнесс-центр #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; } : %Q{biznes centri #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; }
       else
-        text += ru ? "#{self.regionkeys.size} бизнесс-центров; " : "#{self.regionkeys.size} biznes centri; "
+        text += ru ? "#{self.regionkeys.size} бизнесс-центра; " : "#{self.regionkeys.size} biznes centri; "
       end
       text += ru ?  "#{self.transformator_count} трансформаторов; #{self.street_count} улицы; #{self.account_count} абонентов; " : "#{self.transformator_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti; "
     end

@@ -1,5 +1,12 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  # Main menu
+  home: Home
+  customer_charge: Charge
+  applications: Applications
+  map: Map
+  # User texts
+  user_account: My Account
+  change_password: Change Password
+  login: Login
+  logout: Logout
+  logout_confirm: Do you really want to logout?

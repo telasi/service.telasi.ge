@@ -1,0 +1,12 @@
+ka:
+  # Main menu
+  home: საწყისი
+  customer_charge: ხარჯი
+  applications: განხცადებები
+  map: რუკა
+  # User texts
+  user_account: ანგარიშის მართვა
+  change_password: პაროლის შეცვლა
+  login: შესვლა
+  logout: გასვლა
+  logout_confirm: ნამდვილად გინდათ პროგრამიდან გასვლა?

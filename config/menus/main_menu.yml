@@ -1,16 +1,16 @@
 home:
-  label: საწყისი
+  label: home
   url: /home
   select: site/index
 debt:
-  label: ხარჯი
+  label: customer_charge
   url: /customer
   select: customer
 apps:
-  label: განცხადებები
+  label: applications
   url: /apps
   select: applications new_customer
 map:
-  label: რუკა
+  label: map
   url: /map
   select: map

@@ -3,7 +3,7 @@ class SiteController < ApplicationController
 
   # საიტის საწყისი გვერდი.
   def index
-    @title = 'საწყისი'
+    @title = t(:home)
   end
 
   # MARKDOWN ტექსტის გენერაცია.
@@ -11,5 +11,5 @@ class SiteController < ApplicationController
     @text = params[:text]
     render layout: false
   end
-  
+
 end
