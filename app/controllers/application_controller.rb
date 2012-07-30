@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :set_locale
 
   # აბრუნებს მიმდინარე მომხმარებელს.
   def current_user
@@ -15,6 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def set_locale
+    session[:locale] = params[:locale] unless params[:locale].blank?
+    I18n.locale = session[:locale] || 'ka'
+  end
 
   def validate_login
     unless current_user
