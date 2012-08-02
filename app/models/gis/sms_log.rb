@@ -14,9 +14,12 @@ class Gis::SmsLog < ActiveRecord::Base
 
   def self.sync_new_logs
     last_id = Ext::Gis::Log.max(:log_id) || 0
-    Gis::SmsLog.where('table_name IN (?) AND sms_log_id > ?', [Ext::Gis::Log::SECTION, Ext::Gis::Log::FIDER, Ext::Gis::Log::TRANSFORMATOR], last_id).each do |l|
+    l_date = Date.today - 1
+    tables = [Ext::Gis::Log::SECTION, Ext::Gis::Log::FIDER, Ext::Gis::Log::TRANSFORMATOR]
+    Gis::SmsLog.where('table_name IN (?) AND sms_log_id > ? AND enter_date > ?', tables, last_id, l_date).each do |l|
       Ext::Gis::Log.new(log_id: l.sms_log_id, table_name: l.table_name, objectid: l.oid,
-        gis_status: l.status, username: l.user_name, log_date: l.enter_date,
+        gis_status: l.status, gis_off_status: (l.off_status || 0),
+        username: l.user_name, log_date: l.enter_date,
         sms_status: Ext::Gis::Log::STATUS_FOR_SENT).save
     end
   end
@@ -44,26 +47,46 @@ class Gis::SmsLog < ActiveRecord::Base
   end
 
   def self.send_messages
-    on  = Ext::Gis::Message.create(on: true)
-    off = Ext::Gis::Message.create(on: false)
+    send_on_message
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DAMAGE)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_PLANED)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_MAINTN)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_SWITCH)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_FIRE)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_CORRECTION)
+  end
+
+  def self.send_on_message
+    on  = Ext::Gis::Message.create(on: true, off_status: 0)
     Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT).asc(:log_id).each do |log|
-      if log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
-        log.message    = log.enabled? ? on : off
+      if log.enabled? and log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
+        log.message =  on
         log.sms_status = Ext::Gis::Log::STATUS_SENT
         log.save
       end
     end
     on.reload.sync
-    off.reload.sync
     if on.reload.logs.empty?
       on.destroy
     else
-      Gis::Receiver.send_message(on) # sending SMS and EMAIL
+      Gis::Receiver.send_message(on)
     end
+  end
+
+  def self.send_off_message_of_type(type)
+    off = Ext::Gis::Message.create(on: false, off_status: type)
+    Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_FOR_SENT, gis_off_status: type).asc(:log_id).each do |log|
+      if not log.enabled? and log.log_date < (Time.now + Gis::CORR - Gis::DIFF)
+        log.message = off
+        log.sms_status = Ext::Gis::Log::STATUS_SENT
+        log.save
+      end
+    end
+    off.reload.sync
     if off.reload.logs.empty?
       off.destroy
     else
-      Gis::Receiver.send_message(off) # sending SMS and EMAIL
+      Gis::Receiver.send_message(off)
     end
   end
 

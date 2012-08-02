@@ -5,6 +5,7 @@ class Ext::Gis::Message
   include Telasi::Queryable
 
   field :on,   type: Boolean
+  field :off_status, type: Integer
   field :sent, type: Boolean, default: false
 
   field :section_count, type: Integer, default: 0
@@ -41,29 +42,29 @@ class Ext::Gis::Message
     self.save
   end
 
-  def sms_text(ru = false)
-    text = self.on ? (ru ? 'Включение: ' : 'CarTva: ') : (ru ? 'Выключение: ' : 'gaTiSva: ')
+  def sms_text(locale = :ka)
+    text = %Q{#{self.on ? I18n.t(:gis_smslog_on, locale: locale) : I18n.t(:gis_smslog_off, locale: locale)}: }
     if self.section_count > 0
       if self.section_count == 1
-        text += ru ? %Q{Секция *#{self.section_logs.first.object.to_s.to_lat}*; } : %Q{qvesadguris seqcia *#{self.section_logs.first.object.to_s.to_lat}*; }
+        text += "#{I18n.t(:gis_station_section, locale: locale)} *#{self.section_logs.first.object.to_s}*; "
       else
-        text += %Q{#{self.section_count} секций; }
+        text += "#{I18n.t(:gis_station_sections, locale: locale)} - #{self.section_count}; "
       end
     end
     if self.fider_count > 0
       if self.fider_count == 1
-        text += ru ? %Q{Фидер *#{self.fider_logs.first.object.to_s.to_lat}*; } : %Q{fideri *#{self.fider_logs.first.object.to_s.to_lat}*; }
+        text += "#{I18n.t(:gis_fider, locale: locale)} *#{self.fider_logs.first.object.to_s}*; "
       else
-        text += ru ? %Q{#{self.fider_count} фидеров; } : %Q{#{self.fider_count} fideri; }
+        text += "#{I18n.t(:gis_fiders, locale: locale)} - #{self.fider_count}; "
       end
     end
     if self.transformator_count > 0
       if [1, 2, 3].include?(self.regionkeys.size)
-        text += ru ? %Q{Бизнесс-центр #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; } : %Q{biznes centri #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; }
+        text += "#{I18n.t(:gis_region, locale: locale)} #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; "
       else
-        text += ru ? "#{self.regionkeys.size} бизнесс-центра; " : "#{self.regionkeys.size} biznes centri; "
+        text += "#{I18n.t(:gis_regions, locale: locale)} - #{self.regionkeys.size}; "
       end
-      text += ru ?  "#{self.transformator_count} трансформаторов; #{self.street_count} улицы; #{self.account_count} абонентов; " : "#{self.transformator_count} transformatori; #{self.street_count} quCa; #{self.account_count} abonenti; "
+      text += %Q{#{I18n.t(:gis_transformers, locale: locale)} - #{self.transformator_count}; #{I18n.t(:gis_customers, locale: locale)} - #{self.account_count}; #{I18n.t(:gis_streets, locale: locale)} - #{self.street_count};}
     end
     text.strip[0..-2] + '.' # remove last `;` and put `.` instead
   end

@@ -11,10 +11,6 @@ class Gis::Receiver
   field :mobile_off, type: String
   index :name
 
-  def ru?
-    self.locale == 'ru'
-  end
-
   def self.send_message(msg)
     return if msg.transformator_count == 0
     Gis::Receiver.where(active: true).each do |r|
@@ -22,13 +18,16 @@ class Gis::Receiver
       email  = msg.on ? r.email_on  : r.email_off
       Magti.send_sms(mobile, msg.sms_text) if Magti::SEND and (not mobile.blank?)
       begin
-        subject = "TELASI: #{ r.ru? ? msg.sms_text(true) : msg.sms_text }"
+        subject = "TELASI: #{ msg.sms_text(r.locale) }"
         body = %Q{<!DOCTYPE html>
           <html>
             <head><meta http-equiv="content-type" content="text/html; charset=utf-8" /></head>
             <body>
-              <p>#{r.ru? ? msg.sms_text(true) : msg.sms_text.to_ka(true)}</p>
-              #{r.ru? ? %Q{<p>Дополнительную информацию смотрите <a href="http://service.telasi.ge/sys/gis/message/#{msg.id.to_s}">на сайте</a>.</p>} : %Q{<p>დამატებითი ინფორმაციის მისაღებად მიჰყევით <a href="http://service.telasi.ge/sys/gis/message/#{msg.id.to_s}">ბმულს</a>.</p>}}
+              <p>#{ msg.sms_text(r.locale)}</p>
+              #{%Q{
+                <p>დამატებითი ინფორმაციის მისაღებად მიჰყევით <a href="http://service.telasi.ge/sys/gis/message/#{msg.id.to_s}">ბმულს</a>.</p>
+                <p>Дополнительную информацию смотрите <a href="http://service.telasi.ge/sys/gis/message/#{msg.id.to_s}">на сайте</a>.</p>
+              }}
             </body>
           </html>}
         Pony.mail(:from => "Telasi.ge <support@telasi.ge>", to: email, html_body: body, subject: subject)

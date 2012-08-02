@@ -4,17 +4,72 @@ en:
   gis_network_logs: Network Logs
   gis_network_objects: Network Objects
   gis_station_sections: HighVoltage Sections
+  gis_station_section: HV Section
   gis_fiders: Fiders
+  gis_fider: Fider
   gis_transformers: Transformers
+  gis_transformer: Transformer
+  gis_region: Region
+  gis_regions: Regions
+  gis_customers: Customers
+  gis_streets: Streets
   gis_config: Config
   gis_mailing_list: Mailing List
+  gis_off_status_1: Damage
+  gis_status_2: Switch
+  gis_off_status_3: Planed
+  gis_off_status_4: Maintenance
+  gis_off_status_5: Correction
+  gis_off_status_6: Fire
+  gis_smslog_on: On
+  gis_smslog_off: Off
 ka:
   gis_logs_title: GIS შეტყობინებები
   gis_logs: შეტყობინებები
   gis_network_logs: ქსელის ლოგები
   gis_network_objects: ქსელის ობიექტები
   gis_station_sections: ქვესადგურის სექციები
+  gis_station_section: ქვესადგურის სექცია
   gis_fiders: ფიდერები
+  gis_fider: ფიდერი
   gis_transformers: ტრანსფორმატორები
+  gis_transformer: ტრანსფორმატორი
+  gis_region: ბიზნეს-ცენტრი
+  gis_regions: ბიზნეს-ცენტრი
+  gis_customers: აბონენტი
+  gis_streets: ქუჩა
   gis_config: პარამეტრები
   gis_mailing_list: დაგზავნის სია
+  gis_off_status_1: ავარია
+  gis_off_status_2: გადართვა
+  gis_off_status_3: გეგმიური
+  gis_off_status_4: პროფილაკტიკა
+  gis_off_status_5: შესწორება
+  gis_off_status_6: ხანძარი
+  gis_smslog_on: ჩართვა
+  gis_smslog_off: გათიშვა
+ru:
+  gis_logs_title: GIS Логи
+  gis_logs: Уведомления
+  gis_network_logs: Логи Сетей
+  gis_network_objects: Объекты Сети
+  gis_station_sections: Высоковольтные Секции
+  gis_station_section: Высоковольтная Секция
+  gis_fiders: Фидеры
+  gis_fider: Фидер
+  gis_transformers: Трансформаторы
+  gis_transformer: Трансформатор
+  gis_region: Регион
+  gis_regions: Регионы
+  gis_customers: Абоненты
+  gis_streets: Улицы
+  gis_config: Конфигурация
+  gis_mailing_list: Рассылка
+  gis_off_status_1: Авария
+  gis_status_2: Переключение
+  gis_off_status_3: Плановое
+  gis_off_status_4: Профилактика
+  gis_off_status_5: Правка
+  gis_off_status_6: Пожар
+  gis_smslog_on: Включение
+  gis_smslog_off: Выключение
