@@ -1,0 +1,12 @@
+en:
+  sysadmin_title: System Administration
+  sysadmin_manage_users: Manage Users
+  sysadmin_bs_manage: Billing Config
+  sysadmin_bs_manage_regions: Manage Regions
+  sysadmin_bs_operations: Billing Operations
+ka:
+  sysadmin_title: ადმინისტრირება
+  sysadmin_manage_users: მომხმარებლების მართვა
+  sysadmin_bs_manage: ბილინგის კონფიგურაცია
+  sysadmin_bs_manage_regions: რეგიონების მართვა
+  sysadmin_bs_operations: ბილინგის ოპერაციები

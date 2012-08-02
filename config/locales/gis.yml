@@ -1,0 +1,20 @@
+en:
+  gis_logs_title: GIS Logs
+  gis_logs: Notifications
+  gis_network_logs: Network Logs
+  gis_network_objects: Network Objects
+  gis_station_sections: HighVoltage Sections
+  gis_fiders: Fiders
+  gis_transformers: Transformers
+  gis_config: Config
+  gis_mailing_list: Mailing List
+ka:
+  gis_logs_title: GIS შეტყობინებები
+  gis_logs: შეტყობინებები
+  gis_network_logs: ქსელის ლოგები
+  gis_network_objects: ქსელის ობიექტები
+  gis_station_sections: ქვესადგურის სექციები
+  gis_fiders: ფიდერები
+  gis_transformers: ტრანსფორმატორები
+  gis_config: პარამეტრები
+  gis_mailing_list: დაგზავნის სია

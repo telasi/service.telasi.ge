@@ -14,3 +14,5 @@ en:
   logout_confirm: Do you really want to logout?
   user_account_edit: Change Account
   user_change_photo: Change Profile Picture
+  # 
+  #sysadmin_title: System Administration
