@@ -10,3 +10,5 @@ ka:
   login: შესვლა
   logout: გასვლა
   logout_confirm: ნამდვილად გინდათ პროგრამიდან გასვლა?
+  user_account_edit: მონაცემების შეცვლა
+  user_change_photo: გამოსახულების შეცვლა
