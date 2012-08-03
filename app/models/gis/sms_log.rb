@@ -48,6 +48,7 @@ class Gis::SmsLog < ActiveRecord::Base
 
   def self.send_messages
     send_on_message
+    send_off_message_of_type(0)
     send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DAMAGE)
     send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_PLANED)
     send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_MAINTN)
