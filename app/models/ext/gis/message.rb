@@ -42,8 +42,13 @@ class Ext::Gis::Message
     self.save
   end
 
-  def sms_text(locale = :ka)
-    text = %Q{#{self.on ? I18n.t(:gis_smslog_on, locale: locale) : I18n.t(:gis_smslog_off, locale: locale)}: }
+  def sms_text(locale = nil)
+    locale = locale || I18n.locale
+    if self.on
+      text = %Q{#{I18n.t(:gis_smslog_on, locale: locale)}: }
+    else
+      text = %Q{#{I18n.t(:gis_smslog_off, locale: locale)} [#{Ext::Gis::Log.off_status_text(self.off_status, locale)}]: }
+    end
     if self.section_count > 0
       if self.section_count == 1
         text += "#{I18n.t(:gis_station_section, locale: locale)} *#{self.section_logs.first.object.to_s}*; "
@@ -67,6 +72,20 @@ class Ext::Gis::Message
       text += %Q{#{I18n.t(:gis_transformers, locale: locale)} - #{self.transformator_count}; #{I18n.t(:gis_customers, locale: locale)} - #{self.account_count}; #{I18n.t(:gis_streets, locale: locale)} - #{self.street_count};}
     end
     text.strip[0..-2] + '.' # remove last `;` and put `.` instead
+  end
+
+  def email_text(locale = nil)
+    locale = locale || I18n.locale
+    %Q{<!DOCTYPE html>
+      <html>
+        <head><meta http-equiv="content-type" content="text/html; charset=utf-8" /></head>
+        <body>
+          <p>#{ self.sms_text(locale) }</p>
+          #{%Q{
+            <p>#{I18n.t('gis.message.additional_info', locale: locale, url: "http://service.telasi.ge/sys/gis/message/#{self.id.to_s}")}</p>
+          }}
+        </body>
+      </html>}
   end
 
   def regions

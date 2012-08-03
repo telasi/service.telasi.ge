@@ -33,6 +33,10 @@ class Ext::Gis::Log
   index :log_id
   index :objectid
 
+  def self.off_status_text(off_status, locale = nil)
+    I18n.t("gis_off_status_#{off_status || 0}", locale: (locale || I18n.locale))
+  end
+
   def section?
     self.table_name == Ext::Gis::Log::SECTION
   end

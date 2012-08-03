@@ -15,6 +15,7 @@ en:
   gis_streets: Streets
   gis_config: Config
   gis_mailing_list: Mailing List
+  gis_off_status_0: None
   gis_off_status_1: Damage
   gis_status_2: Switch
   gis_off_status_3: Planed
@@ -23,6 +24,9 @@ en:
   gis_off_status_6: Fire
   gis_smslog_on: On
   gis_smslog_off: Off
+  gis:
+    message:
+      additional_info: More information can be found <a href="%{url}?locale=en">here</a>.
 ka:
   gis_logs_title: GIS შეტყობინებები
   gis_logs: შეტყობინებები
@@ -40,6 +44,7 @@ ka:
   gis_streets: ქუჩა
   gis_config: პარამეტრები
   gis_mailing_list: დაგზავნის სია
+  gis_off_status_0: გაურკვეველი
   gis_off_status_1: ავარია
   gis_off_status_2: გადართვა
   gis_off_status_3: გეგმიური
@@ -48,6 +53,9 @@ ka:
   gis_off_status_6: ხანძარი
   gis_smslog_on: ჩართვა
   gis_smslog_off: გათიშვა
+  gis:
+    message:
+      additional_info: მეტი ინფორმაციის მისაღებად მიჰყევით <a href="%{url}?locale=en">ბმულს</a>.
 ru:
   gis_logs_title: GIS Логи
   gis_logs: Уведомления
@@ -65,6 +73,7 @@ ru:
   gis_streets: Улицы
   gis_config: Конфигурация
   gis_mailing_list: Рассылка
+  gis_off_status_0: Неопр.
   gis_off_status_1: Авария
   gis_status_2: Переключение
   gis_off_status_3: Плановое
@@ -73,3 +82,6 @@ ru:
   gis_off_status_6: Пожар
   gis_smslog_on: Включение
   gis_smslog_off: Выключение
+  gis:
+    message:
+      additional_info: Дополнительную информацию смотрите <a href="%{url}?locale=en">на сайте</a>.

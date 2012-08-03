@@ -30,8 +30,12 @@
     </div>
     <div>
       <code><%= @message.sms_text %></code><br>
-      <code><%= @message.sms_text(:ru) %></code><br>
-      (<%= @message.sms_text.size %> სიმბოლო)
+    </div>
+    <div class="page-header">
+      <h3><%= image_tag 'fff/email.png'%> Email შეტყობინება</h3>
+    </div>
+    <div>
+      <code><%= @message.email_text %></code><br>
     </div>
   </div>
 </div>
