@@ -128,7 +128,7 @@ class Sys::GisController < ApplicationController
 
   def send_message
     msg = Ext::Gis::Message.find(params[:id])
-    Gis::Receiver.send_message(msg)
+    Gis::Receiver.send_message(msg, true)
     redirect_to sys_gis_message_url(id: msg.id), notice: 'შეტყობინება გაგზავნილია.'
   end
 
