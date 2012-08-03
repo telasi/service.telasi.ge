@@ -45,9 +45,9 @@ class Ext::Gis::Message
   def sms_text(locale = nil)
     locale = locale || I18n.locale
     if self.on
-      text = %Q{#{I18n.t(:gis_smslog_on, locale: locale)}: }
+      text = %Q{#{I18n.t('gis.log_on', locale: locale)}: }
     else
-      text = %Q{#{I18n.t(:gis_smslog_off, locale: locale)} [#{Ext::Gis::Log.off_status_text(self.off_status, locale)}]: }
+      text = %Q{#{I18n.t('gis.log_off', locale: locale)} [#{Ext::Gis::Log.off_status_text(self.off_status, locale)}]: }
     end
     if self.section_count > 0
       if self.section_count == 1
