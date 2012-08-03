@@ -16,7 +16,7 @@ en:
   gis_config: Config
   gis_mailing_list: Mailing List
   gis_off_status_0: None
-  gis_off_status_1: Damage
+  gis_off_status_1: Accident
   gis_status_2: Switch
   gis_off_status_3: Planed
   gis_off_status_4: Maintenance

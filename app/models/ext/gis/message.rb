@@ -51,14 +51,14 @@ class Ext::Gis::Message
     end
     if self.section_count > 0
       if self.section_count == 1
-        text += "#{I18n.t(:gis_station_section, locale: locale)} *#{self.section_logs.first.object.to_s}*; "
+        text += "#{I18n.t(:gis_station_section, locale: locale)} *#{self.section_logs.first.object.to_s.to_lat}*; "
       else
         text += "#{I18n.t(:gis_station_sections, locale: locale)} - #{self.section_count}; "
       end
     end
     if self.fider_count > 0
       if self.fider_count == 1
-        text += "#{I18n.t(:gis_fider, locale: locale)} *#{self.fider_logs.first.object.to_s}*; "
+        text += "#{I18n.t(:gis_fider, locale: locale)} *#{self.fider_logs.first.object.to_s.to_lat}*; "
       else
         text += "#{I18n.t(:gis_fiders, locale: locale)} - #{self.fider_count}; "
       end
