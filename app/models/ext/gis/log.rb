@@ -34,7 +34,7 @@ class Ext::Gis::Log
   index :objectid
 
   def self.off_status_text(off_status, locale = nil)
-    I18n.t("gis_off_status_#{off_status || 0}", locale: (locale || I18n.locale))
+    I18n.t("gis_off_status_#{off_status || 0}", locale: (locale || I18n.locale)) unless off_status.blank? or off_status == 0
   end
 
   def section?
