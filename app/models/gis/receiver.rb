@@ -11,11 +11,9 @@ class Gis::Receiver
   field :mobile_off, type: String
   index :name
 
-  def self.send_message(msg, debug = false)
+  def self.send_message(msg)
     return if msg.transformator_count == 0
-    rel = Gis::Receiver.where(active: true)
-    rel.and(email_on: 'dimakura@gmail.com') if debug
-    rel.each do |r|
+    Gis::Receiver.where(active: true).each do |r|
       mobile = msg.on ? r.mobile_on : r.mobile_off
       email  = msg.on ? r.email_on  : r.email_off
       Magti.send_sms(mobile, msg.sms_text(r.locale == 'ru' ? 'en' : r.locale).to_lat) if Magti::SEND and (not mobile.blank?)
