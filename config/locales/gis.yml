@@ -45,11 +45,11 @@ ka:
   gis_config: პარამეტრები
   gis_mailing_list: დაგზავნის სია
   gis_off_status_0: გაურკვეველი
-  gis_off_status_1: ავარია
+  gis_off_status_1: ავარიული
   gis_off_status_2: გადართვა
   gis_off_status_3: გეგმიური
-  gis_off_status_4: პროფილაკტიკა
-  gis_off_status_5: შესწორება
+  gis_off_status_4: პროფილაკტიკური
+  gis_off_status_5: სქემის კორექცია
   gis_off_status_6: ხანძარი
   gis:
     log_on: ჩართვა
@@ -74,11 +74,11 @@ ru:
   gis_config: Конфигурация
   gis_mailing_list: Рассылка
   gis_off_status_0: Неопр.
-  gis_off_status_1: Авария
+  gis_off_status_1: Аварийное
   gis_status_2: Переключение
   gis_off_status_3: Плановое
-  gis_off_status_4: Профилактика
-  gis_off_status_5: Правка
+  gis_off_status_4: Профилактическое
+  gis_off_status_5: Правка Схемы
   gis_off_status_6: Пожар
   gis:
     log_on: Включение

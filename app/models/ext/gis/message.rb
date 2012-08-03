@@ -69,7 +69,7 @@ class Ext::Gis::Message
       else
         text += "#{I18n.t(:gis_regions, locale: locale)} - #{self.regionkeys.size}; "
       end
-      text += %Q{#{I18n.t(:gis_transformers, locale: locale)} - #{self.transformator_count}; #{I18n.t(:gis_customers, locale: locale)} - #{self.account_count}; #{I18n.t(:gis_streets, locale: locale)} - #{self.street_count};}
+      text += %Q{#{I18n.t(:gis_transformers, locale: locale)} - #{self.transformator_count}; #{I18n.t(:gis_streets, locale: locale)} - #{self.street_count}; #{I18n.t(:gis_customers, locale: locale)} - #{self.account_count};}
     end
     text.strip[0..-2] + '.' # remove last `;` and put `.` instead
   end
