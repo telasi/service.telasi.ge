@@ -1,0 +1,9 @@
+en:
+  will_paginate:
+    page_gap: "&hellip;"
+ka:
+  will_paginate:
+    page_gap: "&hellip;"
+ru:
+  will_paginate:
+    page_gap: "&hellip;"
