@@ -21,6 +21,9 @@
         </td>
         <td>
           <%= gislog_icon(log) %>
+          <% unless log.enabled? %>
+            <code><%= Ext::Gis::Log.off_status_text(log.gis_off_status) %></code> 
+          <% end %>
           <%= log.object %>
           <span class="muted"><%= log.object.address if log.transformator? %></span>
         </td>
