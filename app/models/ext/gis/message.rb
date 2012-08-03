@@ -44,6 +44,7 @@ class Ext::Gis::Message
 
   def sms_text(locale = nil)
     locale = locale || I18n.locale
+    use_lat = locale.to_s != 'ka'
     if self.on
       text = %Q{#{I18n.t('gis.log_on', locale: locale)}: }
     else
@@ -51,21 +52,24 @@ class Ext::Gis::Message
     end
     if self.section_count > 0
       if self.section_count == 1
-        text += "#{I18n.t(:gis_station_section, locale: locale)} *#{self.section_logs.first.object.to_s.to_lat}*; "
+        name = use_lat ? self.section_logs.first.object.to_s.to_lat : self.section_logs.first.object.to_s.to_ka
+        text += "#{I18n.t(:gis_station_section, locale: locale)} *#{name}*; "
       else
         text += "#{I18n.t(:gis_station_sections, locale: locale)} - #{self.section_count}; "
       end
     end
     if self.fider_count > 0
       if self.fider_count == 1
-        text += "#{I18n.t(:gis_fider, locale: locale)} *#{self.fider_logs.first.object.to_s.to_lat}*; "
+        name = use_lat ? self.fider_logs.first.object.to_s.to_lat : self.fider_logs.first.object.to_s.to_ka
+        text += "#{I18n.t(:gis_fider, locale: locale)} *#{name}*; "
       else
         text += "#{I18n.t(:gis_fiders, locale: locale)} - #{self.fider_count}; "
       end
     end
     if self.transformator_count > 0
       if [1, 2, 3].include?(self.regionkeys.size)
-        text += "#{I18n.t(:gis_region, locale: locale)} #{self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ')}; "
+        names = use_lat ? self.regions.map{|r| "*#{r.regionname.to_lat}*"}.join(', ') : self.regions.map{|r| "*#{r.regionname.to_ka}*"}.join(', ')
+        text += "#{I18n.t(:gis_region, locale: locale)} #{names}; "
       else
         text += "#{I18n.t(:gis_regions, locale: locale)} - #{self.regionkeys.size}; "
       end
