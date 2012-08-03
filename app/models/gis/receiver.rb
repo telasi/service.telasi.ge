@@ -18,7 +18,7 @@ class Gis::Receiver
     rel.each do |r|
       mobile = msg.on ? r.mobile_on : r.mobile_off
       email  = msg.on ? r.email_on  : r.email_off
-      Magti.send_sms(mobile, msg.sms_text.to_lat) if Magti::SEND and (not mobile.blank?)
+      Magti.send_sms(mobile, msg.sms_text(r.locale).to_lat) if Magti::SEND and (not mobile.blank?)
       begin
         subject = "TELASI: #{ msg.sms_text(r.locale) }"
         body = msg.email_text(r.locale)
