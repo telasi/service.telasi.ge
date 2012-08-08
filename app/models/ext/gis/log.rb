@@ -8,11 +8,12 @@ class Ext::Gis::Log
   STATUS_SENT = 2
 
   OFF_STATUS_DAMAGE = 1 # ავარია
+  OFF_STATUS_SWITCH = 2 # გადართვა
   OFF_STATUS_PLANED = 3 # გეგმიური
   OFF_STATUS_MAINTN = 4 # პროფილაკტიკა
-  OFF_STATUS_SWITCH = 2 # გადართვა
-  OFF_STATUS_FIRE   = 6 # ხანძარი
   OFF_STATUS_CORRECTION = 5 # სქემის კორექცია
+  OFF_STATUS_FIRE   = 6 # ხანძარი
+  OFF_STATUS_DEBT   = 7 # დავალიანებით
 
   SECTION = 'hv_section_ln'
   FIDER = 'hv_fiderswitches_pnt'
