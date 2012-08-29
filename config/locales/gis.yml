@@ -17,7 +17,7 @@ en:
   gis_mailing_list: Mailing List
   gis_off_status_0: None
   gis_off_status_1: Accident
-  gis_status_2: Switch
+  gis_off_status_2: Switch
   gis_off_status_3: Planned
   gis_off_status_4: Maintenance
   gis_off_status_5: Correction
@@ -77,7 +77,7 @@ ru:
   gis_mailing_list: Рассылка
   gis_off_status_0: Неопр.
   gis_off_status_1: Аварийное
-  gis_status_2: Переключение
+  gis_off_status_2: Переключение
   gis_off_status_3: Плановое
   gis_off_status_4: Профилактическое
   gis_off_status_5: Правка Схемы
