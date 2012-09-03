@@ -127,5 +127,12 @@ TelasiService::Application.routes.draw do
   	end
   end
 
+  # Android-ის მომსახურების სერვისები.
+  namespace :android do
+    scope controller: :readings do
+      get '/reester', action: :reester, as: :reester
+    end
+  end
+
   root :to => 'site#index'
 end
