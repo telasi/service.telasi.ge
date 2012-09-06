@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 module Gis
-  DIFF = 3.minutes
+  DIFF = 1.minutes
   CORR = 4.hours
 end
