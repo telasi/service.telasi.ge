@@ -133,6 +133,7 @@ TelasiService::Application.routes.draw do
       get '/', action: :index, as: :home
       get '/reester', action: :reester, as: :reester
       get '/users', action: :users, as: :users
+      get 'routes', action: :routes, as: :routes
       post '/sync_users', action: :sync_logins, as: :sync_logins
     end
   end

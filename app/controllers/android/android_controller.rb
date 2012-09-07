@@ -21,6 +21,11 @@ class Android::AndroidController < ApplicationController
     redirect_to android_users_url, notice: 'მომხმარებლები სინქრონიზირებულია'
   end
 
+  def routes
+    @title = 'მარშრუტები'
+    @routes = Bs::RouteStoreHeader.paginate(per_page: 10, page: params[:page]).order('route_header_id DESC')
+  end
+
   def reester
     #date = Date.strptime '1-Jun-2012', '%d-%b-%Y'
     #inspector = 11795
