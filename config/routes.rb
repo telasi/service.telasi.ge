@@ -131,10 +131,11 @@ TelasiService::Application.routes.draw do
   namespace :android do
     scope controller: :android do
       get '/', action: :index, as: :home
-      get '/reester', action: :reester, as: :reester
       get '/users', action: :users, as: :users
       get 'routes', action: :routes, as: :routes
+      get 'route/:id', action: :route, as: :route
       post '/sync_users', action: :sync_logins, as: :sync_logins
+      get '/reester', action: :reester, as: :reester
     end
   end
 

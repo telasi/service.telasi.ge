@@ -1,0 +1,52 @@
+<%= android_links title: @title, links: { 'მარშრუტები' => android_routes_url } %>
+
+<div class="page-header">
+  <h3><%= @title %> <small><%= @route.cycledate.strftime('%d-%b-%Y') %></small></h3>
+</div>
+<table class="table">
+  <tr>
+    <th width="150" align="left">ინსპექტორი</th>
+    <td colspan="3"><%= image_tag 'fff/user.png' %> <%= @route.inspector.persname.to_ka %></td>
+  </tr>
+  <tr>
+    <th width="150" align="left">ციკლის თარიღი</th>
+    <td colspan="3"><%= image_tag 'fff/date.png' %> <%= @route.cycledate.strftime('%d-%b-%Y') %></td>
+  </tr>
+  <tr>
+    <th width="150" align="left">გადმოწერა</th>
+    <td width="100"><%= image_tag 'fff/application_put.png' %> <strong><%= @route.download_count %></strong></td>
+    <th width="150" align="left">ატვირთვა</th>
+    <td><%= image_tag 'fff/application_get.png' %> <strong><%= @route.upload_count %></strong></td>
+  </tr>
+</table>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th width="25">№</th>
+      <th>აბონენტი</th>
+      <th width="130">წინა წაკითხვა</th>
+      <th width="130">ახალი წაკითხვა</th>
+      <th width="130">სავარაუდო ხარჯი</th>
+    </tr>
+  </thead>
+  <% @route.items.each do |item| %>
+    <tr>
+      <td class="right"><strong><%= item.read_seq %></strong></td>
+      <td>
+        <code><%= item.accid.to_ka %></code>
+        <span class="muted"><%= item.accnumb.to_ka %></span>
+        <%= item.custname.to_ka %>
+      </td>
+      <td class="right">
+        <%= C12.number_format item.prv_reading %>
+      </td>
+      <td class="right">
+        <%= C12.number_format(item.new_reading) if item.new_reading %>
+      </td>
+      <td class="right">
+        <%= C12.number_format(item.estimate_charge) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

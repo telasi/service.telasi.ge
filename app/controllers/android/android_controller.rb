@@ -26,6 +26,11 @@ class Android::AndroidController < ApplicationController
     @routes = Bs::RouteStoreHeader.paginate(per_page: 10, page: params[:page]).order('route_header_id DESC')
   end
 
+  def route
+    @route = Bs::RouteStoreHeader.find(params[:id])
+    @title = "მარშრუტი №#{@route.routekey}"
+  end
+
   def reester
     #date = Date.strptime '1-Jun-2012', '%d-%b-%Y'
     #inspector = 11795
