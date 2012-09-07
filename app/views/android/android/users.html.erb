@@ -5,10 +5,14 @@
 <p class="muted">
   აქ შეგიძლიათ ნახოთ მომხმარებლები, რომლებიც იდენტიფიცირებულია ბილინგის მონაცემთა ბაზასთან.
 </p>
+<div class="btn-toolbar">
+  <%= link_to icon_text('refresh', 'სინქრონიზაია'), android_sync_logins_url, class: 'btn', method: :post, data: {confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'} %>
+</div>
 <table class="table">
   <thead>
     <tr>
       <th width="50">bs ID</th>
+      <th width="100">bs Login</th>
       <th>სახელი, გვარი</th>
       <th width="100">მობილური</th>
       <th width="100">ზედამხედველი</th>
@@ -18,6 +22,7 @@
   <% @users.each do |user| %>
     <tr>
       <td><%= user.bs_person %></td>
+      <td><strong><%= user.bs_login.blank? ? '--' : user.bs_login %></strong></td>
       <td><%= user.full_name %> &mdash; <%= mail_to user.email %></td>
       <td><%= C12.format_mobile user.mobile %></td>
       <td><% if user.bs_admin %><%= image_tag 'fff/accept.png' %><% end %></td>

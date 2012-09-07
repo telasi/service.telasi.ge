@@ -36,6 +36,7 @@ class User
 
   # Person ID for connection with BS database.
   field :bs_person, type: Integer
+  field :bs_login, type: String
 
   # BS administrator role
   field :bs_admin, type: Boolean
