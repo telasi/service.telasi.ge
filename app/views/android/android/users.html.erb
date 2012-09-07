@@ -1,0 +1,27 @@
+<%= android_links title: @title %>
+<div class="page-header">
+  <h2>მომხმარებლები</h2>
+</div>
+<p class="muted">
+  აქ შეგიძლიათ ნახოთ მომხმარებლები, რომლებიც იდენტიფიცირებულია ბილინგის მონაცემთა ბაზასთან.
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="50">bs ID</th>
+      <th>სახელი, გვარი</th>
+      <th width="100">მობილური</th>
+      <th width="100">ზედამხედველი</th>
+      <th width="100">ინსპექტორი</th>
+    </tr>
+  </thead>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.bs_person %></td>
+      <td><%= user.full_name %> &mdash; <%= mail_to user.email %></td>
+      <td><%= C12.format_mobile user.mobile %></td>
+      <td><% if user.bs_admin %><%= image_tag 'fff/accept.png' %><% end %></td>
+      <td><% if user.bs_inspector %><%= image_tag 'fff/accept.png' %><% end %></td>
+    </tr>
+  <% end %>
+</table>

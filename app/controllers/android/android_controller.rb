@@ -5,6 +5,11 @@ class Android::AndroidController < ApplicationController
     @title = 'Android'
   end
 
+  def users
+    @title = 'მომხმარებლები'
+    @users = User.excludes(bs_person: nil)
+  end
+
   def reester
     #date = Date.strptime '1-Jun-2012', '%d-%b-%Y'
     #inspector = 11795
