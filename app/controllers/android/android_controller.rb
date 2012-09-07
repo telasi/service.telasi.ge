@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
-class Android::ReadingsController < ApplicationController
+class Android::AndroidController < ApplicationController
+
+  def index
+    @title = 'Android'
+  end
 
   def reester
     #date = Date.strptime '1-Jun-2012', '%d-%b-%Y'

@@ -129,8 +129,10 @@ TelasiService::Application.routes.draw do
 
   # Android-ის მომსახურების სერვისები.
   namespace :android do
-    scope controller: :readings do
+    scope controller: :android do
+      get '/', action: :index, as: :home
       get '/reester', action: :reester, as: :reester
+      get '/users', action: :users, as: :users
     end
   end
 
