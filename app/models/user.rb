@@ -34,11 +34,14 @@ class User
   # GIS ნახვა.
   field :gis_viewer, type: Boolean
 
-  # BS system administrator
-  field :bs_admin, type: Boolean
-
   # Person ID for connection with BS database.
   field :bs_person, type: Integer
+
+  # BS administrator role
+  field :bs_admin, type: Boolean
+
+  # BS inspector role
+  field :bs_inspector, type: Boolean
 
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
   field :email_confirmed, type: Boolean
