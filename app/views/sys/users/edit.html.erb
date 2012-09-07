@@ -16,6 +16,9 @@
   <%= f.input :sys_admin, as: 'boolean', label: false, inline_label: 'არის თუ არა სისტემური ადმინისტრატორი?' %>
   <%= f.input :new_cust_admin, as: 'boolean', label: false, inline_label: 'არის თუ არა ახალი აბონენტების განცხადებათა ადმინისტრატორი?' %>
   <%= f.input :gis_viewer, as: 'boolean', label: false, inline_label: 'GIS შეტყობინებების მნახველი' %>
+  <%= f.input :bs_admin, as: 'boolean', label: false, inline_label: 'BS ადმინისტრატორი' %>
+  <%= f.input :bs_inspector, as: 'boolean', label: false, inline_label: 'BS ინსპექტორი' %>
+  <%= f.input :bs_person, label: 'ბილინგის კოდი' %>
   <div class="form-actions">
     <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
     <%= link_to 'გაუქმება', sys_users_path, class: 'btn' %>
