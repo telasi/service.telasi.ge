@@ -82,11 +82,18 @@ class User
   before_update :before_user_update
 
   index :email
+  index :bs_login
   index [[:email, Mongo::ASCENDING], [:mobile, Mongo::ASCENDING], [:first_name, Mongo::ASCENDING], [:last_name, Mongo::ASCENDING]]
 
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)
     user = User.where(:email => email).first
+    user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
+  end
+
+  # მომხმარებლის ავტორიზაცია: ბილინგის მომხმარებლით.
+  def self.authenticate_bs(username, pwd)
+    user = User.where(:bs_login => username).first
     user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
   end
 
