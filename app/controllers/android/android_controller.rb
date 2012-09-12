@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 class Android::AndroidController < ApplicationController
 
+  include Android::BsLoginController
+
   def index
     @title = 'Android'
   end
 
   # ავტორიზაცია ანდროიდის მომხმარებლებისთვის.
   def authenticate
-    @user 
+    process_login
   end
 
   def users
