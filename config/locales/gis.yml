@@ -23,6 +23,7 @@ en:
   gis_off_status_5: Correction
   gis_off_status_6: Fire
   gis_off_status_7: Debt
+  gis_off_status_8: Exploitation Request
   gis:
     log_on: Switching On
     log_off: Turning Off
@@ -53,6 +54,7 @@ ka:
   gis_off_status_5: სქემის კორექცია
   gis_off_status_6: ხანძარი
   gis_off_status_7: დავალიანებით
+  gis_off_status_8: ექსპლუატაციის მოთხოვნით
   gis:
     log_on: ჩართვა
     log_off: გათიშვა
@@ -83,6 +85,7 @@ ru:
   gis_off_status_5: Правка Схемы
   gis_off_status_6: Пожар
   gis_off_status_7: Задолженность
+  gis_off_status_8: По требованию эксплуатации
   gis:
     log_on: Включение
     log_off: Выключение
