@@ -12,7 +12,7 @@ class Android::ReadingsController < ApplicationController
         @message = "რეესტრი ვერ მოიძებნა."
         render partial: 'android/readings/error'
       else
-        @route.downloads += 1
+        @route.download_count += 1
         @route.save
       end
     end
