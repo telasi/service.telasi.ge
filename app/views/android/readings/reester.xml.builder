@@ -20,6 +20,7 @@ xml.reester do
           xml.accnumb(item.accnumb.strip.to_ka)
           xml.accid(item.accid.strip.to_ka)
           xml.custname(item.custname.strip.to_ka)
+          xml.address(item.account.address.to_s)
         end
         xml.meter do
           xml.number(item.account.mtnumb ? item.account.mtnumb.strip.to_ka : '')
