@@ -3,7 +3,7 @@ class Android::ReadingsController < ApplicationController
 
   include Android::BsLoginController
 
-  # რეესტრის მიღება.
+  # რეესტრის გაგზავნა.
   def reester
     process_login do
       date = Date.strptime params[:date], '%d-%b-%Y' unless params[:date].blank?
@@ -11,8 +11,15 @@ class Android::ReadingsController < ApplicationController
       unless @route
         @message = "რეესტრი ვერ მოიძებნა."
         render partial: 'android/readings/error'
+      else
+        @route.downloads += 1
+        @route.save
       end
     end
+  end
+
+  def upload
+    # TODO:
   end
 
 end

@@ -139,6 +139,7 @@ TelasiService::Application.routes.draw do
     end
     scope '/readings', controller: :readings do
       get '/reester', action: :reester, as: :reester
+      post '/upload', action: :upload, as: :upload_reester
     end
   end
 
