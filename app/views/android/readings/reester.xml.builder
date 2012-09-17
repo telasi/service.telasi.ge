@@ -29,6 +29,8 @@ xml.reester do
           xml.seal_status(item.cur_sealstat)
           xml.digits(item.cur_digit)
           xml.coeff(item.cur_mtkoef)
+          xml.meter_type(item.account.meter_type.mtname.strip.to_ka) if item.account.meter_type
+          xml.without_meter(item.account.meter_type.without_meter?) if item.account.meter_type
         end
         xml.reading do
           xml.reading(item.new_reading)
