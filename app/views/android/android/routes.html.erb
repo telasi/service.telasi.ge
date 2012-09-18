@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <% @routes.each do |r| %>
-    <tr>
+    <tr class="<%= route_header_class(r) %>">
       <td><%= link_to r.routekey, android_route_url(id: r.route_header_id) %></td>
       <td><%= r.cycledate.strftime('%d-%b-%Y') %></td>
       <td><%= r.inspector.persname.to_ka %></td>
