@@ -8,14 +8,20 @@ class Android::ReadingsController < ApplicationController
   # რეესტრის გაგზავნა.
   def reester
     process_login do
-      date = Date.strptime params[:date], '%d-%b-%Y' unless params[:date].blank?
-      @route = Bs::RouteStoreHeader.where(cycledate: date, inspectorid: @user.bs_person).first
+      if params[:id]
+        @route = Bs::RouteStoreHeader.where(route_header_id: params[:id]).first
+      else
+        date = Date.strptime params[:date], '%d-%b-%Y' unless params[:date].blank?
+        @route = Bs::RouteStoreHeader.where(cycledate: date, inspectorid: @user.bs_person).first
+      end
       unless @route
         @message = "რეესტრი ვერ მოიძებნა."
         render partial: 'android/readings/error'
       else
-        @route.download_count += 1
-        @route.save
+        unless params[:count_downloads] == 'false'
+          @route.download_count += 1 
+          @route.save
+        end
       end
     end
   end

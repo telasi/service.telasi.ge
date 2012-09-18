@@ -3,6 +3,11 @@
 <div class="page-header">
   <h3><%= @title %> <small><%= @route.cycledate.strftime('%d-%b-%Y') %></small></h3>
 </div>
+
+<div class="btn-toolbar">
+  <%= link_to 'XML ფორმატში', android_reester_url(id: @route.route_header_id, format: 'xml', count_downloads: false), class: 'btn' %>
+</div>
+
 <table class="table">
   <tr>
     <th width="150" align="left">ინსპექტორი</th>

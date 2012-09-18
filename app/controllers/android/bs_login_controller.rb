@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
 module Android::BsLoginController
+
   def process_login
-    @user = User.authenticate_bs(params[:username], params[:password])
+    @user = current_user
+    @user = User.authenticate_bs(params[:username], params[:password]) unless @user
     if @user
       yield if block_given?
     else
@@ -9,4 +11,5 @@ module Android::BsLoginController
       render partial: 'android/readings/error'
     end
   end
+
 end
