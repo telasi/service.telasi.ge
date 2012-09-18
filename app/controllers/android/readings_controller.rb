@@ -19,7 +19,8 @@ class Android::ReadingsController < ApplicationController
         render partial: 'android/readings/error'
       else
         unless params[:count_downloads] == 'false'
-          @route.download_count += 1 
+          @route.download_count += 1
+          @route.status = Bs::RouteStoreHeader::STATUS_SENT if @route.status = Bs::RouteStoreHeader::STATUS_DEFAULT
           @route.save
         end
       end
@@ -31,14 +32,25 @@ class Android::ReadingsController < ApplicationController
     process_login do
       data = XmlSimple.xml_in(params[:reester])
       route = Bs::RouteStoreHeader.find(data['id'][0])
+      all_complete = true
       Bs::RouteStoreItem.transaction do
         data['items'][0]['item'].each do |xml_item|
           item = Bs::RouteStoreItem.find(xml_item['id'][0])
           item.new_reading = xml_item['reading'][0]['reading'][0].to_f
-          item.confirmed   = xml_item['reading'][0]['reading_confirmed'][0] == 'true'
+          if xml_item['reading'][0]['reading_confirmed'][0] == 'true'
+            item.confirmed = true
+          else
+            item.confirmed = false
+            all_complete   = false
+          end
           item.save!
         end
         route.upload_count += 1
+        if all_complete
+          route.status = Bs::RouteStoreHeader::STATUS_RECEIVED
+        else
+          route.status = Bs::RouteStoreHeader::STATUS_SENT
+        end
         route.save!
       end
     end
