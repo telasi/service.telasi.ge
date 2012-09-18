@@ -2,7 +2,7 @@ xml.reester do
   xml.id(@route.route_header_id)
   xml.cycledate(@route.cycledate.strftime('%d-%b-%Y'))
   xml.inspector(@route.inspectorid)
-  xml.downloads(@route.download_count + 1)
+  xml.downloads(@route.download_count)
   xml.uploads(@route.upload_count)
   xml.status(@route.status)
   xml.items do
@@ -12,6 +12,7 @@ xml.reester do
         xml.route(item.routekey)
         xml.sequence(item.read_seq)
         xml.schedule(item.schedkey)
+        xml.confirmed(item.confirmed == 1)
         xml.account do
           xml.status(item.cur_status)
           xml.cut(item.cur_cut)
