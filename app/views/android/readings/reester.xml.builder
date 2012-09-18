@@ -12,7 +12,6 @@ xml.reester do
         xml.route(item.routekey)
         xml.sequence(item.read_seq)
         xml.schedule(item.schedkey)
-        xml.confirmed(item.confirmed == 1)
         xml.account do
           xml.status(item.cur_status)
           xml.cut(item.cur_cut)
@@ -35,6 +34,7 @@ xml.reester do
         end
         xml.reading do
           xml.reading(item.new_reading)
+          xml.reading_confirmed(item.confirmed == 1)
           xml.previous_reading(item.prv_reading)
           xml.previous_reading_date(item.prv_readdate ? item.prv_readdate.strftime('%d-%b-%Y') : '')
           xml.previous_real_reading(item.prv_r_reading)
