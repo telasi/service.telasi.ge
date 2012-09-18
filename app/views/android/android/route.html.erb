@@ -8,7 +8,7 @@
   <%= link_to 'XML ფორმატში', android_reester_url(id: @route.route_header_id, format: 'xml', count_downloads: false), class: 'btn' %>
 </div>
 
-<table class="table">
+<table class="table">  
   <tr>
     <th width="150" align="left">ინსპექტორი</th>
     <td colspan="3"><%= image_tag 'fff/user.png' %> <%= @route.inspector.persname.to_ka %></td>
@@ -28,6 +28,7 @@
 <table class="table table-bordered">
   <thead>
     <tr>
+      <th width="16"></th>
       <th width="25">№</th>
       <th>აბონენტი</th>
       <th width="130">წინა წაკითხვა</th>
@@ -37,6 +38,9 @@
   </thead>
   <% @route.items.each do |item| %>
     <tr>
+      <td>
+        <% if item.confirmed %><%= image_tag 'fff/accept.png' %><% end %>
+      </td>
       <td class="right"><strong><%= item.read_seq %></strong></td>
       <td>
         <code><%= item.accid.to_ka %></code>
