@@ -1,7 +1,13 @@
 xml.reester do
   xml.id(@route.route_header_id)
   xml.cycledate(@route.cycledate.strftime('%d-%b-%Y'))
+  xml.schedule(@route.schedkey)
+  xml.route(@route.routekey)
   xml.inspector(@route.inspectorid)
+  xml.block_id(@route.route.blockkey)
+  xml.block_name(@route.route.block.blockname.to_ka)
+  xml.region_id(@route.route.block.regionkey)
+  xml.region_id(@route.route.block.region.regionname.to_ka)
   xml.downloads(@route.download_count)
   xml.uploads(@route.upload_count)
   xml.status(@route.status)
@@ -11,7 +17,6 @@ xml.reester do
         xml.id(item.rtstorekey)
         xml.route(item.routekey)
         xml.sequence(item.read_seq)
-        xml.schedule(item.schedkey)
         xml.account do
           xml.status(item.cur_status)
           xml.cut(item.cur_cut)
@@ -20,7 +25,15 @@ xml.reester do
           xml.accnumb(item.accnumb.strip.to_ka)
           xml.accid(item.accid.strip.to_ka)
           xml.custname(item.custname.strip.to_ka)
-          xml.address(item.account.address.to_s)
+          xml.address do
+            xml.full_address(item.account.address.to_s)
+            xml.street_id(item.account.address.street.streetkey)
+            xml.street_name(item.account.address.street.streetname.to_ka)
+            xml.house(item.account.address.house.to_ka) if item.account.address.house
+            xml.building(item.account.address.building.to_ka) if item.account.address.building
+            xml.porch(item.account.address.porch.to_ka) if item.account.address.porch
+            xml.flate(item.account.address.flate.to_ka) if item.account.address.flate
+          end
         end
         xml.meter do
           xml.number(item.account.mtnumb ? item.account.mtnumb.strip.to_ka : '')
