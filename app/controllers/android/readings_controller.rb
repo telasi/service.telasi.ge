@@ -56,4 +56,14 @@ class Android::ReadingsController < ApplicationController
     end
   end
 
+  # მარშრუტის სინქრონიზაცია.
+  def sync_route
+    process_login do
+      route = Bs::RouteStoreHeader.find(params[:id])
+      ActiveRecord::Base.connection.execute("begin BS.android_pack.sync_route(#{route.route_header_id}); end;")
+      #conn.execute
+      redirect_to android_route_url(route), notice: 'მარშრუტი სინქრონიზირებულია'
+    end
+  end
+
 end
