@@ -5,8 +5,8 @@
 </div>
 
 <div class="btn-toolbar">
-  <%= link_to 'XML ფორმატში', android_reester_url(id: @route.route_header_id, format: 'xml', count_downloads: false), class: 'btn' %>
-  <%= link_to icon_text('share-alt', 'ბილინგში გაგზავნა', white: true), android_sync_route_url(id: @route.route_header_id), class: ['btn', 'btn-danger'], confirm: 'ნამდვილად გინდათ ბილინგში გადაგზავნა?', method: :post %>
+  <%= link_to icon_text('share-alt', 'ბილინგში გაგზავნა', white: true), android_sync_route_url(id: @route.route_header_id), class: ['btn', 'btn-danger'], confirm: 'ნამდვილად გინდათ ბილინგში გადაგზავნა?', method: :post if @route.complete? %>
+  <%= link_to icon_text('cog', 'XML ფორმატში'), android_reester_url(id: @route.route_header_id, format: 'xml', count_downloads: false), class: 'btn' %>
 </div>
 
 <table class="table">  
