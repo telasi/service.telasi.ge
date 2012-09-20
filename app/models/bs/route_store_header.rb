@@ -14,6 +14,7 @@ class Bs::RouteStoreHeader < ActiveRecord::Base
   has_many :all_items, class_name: 'Bs::RouteStoreItem', foreign_key: :route_header_id, order: :read_seq
   has_many :items, class_name: 'Bs::RouteStoreItem', foreign_key: :route_header_id, order: :read_seq, conditions: {error_code: nil}
   belongs_to :inspector, class_name: 'Bs::Person', foreign_key: :inspectorid
+  belongs_to :route, class_name: 'Bs::Route', foreign_key: :routekey
 
   def sent?
     self.status == STATUS_SENT
