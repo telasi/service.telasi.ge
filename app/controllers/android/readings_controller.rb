@@ -20,7 +20,7 @@ class Android::ReadingsController < ApplicationController
       else
         unless params[:count_downloads] == 'false'
           @route.download_count += 1
-          @route.status = Bs::RouteStoreHeader::STATUS_SENT if @route.status = Bs::RouteStoreHeader::STATUS_DEFAULT
+          @route.status = Bs::RouteStoreHeader::STATUS_SENT if @route.status == Bs::RouteStoreHeader::STATUS_DEFAULT
           @route.save
         end
       end
