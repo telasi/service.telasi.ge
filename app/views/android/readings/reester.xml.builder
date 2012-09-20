@@ -5,9 +5,9 @@ xml.reester do
   xml.route(@route.routekey)
   xml.inspector(@route.inspectorid)
   xml.block_id(@route.route.blockkey)
-  xml.block_name(@route.route.block.blockname.to_ka)
+  xml.block_name(@route.route.block.blockname.strip.to_ka)
   xml.region_id(@route.route.block.regionkey)
-  xml.region_id(@route.route.block.region.regionname.to_ka)
+  xml.region_name(@route.route.block.region.regionname.strip.to_ka)
   xml.downloads(@route.download_count)
   xml.uploads(@route.upload_count)
   xml.status(@route.status)
@@ -28,11 +28,11 @@ xml.reester do
           xml.address do
             xml.full_address(item.account.address.to_s)
             xml.street_id(item.account.address.street.streetkey)
-            xml.street_name(item.account.address.street.streetname.to_ka)
-            xml.house(item.account.address.house.to_ka) if item.account.address.house
-            xml.building(item.account.address.building.to_ka) if item.account.address.building
-            xml.porch(item.account.address.porch.to_ka) if item.account.address.porch
-            xml.flate(item.account.address.flate.to_ka) if item.account.address.flate
+            xml.street_name(item.account.address.street.streetname.strip.to_ka)
+            xml.house(item.account.address.house.strip.to_ka) if item.account.address.house
+            xml.building(item.account.address.building.strip.to_ka) if item.account.address.building
+            xml.porch(item.account.address.porch.strip.to_ka) if item.account.address.porch
+            xml.flate(item.account.address.flate.strip.to_ka) if item.account.address.flate
           end
         end
         xml.meter do
