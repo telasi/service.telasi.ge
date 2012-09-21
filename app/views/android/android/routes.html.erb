@@ -10,6 +10,7 @@
       <th width="100">მარშრუტი</th>
       <th width="100">თარიღი</th>
       <th>ინსპექტორი</th>
+      <th width="150">ბლოკი</th>
       <th width="100">გადმოწერა</th>
       <th width="100">ატვირთვა</th>
     </tr>
@@ -19,6 +20,7 @@
       <td><%= link_to r.routekey, android_route_url(id: r.route_header_id) %></td>
       <td><%= r.cycledate.strftime('%d-%b-%Y') %></td>
       <td><%= r.inspector.persname.to_ka %></td>
+      <td><%= r.route.block.blockname.to_ka %></td>
       <td><%= image_tag 'fff/application_put.png' %> <strong><%= r.download_count %></strong></td>
       <td><%= image_tag 'fff/application_get.png' %> <strong><%= r.upload_count %></strong></td>
     </tr>
