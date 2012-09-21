@@ -15,7 +15,6 @@ xml.reester do
     @route.items.each do |item|
       xml.item do
         xml.id(item.rtstorekey)
-        xml.route(item.routekey)
         xml.sequence(item.read_seq)
         xml.account do
           xml.status(item.cur_status)
