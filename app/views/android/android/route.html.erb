@@ -12,16 +12,20 @@
 <table class="table">  
   <tr>
     <th width="150" align="left">ინსპექტორი</th>
-    <td colspan="3"><%= image_tag 'fff/user.png' %> <%= @route.inspector.persname.to_ka %></td>
+    <td width="200"><%= image_tag 'fff/user.png' %> <%= @route.inspector.persname.to_ka %></td>
+    <th width="200" align="left">ბიზნეს-ცენტრი</th>
+    <td align="left"><%= @route.route.block.region.regionname.to_ka %></td>
   </tr>
   <tr>
     <th width="150" align="left">ციკლის თარიღი</th>
-    <td colspan="3"><%= image_tag 'fff/date.png' %> <%= @route.cycledate.strftime('%d-%b-%Y') %></td>
+    <td><%= image_tag 'fff/date.png' %> <%= @route.cycledate.strftime('%d-%b-%Y') %></td>
+    <th width="200" align="left">ბლოკი</th>
+    <td align="left"><%= @route.route.block.blockname.to_ka %></td>
   </tr>
   <tr>
-    <th width="150" align="left">გადმოწერა</th>
-    <td width="100"><%= image_tag 'fff/application_put.png' %> <strong><%= @route.download_count %></strong></td>
-    <th width="150" align="left">ატვირთვა</th>
+    <th align="left">გადმოწერა</th>
+    <td><%= image_tag 'fff/application_put.png' %> <strong><%= @route.download_count %></strong></td>
+    <th align="left">ატვირთვა</th>
     <td><%= image_tag 'fff/application_get.png' %> <strong><%= @route.upload_count %></strong></td>
   </tr>
 </table>
