@@ -30,7 +30,18 @@ class Android::AndroidController < ApplicationController
 
   def routes
     @title = 'მარშრუტები'
-    @routes = Bs::RouteStoreHeader.paginate(per_page: 10, page: params[:page]).order('route_header_id DESC')
+    rel = Bs::RouteStoreHeader
+    if params[:perskey]
+      @inspector = Bs::Person.find(params[:perskey])
+      rel = rel.where(inspectorid: params[:perskey])
+    elsif params[:blockkey]
+      @block = Bs::Block.find(params[:blockkey])
+      rel = rel.joins(:route).where('route.blockkey=?', params[:blockkey])
+    elsif params[:regionkey]
+      @region = Bs::Region.find(params[:regionkey])
+      rel = rel.joins(:route => :block).where('block.regionkey=?', params[:regionkey])
+    end
+    @routes = rel.paginate(per_page: 10, page: params[:page]).order('route_header_id DESC')
   end
 
   def route

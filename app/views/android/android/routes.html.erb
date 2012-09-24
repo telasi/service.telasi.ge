@@ -1,4 +1,12 @@
-<%= android_links title: @title %>
+<% if @inspector %>
+  <%= android_links links: {@title => android_routes_url}, title: @inspector.persname.strip.to_ka %>
+<% elsif @region %>
+  <%= android_links links: {@title => android_routes_url}, title: @region.regionname.strip.to_ka %>
+<% elsif @block %>
+  <%= android_links links: {@title => android_routes_url}, title: @block.blockname.strip.to_ka %>
+<% else %>
+  <%= android_links title: @title %>
+<% end %>
 
 <div class="page-header">
   <h3>მარშრუტები</h3>
@@ -10,19 +18,22 @@
       <th width="100">მარშრუტი</th>
       <th width="120">თარიღი</th>
       <th>ინსპექტორი</th>
+      <th width="100">ბ/ც</th>
       <th width="150">ბლოკი</th>
-      <th width="100">გადმოწერა</th>
-      <th width="100">ატვირთვა</th>
+      <th width="100">აქტივობა</th>
     </tr>
   </thead>
   <% @routes.each do |r| %>
     <tr class="<%= route_header_class(r) %>">
-      <td><%= link_to r.routekey, android_route_url(id: r.route_header_id) %></td>
+      <td><strong><%= link_to r.routekey, android_route_url(id: r.route_header_id) %></strong></td>
       <td><%= image_tag 'fff/date.png' %> <%= r.cycledate.strftime('%d-%b-%Y') %></td>
-      <td><%= image_tag 'fff/user.png' %> <%= r.inspector.persname.to_ka %></td>
-      <td><%= r.route.block.blockname.to_ka %></td>
-      <td><%= image_tag 'fff/application_put.png' %> <strong><%= r.download_count %></strong></td>
-      <td><%= image_tag 'fff/application_get.png' %> <strong><%= r.upload_count %></strong></td>
+      <td><%= image_tag 'fff/user.png' %> <%= link_to r.inspector.persname.to_ka, android_routes_url(perskey: r.inspectorid) %></td>
+      <td><%= link_to r.route.block.region.regionname.to_ka, android_routes_url(regionkey: r.route.block.region.regionkey) %></td>
+      <td><%= link_to r.route.block.blockname.to_ka, android_routes_url(blockkey: r.route.block.blockkey) %></td>
+      <td>
+        <%= image_tag 'fff/application_put.png' %> <strong><%= r.download_count %></strong>
+        <%= image_tag 'fff/application_get.png' %> <strong><%= r.upload_count %></strong>
+      </td>
     </tr>
   <% end %>
 </table>
