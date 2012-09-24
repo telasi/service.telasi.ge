@@ -11,6 +11,7 @@ xml.reester do
   xml.downloads(@route.download_count)
   xml.uploads(@route.upload_count)
   xml.status(@route.status)
+  xml.count(@route.items.size)
   xml.items do
     @route.items.each do |item|
       xml.item do

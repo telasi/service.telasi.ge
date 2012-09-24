@@ -5,6 +5,24 @@ class Android::ReadingsController < ApplicationController
 
   include Android::BsLoginController
 
+  # რეესტრების სიის მიღება.
+  def reesters
+    process_login do
+      rel = Bs::RouteStoreHeader
+      if params[:perskey]
+        @inspector = Bs::Person.find(params[:perskey])
+        rel = rel.where(inspectorid: params[:perskey])
+      elsif params[:blockkey]
+        @block = Bs::Block.find(params[:blockkey])
+        rel = rel.joins(:route).where('route.blockkey=?', params[:blockkey])
+      elsif params[:regionkey]
+        @region = Bs::Region.find(params[:regionkey])
+        rel = rel.joins(:route => :block).where('block.regionkey=?', params[:regionkey])
+      end
+      @routes = rel.paginate(per_page: 10, page: params[:page]).order('route_header_id DESC')
+    end
+  end
+
   # რეესტრის გაგზავნა.
   def reester
     process_login do
