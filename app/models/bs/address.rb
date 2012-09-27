@@ -9,8 +9,8 @@ class Bs::Address < ActiveRecord::Base
     a = ''
     a += "#{self.postindex.to_ka.strip}, "   unless self.postindex.blank?
     a += self.street.streetname.to_ka.strip
-    a += " კორპ. #{self.building.to_ka.strip}"   unless self.building.blank?
     a += " №#{self.house.to_ka.strip}"       unless self.house.blank?
+    a += " კორპ. #{self.building.to_ka.strip}"   unless self.building.blank?
     a += ", სად. #{self.porch.to_ka.strip}" unless self.porch.blank?
     a += ", ბ. #{self.flate.to_ka.strip}"   unless self.flate.blank?
     a
