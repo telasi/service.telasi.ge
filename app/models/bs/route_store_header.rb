@@ -28,4 +28,8 @@ class Bs::RouteStoreHeader < ActiveRecord::Base
     self.status == STATUS_SYNCED
   end
 
+  def can_sync?
+    self.complete? or self.synced?
+  end
+
 end

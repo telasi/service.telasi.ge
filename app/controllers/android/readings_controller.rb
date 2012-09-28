@@ -79,7 +79,8 @@ class Android::ReadingsController < ApplicationController
     process_login do
       route = Bs::RouteStoreHeader.find(params[:id])
       ActiveRecord::Base.connection.execute("begin BS.android_pack.sync_route(#{route.route_header_id}); end;")
-      #conn.execute
+      route.status = Bs::RouteStoreHeader::STATUS_SYNCED
+      route.save
       redirect_to android_route_url(route), notice: 'მარშრუტი სინქრონიზირებულია'
     end
   end

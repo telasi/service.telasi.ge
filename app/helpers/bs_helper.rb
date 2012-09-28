@@ -3,11 +3,11 @@ module BsHelper
 
   def route_header_class(route)
     if route.sent?
-      "warning"
+      "error"
     elsif route.complete?
-      "success"
+      "warning"
     elsif route.synced?
-      "canceled"
+      "success"
     end
   end
 
