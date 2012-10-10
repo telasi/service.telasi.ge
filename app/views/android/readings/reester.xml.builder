@@ -3,6 +3,7 @@ xml.reester do
   xml.cycledate(@route.cycledate.strftime('%d-%b-%Y'))
   xml.schedule(@route.schedkey)
   xml.route(@route.routekey)
+  xml.route_name(@route.route.routename.strip.to_ka)
   xml.inspector(@route.inspectorid)
   xml.block_id(@route.route.blockkey)
   xml.block_name(@route.route.block.blockname.strip.to_ka)
