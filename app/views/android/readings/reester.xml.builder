@@ -5,6 +5,7 @@ xml.reester do
   xml.route(@route.routekey)
   xml.route_name(@route.route.routename.strip.to_ka)
   xml.inspector(@route.inspectorid)
+  xml.inspector_name(@route.inspector.persname.strip.to_ka)
   xml.block_id(@route.route.blockkey)
   xml.block_name(@route.route.block.blockname.strip.to_ka)
   xml.region_id(@route.route.block.regionkey)
