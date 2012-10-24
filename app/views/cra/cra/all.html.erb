@@ -1,0 +1,10 @@
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to 'გაფართოებული ძებნა', cra_url(private_number: params[:private_number]), class: 'btn' %>
+  </div>
+  <h2>ყველა საბუთი</h2>
+</div>
+
+<% @documents.each do |passport| %>
+  <div><%= render partial: 'cra/cra/passport', locals: { passport: passport }%></div>
+<% end %>

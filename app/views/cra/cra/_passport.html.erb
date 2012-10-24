@@ -1,0 +1,97 @@
+<div class="passport">
+  <div class="page-header">
+    <h3>დოკუმენტი №<%= passport.doc_id %> <span class="badge badge-info"><%= passport.doc_status_text %></span></h3>
+  </div>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th width="300">დოკუმენტის ტიპი</th>
+      <td><%= passport.doc_description %> <span class="muted"><%= passport.doc_type %></span></td>
+    </tr>
+    <tr>
+      <th width="300">სახელი, გვარი</th>
+      <td>
+        <span class="badge badge-inverse"><%= tooltiped_text passport.private_number, 'პირადი ნომერი' %></span>
+        <%= passport.first_name %> <%= passport.last_name %>
+        <span class="muted">
+          <%= passport.middle_name %>-ს
+          <% if passport.gender == CRA::MALE %>ძე<%else%>ასული<% end %>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <th width="300">დაბადების თაღიღი და ადგილი</th>
+      <td>
+        <span class="badge badge-success"><%= passport.birth_date.strftime('%d-%b-%Y') %></span>
+        <span class="muted"><%= passport.birth_place %></span>
+      </td>
+    </tr>
+    <% if passport.is_id_card %>
+      <tr>
+        <th width="300">პირადობის მოწმობა</th>
+        <td>
+          <span class="badge badge-warning"><%= passport.id_card_serial %>-<%= passport.id_card_number %></span>
+          <span class="muted"><%= passport.id_card_issuer %></span>
+        </td>
+      </tr>
+      <tr>
+        <th width="300">მოქმედების პერიოდი</th>
+        <td>
+          <span class="muted"><%= passport.id_card_issue_date.strftime('%d-%b-%Y') if passport.id_card_issue_date %></span> &rarr;
+          <%= passport.id_card_valid_date.strftime('%d-%b-%Y') if passport.id_card_valid_date %>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <th width="300">პასპორტი</th>
+        <td>
+          <span class="badge badge-warning"><%= passport.pasport_number %></span>
+          <span class="muted"><%= passport.passport_issuer %></span>
+        </td>
+      </tr>
+      <tr>
+        <th width="300">მოქმედების პერიოდი</th>
+        <td>
+          <span class="muted"><%= passport.passport_issue_date.strftime('%d-%b-%Y') if passport.passport_issue_date %></span> &rarr;
+          <%= passport.passport_valid_date.strftime('%d-%b-%Y') if passport.passport_valid_date %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <th>მოქალაქეობა</th>
+      <td>
+        <span class="badge badge-important"><%= passport.citizenship_code %></span> <%= passport.citizenship %>
+        <% unless passport.second_citizenship.blank? %>;
+          <span class="badge badge-important"><%= passport.second_citizenship_code %></span> <%= passport.second_citizenship %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>რეგიონი</th>
+      <td><%= passport.region_name %> <span class="muted"><%= passport.region_id %></span></td>
+    </tr>
+    <tr>
+      <th>რეგისტრაციის მისამართი</th>
+      <td><%= passport.living_place %></td>
+    </tr>
+    <tr>
+      <th>აქტუალური მისამართი</th>
+      <td><%= passport.actual_living_place %></td>
+    </tr>
+    <tr>
+      <th>პიროვნება გარდაცვლილია?</th>
+      <td><%= passport.is_person_dead ? 'კი' : 'არა' %></td>
+    </tr>
+    <tr>
+      <th>საბუთი დაკარგულია?</th>
+      <td><%= passport.is_document_lost ? 'კი' : 'არა' %></td>
+    </tr>
+  </table>
+  <div class="page-header">
+    <h4>ფოტოსურათ(ებ)ი</h4>
+  </div>
+  <div>
+    <% passport.photos.each do |photo| %>
+      <img src="data:image/jpeg;base64,<%= photo %>">
+    <% end %>
+  </div>
+</div>

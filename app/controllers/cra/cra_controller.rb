@@ -28,4 +28,32 @@ class Cra::CraController < ApplicationController
     @title = 'საჯარო რეესტრის მონაცემების ძებნა'
   end
 
+  def last
+    @passport = CRA.serv.by_personal_id(params[:private_number]) rescue nil
+    if @passport
+      @title = @passport.full_name
+    else
+      flash.now[:notice] = 'ასეთი პიროვნება ვერ მოიძებნა.'
+      render action: 'index'
+    end
+  end
+
+  def all
+    begin
+      date = Date.strptime(params[:date], '%d-%b-%Y')
+      d = date.strftime('%d').to_i
+      m = date.strftime('%m').to_i
+      y = date.strftime('%Y').to_i
+      @documents = CRA.serv.list_by_name_and_dob(params[:last_name], params[:first_name], y, m, d)
+    rescue
+      @documents = []
+    end
+    if @documents.any?
+      @title = @documents[0].full_name
+    else
+      flash.now[:notice] = 'ასეთი დოკუმენტი ვერ მოიძებნა.'
+      render action: 'index'
+    end
+  end
+
 end

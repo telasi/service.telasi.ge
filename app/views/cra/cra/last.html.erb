@@ -1,0 +1,18 @@
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to 'გაფართოებული ძებნა', cra_url(private_number: params[:private_number]), class: 'btn' %>
+    <%= link_to 'ყველა დოკუმენტი', cra_all_url(first_name: @passport.first_name, last_name: @passport.last_name, date: @passport.birth_date.strftime('%d-%b-%Y')), class: 'btn' %>
+  </div>
+  <h2>ბოლო ჩანაწერი</h2>
+</div>
+
+<%= form_tag cra_last_url, {method: 'get', class: 'form-inline'} do %>
+  <%= text_field_tag :private_number, params[:private_number], placeholder: 'პირადი ნომერი (11 ნიშნა კოდი)' %>
+  <%= submit_tag 'ძებნა', class: 'btn' %>
+<% end %>
+
+<% if @passport %>
+  <div><%= render partial: 'cra/cra/passport', locals: {passport: @passport }%></div>
+<% else %>
+  <div class="well muted">ინფორმაცია ვერ მოიძებნა</div>
+<% end %>
