@@ -56,4 +56,9 @@ class Cra::CraController < ApplicationController
     end
   end
 
+  def history
+    @title = 'აღრიცხვა'
+    @items = Cra::History.all.desc(:_id).paginate(page: params[:page], per_page: 10)
+  end
+
 end

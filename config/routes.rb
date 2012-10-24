@@ -147,9 +147,10 @@ TelasiService::Application.routes.draw do
 
   # Cra.ge web services
   namespace :cra, controller: :cra do
-    get '/', action: :index
+    get '/', action: :index, as: :home
     get '/last', action: :last, as: :last
     get '/all', action: :all, as: :all
+    get '/history', action: :history, as: :history
   end
 
   root :to => 'site#index'
