@@ -1,6 +1,6 @@
 <div class="passport">
   <div class="page-header">
-    <h3>დოკუმენტი №<%= passport.doc_id %> <span class="badge badge-info"><%= passport.doc_status_text %></span></h3>
+    <h3>დოკუმენტი №<%= passport.doc_id %> <code><%= passport.doc_status_text %></code></h3>
   </div>
   <table class="table table-striped table-bordered">
     <tr>
@@ -41,7 +41,7 @@
         </td>
       </tr>
     <% else %>
-      <tr>
+      <!--tr>
         <th width="300">პასპორტი</th>
         <td>
           <span class="badge badge-warning"><%= passport.pasport_number %></span>
@@ -54,7 +54,7 @@
           <span class="muted"><%= passport.passport_issue_date.strftime('%d-%b-%Y') if passport.passport_issue_date %></span> &rarr;
           <%= passport.passport_valid_date.strftime('%d-%b-%Y') if passport.passport_valid_date %>
         </td>
-      </tr>
+      </tr-->
     <% end %>
     <tr>
       <th>მოქალაქეობა</th>
