@@ -10,7 +10,7 @@
     <tr>
       <th width="300">სახელი, გვარი</th>
       <td>
-        <span class="badge badge-inverse"><%= tooltiped_text passport.private_number, 'პირადი ნომერი' %></span>
+        <code><%= tooltiped_text passport.private_number, 'პირადი ნომერი' %></code>
         <%= passport.first_name %> <%= passport.last_name %>
         <span class="muted">
           <%= passport.middle_name %>-ს
@@ -21,7 +21,7 @@
     <tr>
       <th width="300">დაბადების თაღიღი და ადგილი</th>
       <td>
-        <span class="badge badge-success"><%= passport.birth_date.strftime('%d-%b-%Y') %></span>
+        <code><%= passport.birth_date.strftime('%d-%b-%Y') %></code>
         <span class="muted"><%= passport.birth_place %></span>
       </td>
     </tr>
@@ -29,7 +29,7 @@
       <tr>
         <th width="300">პირადობის მოწმობა</th>
         <td>
-          <span class="badge badge-warning"><%= passport.id_card_serial %>-<%= passport.id_card_number %></span>
+          <code><% unless passport.id_card_serial.blank? %><%= passport.id_card_serial %>-<% end %><%= passport.id_card_number %></code>
           <span class="muted"><%= passport.id_card_issuer %></span>
         </td>
       </tr>
