@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h2>საჯარო რეესტრი <small>პიროვნების შესახებ ინფორმაციის ძებნა</small></h2>
+  <h2>სამოქალაქო რეესტრი <small>პიროვნების შესახებ ინფორმაციის ძებნა</small></h2>
 </div>
 
 <div>
@@ -8,7 +8,7 @@
   </div>
   <%= form_tag cra_last_url, {method: 'get', class: 'form-inline'} do %>
     <%= text_field_tag :private_number, params[:private_number], placeholder: 'პირადი ნომერი (11 ნიშნა კოდი)', class: 'span2' %>
-    <%= submit_tag 'ძებნა', class: 'btn' %>
+    <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
   <% end %>
 </div>
 
@@ -20,6 +20,7 @@
     <%= text_field_tag :first_name, params[:first_name], placeholder: 'სახელი', class: 'span2' %>
     <%= text_field_tag :last_name, params[:last_name], placeholder: 'გვარი', class: 'span2' %>
     <%= text_field_tag :date, params[:date], placeholder: 'დაბ.თარიღი', class: 'span2 datepicker' %>
-    <%= submit_tag 'ძებნა', class: 'btn' %>
+    <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
   <% end %>
 </div>
+
