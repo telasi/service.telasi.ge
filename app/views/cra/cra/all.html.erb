@@ -1,9 +1,18 @@
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ძებნა თავიდან'), cra_url(private_number: params[:private_number]), class: 'btn' %>
+</div>
+
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to 'გაფართოებული ძებნა', cra_url(private_number: params[:private_number]), class: 'btn' %>
-  </div>
   <h2>ყველა საბუთი</h2>
 </div>
+
+<%= form_tag cra_all_url, {method: 'get', class: 'form-inline'} do %>
+  <%= text_field_tag :first_name, params[:first_name], placeholder: 'სახელი', class: 'span2' %>
+  <%= text_field_tag :last_name, params[:last_name], placeholder: 'გვარი', class: 'span2' %>
+  <%= text_field_tag :date, params[:date], placeholder: 'დაბ.თარიღი', class: 'span2 datepicker' %>
+  <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
+<% end %>
+
 
 <% @documents.each do |passport| %>
   <div><%= render partial: 'cra/cra/passport', locals: { passport: passport }%></div>

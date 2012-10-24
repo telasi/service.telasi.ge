@@ -1,8 +1,9 @@
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ძებნა თავიდან'), cra_url(private_number: params[:private_number]), class: 'btn' %>
+  <%= link_to 'ყველა დოკუმენტი', cra_all_url(first_name: @passport.first_name, last_name: @passport.last_name, date: @passport.birth_date.strftime('%d-%b-%Y')), class: 'btn' %>
+</div>
+
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to 'გაფართოებული ძებნა', cra_url(private_number: params[:private_number]), class: 'btn' %>
-    <%= link_to 'ყველა დოკუმენტი', cra_all_url(first_name: @passport.first_name, last_name: @passport.last_name, date: @passport.birth_date.strftime('%d-%b-%Y')), class: 'btn' %>
-  </div>
   <h2>ბოლო ჩანაწერი</h2>
 </div>
 
