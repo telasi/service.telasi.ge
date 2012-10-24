@@ -44,6 +44,9 @@ class User
   # BS inspector role
   field :bs_inspector, type: Boolean
 
+  # C(ivil) R(egistry) A(gency) role
+  field :cra, type: Boolean
+
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
   field :email_confirmed, type: Boolean
 
