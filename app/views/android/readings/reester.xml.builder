@@ -32,6 +32,9 @@ xml.reester do
           xml.coeff(item.cur_mtkoef)
           xml.meter_type(item.account.meter_type.mtname.strip.to_ka) if item.account.meter_type
           xml.without_meter(item.account.meter_type.without_meter?) if item.account.meter_type
+          xml.new_number item.new_mtnumb
+          xml.new_coeff  item.new_mtkoef
+          xml.new_seal_number item.new_sealnumb
         end
         xml.reading do
           xml.reading(item.new_reading)
