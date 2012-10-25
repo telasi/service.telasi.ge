@@ -18,3 +18,5 @@ public/photos/**/*
 .DS_Store
 
 *.log
+
+sqlnet.log
