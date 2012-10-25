@@ -55,6 +55,11 @@ class Android::ReadingsController < ApplicationController
         data['items'][0]['item'].each do |xml_item|
           item = Bs::RouteStoreItem.find(xml_item['id'][0])
           item.new_reading = xml_item['reading'][0]['reading'][0].to_f
+          if xml_item['meter']
+            item.new_mtnumb   = xml_item['meter'][0]['new_number'][0]
+            item.new_mfkoef   = xml_item['meter'][0]['new_coeff'][0]
+            item.new_sealnumb = xml_item['meter'][0]['new_seal_number'][0]
+          end
           if xml_item['reading'][0]['reading_confirmed'][0] == 'true'
             item.confirmed = true
           else
