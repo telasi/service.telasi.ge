@@ -9,7 +9,7 @@
 
 <%= form_tag cra_last_url, {method: 'get', class: 'form-inline'} do %>
   <%= text_field_tag :private_number, params[:private_number], placeholder: 'პირადი ნომერი (11 ნიშნა კოდი)' %>
-  <%= submit_tag 'ძებნა', class: 'btn' %>
+  <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
 <% end %>
 
 <% if @passport %>
