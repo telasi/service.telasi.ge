@@ -32,6 +32,7 @@ class Cra::CraController < ApplicationController
     @passport = CRA.serv.by_personal_id(params[:private_number]) rescue nil
     if @passport
       @title = @passport.full_name
+      Cra::History.make_log(current_user)
     else
       flash.now[:notice] = 'ასეთი პიროვნება ვერ მოიძებნა.'
       render action: 'index'
@@ -42,6 +43,7 @@ class Cra::CraController < ApplicationController
     @passport = CRA.serv.by_id_card(params[:id_serial], params[:id_number]) rescue nil
     if @passport
       @title = @passport.full_name
+      Cra::History.make_log(current_user)
     else
       flash.now[:notice] = 'ასეთი პიროვნება ვერ მოიძებნა.'
       render action: 'index'
@@ -60,6 +62,7 @@ class Cra::CraController < ApplicationController
     end
     if @documents.any?
       @title = @documents[0].full_name
+      Cra::History.make_log(current_user)
     else
       flash.now[:notice] = 'ასეთი დოკუმენტი ვერ მოიძებნა.'
       render action: 'index'

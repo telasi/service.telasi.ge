@@ -1,1 +1,31 @@
-history
+<div class="page-header">
+  <h2>ძებნის ისტორია</h2>
+</div>
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), cra_url, class: 'btn' %>
+</div>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th width="250">მოთხოვნის შინაარსი</th>
+      <th>შედეგი</th>
+      <th width="200">ვინ და როდის ეძებდა</th>
+    </tr>
+  </thead>
+  <% @items.each do |item| %>
+    <tr>
+      <td>
+        <code><%= item.action %></code><br>
+        <span class="muted"><%= item.request %></span>
+      </td>
+      <td>
+        TODO:
+      </td>
+      <td>
+        <%= item.created_at.strftime('%d-%b-%Y %H:%M:%S') %><br>
+        <span class="muted"><%= item.user.full_name %></span>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate @items %>
