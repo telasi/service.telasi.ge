@@ -1,0 +1,20 @@
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ძებნა თავიდან'), cra_url(id_serial: @passport.id_card_serial, id_number: @passport.id_card_number), class: 'btn' %>
+  <%= link_to 'ყველა დოკუმენტი', cra_all_url(first_name: @passport.first_name, last_name: @passport.last_name, date: @passport.birth_date.strftime('%d-%b-%Y')), class: 'btn' %>
+</div>
+
+<div class="page-header">
+  <h2>ბოლო ჩანაწერი</h2>
+</div>
+
+<%= form_tag cra_last_id_url, {method: 'get', class: 'form-inline'} do %>
+  <%= text_field_tag :id_serial, params[:id_serial], placeholder: 'სერია', class: 'span1' %>
+  <%= text_field_tag :id_number, params[:id_number], placeholder: 'ნომერი', class: 'span2' %>
+  <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
+<% end %>
+
+<% if @passport %>
+  <div><%= render partial: 'cra/cra/passport', locals: {passport: @passport }%></div>
+<% else %>
+  <div class="well muted">ინფორმაცია ვერ მოიძებნა</div>
+<% end %>

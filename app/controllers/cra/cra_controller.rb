@@ -38,6 +38,16 @@ class Cra::CraController < ApplicationController
     end
   end
 
+  def last_id
+    @passport = CRA.serv.by_id_card(params[:id_serial], params[:id_number]) rescue nil
+    if @passport
+      @title = @passport.full_name
+    else
+      flash.now[:notice] = 'ასეთი პიროვნება ვერ მოიძებნა.'
+      render action: 'index'
+    end
+  end
+
   def all
     begin
       date = Date.strptime(params[:date], '%d-%b-%Y')

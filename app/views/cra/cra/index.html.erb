@@ -14,6 +14,17 @@
 
 <div>
   <div class="page-header">
+    <h3>ბოლო დოკუმენტი <small>პირადობის ნომრის მიხედვით</small></h3>
+  </div>
+  <%= form_tag cra_last_id_url, {method: 'get', class: 'form-inline'} do %>
+    <%= text_field_tag :id_serial, params[:id_serial], placeholder: 'სერია', class: 'span1' %>
+    <%= text_field_tag :id_number, params[:id_number], placeholder: 'ნომერი', class: 'span2' %>
+    <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+<div>
+  <div class="page-header">
     <h3>ყველა დოკუმენტი <small>სახელი, გვარი და დაბადების თარიღით</small></h3>
   </div>
   <%= form_tag cra_all_url, {method: 'get', class: 'form-inline'} do %>
