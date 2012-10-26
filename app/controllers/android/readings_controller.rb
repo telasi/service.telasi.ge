@@ -57,7 +57,7 @@ class Android::ReadingsController < ApplicationController
           item.new_reading = xml_item['reading'][0]['reading'][0].to_f
           if xml_item['meter']
             item.new_mtnumb   = xml_item['meter'][0]['new_number'][0]
-            item.new_mfkoef   = xml_item['meter'][0]['new_coeff'][0]
+            item.new_mtkoef   = xml_item['meter'][0]['new_coeff'][0]
             item.new_sealnumb = xml_item['meter'][0]['new_seal_number'][0]
           end
           if xml_item['reading'][0]['reading_confirmed'][0] == 'true'

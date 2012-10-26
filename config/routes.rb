@@ -138,10 +138,11 @@ TelasiService::Application.routes.draw do
       post '/sync_users', action: :sync_logins, as: :sync_logins
     end
     scope '/readings', controller: :readings do
-      get '/reesters', action: :reesters, as: :reesters
-      get '/reester', action: :reester, as: :reester
-      post '/upload', action: :upload, as: :upload_reester
-      post '/sync/:id', action: :sync_route, as: :sync_route
+      get '/reesters',   action: :reesters,   as: :reesters
+      get '/reester',    action: :reester,    as: :reester
+      post '/upload',    action: :upload,     as: :upload_reester
+      post '/newmeters', action: :newmeters,  as: :newmeters
+      post '/sync/:id',  action: :sync_route, as: :sync_route
     end
   end
 

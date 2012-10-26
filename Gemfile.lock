@@ -117,7 +117,7 @@ GEM
     mime-types (1.19)
     mongo (1.7.0)
       bson (~> 1.7.0)
-    mongoid (2.5.0)
+    mongoid (2.5.1)
       activemodel (~> 3.1)
       mongo (~> 1.7)
       tzinfo (~> 0.3.22)
