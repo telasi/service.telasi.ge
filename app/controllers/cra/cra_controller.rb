@@ -28,6 +28,18 @@ class Cra::CraController < ApplicationController
     @title = 'საჯარო რეესტრის მონაცემების ძებნა'
   end
 
+  def by_id_card
+    # debugger
+    @passport = CRA.serv.by_id_card(params[:private_number], params[:id_serial], params[:id_number]) #rescue nil
+    if @passport
+      @title = @passport.full_name
+      Cra::History.make_log(current_user)
+    else
+      flash.now[:notice] = 'ასეთი პიროვნება ვერ მოიძებნა.'
+      render action: 'index'
+    end
+  end
+
   def last
     @passport = CRA.serv.by_personal_id(params[:private_number]) rescue nil
     if @passport
@@ -56,9 +68,10 @@ class Cra::CraController < ApplicationController
       d = date.strftime('%d').to_i
       m = date.strftime('%m').to_i
       y = date.strftime('%Y').to_i
-      @documents = CRA.serv.list_by_name_and_dob(params[:last_name], params[:first_name], y, m, d)
-    rescue
-      @documents = []
+      debugger
+      @documents = CRA.serv.by_name_and_dob(params[:last_name], params[:first_name], y, m, d)
+    # rescue
+    #   @documents = []
     end
     if @documents.any?
       @title = @documents[0].full_name

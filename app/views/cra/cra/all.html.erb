@@ -13,7 +13,6 @@
   <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
 <% end %>
 
-
 <% @documents.each do |passport| %>
   <div><%= render partial: 'cra/cra/passport', locals: { passport: passport }%></div>
 <% end %>

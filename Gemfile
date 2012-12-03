@@ -13,7 +13,7 @@ gem 'composite_primary_keys', '~> 5'
 gem 'mongoid_session_store'
 
 gem 'rs.ge', '~> 0.0.1'
-gem 'cra.ge', '~> 0.1.1'
+gem 'cra.ge', '~> 0.2'
 gem 'c12-commons'
 gem 'magti'
 
@@ -45,4 +45,5 @@ group :test, :development do
   gem 'factory_girl'
   gem 'email_spec'
   gem 'capybara-webkit'
+  gem 'debugger'
 end

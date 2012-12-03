@@ -1,0 +1,23 @@
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ძებნა თავიდან'),
+  	cra_url(private_number: params[:private_number], id_serial: params[:id_serial], id_number: params[:id_number]),
+	class: 'btn'
+  %>
+</div>
+
+<div class="page-header">
+  <h2>შედეგები <small>პირადობის მოწმობით</small></h2>
+</div>
+
+<%= form_tag cra_by_id_card_url, {method: 'get', class: 'form-inline'} do %>
+  <%= text_field_tag :private_number, params[:private_number], placeholder: 'პირადი ნომერი (11 ნიშნა კოდი)', class: 'span2' %>
+<%= text_field_tag :id_serial, params[:id_serial], placeholder: 'სერია', class: 'span1' %>
+<%= text_field_tag :id_number, params[:id_number], placeholder: 'პირადობის №', class: 'span2' %>
+  <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
+<% end %>
+
+<% if @passport %>
+  <div><%= render partial: 'cra/cra/passport', locals: {passport: @passport }%></div>
+<% else %>
+  <div class="well muted">ინფორმაცია ვერ მოიძებნა</div>
+<% end %>
