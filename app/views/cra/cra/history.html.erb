@@ -18,9 +18,7 @@
         <code><%= item.action %></code><br>
         <span class="muted"><%= item.request %></span>
       </td>
-      <td>
-        TODO:
-      </td>
+      <td><%= item.response_text %></td>
       <td>
         <%= item.created_at.strftime('%d-%b-%Y %H:%M:%S') %><br>
         <span class="muted"><%= item.user.full_name %></span>

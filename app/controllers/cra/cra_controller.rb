@@ -32,11 +32,12 @@ class Cra::CraController < ApplicationController
     @passport = CRA.serv.by_id_card(params[:private_number], params[:id_serial], params[:id_number]) rescue nil
     if @passport
       @title = @passport.full_name
-      Cra::History.make_log(current_user)
     else
       flash.now[:notice] = 'ასეთი პიროვნება ვერ მოიძებნა.'
       render action: 'index'
     end
+  ensure
+    Cra::History.make_log(current_user)
   end
 
   def by_name_and_dob
@@ -51,11 +52,12 @@ class Cra::CraController < ApplicationController
     end
     if @documents.any?
       @title = @documents[0].full_name
-      Cra::History.make_log(current_user)
     else
       flash.now[:notice] = 'ასეთი დოკუმენტი ვერ მოიძებნა.'
       render action: 'index'
     end
+  ensure
+    Cra::History.make_log(current_user)
   end
 
   def history
