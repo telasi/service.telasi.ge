@@ -29,7 +29,7 @@ class Cra::CraController < ApplicationController
   end
 
   def by_id_card
-    @passport = CRA.serv.by_id_card(params[:private_number], params[:id_serial], params[:id_number]) #rescue nil
+    @passport = CRA.serv.by_id_card(params[:private_number], params[:id_serial], params[:id_number]) rescue nil
     if @passport
       @title = @passport.full_name
       Cra::History.make_log(current_user)
@@ -46,8 +46,8 @@ class Cra::CraController < ApplicationController
       m = date.strftime('%m').to_i
       y = date.strftime('%Y').to_i
       @documents = CRA.serv.by_name_and_dob(params[:last_name], params[:first_name], y, m, d)
-    # rescue
-    #   @documents = []
+    rescue
+      @documents = []
     end
     if @documents.any?
       @title = @documents[0].full_name
