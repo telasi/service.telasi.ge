@@ -1,0 +1,6 @@
+<%= form_tag cra_by_name_and_dob_url, {method: 'get', class: 'form-inline'} do %>
+  <%= text_field_tag :first_name, params[:first_name], placeholder: 'სახელი', class: 'span2' %>
+  <%= text_field_tag :last_name, params[:last_name], placeholder: 'გვარი', class: 'span2' %>
+  <%= text_field_tag :date, params[:date], placeholder: 'დაბ.თარიღი', class: 'span2 datepicker' %>
+  <%= submit_tag 'ძებნა', class: 'btn btn-primary' %>
+<% end %>

@@ -150,8 +150,7 @@ TelasiService::Application.routes.draw do
   namespace :cra, controller: :cra do
     get '/', action: :index
     get '/by_id_card', action: :by_id_card, as: :by_id_card
-    # get '/last_id', action: :last_id, as: :last_id
-    # get '/all', action: :all, as: :all
+    get '/by_name_and_dob', action: :by_name_and_dob, as: :by_name_and_dob
     # get '/history', action: :history, as: :history
   end
 

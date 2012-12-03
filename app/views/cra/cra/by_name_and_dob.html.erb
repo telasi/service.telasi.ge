@@ -1,0 +1,13 @@
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ძებნა თავიდან'), cra_url(first_name: params[:first_name], last_name: params[:last_name], date: params[:date]), class: 'btn' %>
+</div>
+
+<div class="page-header">
+  <h2>ყველა საბუთი</h2>
+</div>
+
+<%= render partial: 'form_name_and_dob' %>
+
+<% @documents.each do |passport| %>
+  <div><%= render partial: 'cra/cra/passport', locals: { passport: passport }%></div>
+<% end %>
