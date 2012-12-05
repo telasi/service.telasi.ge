@@ -1,0 +1,19 @@
+<%= render partial: 'cra/cra/address_nav', locals: { address: @address } %>
+<% if @children and @children.any? %>
+<table class="table">
+  <tbody>
+    <% @children.each do |child| %>
+    <tr>
+      <td>
+        <div>
+          <%= link_to child.description_full, cra_by_address_url(id: child.cra_id) %>
+        </div>
+        <div class="muted" data-identificator="<%= child.identificator %>">
+          <%= child.identificator_text %>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

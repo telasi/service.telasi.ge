@@ -151,6 +151,7 @@ TelasiService::Application.routes.draw do
     get '/', action: :index
     get '/by_id_card', action: :by_id_card, as: :by_id_card
     get '/by_name_and_dob', action: :by_name_and_dob, as: :by_name_and_dob
+    get '/by_address/:id', action: :by_address, as: :by_address
     get '/history', action: :history, as: :history
   end
 

@@ -15,4 +15,12 @@
     <h3>ძებნა სახელი-გვარით და დაბ.თარიღით</h3>
   </div>
   <%= render partial: 'form_name_and_dob' %>
+
+  <div class="page-header">
+    <h3>ძებნა მისამართების მიხედვით</h3>
+  </div>
+  <div class="btn-toolbar">
+    <%= link_to 'საქართველო', cra_by_address_url(1), class: 'btn' %>
+    <%= link_to 'თბილისი', cra_by_address_url(CRA::TBILISI_ID), class: 'btn' %>
+  </div>
 </div>

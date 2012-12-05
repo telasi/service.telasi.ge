@@ -60,6 +60,25 @@ class Cra::CraController < ApplicationController
     Cra::History.make_log(current_user)
   end
 
+  def by_address
+    # main address
+    rel = Cra::AddressCache.where(cra_id: params[:id])
+    @address = rel.first
+    unless @address
+      Cra::AddressCache.init_from_cra(current_user, params[:id])
+      @address = rel.first
+    end
+    # getting children
+    if @address
+      @title = @address.description_full
+      @children = Cra::AddressCache.where(parent_id: @address.id).asc(:description_full)
+      if @children.empty?
+        Cra::AddressCache.init_from_cra(current_user, params[:id])
+        @children = Cra::AddressCache.where(parent_id: @address.id).asc(:description_full)
+      end
+    end
+  end
+
   def history
     @title = 'აღრიცხვა'
     @items = Cra::History.all.desc(:_id).paginate(page: params[:page], per_page: 10)

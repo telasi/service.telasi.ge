@@ -1,0 +1,11 @@
+<ul class="breadcrumb">
+  <% address.path.each do |p| %>
+  <li><%= link_to p.description_full, cra_by_address_url(id: p.cra_id) %> <span class="divider">/</span></li>
+  <% end %>
+  <li>
+    <strong><%= address.description_full %></strong>
+    <% unless address.identificator_text.blank? %>
+      &mdash; <span class="muted"><%= address.identificator_text %></span>
+    <% end %>
+  </li>
+</ul>
