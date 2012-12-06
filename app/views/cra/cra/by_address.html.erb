@@ -4,13 +4,14 @@
   <tbody>
     <% @children.each do |child| %>
     <tr>
+      <td width="16">
+        <%= image_tag cra_address_icon(child.identificator) %>
+      </td>
       <td>
-        <div>
-          <%= link_to child.description_full, cra_by_address_url(id: child.cra_id) %>
-        </div>
-        <div class="muted" data-identificator="<%= child.identificator %>">
-          <%= child.identificator_text %>
-        </div>
+        <%= link_to child.identificator_text, cra_by_address_url(id: child.cra_id), style: 'color: #aaa;', 'data-identificator' => child.identificator %>
+        <% unless child.description_full.blank? %>
+        &mdash; <strong><%= link_to child.description_full, cra_by_address_url(id: child.cra_id) %></strong>
+        <% end %>
       </td>
     </tr>
     <% end %>
