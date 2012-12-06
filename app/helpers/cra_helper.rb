@@ -6,18 +6,25 @@ module CraHelper
     when 1 then 'fff/world.png' # ჩვენი ქვეყანა
     when 2 then 'fff/world.png' # რეგიონი
     when 116 then 'fff/world.png' # საზღვარგარეთი
+    when 127 then 'fff/world.png' # ქვეყანა
 
     when 6 then 'fff/building.png' # ქალაქი    
     when 32 then 'fff/building.png' # ქალაქის რაიონი
-    when 3 then 'fff/building.png' # რაიონი
+    
     when 4 then 'fff/building.png' # სოფელი
     when 5 then 'fff/building.png' # დაბა
+    when 100 then 'fff/building.png' # სამხედრო დასახლება
+    when 39 then 'fff/building.png' # დასახლება
 
     when 7 then 'fff/arrow_turn_right.png' # ქუჩა
     when 15 then 'fff/arrow_turn_right.png' # შესახვევი
     when 66 then 'fff/arrow_turn_right.png' # გზა
     when 12 then 'fff/arrow_turn_right.png' # სანაპირო
+    when 91 then 'fff/arrow_turn_right.png' # მთა
+    when 19 then 'fff/arrow_turn_right.png' # აღმართი
+    when 13 then 'fff/arrow_out.png' # მოედანი
 
+    when 3 then 'fff/bricks.png' # რაიონი
     when 42 then 'fff/brick.png' # მასივი
     when 10 then 'fff/brick.png' # გამზირი
 
