@@ -1,5 +1,9 @@
 <%= render partial: 'cra/cra/address_nav', locals: { address: @address } %>
+
 <% if @children and @children.any? %>
+<div style="padding-bottom: 8px;">
+  <h3>ქვე-მისამართები</h3>
+</div>
 <table class="table">
   <tbody>
     <% @children.each do |child| %>
@@ -17,4 +21,25 @@
     <% end %>
   </tbody>
 </table>
+<% elsif @persons and @persons.any? %>
+<div style="padding-bottom: 8px;">
+  <h3>მისამართზე რეგისტრირებული პირები</h3>
+</div>
+<table class="table">
+  <tbody>
+    <% @persons.each do |person| %>
+    <tr>
+      <td>
+        <code><%= person.private_number %></code>
+        <strong><%= person.full_name %></strong> &mdash;
+        <span class="muted"><%= person.address_text %></span>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+<div class="well">
+  მონაცემები არ არის.
+</div>
 <% end %>

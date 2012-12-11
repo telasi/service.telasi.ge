@@ -61,27 +61,45 @@ class Cra::CraController < ApplicationController
   end
 
   def by_address
-    # main address
-    rel = Cra::AddressCache.where(cra_id: params[:id])
-    @address = rel.first
-    unless @address
-      Cra::AddressCache.init_from_cra(current_user, params[:id])
-      @address = rel.first
-    end
-    # getting children
-    if @address
-      @title = @address.description_full
-      @children = Cra::AddressCache.where(parent_id: @address.id).asc(:description_full)
-      if @children.empty?
-        Cra::AddressCache.init_from_cra(current_user, params[:id])
-        @children = Cra::AddressCache.where(parent_id: @address.id).asc(:description_full)
-      end
-    end
+    @address = get_address_by_id(params[:id])
+    @title = @address.description_full if @address 
+    @children, @persons = get_data_for_address(@address)
   end
 
   def history
     @title = 'აღრიცხვა'
     @items = Cra::History.all.desc(:_id).paginate(page: params[:page], per_page: 10)
+  end
+
+  private
+
+  def get_address_by_id(id)
+    rel = Cra::AddressCache.where(cra_id: id)
+    address = rel.first
+    unless address
+      Cra::AddressCache.init_from_cra(current_user, params[:id])
+      address = rel.first
+    end
+    address
+  end
+
+  def get_data_for_address(address)
+    if address
+      children = Cra::AddressCache.where(parent_id: address.id).asc(:description_full)
+      persons = nil
+      if children.empty?
+        persons = Cra::PersonCache.where(address_id: address.id)
+        if persons.empty?
+          Cra::AddressCache.init_from_cra(current_user, address.cra_id)
+          children = Cra::AddressCache.where(parent_id: address.id).asc(:description_full)
+          if children.empty?
+            Cra::PersonCache.init_from_cra(current_user, address)
+            persons = Cra::PersonCache.where(address_id: address.id)
+          end
+        end
+      end
+      [children, persons]
+    end
   end
 
 end
