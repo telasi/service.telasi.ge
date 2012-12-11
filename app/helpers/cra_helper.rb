@@ -28,6 +28,7 @@ module CraHelper
     when 18 then 'fff/arrow_turn_right.png' # ჩიხი
     when 21 then 'fff/arrow_turn_right.png' # ხეივანი
     when 22 then 'fff/arrow_turn_right.png' # ხევი
+    when 17 then 'fff/arrow_turn_right.png' # გასასვლელი
 
     when 3 then 'fff/bricks.png' # რაიონი
     when 42 then 'fff/brick.png' # მასივი
@@ -39,6 +40,7 @@ module CraHelper
     when 90 then 'fff/brick.png' # სამხედრო ქალაქი
     when 131 then 'fff/brick.png' # ზემო პლატო
     when 103 then 'fff/brick.png' # უბანი
+    when 27 then 'fff/brick.png' # კვარტალი
 
     when 29 then 'fff/house.png' # სახლი
     when 113 then 'fff/house.png' # ბინა
