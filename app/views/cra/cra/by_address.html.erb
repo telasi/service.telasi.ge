@@ -31,7 +31,7 @@
     <tr>
       <td>
         <code><%= person.private_number %></code>
-        <strong><%= person.full_name %></strong> &mdash;
+        <strong><%= link_to person.full_name, cra_by_name_and_dob_url(first_name: person.first_name, last_name: person.last_name, date: person.birth_date.strftime('%d-%b-%Y')) %></strong> &mdash;
         <span class="muted"><%= person.address_text %></span>
       </td>
     </tr>

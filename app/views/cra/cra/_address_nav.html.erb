@@ -2,7 +2,7 @@
   <% address.path.each do |p| %>
   <li>
     <%= image_tag cra_address_icon(p.identificator) unless p.identificator.blank? %>
-    <%= link_to p.description_full, cra_by_address_url(id: p.cra_id) %>
+    <%= link_to p.description_full || p.identificator_text, cra_by_address_url(id: p.cra_id) %>
     <span class="divider">/</span>
   </li>
   <% end %>
