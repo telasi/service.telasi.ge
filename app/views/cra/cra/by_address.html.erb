@@ -9,7 +9,7 @@
     <% @children.each do |child| %>
     <tr>
       <td width="16">
-        <%= image_tag cra_address_icon(child.identificator) %>
+        <%= image_tag cra_address_icon(child.identificator) rescue '' %>
       </td>
       <td>
         <%= link_to child.identificator_text, cra_by_address_url(id: child.cra_id), style: 'color: #aaa;', 'data-identificator' => child.identificator %>

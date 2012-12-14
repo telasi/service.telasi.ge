@@ -7,7 +7,7 @@
   </li>
   <% end %>
   <li>
-    <%= image_tag cra_address_icon(address.identificator) unless address.identificator.blank? %>
+    <%= (image_tag cra_address_icon(address.identificator) unless address.identificator.blank?) rescue '' %>
     <strong><%= address.description_full %></strong>
     <% unless address.identificator_text.blank? %>
       &mdash; <span class="muted"><%= address.identificator_text %></span>
