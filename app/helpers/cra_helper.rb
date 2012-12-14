@@ -26,6 +26,7 @@ module CraHelper
     when 13 then 'fff/arrow_out.png' # მოედანი
     when 11 then 'fff/arrow_turn_right.png' # გზატკეცილი
     when 18 then 'fff/arrow_turn_right.png' # ჩიხი
+    when 20 then 'fff/arrow_turn_right.png' # დაღმართი
     when 21 then 'fff/arrow_turn_right.png' # ხეივანი
     when 22 then 'fff/arrow_turn_right.png' # ხევი
     when 17 then 'fff/arrow_turn_right.png' # გასასვლელი
