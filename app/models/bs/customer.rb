@@ -9,6 +9,8 @@ class Bs::Customer < ActiveRecord::Base
   has_many :item_bills,     class_name: 'Bs::ItemBill',      foreign_key: :custkey, order: 'itemkey'
   has_many :accounts,       class_name: 'Bs::Account',       foreign_key: :custkey
   has_one  :note,           class_name: 'Bs::Note',          foreign_key: :notekey
+  belongs_to :category,     class_name: 'Bs::Custcateg',     foreign_key: :custcatkey
+  belongs_to :activity,     class_name: 'Bs::Custcateg',     foreign_key: :activity
 
   def pre_payment
     Bs::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|

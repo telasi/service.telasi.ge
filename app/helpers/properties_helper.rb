@@ -60,7 +60,7 @@ module PropertiesHelper
     elsif val.is_a? NilClass
       val = '<span class="muted">ცარიელი</span>'
     elsif val.is_a? ActiveSupport::TimeWithZone
-      val = val.strftime('%d-%B-%Y')
+      val = val.strftime('%d-%b-%Y')
     end
     val
   end
