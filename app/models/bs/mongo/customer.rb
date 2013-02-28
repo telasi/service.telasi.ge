@@ -2,7 +2,8 @@
 class Bs::Mongo::Customer
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  store_in collection: 'bs_customer'
+  
   field :custkey, type: Integer
   embeds_one :address, class_name: 'Bs::Mongo::Address'
   embeds_one :send_address, class_name: 'Bs::Mongo::Address'
@@ -21,11 +22,11 @@ class Bs::Mongo::Customer
   field :contact, type: String
   field :balance, type: Float
   field :old_balance, type: Float
-  field :illegalline, type: Integer
-  field :except, type: Integer
-  field :goodpayer, type: Integer
+  field :illegalline, type: Boolean
+  field :except, type: Boolean
+  field :goodpayer, type: Boolean
   field :payint, type: Integer
-  field :cut, type: Integer
+  field :cut, type: Boolean
   field :status, type: Integer
 
 end
