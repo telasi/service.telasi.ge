@@ -25,6 +25,9 @@
     status_name: 'სტატუსი', category: 'კატეგორია', activity: 'საქმიანოვის სფერო',
     cut: 'ჩაჭრილი?', except: 'გამონაკლისი?', illegalline: 'უკანონო ხაზი?',
     createdate: 'შეიქმნა', closedate: 'დაიხურა', note: 'შენიშვნები'
+  },
+  actions: {
+    'ისტორია' => call_customer_items_url(custkey: @customer.custkey),
   }
 %>
 <!--  Trash customer -->

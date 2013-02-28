@@ -158,7 +158,8 @@ TelasiService::Application.routes.draw do
   # Call Center
   namespace :call, controller: :customers do
     get '/', action: :index, as: :customer
-    get '/info/:id', action: :customer_info, as: :customer_info
+    get '/info/:custkey', action: :customer_info, as: :customer_info
+    get '/items/:custkey', action: :items, as: :customer_items
   end
 
   root :to => 'site#index'

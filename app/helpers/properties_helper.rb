@@ -18,9 +18,11 @@ module PropertiesHelper
         </div>
       }
     end
+    actions = property_actions(opts[:actions]) if opts[:actions]
     %Q{
       <div class="properties">
       <div class="title">
+        <div class="actions">#{actions}</div>
         #{image_tag(opts[:icon]) if opts[:icon]}
         #{opts[:title]}
       </div>
@@ -30,6 +32,14 @@ module PropertiesHelper
   end
 
   private
+
+  def property_actions(actions)
+    html = ''
+    actions.each do |label, url|
+      html += %Q{<a href="#{url}">#{label}</a>}
+    end
+    html
+  end
 
   def column_content(model, cols)
     rows = ""
