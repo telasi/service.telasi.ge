@@ -5,19 +5,28 @@ module PropertiesHelper
     col1 = column_content(model, opts[:col1]) if opts[:col1]
     col2 = column_content(model, opts[:col2]) if opts[:col2]
     if col2
-      %Q{
+      cols = %Q{
         <div class="row">
         <div class="span6">#{col1}</div>
         <div class="span6">#{col2}</div>
         </div>
       }.html_safe
     else
-      %Q{
+      cols = %Q{
         <div class="row">
         <div class="span12">#{col1}</div>
         </div>
-      }.html_safe
+      }
     end
+    %Q{
+      <div class="properties">
+      <div class="title">
+        #{image_tag(opts[:icon]) if opts[:icon]}
+        #{opts[:title]}
+      </div>
+      #{cols}
+      </div>
+    }.html_safe
   end
 
   private

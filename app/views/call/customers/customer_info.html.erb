@@ -8,7 +8,9 @@
 <div class="btn-toolbar" style="padding-bottom: 16px;">
   <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), call_customer_url, class: 'btn' %>
 </div>
+<!--  Customer -->
 <%= properties_table @customer,
+  title: 'ელექტროენერგია', icon: 'fff/lightbulb.png',
   col1: {
     accnumb: {label: 'აბ. ნომერი', tag: 'code'},
     custname: 'დასახელება',
@@ -22,5 +24,18 @@
     category: 'კატეგორია', activity: 'საქმიანოვის სფერო',
     cut: 'ჩაჭრილი?', except: 'გამონაკლისი?', illegalline: 'უკანონო ხაზი?',
     createdate: 'შეიქმნა', closedate: 'დაიხურა', note: 'შენიშვნები'
+  }
+%>
+<!--  Trash customer -->
+<%= properties_table @customer.trash_customer,
+  title: 'დასუფთავება', icon: 'fff/bin.png',
+  col1: {
+    curr_balance: {label: 'მიმდინარე ვალი', post: 'ლარი', tag: 'code' },
+    balance: {label: 'სრული დავალიანება', post: 'ლარი', tag: 'code'},
+    old_balance: {label: 'ძველი ვალი', post: 'ლარი', tag: 'code' },
+  },
+  col2: {
+    firstregistrationdate: 'შექმნა', except: 'გამონაკლისი?',
+    note: 'შენიშვნა',
   }
 %>
