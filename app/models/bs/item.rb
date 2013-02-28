@@ -5,6 +5,8 @@ class Bs::Item < ActiveRecord::Base
   belongs_to :customer,  class_name: 'Bs::Customer', foreign_key: :custkey
   belongs_to :account,   class_name: 'Bs::Account',  foreign_key: :acckey
   belongs_to :operation, class_name: 'Bs::Billoperation', foreign_key: :billoperkey
+  belongs_to :person,    class_name: 'Bs::Person', foreign_key: :perskey
+  belongs_to :signee,    class_name: 'Bs::Person', foreign_key: :signkey
 
   # ოპერაციის "ნორმალიზუბული" მნიშვნელობა.
   def normal_amount
@@ -18,6 +20,10 @@ class Bs::Item < ActiveRecord::Base
   # ოპერაციის ნორმალიზებული ბალანსი.
   def normal_balance
     self.balance + self.normal_amount
+  end
+
+  def cycle?
+    !self.schedkey.nil?
   end
 
 end

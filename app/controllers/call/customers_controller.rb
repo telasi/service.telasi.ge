@@ -20,4 +20,11 @@ class Call::CustomersController < ApplicationController
     @items = Bs::Item.where(custkey: @customer.custkey).order('ITEMKEY desc').paginate(page: params[:page], per_page: 20)
   end
 
+  def item
+    @title = 'ოპერაციის დეტალები'
+    @item = Bs::Item.where(itemkey: params[:itemkey]).first
+    @customer = @item.customer
+    @account = @item.account
+  end
+
 end

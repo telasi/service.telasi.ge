@@ -1,0 +1,32 @@
+<%= render partial: 'call/customers/header' %>
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'ყველა ოპერაცია'), call_customer_items_url(custkey: @customer.custkey), class: 'btn' %>
+</div>
+<%= properties_table @item,
+  title: 'ოპერაციია', icon: 'fff/lightbulb.png',
+  col1: {
+    'customer.accnumb' => {label: 'აბ. ნომერი', tag: 'code'},
+    'account.accid' => {label: 'ანგარიში', tag: 'code'},
+    operation: 'ოპერაცია',
+    itemdate: 'ოპერაციის თარიღი',
+    reading: {label: 'წაკითხვა', post: 'kWh', tag: 'code'},
+    kwt: {label: 'დარიცხვა', post: 'kWh', tag: 'code'},
+    normal_amount: {label: 'თანხა', post: 'ლარი', tag: 'code'},
+    normal_balance: {label: 'დავალიანება', post: 'ლარი', tag: 'code'},
+    balance: {label: 'წინა დავალიანება', post: 'ლარი', tag: 'code'},
+  },
+  col2: {
+    itemnumber: 'დოკუმენტის №', cycle?: 'ციკლურია?', enterdate: 'შეყვანის თარიღი',
+    person: 'ოპერატორი',
+  }
+%>
+<%= properties_table @account,
+  title: 'ანგარიში და მრიცხველი',
+  col1: {
+    accid: {label: 'ანგარიში', tag: 'code'},
+    address: 'მისამართი',
+    'meter_type.mtname' => 'მრიცხველი',
+    mtkoef: {label: 'კოეფიციენტი', tag: 'code'},
+    'meter_type.digit' => {label: 'თანრიგი', tag: 'code'},
+  }
+%>
