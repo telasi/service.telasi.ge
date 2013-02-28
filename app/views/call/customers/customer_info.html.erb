@@ -1,11 +1,5 @@
-<div class="page-header">
-  <h3>
-    <code><%= @customer.accnumb.to_ka %></code>
-    <%= @customer.custname.to_ka %>
-    <small>&mdash; <%= @customer.address %></small>
-  </h3>
-</div>
-<div class="btn-toolbar" style="padding-bottom: 16px;">
+<%= render partial: 'call/customers/header' %>
+<div class="btn-toolbar" style="">
   <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), call_customer_url, class: 'btn' %>
 </div>
 <!--  Customer -->
@@ -28,6 +22,7 @@
   },
   actions: {
     'ისტორია' => call_customer_items_url(custkey: @customer.custkey),
+    'ჩაჭრები' => call_customer_cuts_url(custkey: @customer.custkey),
   }
 %>
 <!--  Trash customer -->

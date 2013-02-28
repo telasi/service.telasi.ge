@@ -6,4 +6,9 @@ class Bs::Billoperation < ActiveRecord::Base
   def ext_operation
     Ext::Billoperation.where(billoperkey: self.billoperkey).first
   end
+
+  def to_s
+    self.billopername.to_ka
+  end
+
 end

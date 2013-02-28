@@ -1,0 +1,14 @@
+<%= render partial: 'call/customers/header' %>
+<div class="btn-toolbar">
+  <%= link_to icon_text('arrow-left', 'აბონენტის თვისებები'), call_customer_info_url(custkey: @customer.custkey), class: 'btn' %>
+</div>
+<%= common_table @items,
+  columns: {
+    itemdate: {label: 'თარიღი', width: 100, },
+    operation: {label: 'ოპერაცია', action: lambda{ |model|  call_customer_item_url(itemkey: model.itemkey) } },
+    reading: {label: 'ჩვენება', width: 100, class: 'right', tag: 'code' },
+    kwt: {label: 'დარიცხვა', width: 100, class: 'right', tag: 'code' },
+    normal_amount: {label: 'თანხა', width: 100, class: 'right', tag: 'code' }
+  }
+%>
+<%= paginate @items %>

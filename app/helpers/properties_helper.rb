@@ -1,6 +1,33 @@
 # -*- encoding : utf-8 -*-
 module PropertiesHelper
 
+  def common_table(models, opts = {})
+    header = ''
+    opts[:columns].each do |col, props|
+      header += %Q{<th width="#{props[:width]}">#{props[:label]}</th>}
+    end
+    body = ''
+    models.each do |model|
+      body += '<tr>'
+      opts[:columns].each do |key, props|
+        body += %Q{<td class="#{props[:class]}">}
+        if props[:action]
+          body += %Q{<a href="#{ props[:action].call(model) }">#{ cell_content(model, key, props) }</a>}
+        else
+          body += %Q{#{cell_content(model, key, props)}}
+        end
+        body += %Q{</th>}
+      end
+      body += '</tr>'
+    end
+    %{
+      <table class="table table-striped table-condensed table-bordered">
+      <thead><tr>#{header}</tr></thead>
+      <tbody>#{body}</tbody>
+      </table>
+      }.html_safe
+  end
+
   def properties_table(model, opts = {})
     col1 = column_content(model, opts[:col1]) if opts[:col1]
     col2 = column_content(model, opts[:col2]) if opts[:col2]
@@ -44,28 +71,34 @@ module PropertiesHelper
   def column_content(model, cols)
     rows = ""
     cols.each do |key, col|
-      postfix = ''
-      decimals = 2
-      tag = 'span'
+      opts = {}
       if col.is_a? String
         label = col
       else
         label = col[:label]
-        postfix = col[:post]
-        decimals = col[:decimals] || 2
-        tag = col[:tag] || 'span'
+        opts = col
       end
       rows += %Q{
         <tr>
         <td width="150"><b>#{label}</b</td>
-        <td>
-          <#{tag}>#{key_value(model, key, {decimals: decimals})}</#{tag}>
-          #{postfix}
-        </td>
+        <td>#{cell_content(model, key, opts)}</td>
         </tr>
       }
     end
     %Q{<table class="table table-striped table-condensed">#{rows}</table>}.html_safe
+  end
+
+  def cell_content(model, key, opts = {})
+    postfix = ''
+    decimals = 2
+    tag = 'span'
+    postfix = opts[:post]
+    decimals = opts[:decimals] || 2
+    tag = opts[:tag] || 'span'
+    %Q{
+      <#{tag}>#{key_value(model, key, {decimals: decimals})}</#{tag}>
+      #{postfix}
+    }
   end
 
   def key_value(model, key, opts={})
