@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h3>
+    <code><%= @customer.accnumb.to_ka %></code>
+    <%= @customer.custname.to_ka %>
+    <small>&mdash; <%= @customer.address %></small>
+  </h3>
+</div>
+<div class="btn-toolbar" style="padding-bottom: 16px;">
+  <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), call_customer_url, class: 'btn' %>
+</div>
+<%= properties_table @customer,
+  col1: {
+    accnumb: {label: 'აბ. ნომერი', tag: 'code'},
+    custname: 'დასახელება',
+    balance: {label: 'ბალანსი', post: 'ლარი', tag: 'code'},
+    old_balance: {label: 'ძველი ბალანსი', post: 'ლარი', tag: 'code' },
+    address: 'მისამართი', send_address: 'ქვითრის მისამართი',
+    taxid: 'გადამხ.კოდი', commercial: 'კომერც. დასახელება',
+    tel: 'ტელეფონი', email: 'ელ.ფოსტა',
+    
+  },
+  col2: {
+    cut: 'ჩაჭრილი', except: 'განსაკუთრებული', illegalline: 'უკანონო ხაზი',
+    createdate: 'შეიქმნა', closedate: 'დაიხურა'
+  }
+%>

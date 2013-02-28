@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h1>აბონენტის ძებნა</h1>
+</div>
+
+<%= form_tag request.url, method: :get do %>
+<div>
+  <label for="name">აბონენტის ნომერი</label> <%= text_field_tag :accnumb, params[:accnumb], id: :name, autofocus: true %>
+</div>
+<div class="form-actions">
+  <%= submit_tag 'ძებნა', class: ['btn', 'btn-primary'] %>
+</div>
+<% end %>

@@ -155,5 +155,11 @@ TelasiService::Application.routes.draw do
     get '/history', action: :history, as: :history
   end
 
+  # Call Center
+  namespace :call, controller: :customers do
+    get '/', action: :index, as: :customer
+    get '/info/:id', action: :customer_info, as: :customer_info
+  end
+
   root :to => 'site#index'
 end
