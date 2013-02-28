@@ -19,4 +19,8 @@ class Bs::Region < ActiveRecord::Base
     end
   end
 
+  def to_s
+    self.regionname.to_ka
+  end
+
 end

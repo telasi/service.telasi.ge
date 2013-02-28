@@ -59,7 +59,7 @@ module PropertiesHelper
   end
 
   def key_value(model, key, opts={})
-    val = model.send(key) rescue nil
+    val = value_for(model, key)
     if val.is_a? String
       val = val.strip.to_ka
     elsif val.is_a? Boolean
@@ -72,6 +72,16 @@ module PropertiesHelper
       val = val.strftime('%d-%b-%Y')
     end
     val
+  end
+
+  def value_for(model, key)
+    val = model
+    key.to_s.split('.').each do |k|
+      val = val.send(k)
+    end
+    val
+  rescue Exception => ex
+    ex
   end
 
 end
