@@ -23,7 +23,7 @@ describe Bs::Mongo::Customer do
   it { should have_field(:goodpayer).of_type(Boolean) }
   it { should have_field(:payint).of_type(Integer) }
   it { should have_field(:cut).of_type(Boolean) }
-  it { should have_field(:status).of_type(Integer) }
+  it { should have_field(:statuskey).of_type(Integer) }
   it { should embed_one(:address).of_type(Bs::Mongo::Address) }
   it { should embed_one(:send_address).of_type(Bs::Mongo::Address) }
   it { should embed_one(:category).of_type(Bs::Mongo::CustomerCategory) }
@@ -50,4 +50,31 @@ describe Bs::Mongo::CustomerCategory do
   it { should be_mongoid_document }
   it { should have_field(:custcatkey).of_type(Integer) }
   it { should have_field(:custcatname).of_type(String) }
+end
+
+describe 'აბონენტის სინქრონიზაცია' do
+  before(:all) do
+    @custkey = 559568
+    Bs::Mongo::Customer.sync!(@custkey)
+  end
+  subject { Bs::Mongo::Customer.where(custkey: @custkey).first }
+  it { should_not be_nil }
+  its(:accnumb) { should == '0115976' }
+  its(:custname) { should == 'ი.მ. "იროდიონ ყატაშვილი"' }
+  its(:comercial) { should == 'ი.მ. "იროდიონ ყატაშვილი"' }
+  its(:createdate) { should == Date.new(2005, 12, 23) }
+  its(:closedate) { should be_nil }
+  its(:tel) { should = '899552327' }
+  its(:fax) { should be_nil }
+  its(:taxid) { should == '102231274' }
+  its(:balance) { should == 5.72 }
+  its(:old_balance) { should == 0 }
+  its(:illegalline) { should == false }
+  its(:except) { should == false }
+  its(:goodpayer) { should == false }
+  its(:payint) { should == 15 }
+  its(:cut) { should == false }
+  its(:statuskey) { should == 0 }
+  its(:address) { should_not be_nil }
+  its(:send_address) { should_not be_nil }
 end

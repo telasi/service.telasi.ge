@@ -10,8 +10,3 @@ test:
 production:
   host: localhost
   database: telasi_service_prod
-  # slaves:
-  #   - host: slave1.local
-  #     port: 27018
-  #   - host: slave2.local
-  #     port: 27019

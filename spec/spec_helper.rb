@@ -48,7 +48,8 @@ RSpec.configure do |config|
   config.include Mongoid::Matchers
   config.before(:all) do
     # clear database
-    Mongoid.master.collections.each(&:remove)
+    #Mongoid.master.collections.each(&:remove)
+    Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
     # clear ActionMailer deliveries
     ActionMailer::Base.deliveries.clear
   end
