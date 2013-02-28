@@ -22,7 +22,7 @@
     tel: 'ტელეფონი', email: 'ელ.ფოსტა',
   },
   col2: {
-    category: 'კატეგორია', activity: 'საქმიანოვის სფერო',
+    status_name: 'სტატუსი', category: 'კატეგორია', activity: 'საქმიანოვის სფერო',
     cut: 'ჩაჭრილი?', except: 'გამონაკლისი?', illegalline: 'უკანონო ხაზი?',
     createdate: 'შეიქმნა', closedate: 'დაიხურა', note: 'შენიშვნები'
   }
@@ -31,11 +31,14 @@
 <%= properties_table @customer.trash_customer,
   title: 'დასუფთავება', icon: 'fff/bin.png',
   col1: {
+    'customer.accnumb' => {label: 'აბ. ნომერი', tag: 'code'},
+    'customer.custname' => 'დასახელება',
     curr_balance: {label: 'მიმდინარე ვალი', post: 'ლარი', tag: 'code' },
     balance: {label: 'სრული დავალიანება', post: 'ლარი', tag: 'code'},
     old_balance: {label: 'ძველი ვალი', post: 'ლარი', tag: 'code' },
   },
   col2: {
+    status_name: 'სტატუსი',
     firstregistrationdate: 'შექმნა', except: 'გამონაკლისი?',
     note: 'შენიშვნა',
   }

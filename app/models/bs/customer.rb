@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Bs::Customer < ActiveRecord::Base
+  ACTIVE = 0
+  INACTIVE = 1
+  CLOSED = 2
+
   self.table_name  = 'bs.customer'
   self.primary_key = :custkey
   belongs_to :address,      class_name: 'Bs::Address',       foreign_key: :premisekey
@@ -47,6 +51,15 @@ class Bs::Customer < ActiveRecord::Base
 
   def cut_candidate?
     self.normal_balance > 0.50 or self.normal_trash_balance > 0.50 or self.normal_water_balance > 0.50
+  end
+
+  def status_name
+    case self.statuskey
+    when ACTIVE then 'აქტიური'
+    when INACTIVE then 'გაუქმებული'
+    when CLOSED then 'დახურული'
+    else '?'
+    end
   end
 
 end
