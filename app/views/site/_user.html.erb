@@ -1,0 +1,13 @@
+<% if current_user %>
+  <div class="page-header">
+    <h3><%= t :user_account %></h3>
+  </div>
+  <%= render :partial => 'users/info', :locals => {:user => current_user} %>
+  <div class="well well-actions">
+    <ul class="nav nav-list">
+    <li><%= link_to icon_text('pencil', t(:user_account_edit)), account_path %></li>
+      <li><%= link_to icon_text('lock', t(:change_password)), change_password_path %></li>
+      <li><%= link_to icon_text('picture', t(:user_change_photo)), user_photo_path %></li>
+    </ul>
+  </div>
+<% end %>

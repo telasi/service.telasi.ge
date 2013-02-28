@@ -27,63 +27,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="span4">
-    <% if current_user %>
-      <div class="page-header">
-        <h3><%= t :user_account %></h3>
-      </div>
-      <%= render :partial => 'users/info', :locals => {:user => current_user} %>
-      <div class="well well-actions">
-        <ul class="nav nav-list">
-  	    <li><%= link_to icon_text('pencil', t(:user_account_edit)), account_path %></li>
-          <li><%= link_to icon_text('lock', t(:change_password)), change_password_path %></li>
-          <li><%= link_to icon_text('picture', t(:user_change_photo)), user_photo_path %></li>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-  <div class="span4">
-    <%= role_content :sys_admin do -%>
-      <div class="page-header">
-        <h3><%= t :sysadmin_title %></h3>
-      </div>
-      <ul class="nav nav-list">
-        <li><%= link_to icon_text('user', t(:sysadmin_manage_users)), sys_users_path %></li>
-      </ul>
-      <div class="page-header">
-        <h3><%= t(:sysadmin_bs_manage) %></h3>
-      </div>
-      <ul class="nav nav-list">
-        <li><%= link_to icon_text('home', t(:sysadmin_bs_manage_regions)), sys_regions_path %></li>
-        <li><%= link_to icon_text('cog', t(:sysadmin_bs_operations)), sys_billoperations_path %></li>
-      </ul>
-    <% end %>
-  </div>
-  <div class="span4">
-    <%= role_content :sys_admin, :gis_viewer do -%>
-      <div class="page-header">
-        <h3><%= t(:gis_logs_title) %></h3>
-      </div>
-      <ul class="nav nav-list">
-        <li><%= link_to icon_text('envelope', t(:gis_logs)), sys_gis_messages_path %></li>
-        <li><%= link_to icon_text('list', t(:gis_network_logs)), sys_gis_logs_path %></li>
-      </ul>
-      <%= role_content :sys_admin do %>
-        <div class="page-header">
-          <h4><%= t(:gis_network_objects) %></h4>
-        </div>
-        <ul class="nav nav-list">
-          <li><%= link_to icon_text('star', t(:gis_station_sections)), sys_sections_url %></li>
-          <li><%= link_to icon_text('star', t(:gis_fiders)), sys_fiders_url %></li>
-          <li><%= link_to icon_text('star', t(:gis_transformers)), sys_transformators_path %></li>
-        </ul>
-        <div class="page-header">
-          <h4><%= t(:gis_config) %></h4>
-        </div>
-        <ul class="nav nav-list">
-          <li><%= link_to icon_text('user', t(:gis_mailing_list)), sys_gis_receivers_url %></li>
-        </ul>
-      <% end %>
-    <% end %>
-  </div>
+  <div class="span4"><%= render partial: 'site/user' %></div>
+  <div class="span4"><%= render partial: 'site/bs' %></div>
+  <div class="span4"><%= render partial: 'site/gis' %></div>
 </div>

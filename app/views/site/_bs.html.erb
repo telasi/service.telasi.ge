@@ -1,0 +1,15 @@
+<%= role_content :sys_admin do -%>
+  <div class="page-header">
+    <h3><%= t :sysadmin_title %></h3>
+  </div>
+  <ul class="nav nav-list">
+    <li><%= link_to icon_text('user', t(:sysadmin_manage_users)), sys_users_path %></li>
+  </ul>
+  <div class="page-header">
+    <h3><%= t(:sysadmin_bs_manage) %></h3>
+  </div>
+  <ul class="nav nav-list">
+    <li><%= link_to icon_text('home', t(:sysadmin_bs_manage_regions)), sys_regions_path %></li>
+    <li><%= link_to icon_text('cog', t(:sysadmin_bs_operations)), sys_billoperations_path %></li>
+  </ul>
+<% end %>
