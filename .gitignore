@@ -20,3 +20,5 @@ public/photos/**/*
 *.log
 
 sqlnet.log
+
+config/database.yml
