@@ -22,3 +22,5 @@ public/photos/**/*
 sqlnet.log
 
 config/database.yml
+
+app/assets/images/.DS_Store
