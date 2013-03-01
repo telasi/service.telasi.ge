@@ -25,10 +25,16 @@ module PropertiesHelper
       body = %Q{<tr><td colspan="#{opts[:columns].size}" class="muted center" style="padding: 10px;">მონაცემები არაა</td>}
     end
     %{
+      <div class="properties">
+      <div class="title">
+        #{image_tag(opts[:icon]) if opts[:icon]}
+        #{opts[:title]}
+      </div>
       <table class="table table-striped table-condensed table-bordered">
       <thead><tr>#{header}</tr></thead>
       <tbody>#{body}</tbody>
       </table>
+      </div>
       }.html_safe
   end
 

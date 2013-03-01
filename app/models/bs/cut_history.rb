@@ -20,9 +20,9 @@ class Bs::CutHistory < ActiveRecord::Base
 
   def result
     if self.restore?
-      self.complete? ? 'აბონენტი აღდგენილია' : 'აბონენტი ვერ აღდგა'
+      self.complete? ? 'აბონენტი აღდგა' : 'აბონენტი ვერ აღდგა'
     else
-      self.complete? ? 'აბონენტი ჩაჭრილია' : 'აბონენტი არ ჩაჭრილა'
+      self.complete? ? 'აბონენტი ჩაიჭრა' : 'აბონენტი არ ჩაჭრილა'
     end
   end
 

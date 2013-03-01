@@ -3,16 +3,12 @@
   <%= link_to icon_text('user', 'აბონენტის თვისებები'), call_customer_info_url(custkey: @customer.custkey), class: 'btn' %>
 </div>
 <%= common_table @cuts,
+  title: 'ჩაჭრების ისტორია', icon: 'fff/cut.png',
   columns: {
     mark_date: {label: 'თარიღი', width: 90, },
     'account.accid' => {label: 'ანგარიში', width: 90, tag: 'code' },
     operation: {label: 'ოპერაცია',  width: 100 },
     result: { label: 'შედეგი' },
-    
-    # => reading: {label: 'ჩვენება', width: 90, class: 'right', tag: 'code' },
-    #kwt: {label: 'დარიცხვა', width: 90, class: 'right', tag: 'code' },
-    #normal_amount: {label: 'თანხა', width: 90, class: 'right', tag: 'code' },
-    #normal_balance: {label: 'ვალი', width: 90, class: 'right', tag: 'code' }
   }
 %>
 <%= paginate @cuts %>
