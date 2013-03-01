@@ -4,13 +4,13 @@
 </div>
 <%= common_table @items,
   columns: {
-    itemdate: {label: 'თარიღი', width: 80, },
-    'account.accid' => {label: 'ანგარიში', width: 80, tag: 'code' },
+    itemdate: {label: 'თარიღი', width: 90, },
+    'account.accid' => {label: 'ანგარიში', width: 90, tag: 'code' },
     operation: {label: 'ოპერაცია', action: lambda{ |model|  call_customer_item_url(itemkey: model.itemkey) } },
-    reading: {label: 'ჩვენება', width: 80, class: 'right', tag: 'code' },
-    kwt: {label: 'დარიცხვა', width: 80, class: 'right', tag: 'code' },
-    normal_amount: {label: 'თანხა', width: 80, class: 'right', tag: 'code' },
-    normal_balance: {label: 'ვალი', width: 80, class: 'right', tag: 'code' }
+    reading: {label: 'ჩვენება', width: 90, class: 'right', tag: 'code' },
+    kwt: {label: 'დარიცხვა', width: 90, class: 'right', tag: 'code' },
+    normal_amount: {label: 'თანხა', width: 90, class: 'right', tag: 'code' },
+    normal_balance: {label: 'ვალი', width: 90, class: 'right', tag: 'code' }
   }
 %>
 <%= paginate @items %>
