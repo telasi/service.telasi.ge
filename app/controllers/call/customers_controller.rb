@@ -33,4 +33,11 @@ class Call::CustomersController < ApplicationController
     @cuts = Bs::CutHistory.where(custkey: params[:custkey]).order('OPER_DATE desc').paginate(page: params[:page], per_page: 20)
   end
 
+  def cut
+    @title = 'ოპერაციის დეტალები'
+    @cut = Bs::CutHistory.where(cr_key: params[:cutkey]).first
+    @customer = @cut.customer
+    @account = @cut.account
+  end
+
 end

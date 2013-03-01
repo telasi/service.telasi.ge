@@ -162,6 +162,7 @@ TelasiService::Application.routes.draw do
     get '/items/:custkey', action: :items, as: :customer_items
     get '/item/:itemkey', action: :item, as: :customer_item
     get '/cuts/:custkey', action: :cuts, as: :customer_cuts
+    get '/cut/:cutkey', action: :cut, as: :customer_cut
   end
 
   root :to => 'site#index'

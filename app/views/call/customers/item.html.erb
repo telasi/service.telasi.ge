@@ -23,13 +23,4 @@
     person: 'ოპერატორი',
   }
 %>
-<%= properties_table @account,
-  title: 'ანგარიში და მრიცხველი',
-  col1: {
-    accid: {label: 'ანგარიში', tag: 'code'},
-    address: 'მისამართი',
-    'meter_type.mtname' => 'მრიცხველი',
-    mtkoef: {label: 'კოეფიციენტი', tag: 'code'},
-    'meter_type.digit' => {label: 'თანრიგი', tag: 'code'},
-  }
-%>
+<%= account_properties(@account) %>

@@ -3,11 +3,11 @@
   <%= link_to icon_text('user', 'აბონენტის თვისებები'), call_customer_info_url(custkey: @customer.custkey), class: 'btn' %>
 </div>
 <%= common_table @cuts,
-  title: 'ჩაჭრების ისტორია', icon: 'fff/cut.png',
+  title: 'ჩაჭრა-აღდგენის ისტორია', icon: 'fff/cut.png',
   columns: {
-    mark_date: {label: 'თარიღი', width: 90, },
+    oper_date: {label: 'თარიღი', width: 90 },
     'account.accid' => {label: 'ანგარიში', width: 90, tag: 'code' },
-    operation: {label: 'ოპერაცია',  width: 100 },
+    operation: {label: 'ოპერაცია',  width: 100, action: lambda{ |model|  call_customer_cut_url(cutkey: model.cr_key) } },
     result: { label: 'შედეგი' },
   }
 %>
