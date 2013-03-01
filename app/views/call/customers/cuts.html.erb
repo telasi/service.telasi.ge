@@ -6,7 +6,9 @@
   columns: {
     mark_date: {label: 'თარიღი', width: 90, },
     'account.accid' => {label: 'ანგარიში', width: 90, tag: 'code' },
-    operation: {label: 'ოპერაცია', action: lambda{ |model|  call_customer_item_url(itemkey: model.itemkey) } },
+    operation: {label: 'ოპერაცია',  width: 100 },
+    result: { label: 'შედეგი' },
+    
     # => reading: {label: 'ჩვენება', width: 90, class: 'right', tag: 'code' },
     #kwt: {label: 'დარიცხვა', width: 90, class: 'right', tag: 'code' },
     #normal_amount: {label: 'თანხა', width: 90, class: 'right', tag: 'code' },
