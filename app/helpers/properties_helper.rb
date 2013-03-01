@@ -7,18 +7,22 @@ module PropertiesHelper
       header += %Q{<th width="#{props[:width]}">#{props[:label]}</th>}
     end
     body = ''
-    models.each do |model|
-      body += '<tr>'
-      opts[:columns].each do |key, props|
-        body += %Q{<td class="#{props[:class]}">}
-        if props[:action]
-          body += %Q{<a href="#{ props[:action].call(model) }">#{ cell_content(model, key, props) }</a>}
-        else
-          body += %Q{#{cell_content(model, key, props)}}
+    if models.any?
+      models.each do |model|
+        body += '<tr>'
+        opts[:columns].each do |key, props|
+          body += %Q{<td class="#{props[:class]}">}
+          if props[:action]
+            body += %Q{<a href="#{ props[:action].call(model) }">#{ cell_content(model, key, props) }</a>}
+          else
+            body += %Q{#{cell_content(model, key, props)}}
+          end
+          body += %Q{</th>}
         end
-        body += %Q{</th>}
+        body += '</tr>'
       end
-      body += '</tr>'
+    else
+      body = %Q{<tr><td colspan="#{opts[:columns].size}" class="muted center" style="padding: 10px;">მონაცემები არაა</td>}
     end
     %{
       <table class="table table-striped table-condensed table-bordered">
