@@ -1,5 +1,8 @@
 <%= render partial: 'call/customers/header' %>
 <div class="btn-toolbar">
+  <div class="pull-right">
+    <%= link_to icon_text('user', 'აბონენტის თვისებები'), call_customer_info_url(custkey: @customer.custkey), class: 'btn' %>
+  </div>
   <%= link_to icon_text('arrow-left', 'ყველა ოპერაცია'), call_customer_items_url(custkey: @customer.custkey), class: 'btn' %>
 </div>
 <%= properties_table @item,
