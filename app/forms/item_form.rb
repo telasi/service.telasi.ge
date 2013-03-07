@@ -16,12 +16,13 @@ module ItemForm
   CYCLE = BooleanField.new(name: 'cycle?', label: 'ციკლი?', required: true)
   ENTERDATE = DateField.new(name: 'enterdate', label: 'შეყვანის თარიღი', formatter: '%d-%b-%Y %H:%M:%S', required: true)
   PERSON = TextField.new(name: 'person', label: 'ოპერატორი', required: true)
+  NOTE = TextField.new(name: 'note', label: 'შენიშვნები')
 
   def self.item_form(item)
     form = Form.new(title: 'ოპერაციის დეტალები', icon: '/assets/fff/lightbulb.png')
     form.col1 << ACCNUMB << ACCID << OPERATION << ITEMDATE
     form.col1 << READING << CHARGE << AMOUNT << BALANCE << PREV_BALANCE
-    form.col2 << DOCNUM << CYCLE << ENTERDATE << PERSON
+    form.col2 << DOCNUM << CYCLE << ENTERDATE << PERSON << NOTE
     #form.actions << ACT_HISTORY << ACT_CUT_HISTORY
     form << item
     form

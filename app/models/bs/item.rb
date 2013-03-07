@@ -7,6 +7,7 @@ class Bs::Item < ActiveRecord::Base
   belongs_to :operation, class_name: 'Bs::Billoperation', foreign_key: :billoperkey
   belongs_to :person,    class_name: 'Bs::Person', foreign_key: :perskey
   belongs_to :signee,    class_name: 'Bs::Person', foreign_key: :signkey
+  has_one    :note,      class_name: 'Bs::Note',   foreign_key: :notekey
 
   # ოპერაციის "ნორმალიზუბული" მნიშვნელობა.
   def normal_amount
