@@ -12,7 +12,6 @@ class Call::CustomersController < ApplicationController
   def customer_info
     @title = 'მონაცემები აბონენტზე'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
-
     @customer_form = Customer.customer_form(@customer)
     @trash_customer_form = TrashCustomer.customer_form(@customer.trash_customer)
     @water_customer_form = WaterCustomer.customer_form(@customer)
@@ -29,6 +28,10 @@ class Call::CustomersController < ApplicationController
     @item = Bs::Item.where(itemkey: params[:itemkey]).first
     @customer = @item.customer
     @account = @item.account
+    
+    @item_form = Item.item_form(@item)
+    @customer_form = Customer.customer_form(@customer)
+    @customer_form.title = 'აბონენტი'
   end
 
   def cuts

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Dima::Html
 
   class TextField
