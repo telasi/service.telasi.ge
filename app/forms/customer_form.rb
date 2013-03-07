@@ -29,8 +29,8 @@ module CustomerForm
   ACT_HISTORY = Action.new(label: 'ისტორია', tooltip: 'დარიცხვის ისტორია', icon: '/assets/fff/lightbulb.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_items_path(custkey: v.custkey)})
   ACT_CUT_HISTORY = Action.new(label: 'ჩაჭრები', tooltip: 'ჩაჭრების ისტორია', icon: '/assets/fff/cut.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_cuts_path(custkey: v.custkey)})
 
-  def self.customer_form(cust)
-    form = Form.new(title: 'ელ.ენერგიის აბონენტი', icon: '/assets/fff/user.png')
+  def self.customer_form(cust, opts = {})
+    form = Form.new(title: opts[:title] || 'ელ.ენერგიის აბონენტი', icon: '/assets/fff/user.png')
     form.col1 << ACCNUMB << CUSTNAME << BALANCE << OLD_BALANCE << ADDRESS
     form.col1 << SEND_ADDRESS << REGION << TAXID << COMERCIAL << PHONE << EMAIL
     form.col2 << STATUS << CATEG << ACTIVITY << CUT << EXCEPT << ILLEGAL_LINE

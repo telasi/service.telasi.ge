@@ -22,25 +22,4 @@ module CustomerHelper
     end
   end
 
-  def account_properties(acc)
-    properties_table acc,
-      title: 'ანგარიში და მრიცხველი', icon: 'fff/cog.png',
-      col1: {
-        accid: {label: 'ანგარიში', tag: 'code'},
-        address: 'მისამართი',
-        inst_cp: { label: 'დადგმ. სიმძლავრე', tag: 'code', digits: 0, post: 'kWh' },
-        'meter_type.mtname' => 'მრიცხველი',
-        mtnumb: { label: 'მრიცხველის №', tag: 'code' },
-        mtkoef: { label: 'კოეფიციენტი', tag: 'code'},
-        'meter_type.digit' => {label: 'თანრიგი', tag: 'code' },
-      },
-      col2: {
-        mainaccount: 'ძირითადი ანგარიში?',
-        status: 'სტატუსი',
-        createdate: 'შექმნილია',
-        closedate: 'დახურვის თარიღი',
-        note: 'შენიშვნა'
-      }
-  end
-
 end

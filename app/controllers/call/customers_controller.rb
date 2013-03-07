@@ -28,10 +28,10 @@ class Call::CustomersController < ApplicationController
     @item = Bs::Item.where(itemkey: params[:itemkey]).first
     @customer = @item.customer
     @account = @item.account
-    
+
     @item_form = ItemForm.item_form(@item)
-    @customer_form = CustomerForm.customer_form(@customer)
-    @customer_form.title = 'აბონენტი'
+    @account_form = AccountForm.account_form(@item.account)
+    @customer_form = CustomerForm.customer_form(@customer, {title: 'აბონენტი'})
   end
 
   def cuts
