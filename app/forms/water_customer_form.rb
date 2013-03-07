@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module WaterCustomer
+module WaterCustomerForm
   include Dima::Html
 
   CURR_BALANCE = NumberField.new(name: 'normal_water_balance', label: 'დავალიანება', after: 'GEL', required: true)

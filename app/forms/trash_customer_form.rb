@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module TrashCustomer
+module TrashCustomerForm
   include Dima::Html
 
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)

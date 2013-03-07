@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module Customer
+module CustomerForm
   include Dima::Html
 
   # fields
