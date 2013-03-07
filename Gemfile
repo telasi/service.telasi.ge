@@ -16,6 +16,7 @@ gem 'rs.ge'
 gem 'cra.ge', '~> 0.2'
 gem 'c12-commons'
 gem 'magti'
+gem 'dima'
 
 gem 'will_paginate_mongoid'
 gem 'bootstrap-will_paginate'

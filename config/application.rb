@@ -58,5 +58,6 @@ module TelasiService
     config.assets.version = '1.0'
 
     config.autoload_paths << "#{Rails.root}/app/inputs"
+    config.autoload_paths << "#{Rails.root}/app/forms"
   end
 end

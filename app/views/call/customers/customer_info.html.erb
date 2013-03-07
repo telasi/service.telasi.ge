@@ -1,30 +1,12 @@
 <%= render partial: 'call/customers/header' %>
+
 <div class="btn-toolbar" style="">
   <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), call_customer_url, class: 'btn' %>
 </div>
-<!--  Customer -->
-<%= properties_table @customer,
-  title: 'ელექტროენერგია', icon: 'fff/lightbulb.png',
-  col1: {
-    accnumb: {label: 'აბ. ნომერი', tag: 'code'},
-    custname: 'დასახელება',
-    balance: {label: 'დავალიანება', post: 'ლარი', tag: 'code'},
-    old_balance: {label: 'ძველი ვალი', post: 'ლარი', tag: 'code' },
-    address: 'მისამართი', send_address: 'ქვითრის მისამართი',
-    'address.region' => 'ბიზნეს-ცენტრი',
-    taxid: 'გადამხ.კოდი', commercial: 'კომერც. დასახელება',
-    tel: 'ტელეფონი', email: 'ელ.ფოსტა',
-  },
-  col2: {
-    status_name: 'სტატუსი', category: 'კატეგორია', activity: 'საქმიანოვის სფერო',
-    cut: 'ჩაჭრილი?', except: 'გამონაკლისი?', illegalline: 'უკანონო ხაზი?',
-    createdate: 'შეიქმნა', closedate: 'დაიხურა', note: 'შენიშვნები'
-  },
-  actions: {
-    'ისტორია' => call_customer_items_url(custkey: @customer.custkey),
-    'ჩაჭრები' => call_customer_cuts_url(custkey: @customer.custkey),
-  }
-%>
+
+<%= @customer_form.html %>
+
+
 <!--  Trash customer -->
 <%= properties_table @customer.trash_customer,
   title: 'დასუფთავება', icon: 'fff/bin.png',

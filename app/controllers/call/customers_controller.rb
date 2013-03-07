@@ -12,6 +12,9 @@ class Call::CustomersController < ApplicationController
   def customer_info
     @title = 'მონაცემები აბონენტზე'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
+
+    @customer_form = Customer.customer_form
+    @customer_form << @customer
   end
 
   def items
