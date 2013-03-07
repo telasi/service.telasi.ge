@@ -13,8 +13,8 @@ class Call::CustomersController < ApplicationController
     @title = 'მონაცემები აბონენტზე'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
 
-    @customer_form = Customer.customer_form
-    @customer_form << @customer
+    @customer_form = Customer.customer_form(@customer)
+    @trash_customer_form = TrashCustomer.customer_form(@customer.trash_customer)
   end
 
   def items

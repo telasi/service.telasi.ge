@@ -1,28 +1,10 @@
-<%= render partial: 'call/customers/header' %>
-
 <div class="btn-toolbar" style="">
   <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), call_customer_url, class: 'btn' %>
 </div>
 
 <%= @customer_form.html %>
+<%= @trash_customer_form.html %>
 
-
-<!--  Trash customer -->
-<%= properties_table @customer.trash_customer,
-  title: 'დასუფთავება', icon: 'fff/bin.png',
-  col1: {
-    'customer.accnumb' => {label: 'აბ. ნომერი', tag: 'code'},
-    'customer.custname' => 'დასახელება',
-    curr_balance: {label: 'მიმდინარე ვალი', post: 'ლარი', tag: 'code' },
-    balance: {label: 'სრული დავალიანება', post: 'ლარი', tag: 'code'},
-    old_balance: {label: 'ძველი ვალი', post: 'ლარი', tag: 'code' },
-  },
-  col2: {
-    status_name: 'სტატუსი',
-    firstregistrationdate: 'შექმნა', except: 'გამონაკლისი?',
-    note: 'შენიშვნა',
-  }
-%>
 <!-- Water customer -->
 <%= properties_table @customer,
   title: 'წყალმომარაგება',
