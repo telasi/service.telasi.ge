@@ -20,7 +20,9 @@ class Call::CustomersController < ApplicationController
   def items
     @title = 'აბონენტის ისტორია'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
-    @items = Bs::Item.where(custkey: @customer.custkey).order('ITEMKEY desc').paginate(page: params[:page], per_page: 20)
+    @items = Bs::Item.where(custkey: @customer.custkey).order('ITEMKEY desc').paginate(page: params[:page], per_page: 15)
+    @item_table = ItemForm.item_table(@items)
+    @customer_form = CustomerForm.customer_form(@items.first.customer) unless @items.empty?
   end
 
   def item

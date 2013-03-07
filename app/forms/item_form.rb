@@ -4,8 +4,8 @@ module ItemForm
 
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
   ACCID = TextField.new(name: 'account.accid', label: 'ანგარიში', required: true)
-  OPERATION = TextField.new(name: 'operation', label: 'ოპერაცია', required: true)
-  ITEMDATE = DateField.new(name: 'itemdate', label: 'ოპერაციის თარიღი', required: true)
+  OPERATION = TextField.new(name: 'operation', label: 'ოპერაცია', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_item_path(itemkey: v.itemkey)})
+  ITEMDATE = DateField.new(name: 'itemdate', label: 'თარიღი', required: true)
   READING = NumberField.new(name: 'reading', label: 'წაკითხვა', after: 'kWh', required: true, precision: 3)
   CHARGE =NumberField.new(name: 'kwt', label: 'დარიცხვა', after: 'kWh', required: true)
   AMOUNT = NumberField.new(name: 'normal_amount', label: 'თანხა', after: 'GEL', required: true)
@@ -27,5 +27,13 @@ module ItemForm
     form << item
     form
   end
-  
+
+  def self.item_table(items)
+    tbl = Table.new(title: 'აბონენტის ისტორია', icon: '/assets/fff/lightbulb.png')
+    tbl.cols << ITEMDATE << ACCNUMB << OPERATION
+    tbl.cols << READING << CHARGE << AMOUNT << BALANCE
+    tbl.vals = items
+    tbl
+  end
+
 end
