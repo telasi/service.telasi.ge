@@ -29,9 +29,9 @@ module ItemForm
   end
 
   def self.item_table(items)
-    tbl = Table.new(title: 'აბონენტის ისტორია', icon: '/assets/fff/lightbulb.png')
-    tbl.cols << ITEMDATE << ACCNUMB << OPERATION
-    tbl.cols << READING << CHARGE << AMOUNT << BALANCE
+    tbl = Table.new(title: 'აბონენტის დარიცხვის ისტორია', icon: '/assets/fff/lightbulb.png')
+    tbl.cols << ITEMDATE << ACCID << OPERATION
+    tbl.cols << CYCLE << READING << CHARGE << AMOUNT << BALANCE
     tbl.vals = items
     tbl
   end
