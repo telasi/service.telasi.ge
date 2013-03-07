@@ -30,7 +30,6 @@ class Call::CustomersController < ApplicationController
     @item = Bs::Item.where(itemkey: params[:itemkey]).first
     @customer = @item.customer
     @account = @item.account
-
     @item_form = ItemForm.item_form(@item)
     @account_form = AccountForm.account_form(@item.account)
     @customer_form = CustomerForm.customer_form(@customer, {title: 'აბონენტი'})
@@ -40,13 +39,17 @@ class Call::CustomersController < ApplicationController
     @title = 'ჩაჭრების ისტორია'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
     @cuts = Bs::CutHistory.where(custkey: params[:custkey]).order('OPER_DATE desc').paginate(page: params[:page], per_page: 20)
+    @cut_table = CutForm.cut_table(@cuts)
+    @customer_form = CustomerForm.customer_form(@customer, {title: 'აბონენტი'})
   end
 
   def cut
     @title = 'ოპერაციის დეტალები'
     @cut = Bs::CutHistory.where(cr_key: params[:cutkey]).first
     @customer = @cut.customer
-    @account = @cut.account
+    @cut_form = CutForm.cut_form(@cut)
+    @account_form = AccountForm.account_form(@cut.account)
+    @customer_form = CustomerForm.customer_form(@cut.customer, {title: 'აბონენტი'})
   end
 
 end

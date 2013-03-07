@@ -1,27 +1,6 @@
-<%= render partial: 'call/customers/header' %>
 <div class="btn-toolbar">
-  <div class="pull-right">
-    <%= link_to icon_text('user', 'აბონენტის თვისებები'), call_customer_info_url(custkey: @customer.custkey), class: 'btn' %>
-  </div>
   <%= link_to icon_text('arrow-left', 'ყველა ჩაჭრა/აღდგენა'), call_customer_cuts_url(custkey: @customer.custkey), class: 'btn' %>
 </div>
-<%= properties_table @cut,
-  title: 'ჩაჭრა-აღდგენის ოპერაციის დეტალები', icon: 'fff/cut.png',
-  col1: {
-    'customer.accnumb' => {label: 'აბონენტი', tag: 'code' },
-    'account.accid' => {label: 'ანგარიში', tag: 'code' },
-    oper_date: 'ოპერაციის თარიღი',
-    mark_date: 'გენერაციის თარიღი',
-    operation: 'ოპერაცია',
-    result: 'შესრულების შედეგი',
-    note: 'შენიშვნა'
-  },
-  col2: {
-    balance: { label: 'ელქტრ. ვალი', tag: 'code' },
-    stat_el: 'ელქტრ. გამო',
-    balance_tr: { label: 'დასუფთ. ვალი', tag: 'code' },
-    stat_tr: 'დასუფთ. გამო',
-    balance_w: { label: 'წყლის ვალი', tag: 'code' },
-    stat_w: 'წყლის გამო',
-  }
-%>
+<%= @cut_form.html %>
+<%= @account_form.html %>
+<%= @customer_form.html %>
