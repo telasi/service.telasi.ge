@@ -15,6 +15,7 @@ class Call::CustomersController < ApplicationController
 
     @customer_form = Customer.customer_form(@customer)
     @trash_customer_form = TrashCustomer.customer_form(@customer.trash_customer)
+    @water_customer_form = WaterCustomer.customer_form(@customer)
   end
 
   def items

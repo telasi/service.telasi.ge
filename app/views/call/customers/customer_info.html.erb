@@ -1,14 +1,6 @@
 <div class="btn-toolbar" style="">
   <%= link_to icon_text('arrow-left', 'ძებნაში დაბრუნება'), call_customer_url, class: 'btn' %>
 </div>
-
 <%= @customer_form.html %>
 <%= @trash_customer_form.html %>
-
-<!-- Water customer -->
-<%= properties_table @customer,
-  title: 'წყალმომარაგება',
-  col1: {
-    normal_water_balance: { label: 'დავალიანება', post: 'ლარი', tag: 'code' }
-  }
-%>
+<%= @water_customer_form.html %>
