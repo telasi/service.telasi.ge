@@ -14,7 +14,9 @@ class Call::CustomersController < ApplicationController
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
     @customer_form = CustomerForm.customer_form(@customer)
     @trash_customer_form = TrashCustomerForm.customer_form(@customer.trash_customer)
+    @trash_customer_form.collapsed = true
     @water_customer_form = WaterCustomerForm.customer_form(@customer)
+    @water_customer_form.collapsed = true
   end
 
   def items
@@ -23,6 +25,7 @@ class Call::CustomersController < ApplicationController
     @items = Bs::Item.where(custkey: @customer.custkey).order('ITEMKEY desc').paginate(page: params[:page], per_page: 15)
     @item_table = ItemForm.item_table(@items)
     @customer_form = CustomerForm.customer_form(@items.first.customer) unless @items.empty?
+    @customer_form.collapsed = true
   end
 
   def item
@@ -32,7 +35,9 @@ class Call::CustomersController < ApplicationController
     @account = @item.account
     @item_form = ItemForm.item_form(@item)
     @account_form = AccountForm.account_form(@item.account)
+    @account_form.collapsed = true
     @customer_form = CustomerForm.customer_form(@customer, {title: 'აბონენტი'})
+    @customer_form.collapsed = true
   end
 
   def cuts
@@ -41,6 +46,7 @@ class Call::CustomersController < ApplicationController
     @cuts = Bs::CutHistory.where(custkey: params[:custkey]).order('OPER_DATE desc').paginate(page: params[:page], per_page: 20)
     @cut_table = CutForm.cut_table(@cuts)
     @customer_form = CustomerForm.customer_form(@customer, {title: 'აბონენტი'})
+    @customer_form.collapsed = true
   end
 
   def cut
@@ -49,7 +55,9 @@ class Call::CustomersController < ApplicationController
     @customer = @cut.customer
     @cut_form = CutForm.cut_form(@cut)
     @account_form = AccountForm.account_form(@cut.account)
+    @account_form.collapsed = true
     @customer_form = CustomerForm.customer_form(@cut.customer, {title: 'აბონენტი'})
+    @customer_form.collapsed = true
   end
 
 end
