@@ -3,10 +3,16 @@ class Call::CustomersController < ApplicationController
 
   def index
     @title = 'აბონენტების ძებნა'
-    if params[:accnumb]
-      @customer = Bs::Customer.where(accnumb: params[:accnumb].to_geo).first
-      redirect_to call_customer_info_url(custkey: @customer.custkey) if @customer
-    end
+    @search_form = CustomerForm.search(params[:dim])
+    accnumb = params[:dim][:accnumb] if params[:dim]
+    @customers = search_customers(params[:dim], params[:page])
+    #Bs::Customer.where('accnumb LIKE ?', "%#{accnumb}%").paginate(per_page: 10, page: params[:page]).order(:accnumb)
+    @customer_table = CustomerForm.customer_table(@customers)
+
+    #if params[:accnumb]
+    #  @customer = Bs::Customer.where(accnumb: params[:accnumb].to_geo).first
+    #  redirect_to call_customer_info_url(custkey: @customer.custkey) if @customer
+    #end
   end
 
   def customer_info
@@ -43,7 +49,7 @@ class Call::CustomersController < ApplicationController
   def cuts
     @title = 'ჩაჭრების ისტორია'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
-    @cuts = Bs::CutHistory.where(custkey: params[:custkey]).order('OPER_DATE desc').paginate(page: params[:page], per_page: 20)
+    @cuts = Bs::CutHistory.where(custkey: params[:custkey]).order('OPER_DATE desc').paginate(page: params[:page], per_page: 15)
     @cut_table = CutForm.cut_table(@cuts)
     @customer_form = CustomerForm.customer_form(@customer, {title: 'აბონენტი'})
     @customer_form.collapsed = true
@@ -58,6 +64,51 @@ class Call::CustomersController < ApplicationController
     @account_form.collapsed = true
     @customer_form = CustomerForm.customer_form(@cut.customer, {title: 'აბონენტი'})
     @customer_form.collapsed = true
+  end
+
+  private
+
+  def search_customers(params, page)
+    conditions = []
+    values = {}
+    join_address = false
+    join_regions = false
+    join_street = false
+    unless params.blank?
+      unless params[:accnumb].blank?
+        conditions << 'customer.accnumb LIKE :accnumb'
+        values[:accnumb] = "%#{params[:accnumb].to_geo}%"
+      end
+      unless params[:custname].blank?
+        conditions << 'customer.custname LIKE :custname'
+        values[:custname] = "%#{params[:custname].to_geo}%"
+      end
+      unless params[:regionname].blank?
+        conditions << 'region.regionname LIKE :regionname'
+        values[:regionname] = "%#{params[:regionname].to_geo}%"
+        join_address = join_regions = true
+      end
+      unless params[:streetname].blank?
+        conditions << 'street.streetname LIKE :streetname'
+        values[:streetname] = "%#{params[:streetname].to_geo}%"
+        join_address = join_street = true
+      end
+      unless params[:building].blank?
+        conditions << '(address.building LIKE :building OR address.house LIKE :building)'
+        values[:building] = "%#{params[:building].to_geo}%"
+        join_address = true
+      end
+      unless params[:flate].blank?
+        conditions << 'address.flate LIKE :flate'
+        values[:flate] = "%#{params[:flate].to_geo}%"
+        join_address = true
+      end
+    end
+    rel = Bs::Customer
+    rel = rel.joins('INNER JOIN bs.address ON customer.premisekey = address.premisekey') if join_address
+    rel = rel.joins('INNER JOIN bs.region ON address.regionkey = region.regionkey') if join_regions
+    rel = rel.joins('INNER JOIN bs.street ON address.streetkey = street.streetkey') if join_address
+    rel.where(conditions.join(' AND '), values).paginate(per_page: 15, page: page).order(:accnumb)
   end
 
 end
