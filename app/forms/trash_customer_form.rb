@@ -23,7 +23,7 @@ module TrashCustomerForm
     form.col1 << ACCNUMB << CUSTNAME << CURR_BALANCE << BALANCE << OLD_BALANCE
     form.col2 << STATUS << EXCEPT << CREATE_DATE << NOTE
     #form.actions << ACT_HISTORY << ACT_CUT_HISTORY
-    form << cust
+    form << cust if cust
     form
   end
 
