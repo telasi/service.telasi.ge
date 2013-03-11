@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 class Call::CustomersController < ApplicationController
 
+  def render(*args)
+    navbuttons
+    super
+  end
+
   def index
     @title = 'აბონენტების ძებნა'
     @search_form = CustomerForm.search(params[:dim])
@@ -67,6 +72,13 @@ class Call::CustomersController < ApplicationController
   end
 
   private
+
+  def navbuttons
+    @nav = { 'ძებნა' => call_customer_url }
+    @nav[@customer.custname.to_ka] = call_customer_info_url(custkey: @customer.custkey) if @customer
+    @nav['დარიცხვის ისტორია'] = call_customer_items_url(custkey: @customer.custkey) if @item or @items
+    @nav['ჩაჭრის ისტორია'] = call_customer_cuts_url(custkey: @customer.custkey) if @cut or @cuts
+  end
 
   def search_customers(params, page)
     conditions = []

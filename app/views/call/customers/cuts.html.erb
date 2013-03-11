@@ -1,6 +1,4 @@
-<div class="btn-toolbar">
-  <%= link_to icon_text('arrow-left', 'აბონენტის თვისებები'), call_customer_info_url(custkey: @customer.custkey), class: 'btn' %>
-</div>
+<%= render partial: 'call/customers/top' %>
 <%= @customer_form.html %>
 <%= @cut_table.html %>
 <%= paginate @cuts %>

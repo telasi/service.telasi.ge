@@ -1,6 +1,4 @@
-<div class="btn-toolbar">
-  <%= link_to icon_text('arrow-left', 'ყველა ჩაჭრა/აღდგენა'), call_customer_cuts_url(custkey: @customer.custkey), class: 'btn' %>
-</div>
+<%= render partial: 'call/customers/top' %>
 <%= @customer_form.html %>
 <%= @cut_form.html %>
 <%= @account_form.html %>
