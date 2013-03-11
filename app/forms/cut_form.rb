@@ -2,6 +2,7 @@
 module CutForm
   include Dima::Html
 
+  ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბონენტი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.customer.custkey)})
   ACCID = TextField.new(name: 'account.accid', label: 'ანგარიში', required: true)
   OPER_DATE = DateField.new(name: 'oper_date', label: 'თარიღი', required: true)
   MARK_DATE = DateField.new(name: 'mark_date', label: 'გენერაციის თარიღი', required: true)
@@ -18,7 +19,7 @@ module CutForm
 
   def self.cut_form(cut)
     form = Form.new(title: 'ჩაჭრა-აღდგენის ოპერაცია', icon: '/assets/fff/cut.png')
-    form.col1 << ACCID << OPER_DATE << MARK_DATE << OPERATION << RESULT << NOTE
+    form.col1 << ACCNUMB << ACCID << OPER_DATE << MARK_DATE << OPERATION << RESULT << NOTE
     form.col2 << BALANCE << BALANCE_TR << BALANCE_WR << CAUSE_EL << CAUSE_TR << CAUSE_WR
     form << cut
     form

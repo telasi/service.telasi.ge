@@ -2,7 +2,7 @@
 module ItemForm
   include Dima::Html
 
-  ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
+  ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.customer.custkey)})
   ACCID = TextField.new(name: 'account.accid', label: 'ანგარიში', required: true)
   OPERATION = TextField.new(name: 'operation', label: 'ოპერაცია', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_item_path(itemkey: v.itemkey)})
   ITEMDATE = DateField.new(name: 'itemdate', label: 'თარიღი', required: true)

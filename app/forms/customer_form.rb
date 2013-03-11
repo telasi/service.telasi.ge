@@ -4,7 +4,7 @@ module CustomerForm
 
   # fields
 
-  ACCNUMB = TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true)
+  ACCNUMB = TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.custkey)})
   CUSTNAME = TextField.new(name: 'custname', label: 'დასახელება', required: true)
   BALANCE = NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
   OLD_BALANCE = NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
