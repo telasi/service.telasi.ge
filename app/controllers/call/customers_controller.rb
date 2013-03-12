@@ -11,13 +11,7 @@ class Call::CustomersController < ApplicationController
     @search_form = CustomerForm.search(params[:dim])
     accnumb = params[:dim][:accnumb] if params[:dim]
     @customers = search_customers(params[:dim], params[:page])
-    #Bs::Customer.where('accnumb LIKE ?', "%#{accnumb}%").paginate(per_page: 10, page: params[:page]).order(:accnumb)
     @customer_table = CustomerForm.customer_table(@customers)
-
-    #if params[:accnumb]
-    #  @customer = Bs::Customer.where(accnumb: params[:accnumb].to_geo).first
-    #  redirect_to call_customer_info_url(custkey: @customer.custkey) if @customer
-    #end
   end
 
   def customer_info
@@ -89,6 +83,36 @@ class Call::CustomersController < ApplicationController
     @trash_customer_form.collapsed = true
   end
 
+  def tasks
+    @title = 'დავალებები'
+    @customer = Bs::Customer.where(custkey: params[:custkey]).first
+    @tasks = Call::Task.where(custkey: @customer.custkey).desc(:_id)
+    @customer_form = CustomerForm.customer_form(@customer)
+    @customer_form.collapsed = true
+    @tasks_table = TaskForm.task_table(@tasks, @customer)
+  end
+
+  def new_task
+    @title = 'ახალი დავალება'
+    @customer = Bs::Customer.where(custkey: params[:custkey]).first
+    @customer_form = CustomerForm.customer_form(@customer)
+    @customer_form.collapsed = true
+    @new_task_form = TaskForm.new_task_form(@customer)
+    @new_task = Call::Task.new
+    if request.post?
+      @new_task_form << params[:dim]
+      if @new_task_form.valid?
+        @new_task_form >> @new_task
+        @new_task.user = current_user
+        @new_task.region = Ext::Region.where(regionkey: @customer.address.region.regionkey).first
+        @new_task.custkey = @customer.custkey
+        @new_task.complete = false
+        @new_task.save
+        redirect_to call_customer_tasks_url(custkey: @customer.custkey), notice: 'დავალება დამატებულია!'
+      end
+    end
+  end
+
   private
 
   def navbuttons
@@ -105,6 +129,10 @@ class Call::CustomersController < ApplicationController
     if @trash_item or @trash_items
       @nav['დასუფთავების ისტორია'] = call_customer_trash_items_url(custkey: @customer.custkey)
       @nav['ოპერაციის დეტალები'] = call_customer_trash_item_url(trashitemid: @trash_item.trashitemid) if @trash_item
+    end
+    if @tasks or @new_task or @task
+      @nav['დავალებები'] = call_customer_tasks_url(custkey: @customer.custkey)
+      @nav['ახალი დავალება'] = call_customer_tasks_url(custkey: @customer.custkey) if @new_task
     end
   end
 

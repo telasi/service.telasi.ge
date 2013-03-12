@@ -169,6 +169,9 @@ TelasiService::Application.routes.draw do
       get '/cut/:cutkey', action: :cut, as: :customer_cut
       get '/trashitems/:custkey', action: :trash_items, as: :customer_trash_items
       get '/trashitem/:trashitemid', action: :trash_item, as: :customer_trash_item
+      # tasks
+      get '/tasks/:custkey', action: :tasks, as: :customer_tasks
+      match '/tasks/new/:custkey', action: :new_task, as: :new_customer_task
     end
   end
 
