@@ -164,6 +164,7 @@ TelasiService::Application.routes.draw do
     get '/cuts/:custkey', action: :cuts, as: :customer_cuts
     get '/cut/:cutkey', action: :cut, as: :customer_cut
     get '/trashitems/:custkey', action: :trash_items, as: :customer_trash_items
+    get '/trashitem/:trashitemid', action: :trash_item, as: :customer_trash_item
   end
 
   root :to => 'site#index'

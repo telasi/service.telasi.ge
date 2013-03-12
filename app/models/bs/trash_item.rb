@@ -4,6 +4,8 @@ class Bs::TrashItem < ActiveRecord::Base
   self.primary_key = :trashitemkey
   belongs_to :customer,  class_name: 'Bs::Customer', foreign_key: :custkey
   belongs_to :operation, class_name: 'Bs::Trashoperation', foreign_key: :operationid
+  belongs_to :signee,    class_name: 'Bs::Person', foreign_key: :signid
+  belongs_to :assistant, class_name: 'Bs::Person', foreign_key: :assistantid
 
   # ოპერაციის "ნორმალიზუბული" მნიშვნელობა.
   def normal_amount

@@ -72,10 +72,19 @@ class Call::CustomersController < ApplicationController
   end
 
   def trash_items
-    @title = 'აბონენტის დასუფთავების ისტორია'
+    @title = 'დასუფთავების ისტორია'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
     @trash_items = Bs::TrashItem.where(custkey: @customer.custkey).order('TRASHITEMID desc').paginate(page: params[:page], per_page: 15)
     @trash_table = TrashItemForm.item_table(@trash_items)
+    @trash_customer_form = TrashCustomerForm.customer_form(@customer.trash_customer)
+    @trash_customer_form.collapsed = true
+  end
+
+  def trash_item
+    @title = 'ოპერაციის დეტალები'
+    @trash_item = Bs::TrashItem.where(trashitemid: params[:trashitemid]).first
+    @customer = @trash_item.customer
+    @trash_item_form = TrashItemForm.item_form(@trash_item)
     @trash_customer_form = TrashCustomerForm.customer_form(@customer.trash_customer)
     @trash_customer_form.collapsed = true
   end
@@ -95,6 +104,7 @@ class Call::CustomersController < ApplicationController
     end
     if @trash_item or @trash_items
       @nav['დასუფთავების ისტორია'] = call_customer_trash_items_url(custkey: @customer.custkey)
+      @nav['ოპერაციის დეტალები'] = call_customer_trash_item_url(trashitemid: @trash_item.trashitemid) if @trash_item
     end
   end
 
