@@ -2,3 +2,6 @@
 <%= @customer_form.html if @customer_form %>
 <%= @item_table.html %>
 <%= paginate @items %>
+<div>
+  სულ: <code><%= @items.total_entries %></code> ჩანაწერი
+</div>
