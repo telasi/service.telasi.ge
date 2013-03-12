@@ -92,7 +92,7 @@ class Call::CustomersController < ApplicationController
   private
 
   def navbuttons
-    @nav = { 'ძებნა' => call_customer_url }
+    @nav = { 'მთავარი' => call_home_url, 'ძებნა' => call_customer_url }
     @nav[@customer.custname.to_ka] = call_customer_info_url(custkey: @customer.custkey) if @customer
     if @item or @items
       @nav['დარიცხვის ისტორია'] = call_customer_items_url(custkey: @customer.custkey)

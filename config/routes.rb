@@ -156,15 +156,20 @@ TelasiService::Application.routes.draw do
   end
 
   # Call Center
-  namespace :call, controller: :customers do
-    get '/', action: :index, as: :customer
-    get '/info/:custkey', action: :customer_info, as: :customer_info
-    get '/items/:custkey', action: :items, as: :customer_items
-    get '/item/:itemkey', action: :item, as: :customer_item
-    get '/cuts/:custkey', action: :cuts, as: :customer_cuts
-    get '/cut/:cutkey', action: :cut, as: :customer_cut
-    get '/trashitems/:custkey', action: :trash_items, as: :customer_trash_items
-    get '/trashitem/:trashitemid', action: :trash_item, as: :customer_trash_item
+  namespace :call do
+    scope controller: :main do
+      get '/', action: :index, as: :home
+    end
+    scope controller: :customers do
+      get '/search', action: :index, as: :customer
+      get '/info/:custkey', action: :customer_info, as: :customer_info
+      get '/items/:custkey', action: :items, as: :customer_items
+      get '/item/:itemkey', action: :item, as: :customer_item
+      get '/cuts/:custkey', action: :cuts, as: :customer_cuts
+      get '/cut/:cutkey', action: :cut, as: :customer_cut
+      get '/trashitems/:custkey', action: :trash_items, as: :customer_trash_items
+      get '/trashitem/:trashitemid', action: :trash_item, as: :customer_trash_item
+    end
   end
 
   root :to => 'site#index'
