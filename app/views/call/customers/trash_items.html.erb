@@ -1,0 +1,7 @@
+<%= render partial: 'call/customers/top' %>
+<%= @trash_customer_form.html %>
+<%= @trash_table.html %>
+<%= paginate @trash_items %>
+<div>
+  სულ: <code><%= C12.number_format(@trash_items.total_entries, 0) %></code> ოპერაცია
+</div>

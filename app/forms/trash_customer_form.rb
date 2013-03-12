@@ -15,14 +15,13 @@ module TrashCustomerForm
   NOTE = TextField.new(name: 'note', label: 'შენიშვნები')
 
   # actions
-  ACT_HISTORY = Action.new(label: 'ისტორია', tooltip: 'დარიცხვის ისტორია', icon: '/assets/fff/lightbulb.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_items_path(custkey: v.custkey)})
-  ACT_CUT_HISTORY = Action.new(label: 'ჩაჭრები', tooltip: 'ჩაჭრების ისტორია', icon: '/assets/fff/cut.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_cuts_path(custkey: v.custkey)})
+  ACT_HISTORY = Action.new(label: 'ისტორია', tooltip: 'დარიცხვის ისტორია', icon: '/assets/fff/bin.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_trash_items_path(custkey: v.custkey)})
 
   def self.customer_form(cust)
     form = Form.new(title: 'დასუფთავების აბონენტი', icon: '/assets/fff/bin.png')
     form.col1 << ACCNUMB << CUSTNAME << CURR_BALANCE << BALANCE << OLD_BALANCE
     form.col2 << STATUS << EXCEPT << CREATE_DATE << NOTE
-    #form.actions << ACT_HISTORY << ACT_CUT_HISTORY
+    form.actions << ACT_HISTORY
     form << cust if cust
     form
   end

@@ -18,4 +18,8 @@ class Bs::TrashItem < ActiveRecord::Base
     self.balance - self.normal_amount
   end
 
+  def curr_balance
+    self.balance - (self.old_balance || 0)
+  end
+
 end

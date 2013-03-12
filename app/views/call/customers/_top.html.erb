@@ -1,5 +1,9 @@
 <ul class="breadcrumb">
-  <% @nav.each do |k, v| %>
-  <li><a href="<%= v %>"><%= k %></a> <span class="divider">/</span></li>
+  <% @nav.each_with_index do |(k, v), i| %>
+  <% if i == @nav.size - 1%>
+    <li><%= k %></a></li>
+  <% else %>
+    <li><a href="<%= v %>"><%= k %></a> <span class="divider">/</span></li>
+  <% end%>
   <% end %>
 </ul>

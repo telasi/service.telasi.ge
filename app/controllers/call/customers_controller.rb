@@ -71,13 +71,31 @@ class Call::CustomersController < ApplicationController
     @customer_form.collapsed = true
   end
 
+  def trash_items
+    @title = 'აბონენტის დასუფთავების ისტორია'
+    @customer = Bs::Customer.where(custkey: params[:custkey]).first
+    @trash_items = Bs::TrashItem.where(custkey: @customer.custkey).order('TRASHITEMID desc').paginate(page: params[:page], per_page: 15)
+    @trash_table = TrashItemForm.item_table(@trash_items)
+    @trash_customer_form = TrashCustomerForm.customer_form(@customer.trash_customer)
+    @trash_customer_form.collapsed = true
+  end
+
   private
 
   def navbuttons
     @nav = { 'ძებნა' => call_customer_url }
     @nav[@customer.custname.to_ka] = call_customer_info_url(custkey: @customer.custkey) if @customer
-    @nav['დარიცხვის ისტორია'] = call_customer_items_url(custkey: @customer.custkey) if @item or @items
-    @nav['ჩაჭრის ისტორია'] = call_customer_cuts_url(custkey: @customer.custkey) if @cut or @cuts
+    if @item or @items
+      @nav['დარიცხვის ისტორია'] = call_customer_items_url(custkey: @customer.custkey)
+      @nav['ოპერაციის დეტალები'] = call_customer_item_url(itemkey: @item.itemkey) if @item
+    end
+    if @cut or @cuts
+      @nav['ჩაჭრის ისტორია'] = call_customer_cuts_url(custkey: @customer.custkey)
+      @nav['ოპერაციის დეტალები'] = call_customer_cut_url(cutkey: @cut.cr_key) if @cut
+    end
+    if @trash_item or @trash_items
+      @nav['დასუფთავების ისტორია'] = call_customer_trash_items_url(custkey: @customer.custkey)
+    end
   end
 
   def search_customers(params, page)
