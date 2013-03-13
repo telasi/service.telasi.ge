@@ -15,3 +15,5 @@
 <div style="text-align: center" class="btn-toolbar">
   <%= link_to icon_text('search', 'აბონენტების ძებნა', white: true), call_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
 </div>
+<%= @task_table.html %>
+<%= paginate @tasks %>
