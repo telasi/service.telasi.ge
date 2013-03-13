@@ -7,7 +7,7 @@ class Call::Task
   field :complete, type: Boolean
   field :title, type: String
   field :body, type: String
-  has_many :comments, class_name: 'Call::TaskComment'
+  has_many :comments, class_name: 'Call::TaskComment', order: :_id.desc
   belongs_to :region, class_name: 'Ext::Region'
   belongs_to :user
 
@@ -21,16 +21,3 @@ class Call::Task
 
 end
 
-class Call::TaskComment
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :text, type: String
-  belongs_to :user
-  belongs_to :task, class_name: 'Call::Task'
-
-  def text_html
-    self.text.gsub("\n", '<br>')
-  end
-
-end

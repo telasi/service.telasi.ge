@@ -50,8 +50,12 @@ module TaskForm
     tbl = Table.new(title: 'კომენტარები', icon: '/assets/fff/comment.png')
     tbl.cols << CMNT_USER.clone << CMNT_TEXT_HTML.clone << CMNT_CREATED.clone
     tbl.vals = task.comments
-    url = Rails.application.routes.url_helpers.call_new_task_comment_path(id: task.id)
-    tbl.actions << Action.new(label: 'კომენტარის დამატება', tooltip: 'დავალებაზე კომენტარის დამატება', icon: '/assets/fff/comment_add.png', url: url)
+    url1 = Rails.application.routes.url_helpers.call_new_task_comment_path(id: task.id)
+    url2 = lambda{ |v| Rails.application.routes.url_helpers.call_edit_task_comment_path(id: v.id) }
+    url3 = lambda {|v| Rails.application.routes.url_helpers.call_delete_task_comment_path(id: v.id) }
+    tbl.actions << Action.new(label: 'კომენტარის დამატება', tooltip: 'დავალებაზე კომენტარის დამატება', icon: '/assets/fff/comment_add.png', url: url1)
+    tbl.item_actions << Action.new(label: 'შეცვლა', tooltip: 'კომენტარის შეცვლა', icon: '/assets/fff/pencil.png', url: url2)
+    tbl.item_actions << Action.new(label: '', tooltip: 'კომენტარის წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: url3)
     tbl
   end
 

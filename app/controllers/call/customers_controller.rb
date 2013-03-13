@@ -157,7 +157,6 @@ class Call::CustomersController < ApplicationController
     @customer_form = CustomerForm.customer_form(@customer)
     @customer_form.collapsed = true
     @task_form = TaskForm.task_form(@task)
-    @task_form.collapsed = true
     @new_comment_form = TaskForm.edit_comment_form(nil, @task, auth_token)
     @new_comment = Call::TaskComment.new
     if request.post?
@@ -170,6 +169,34 @@ class Call::CustomersController < ApplicationController
         redirect_to call_show_customer_task_url(id: @task.id), notice: 'კომენტარი დამატებულია!'
       end
     end
+  end
+
+  def edit_comment
+    @title = 'კომენტარის რედაქტირება'
+    @comment = Call::TaskComment.find(params[:id])
+    @task = @comment.task
+    @customer = @task.customer
+    @customer_form = CustomerForm.customer_form(@customer)
+    @customer_form.collapsed = true
+    @task_form = TaskForm.task_form(@task)
+    @edit_comment_form = TaskForm.edit_comment_form(@comment, @task, auth_token)
+    if request.post?
+      @edit_comment_form << params[:dim]
+      if @edit_comment_form.valid?
+        @edit_comment_form >> @comment
+        @comment.save
+        redirect_to call_show_customer_task_url(id: @task.id), notice: 'დავალება შეცვლილია!'
+      end
+    else
+      @edit_comment_form << @comment
+    end
+  end
+
+  def delete_comment
+    comment = Call::TaskComment.find(params[:id])
+    task = comment.task
+    comment.destroy
+    redirect_to call_show_customer_task_url(id: task.id), notice: 'კომენტარი წაშლილია.'
   end
 
   private
@@ -194,6 +221,7 @@ class Call::CustomersController < ApplicationController
       @nav['ახალი დავალება'] = call_customer_tasks_url(custkey: @customer.custkey) if @new_task
       @nav['დავალების დეტალები'] = call_show_customer_task_url(id: @task.id) if @task
       @nav['ახალი კომენტარი'] = nil if @new_comment
+      @nav['კომენტარის რედაქტირება'] = nil if @comment
     end
   end
 
