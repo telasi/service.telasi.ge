@@ -175,6 +175,9 @@ TelasiService::Application.routes.draw do
       match '/tasks/new/:custkey', action: :new_task, as: :new_customer_task
       match '/tasks/edit/:id', action: :edit_task, as: :edit_customer_task
       delete '/tasks/delete/:id', action: :delete_task, as: :delete_customer_task
+      match '/tasks/comments/new/:id', action: :new_comment, as: :new_task_comment
+      match '/tasks/comments/edit/:id', action: :edit_comment, as: :edit_task_comment
+      delete '/tasks/comments/delete/:id', action: :delete_comment, as: :delete_task_comment
     end
   end
 

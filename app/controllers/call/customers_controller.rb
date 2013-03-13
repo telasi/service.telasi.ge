@@ -105,7 +105,7 @@ class Call::CustomersController < ApplicationController
   def new_task
     @title = 'ახალი დავალება'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
-    @customer_form = CustomerForm.customer_form(@customer, csrf: session[:_csrf_token])
+    @customer_form = CustomerForm.customer_form(@customer)
     @customer_form.collapsed = true
     @new_task_form = TaskForm.edit_task_form(nil, @customer, auth_token)
     @new_task = Call::Task.new
@@ -149,6 +149,29 @@ class Call::CustomersController < ApplicationController
     redirect_to call_customer_tasks_url(custkey: custkey), notice: 'დავალება წაშლილია.'
   end
 
+  def new_comment
+    @title = 'ახალი დავალება'
+    @task = Call::Task.find(params[:id])
+    @customer = @task.customer
+    @new_comment = Call::TaskComment.new
+    @customer_form = CustomerForm.customer_form(@customer)
+    @customer_form.collapsed = true
+    @task_form = TaskForm.task_form(@task)
+    @task_form.collapsed = true
+    @new_comment_form = TaskForm.edit_comment_form(nil, @task, auth_token)
+    @new_comment = Call::TaskComment.new
+    if request.post?
+      @new_comment_form << params[:dim]
+      if @new_comment_form.valid?
+        @new_comment_form >> @new_comment
+        @new_comment.user = current_user
+        @new_comment.task = @task
+        @new_comment.save
+        redirect_to call_show_customer_task_url(id: @task.id), notice: 'კომენტარი დამატებულია!'
+      end
+    end
+  end
+
   private
 
   def navbuttons
@@ -170,6 +193,7 @@ class Call::CustomersController < ApplicationController
       @nav['დავალებები'] = call_customer_tasks_url(custkey: @customer.custkey)
       @nav['ახალი დავალება'] = call_customer_tasks_url(custkey: @customer.custkey) if @new_task
       @nav['დავალების დეტალები'] = call_show_customer_task_url(id: @task.id) if @task
+      @nav['ახალი კომენტარი'] = nil if @new_comment
     end
   end
 

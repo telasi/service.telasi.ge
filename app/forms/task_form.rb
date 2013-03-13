@@ -3,7 +3,7 @@ module TaskForm
   include Dima::Html
 
   COMPLETE = BooleanField.new(name: 'complete', label: 'დასრ?')
-  COMPLETE2 = BooleanField.new(name: 'complete', label: 'დასრულებულია?', required: true)
+  COMPLETE2 = BooleanField.new(name: 'complete', label: 'დასრულებულია?', required: true, val: false)
   CREATED = DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
   UPDATED = DateField.new(name: 'updated_at', label: 'შეიცვალა', formatter: '%d-%b-%Y %H:%M:%S')
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
@@ -25,8 +25,8 @@ module TaskForm
 
   def self.task_form(task)
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
-    form.col1 << ACCNUMB << REGION << COMPLETE2 << TITLE << BODY_HTML
-    form.col2 << USER << CREATED << UPDATED
+    form.col1 << ACCNUMB.clone << REGION.clone << COMPLETE2.clone << TITLE.clone << BODY_HTML.clone
+    form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     form << task
     form
@@ -44,14 +44,25 @@ module TaskForm
 
   CMNT_USER = TextField.new(name: 'user.full_name', label: 'ოპერატორი')
   CMNT_CREATED = DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
-  CMNT_TEXT = TextField.new(name: 'text', label: 'ტექსტი')
+  CMNT_TEXT_HTML = TextField.new(name: 'text_html', label: 'ტექსტი', required: true, textarea: true, width: 500, height: 100)
 
   def self.comments_table(task)
     tbl = Table.new(title: 'კომენტარები', icon: '/assets/fff/comment.png')
-    tbl.cols << CMNT_USER << CMNT_TEXT << CMNT_CREATED
+    tbl.cols << CMNT_USER.clone << CMNT_TEXT_HTML.clone << CMNT_CREATED.clone
     tbl.vals = task.comments
-    tbl.actions << Action.new(label: 'კომენტარის დამატება', tooltip: 'დავალებაზე კომენტარის დამატება', icon: '/assets/fff/comment_add.png')
+    url = Rails.application.routes.url_helpers.call_new_task_comment_path(id: task.id)
+    tbl.actions << Action.new(label: 'კომენტარის დამატება', tooltip: 'დავალებაზე კომენტარის დამატება', icon: '/assets/fff/comment_add.png', url: url)
     tbl
+  end
+
+  def self.edit_comment_form(comment, task, auth_token)
+    title = comment.nil? ? 'ახალი კომენტარი' : 'კომენტარის შეცვლა'
+    submit = comment.nil? ? 'ახალი კომენტარი' : 'კომენტარის შენახვა'
+    icon = comment.nil? ? '/assets/fff/comment_add.png' : '/assets/fff/comment_edit.png'
+    form = Form.new(title: title, icon: icon, submit: submit, auth_token: auth_token)
+    form.col1 << TextField.new(name: 'text', label: 'ტექსტი', required: true, textarea: true, width: 500, height: 100)
+    form.edit = true
+    form
   end
 
 end
