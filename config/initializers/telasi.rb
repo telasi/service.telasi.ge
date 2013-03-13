@@ -6,4 +6,5 @@ module Telasi
 
   # პროგრამის ძირითადი მისამართი.
   HOST = 'localhost:3000'
+
 end

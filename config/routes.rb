@@ -171,7 +171,9 @@ TelasiService::Application.routes.draw do
       get '/trashitem/:trashitemid', action: :trash_item, as: :customer_trash_item
       # tasks
       get '/tasks/:custkey', action: :tasks, as: :customer_tasks
+      get '/tasks/show/:id', action: :task, as: :show_customer_task
       match '/tasks/new/:custkey', action: :new_task, as: :new_customer_task
+      delete '/tasks/delete/:id', action: :delete_task, as: :delete_customer_task
     end
   end
 

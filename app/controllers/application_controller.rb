@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'securerandom'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_locale
@@ -13,6 +15,10 @@ class ApplicationController < ActionController::Base
       @__user_initialized = true
     end
     @__user
+  end
+
+  def auth_token
+    session[:_csrf_token] ||= SecureRandom.base64(32)
   end
 
   protected
