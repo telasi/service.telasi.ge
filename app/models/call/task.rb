@@ -15,6 +15,10 @@ class Call::Task
     Bs::Customer.where(custkey: self.custkey).first
   end
 
+  def body_html
+    self.body.gsub("\n", '<br>')
+  end
+
 end
 
 class Call::TaskComment

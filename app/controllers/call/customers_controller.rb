@@ -106,7 +106,7 @@ class Call::CustomersController < ApplicationController
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
     @customer_form = CustomerForm.customer_form(@customer, csrf: session[:_csrf_token])
     @customer_form.collapsed = true
-    @new_task_form = TaskForm.new_task_form(@customer, auth_token)
+    @new_task_form = TaskForm.edit_task_form(nil, @customer, auth_token)
     @new_task = Call::Task.new
     if request.post?
       @new_task_form << params[:dim]
@@ -119,6 +119,25 @@ class Call::CustomersController < ApplicationController
         @new_task.save
         redirect_to call_customer_tasks_url(custkey: @customer.custkey), notice: 'დავალება დამატებულია!'
       end
+    end
+  end
+
+  def edit_task
+    @title = 'დავალების რედაქტირება'
+    @task = Call::Task.where(_id: params[:id]).first
+    @customer = @task.customer
+    @customer_form = CustomerForm.customer_form(@customer)
+    @customer_form.collapsed = true
+    @edit_task_form = TaskForm.edit_task_form(@task, @customer, auth_token)
+    if request.post?
+      @edit_task_form << params[:dim]
+      if @edit_task_form.valid?
+        @edit_task_form >> @task
+        @task.save
+        redirect_to call_show_customer_task_url(id: @task.id), notice: 'დავალება შეცვლილია!'
+      end
+    else
+      @edit_task_form << @task
     end
   end
 
