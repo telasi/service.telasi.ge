@@ -99,6 +99,7 @@ class Call::CustomersController < ApplicationController
     @customer_form = CustomerForm.customer_form(@customer)
     @customer_form.collapsed = true
     @task_form = TaskForm.task_form(@task)
+    @comments_form = TaskForm.comments_table(@task)
   end
 
   def new_task

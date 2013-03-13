@@ -42,4 +42,16 @@ module TaskForm
     tbl
   end
 
+  CMNT_USER = TextField.new(name: 'user.full_name', label: 'ოპერატორი')
+  CMNT_CREATED = DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
+  CMNT_TEXT = TextField.new(name: 'text', label: 'ტექსტი')
+
+  def self.comments_table(task)
+    tbl = Table.new(title: 'კომენტარები', icon: '/assets/fff/comment.png')
+    tbl.cols << CMNT_USER << CMNT_TEXT << CMNT_CREATED
+    tbl.vals = task.comments
+    tbl.actions << Action.new(label: 'კომენტარის დამატება', tooltip: 'დავალებაზე კომენტარის დამატება', icon: '/assets/fff/comment_add.png')
+    tbl
+  end
+
 end
