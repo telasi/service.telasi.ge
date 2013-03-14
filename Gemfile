@@ -20,7 +20,7 @@ gem 'dima'
 
 gem 'will_paginate_mongoid'
 gem 'bootstrap-will_paginate'
-gem 'simple_form', '~> 2.0.0'
+gem 'simple_form', '~> 2.0'
 gem 'mongoid-paperclip'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

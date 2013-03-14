@@ -68,6 +68,19 @@ class User
   # ასოირებული აბონენტები.
   has_many :customers, class_name: 'UserCustomer', inverse_of: :user
 
+  ### >> ქოლ-ცენტრის ოპციები: დასაწყისი
+
+  # აქვს თუ არა ქოლ-ცენტრით სარგებლობის უფლება.
+  field :call_center, type: Boolean
+
+  # ყველა რეგიონი აქვს?
+  field :all_regions, type: Boolean
+
+  # რეგიონების მასივი, რომელზეც შეიძლება ამ მომხმარებელს იმუშაოს.
+  has_and_belongs_to_many :regions, class_name: 'Ext::Region'
+
+  ### << ქოლ-ცენტრი: ბოლო
+
   # შემოწმების ოპერაციები
   validates_presence_of :salt
   validates_presence_of :hashed_password
@@ -186,4 +199,5 @@ class User
   def before_user_update
     self.mobile = User.compact_mobile(self.mobile)
   end
+
 end

@@ -13,6 +13,7 @@ class Sys::UsersController < ApplicationController
   def edit
     @title = 'მომხმარებლის რედაქტირება'
     @user = User.where(_id: params[:id]).first
+    @regions = Ext::Region.asc(:name)
     if request.put?
       redirect_to sys_users_path, notice: 'მომხმარებელი შეცვლილია.' if @user.update_attributes(params[:user]) 
     end
