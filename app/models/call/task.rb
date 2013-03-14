@@ -19,5 +19,13 @@ class Call::Task
     self.body.gsub("\n", '<br>')
   end
 
+  def self.by_user(user)
+    if user.all_regions
+      where({})
+    else
+      where(:region_id.in => user.region_ids)
+    end
+  end
+
 end
 
