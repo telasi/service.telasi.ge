@@ -79,6 +79,9 @@ class User
   # რეგიონების მასივი, რომელზეც შეიძლება ამ მომხმარებელს იმუშაოს.
   has_and_belongs_to_many :regions, class_name: 'Ext::Region'
 
+  # favorite "call::task"s
+  field :favorite_task_ids, type: Array
+
   ### << ქოლ-ცენტრი: ბოლო
 
   # შემოწმების ოპერაციები

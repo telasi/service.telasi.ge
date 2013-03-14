@@ -159,6 +159,8 @@ TelasiService::Application.routes.draw do
   namespace :call do
     scope controller: :main do
       get '/', action: :index, as: :home
+      post '/favorites/add/:id', action: :add_favorite, as: :add_to_favorites
+      delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
     end
     scope controller: :customers do
       get '/search', action: :index, as: :customer
