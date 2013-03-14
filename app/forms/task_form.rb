@@ -9,6 +9,7 @@ module TaskForm
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
   REGION = TextField.new(name: 'region.name', label: 'ბიზნ.ცენტრი', required: true)
   TITLE = TextField.new(name: 'title', label: 'სათაური', required: true, width: 500, url: lambda{|v| Rails.application.routes.url_helpers.call_show_customer_task_path(id: v.id)})
+  SIZE = NumberField.new(name: 'comments.size', label: 'კომენტ.', precision: 0)
   BODY = TextField.new(name: 'body', label: 'დეტალები', required: true, textarea: true, width: 500, height: 100)
   BODY_HTML = TextField.new(name: 'body_html', label: 'დეტალები', required: true)
   USER = TextField.new(name: 'user.full_name', label: 'ოპერატორი', required: true)
@@ -34,7 +35,8 @@ module TaskForm
 
   def self.task_table(tasks, cust = nil)
     tbl = Table.new(title: 'დავალებები', icon: '/assets/fff/clock.png')
-    tbl.cols << ACCNUMB.clone << TITLE.clone << COMPLETE.clone << REGION.clone << CREATED.clone
+    title_size = ComplexField.new(label: 'დავალების შინაარსი', fields: [SIZE.clone, TITLE.clone], url: TITLE.url)
+    tbl.cols << ACCNUMB.clone << title_size << COMPLETE.clone << REGION.clone << CREATED.clone
     tbl.actions << Action.new(label: 'ახალი დავალება', tooltip: 'აბონენტზე ახალი დავალების შექმნა', icon: '/assets/fff/clock_add.png', url: Rails.application.routes.url_helpers.call_new_customer_task_path(custkey: cust.custkey)) if cust
     tbl.item_actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     tbl.item_actions << Action.new(label: '', tooltip: 'დავალების წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: lambda {|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)})
