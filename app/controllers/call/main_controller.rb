@@ -7,7 +7,7 @@ class Call::MainController < ApplicationController
     @title = 'ქოლ-ცენტრი'
 
     @tasks = Call::Task.by_user(current_user).where(complete: false).desc(:_id).paginate(per_page: 10, page: params[:page])
-    @favorites = Call::Task.by_user(current_user).where(:_id.in => current_user.favorite_task_ids).desc(:_id)
+    @favorites = Call::Task.by_user(current_user).where(:_id.in => (current_user.favorite_task_ids || [])).desc(:_id)
 
     @task_table = TaskForm.task_table(@tasks)
     @task_table.item_actions.clear
