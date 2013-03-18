@@ -187,7 +187,7 @@ TelasiService::Application.routes.draw do
       delete '/status/delete/:id', action: :delete_status, as: :delete_status
       post '/mobiles/sync', action: :sync_mobiles, as: :sync_mobiles
       match '/mobiles/edit/:id', action: :edit_mobiles, as: :edit_mobiles
-      delete '/mobiles/delete/:id', action: :delete_mobile, as: :delete_mobile
+      delete '/mobiles/delete/:id', action: :delete_mobile, as: :delete_mobiles
     end
   end
 

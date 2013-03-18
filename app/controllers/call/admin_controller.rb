@@ -30,8 +30,6 @@ class Call::AdminController < ApplicationController
         @stat.save
         redirect_to call_home_url, notice: 'სტატუსი შეცვლილია.'
       end
-    else
-      #@form << @stat
     end
   end
 
@@ -46,6 +44,21 @@ class Call::AdminController < ApplicationController
   def sync_mobiles
     Call::Mobiles.sync
     redirect_to call_home_url, notice: 'რეგიონები სინქრონიზირებულია.'
+  end
+
+  def edit_mobiles
+    @title = 'მობილურების შეცვლა'
+    @mobiles = Call::Mobiles.find(params[:id])
+    @form = MobilesForm.mobiles_form(@mobiles, auth_token)
+    @form.edit = true
+    if request.post?
+      @form << params[:dim]
+      if @form.valid?
+        @form >> @mobiles
+        @mobiles.save
+        redirect_to call_home_url, notice: 'მობილურები შეცვლილია.'
+      end
+    end
   end
 
 end

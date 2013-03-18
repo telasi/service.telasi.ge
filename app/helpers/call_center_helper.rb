@@ -28,7 +28,7 @@ module CallCenterHelper
   end
 
   def cc_mobiles_table(mobiles)
-    mobs_table = MobilesForm.mobile_table(mobiles)
+    mobs_table = MobilesForm.mobiles_table(mobiles)
     mobs_table.collapsed = true
     mobs_table.html
   end

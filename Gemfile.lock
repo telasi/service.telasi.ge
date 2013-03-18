@@ -1,7 +1,7 @@
 PATH
   remote: ~/Projects/dima/
   specs:
-    dima (0.0.1)
+    dima (0.0.2)
       actionpack
       railties (~> 3.2)
 
