@@ -3,6 +3,7 @@ module TaskForm
   include Dima::Html
 
   STATUS  = SelectField.new(name: 'status', label: 'სტატუსი', collection: Call::Status.asc(:order_by))
+  STATUS_ICON = IconField.new(name: 'status.icon', label: '')
   CREATED = DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
   UPDATED = DateField.new(name: 'updated_at', label: 'შეიცვალა', formatter: '%d-%b-%Y %H:%M:%S')
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
@@ -35,7 +36,8 @@ module TaskForm
   def self.task_table(tasks, cust = nil)
     tbl = Table.new(title: 'დავალებები', icon: '/assets/fff/clock.png')
     title_size = ComplexField.new(label: 'დავალების შინაარსი', fields: [SIZE.clone, TITLE.clone], url: TITLE.url)
-    tbl.cols << ACCNUMB.clone << title_size << STATUS.clone << REGION.clone << CREATED.clone
+    status = ComplexField.new(label: 'სტატუსი', fields: [STATUS_ICON.clone, STATUS.clone])
+    tbl.cols << ACCNUMB.clone << title_size << status << REGION.clone << CREATED.clone
     tbl.actions << Action.new(label: 'ახალი დავალება', tooltip: 'აბონენტზე ახალი დავალების შექმნა', icon: '/assets/fff/clock_add.png', url: Rails.application.routes.url_helpers.call_new_customer_task_path(custkey: cust.custkey)) if cust
     tbl.item_actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     tbl.item_actions << Action.new(label: '', tooltip: 'დავალების წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: lambda {|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)})

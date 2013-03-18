@@ -6,6 +6,7 @@ module StatusForm
 
   NAME     = TextField.new(name: 'name', label: 'დასახელება', required: true, width: 500)
   ICON     = TextField.new(name: 'icon', label: 'გამოსახულება', required: true, width: 500)
+  ICON2    = IconField.new(name: 'icon')
   DEFAULT  = BooleanField.new(name: 'default', label: 'საწყისი?')
   START    = BooleanField.new(name: 'open', label: 'ღია?')
   ORDER_BY = NumberField.new(name: 'order_by', label: 'დალაგება', precision: 0, required: true, width: 50)
@@ -16,7 +17,8 @@ module StatusForm
 
   def self.stat_table(stats)
     tbl = Table.new(title:  'სტატუსები', icon: '/assets/fff/application_view_icons.png')
-    tbl.cols << NAME.clone << ICON.clone << DEFAULT.clone << START.clone << ORDER_BY.clone
+    status = ComplexField.new(label: 'სტატუსი', fields: [ICON2.clone, NAME.clone])
+    tbl.cols << status << DEFAULT.clone << START.clone
     tbl.actions << ACT_NEWSTAT
     tbl.item_actions << ACT_EDITSTAT << ACT_DELSTAT
     tbl.vals = stats
