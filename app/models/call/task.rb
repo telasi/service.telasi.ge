@@ -4,10 +4,10 @@ class Call::Task
   include Mongoid::Timestamps
 
   field :custkey, type: Integer
-  field :complete, type: Boolean
   field :title, type: String
   field :body, type: String
   has_many :comments, class_name: 'Call::TaskComment', order: :_id.desc
+  belongs_to :status, class_name: 'Ext::Status'
   belongs_to :region, class_name: 'Ext::Region'
   belongs_to :user
 
@@ -28,4 +28,3 @@ class Call::Task
   end
 
 end
-

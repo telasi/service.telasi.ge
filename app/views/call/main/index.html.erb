@@ -9,13 +9,25 @@
   text-shadow: 1px 1px black;
 }
 </style>
+
+<!-- main menu -->
+
 <div class="title">
   ქოლ-ცენტრი: მთავარი მენიუ
 </div>
 <div style="text-align: center" class="btn-toolbar">
   <%= link_to icon_text('search', 'აბონენტების ძებნა', white: true), call_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
 </div>
-<%= @task_table.html %>
+<%= cc_not_complete_tasks_list(@tasks) %>
 <%= paginate @tasks %>
+<%= cc_favorites_table(@favorites) %>
 
-<%= @favorites_table.html %>
+<%= role_content :sys_admin do %>
+
+<!-- admin menu -->
+
+<div class="title">
+  ადმინისტრირება
+</div>
+
+<% end %>
