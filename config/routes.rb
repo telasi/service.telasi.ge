@@ -181,6 +181,11 @@ TelasiService::Application.routes.draw do
       match '/tasks/comments/edit/:id', action: :edit_comment, as: :edit_task_comment
       delete '/tasks/comments/delete/:id', action: :delete_comment, as: :delete_task_comment
     end
+    scope controller: :admin do
+      match '/stat/new', action: :new_status, as: :new_status
+      match '/stat/edit/:id', action: :edit_status, as: :edit_status
+      delete '/stat/delete/:id', action: :delete_status, as: :delete_status
+    end
   end
 
   root :to => 'site#index'

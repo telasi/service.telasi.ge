@@ -21,4 +21,9 @@ module CallCenterHelper
     favorites_table.html
   end
 
+  def cc_status_table(stats)
+    stat_table = StatusForm.stat_table(stats)
+    stat_table.html
+  end
+
 end
