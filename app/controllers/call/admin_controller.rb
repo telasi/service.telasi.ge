@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Call::AdminController < ApplicationController
 
+  # status
+
   def new_status
     @title = 'ახალი სტატუსი'
     @stat = Call::Status.new(open: false, default: false)
@@ -37,6 +39,13 @@ class Call::AdminController < ApplicationController
     @stat = Call::Status.find(params[:id])
     @stat.destroy
     redirect_to call_home_url, notice: 'სტატუსი წაშლილია.'
+  end
+
+  # mobiles
+
+  def sync_mobiles
+    Call::Mobiles.sync
+    redirect_to call_home_url, notice: 'რეგიონები სინქრონიზირებულია.'
   end
 
 end

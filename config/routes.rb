@@ -182,9 +182,12 @@ TelasiService::Application.routes.draw do
       delete '/tasks/comments/delete/:id', action: :delete_comment, as: :delete_task_comment
     end
     scope controller: :admin do
-      match '/stat/new', action: :new_status, as: :new_status
-      match '/stat/edit/:id', action: :edit_status, as: :edit_status
-      delete '/stat/delete/:id', action: :delete_status, as: :delete_status
+      match '/status/new', action: :new_status, as: :new_status
+      match '/status/edit/:id', action: :edit_status, as: :edit_status
+      delete '/status/delete/:id', action: :delete_status, as: :delete_status
+      post '/mobiles/sync', action: :sync_mobiles, as: :sync_mobiles
+      match '/mobiles/edit/:id', action: :edit_mobiles, as: :edit_mobiles
+      delete '/mobiles/delete/:id', action: :delete_mobile, as: :delete_mobile
     end
   end
 

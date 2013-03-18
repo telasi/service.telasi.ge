@@ -10,7 +10,7 @@ module CallCenterHelper
     task_table.title = 'შეუსრულებელი დავალებები'
     task_table.html
   end
-  
+
   def cc_favorites_table(favorites)
     favorites_table = TaskForm.task_table(favorites)
     favorites_table.item_actions.clear
@@ -23,7 +23,14 @@ module CallCenterHelper
 
   def cc_status_table(stats)
     stat_table = StatusForm.stat_table(stats)
+    stat_table.collapsed = true
     stat_table.html
+  end
+
+  def cc_mobiles_table(mobiles)
+    mobs_table = MobilesForm.mobile_table(mobiles)
+    mobs_table.collapsed = true
+    mobs_table.html
   end
 
 end
