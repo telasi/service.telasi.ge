@@ -2,8 +2,7 @@
 module TaskForm
   include Dima::Html
 
-  COMPLETE = BooleanField.new(name: 'complete', label: 'დასრ?')
-  COMPLETE2 = BooleanField.new(name: 'complete', label: 'დასრულებულია?', required: true, val: false)
+  STATUS  = SelectField.new(name: 'status', label: 'სტატუსი', collection: Call::Status.asc(:order_by))
   CREATED = DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
   UPDATED = DateField.new(name: 'updated_at', label: 'შეიცვალა', formatter: '%d-%b-%Y %H:%M:%S')
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
@@ -19,14 +18,14 @@ module TaskForm
     submit = task.nil? ? 'ახალი დავალება' : 'დავალების შენახვა'
     icon = task.nil? ? '/assets/fff/clock_add.png' : '/assets/fff/clock_edit.png'
     form = Form.new(title: title, icon: icon, submit: submit, auth_token: auth_token)
-    form.col1 << TITLE.clone << BODY.clone << COMPLETE2.clone
+    form.col1 << TITLE.clone << BODY.clone << STATUS.clone
     form.edit = true
     form
   end
 
   def self.task_form(task)
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
-    form.col1 << ACCNUMB.clone << REGION.clone << COMPLETE2.clone << TITLE.clone << BODY_HTML.clone
+    form.col1 << ACCNUMB.clone << REGION.clone << STATUS.clone << TITLE.clone << BODY_HTML.clone
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     form << task
@@ -36,7 +35,7 @@ module TaskForm
   def self.task_table(tasks, cust = nil)
     tbl = Table.new(title: 'დავალებები', icon: '/assets/fff/clock.png')
     title_size = ComplexField.new(label: 'დავალების შინაარსი', fields: [SIZE.clone, TITLE.clone], url: TITLE.url)
-    tbl.cols << ACCNUMB.clone << title_size << COMPLETE.clone << REGION.clone << CREATED.clone
+    tbl.cols << ACCNUMB.clone << title_size << STATUS.clone << REGION.clone << CREATED.clone
     tbl.actions << Action.new(label: 'ახალი დავალება', tooltip: 'აბონენტზე ახალი დავალების შექმნა', icon: '/assets/fff/clock_add.png', url: Rails.application.routes.url_helpers.call_new_customer_task_path(custkey: cust.custkey)) if cust
     tbl.item_actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     tbl.item_actions << Action.new(label: '', tooltip: 'დავალების წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: lambda {|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)})

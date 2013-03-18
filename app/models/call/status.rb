@@ -9,4 +9,8 @@ class Call::Status
   field :open,     type: Boolean
   field :order_by, type: Integer
 
+  def to_s
+    self.name
+  end
+
 end
