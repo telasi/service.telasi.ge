@@ -39,9 +39,21 @@ class Call::Task
   private
 
   def send_to(user, mobile)
-    msg = Call::Sms.new(mobile: mobile, text: "აბ ##{self.customer.accnumb} (#{self.customer.address.to_s}): #{self.title}", user:user, task: self)
+    msg = Call::Sms.new(mobile: mobile, text: message_text, user:user, task: self)
     Magti.send_sms(mobile, msg.text.to_lat) if Magti::SEND
     msg.save
+  end
+
+  def message_text
+    cust  = self.customer
+    acc   = self.customer.accounts.first
+    meter = acc.mtnumb
+    msg = []
+    msg << "მრიცხ:#{meter}" unless meter.blank?
+    msg << "მის:#{acc.address.to_s}"
+    msg << "აბონ:#{cust.accnumb.to_ka} #{cust.custname.to_ka}"
+    msg << "კომენტ: #{self.title}"
+    msg.join("; ")
   end
 
 end
