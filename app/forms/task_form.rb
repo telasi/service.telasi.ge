@@ -29,7 +29,7 @@ module TaskForm
     form.col1 << ACCNUMB.clone << REGION.clone << STATUS.clone << TITLE.clone << BODY_HTML.clone
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
-    form.actions << Action.new(label: 'გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'მა,დვილად გინდათ გაგზავნა?')
+    #form.actions << Action.new(label: 'გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'მა,დვილად გინდათ გაგზავნა?')
     form << task
     form
   end
@@ -78,7 +78,7 @@ module TaskForm
     tbl.cols << TextField.new(name: 'user.full_name', label: 'ოპერატორი')
     tbl.cols << TextField.new(name: 'mobile', label: 'მობილური')
     tbl.cols << TextField.new(name: 'text', label: 'ტექსტი')
-    tbl.cols << DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
+    tbl.cols << DateField.new(name: 'created_at', label: 'გაიგზავნა', formatter: '%d-%b-%Y %H:%M:%S')
     tbl.vals = task.messages
     tbl
   end
