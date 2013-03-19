@@ -29,7 +29,8 @@ module TaskForm
     form.col1 << ACCNUMB.clone << REGION.clone << STATUS.clone << TITLE.clone << BODY_HTML.clone
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
-    #form.actions << Action.new(label: 'გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'მა,დვილად გინდათ გაგზავნა?')
+    form.actions << Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
+    form.actions << Action.new(label: 'ხელახლა გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?')
     form << task
     form
   end
