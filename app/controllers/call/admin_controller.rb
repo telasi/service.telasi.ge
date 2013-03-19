@@ -61,4 +61,10 @@ class Call::AdminController < ApplicationController
     end
   end
 
+  def delete_mobiles
+    mobiles = Call::Mobiles.find(params[:id])
+    mobiles.destroy
+    redirect_to call_home_url, notice: 'მობილურები წაშლილია.'
+  end
+
 end

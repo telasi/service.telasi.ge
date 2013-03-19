@@ -10,6 +10,8 @@ class Call::Mobiles
   def self.sync
     Ext::Region.all.each do |r|
       mobile = Call::Mobiles.where(region_id: r.id).first || Call::Mobiles.new(region_id: r.id)
+      mobile.mobile1 = '595335514' if mobile.mobile1.blank?
+      mobile.mobile2 = '595335514' if mobile.mobile2.blank?
       mobile.save
     end
   end
