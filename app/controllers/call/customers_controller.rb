@@ -118,7 +118,7 @@ class Call::CustomersController < ApplicationController
         @new_task.custkey = @customer.custkey
         @new_task.save
         @new_task.send_by(current_user)
-        redirect_to call_customer_tasks_url(custkey: @customer.custkey), notice: 'დავალება დამატებულია!'
+        redirect_to call_show_customer_task_url(id: @new_task.id), notice: 'დავალება დამატებულია!'
       end
     end
   end
