@@ -6,7 +6,7 @@ module MobilesForm
   MOBILE1 = TextField.new(name: 'mobile1', label: 'მობილური 1')
   MOBILE2 = TextField.new(name: 'mobile2', label: 'მობილური 2')
 
-  ACT_SYNC = Action.new(label: 'რეგიონების სინქრონიზაცია', tooltip: 'რეგიონების სინქრონიზაცია', icon: '/assets/fff/arrow_refresh.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?', url: Rails.application.routes.url_helpers.call_sync_mobiles_path)
+  ACT_SYNC = Action.new(label: 'რეგიონების სინქრონიზაცია', tooltip: 'რეგიონების სინქრონიზაცია', icon: '/assets/fff/arrow_refresh.png', method: 'post', confirm: 'ნამდვილად გინდათ სინქრონიზაცია?', url: lambda{|v| Rails.application.routes.url_helpers.call_sync_mobiles_path})
   ACT_EDITMOB = Action.new(label: '', tooltip: 'მობილურების შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_mobiles_path(v.id) })
   ACT_DELMOB = Action.new(label: '', tooltip: 'მობილურების წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_mobiles_path(v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?')
 
