@@ -11,7 +11,7 @@ module StatusForm
   START    = BooleanField.new(name: 'open', label: 'ღია?')
   ORDER_BY = NumberField.new(name: 'order_by', label: 'დალაგება', precision: 0, required: true, width: 50)
 
-  ACT_NEWSTAT = Action.new(label: 'ახალი სტატუსი', tooltip: 'ახალი სტატუსის დამატება', icon: '/assets/fff/add.png', url: Rails.application.routes.url_helpers.call_new_status_path)
+  ACT_NEWSTAT = Action.new(label: 'ახალი სტატუსი', tooltip: 'ახალი სტატუსის დამატება', icon: '/assets/fff/add.png', url: lambda{|v|Rails.application.routes.url_helpers.call_new_status_path})
   ACT_EDITSTAT = Action.new(label: '', tooltip: 'სტატუსის შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_status_path(v.id) })
   ACT_DELSTAT = Action.new(label: '', tooltip: 'სტატუსის წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_status_path(v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?')
 
