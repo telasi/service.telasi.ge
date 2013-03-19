@@ -198,6 +198,12 @@ class Call::CustomersController < ApplicationController
     redirect_to call_show_customer_task_url(id: task.id), notice: 'კომენტარი წაშლილია.'
   end
 
+  def send_task
+    task = Call::Task.where(_id: params[:id]).first
+    task.send_by(current_user)
+    redirect_to call_show_customer_task_url(id: task.id), notice: 'დავალების შეტყობინება გაგზავნილია'
+  end
+
   private
 
   def navbuttons

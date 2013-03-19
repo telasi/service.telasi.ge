@@ -27,4 +27,20 @@ class Call::Task
     end
   end
 
+  def send_by(user)
+    mobiles = Call::Mobiles.where(region_id: self.region.id).first
+    if mobiles
+      send_to(user, mobiles.mobile1) unless mobiles.mobile1.blank?
+      send_to(user, mobiles.mobile2) unless mobiles.mobile2.blank?
+    end
+  end
+
+  private
+
+  def send_to(user, mobile)
+    msg = Call::Sms.new(mobile: mobile, text: "აბ ##{self.customer.accnumb} (#{self.customer.address.to_s}): #{self.title}", user:user, task: self)
+    Magti.send_sms(mobile, msg.text.to_lat) if Magti::SEND
+    msg.save
+  end
+
 end

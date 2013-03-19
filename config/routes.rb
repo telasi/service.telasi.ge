@@ -180,6 +180,7 @@ TelasiService::Application.routes.draw do
       match '/tasks/comments/new/:id', action: :new_comment, as: :new_task_comment
       match '/tasks/comments/edit/:id', action: :edit_comment, as: :edit_task_comment
       delete '/tasks/comments/delete/:id', action: :delete_comment, as: :delete_task_comment
+      post '/tasks/send/:id', action: :send_task, as: :send_task
     end
     scope controller: :admin do
       match '/status/new', action: :new_status, as: :new_status
