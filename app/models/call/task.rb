@@ -7,6 +7,7 @@ class Call::Task
   field :title, type: String
   field :body, type: String
   has_many :comments, class_name: 'Call::TaskComment', order: :_id.desc
+  has_many :messages, class_name: 'Call::Sms', order: :_id.desc
   belongs_to :status, class_name: 'Call::Status'
   belongs_to :region, class_name: 'Ext::Region'
   belongs_to :user

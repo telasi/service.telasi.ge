@@ -33,4 +33,9 @@ module CallCenterHelper
     mobs_table.html
   end
 
+  def cc_sms_table(task)
+    sms_table = TaskForm.sms_table(task)
+    sms_table.html
+  end
+
 end

@@ -73,4 +73,14 @@ module TaskForm
     form
   end
 
+  def self.sms_table(task)
+    tbl = Table.new(title: 'SMS შეტყობინებები', icon: '/assets/fff/phone.png')
+    tbl.cols << TextField.new(name: 'user.full_name', label: 'ოპერატორი')
+    tbl.cols << TextField.new(name: 'mobile', label: 'მობილური')
+    tbl.cols << TextField.new(name: 'text', label: 'ტექსტი')
+    tbl.cols << DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M:%S')
+    tbl.vals = task.messages
+    tbl
+  end
+
 end

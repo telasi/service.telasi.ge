@@ -117,6 +117,7 @@ class Call::CustomersController < ApplicationController
         @new_task.region = Ext::Region.where(regionkey: @customer.address.region.regionkey).first
         @new_task.custkey = @customer.custkey
         @new_task.save
+        @new_task.send_by(current_user)
         redirect_to call_customer_tasks_url(custkey: @customer.custkey), notice: 'დავალება დამატებულია!'
       end
     end
