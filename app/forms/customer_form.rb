@@ -45,7 +45,7 @@ module CustomerForm
     form.col1 << SEND_ADDRESS << REGION << TAXID << COMERCIAL << PHONE << EMAIL
     form.col2 << STATUS << CATEG << ACTIVITY << CUT << EXCEPT << ILLEGAL_LINE
     form.col2 << CREATE_DATE << CLOSE_DATE << NOTE
-    form.actions << ACT_HISTORY << ACT_CUT_HISTORY << ACT_TASKS << ACT_TARIFFS
+    form.actions << ACT_HISTORY << ACT_CUT_HISTORY << ACT_TARIFFS << ACT_TASKS
     form << cust
     form
   end

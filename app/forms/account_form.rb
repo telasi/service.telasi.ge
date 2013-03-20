@@ -29,14 +29,25 @@ module AccountForm
   end
 
   def self.account_tariff_table(acc)
-    tbl = Table.new(title: "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/cog.png')
+    tbl = Table.new(title: "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/lightbulb.png')
     tbl.cols << TextField.new(name: 'account.accid', label: 'ანგარიში')
     tbl.cols << DateField.new(name: 'startdate', label: 'დაწყება')
     tbl.cols << DateField.new(name: 'enddate', label: 'დასრულება')
     tbl.cols << BooleanField.new(name: 'status', label: 'გაუქმ?')
     tbl.cols << TextField.new(name: 'tariff.compname', label: 'ტარიფი')
-    tbl.cols << NumberField.new(name: 'tariff.amount', label: 'ტარიფი', after: 'GEL')
+    tbl.cols << NumberField.new(name: 'tariff.amount', label: 'ტარიფი', after: 'GEL', precision: 5)
     tbl.vals = acc.tariffs
+    tbl
+  end
+
+  def self.tariff_steps(tar)
+    tbl = Table.new(title: tar.compname.to_ka, icon: '/assets/fff/cog.png')
+    tbl.cols << TextField.new(name: 'tariff.compname', label: 'ტარიფი')
+    tbl.cols << TextField.new(name: 'ts_seq', label: 'ბიჯი', before: '#')
+    tbl.cols << NumberField.new(name: 'ts_upper_bnd', label: 'ზედა ზღვარი', after: 'kWh')
+    tbl.cols << NumberField.new(name: 'ts_val', label: 'ფასი', after: 'GEL', precision: 5)
+    tbl.collapsed = true
+    tbl.vals = tar.steps
     tbl
   end
 

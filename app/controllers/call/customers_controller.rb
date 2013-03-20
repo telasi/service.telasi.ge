@@ -95,6 +95,10 @@ class Call::CustomersController < ApplicationController
     @accounts.each do |acc|
       @tariffs[acc] = AccountForm.account_tariff_table(acc)
     end
+    @steps = []
+    [100, 101, 200, 201].each do |key|
+       @steps << AccountForm.tariff_steps(Bs::Tariff.find(key))
+    end
   end
 
   # tasks
