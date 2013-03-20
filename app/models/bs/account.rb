@@ -37,4 +37,23 @@ class Bs::Account < ActiveRecord::Base
     end
   end
 
+  def parent
+    rel = Bs::AccountRelation.where(acckey: self.acckey).first
+    rel.parent if rel
+  end
+
+  def parents
+    pars = []
+    curr = self
+    while not curr.nil?
+      pars << curr
+      curr = curr.parent
+    end
+    pars
+  end
+
+  def to_s
+    self.accid
+  end
+
 end

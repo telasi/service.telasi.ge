@@ -26,6 +26,8 @@ module AccountForm
     form.col1 << ACCID.clone << ADDRESS.clone << REGION.clone << INST_CAP.clone
     form.col1 << METER_NAME.clone << METER_NUMB.clone << METER_COEF.clone << METER_DIGS.clone
     form.col1 << ComplexField.new(label: 'სახეობა', fields: [TYPE_ICON.clone, TYPE.clone])
+    trace = ArrayField.new(label: 'კვება', name: 'parents', field: ComplexField.new(fields: [TYPE_ICON.clone, ACCID.clone, TextField.new(name: 'customer.custname', klass: 'muted')]))
+    form.col1 << trace
     form.col2 << MAINACC.clone << STATUS.clone
     form.col2 << CREATE_DATE.clone << CLOSE_DATE.clone << NOTE.clone
     form << acc
