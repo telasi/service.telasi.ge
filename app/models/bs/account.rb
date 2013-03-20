@@ -19,16 +19,21 @@ class Bs::Account < ActiveRecord::Base
 
   def account_type
     case self.acctype
-    when TYPE_SUBSTATION
-      'სადგური'
-    when TYPE_FEEDER
-      'ფიდერი'
-    when TYPE_TRANSF
-      'ტრანსფორმატორი'
-    when TYPE_METER
-      'მრიცხველი'
-    else
-      '?'
+    when TYPE_SUBSTATION then 'სადგური'
+    when TYPE_FEEDER then 'ფიდერი'
+    when TYPE_TRANSF then 'ტრანსფორმატორი'
+    when TYPE_METER then 'მრიცხველი'
+    else '?'
+    end
+  end
+
+  def account_type_icon
+    case self.acctype
+    when TYPE_SUBSTATION then '/assets/fff/lightning.png'
+    when TYPE_FEEDER then '/assets/fff/wrench.png'
+    when TYPE_TRANSF then '/assets/fff/cog.png'
+    when TYPE_METER then '/assets/fff/lightbulb.png'
+    else '?'
     end
   end
 

@@ -18,13 +18,15 @@ module AccountForm
   CREATE_DATE = DateField.new(name: 'createdate', label: 'შეიქმნა', required: true)
   CLOSE_DATE = DateField.new(name: 'closedate', label: 'დაიხურა')
   NOTE = TextField.new(name: 'note', label: 'შენიშვნები')
-  TYPE = TextField.new(name: 'account_type', label: 'სახეობა', required: true)
+  TYPE = TextField.new(name: 'account_type')
+  TYPE_ICON = IconField.new(name: 'account_type_icon')
 
   def self.account_form(acc, opts = {})
     form = Form.new(title:  opts[:title] || "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/lightbulb.png')
     form.col1 << ACCID.clone << ADDRESS.clone << REGION.clone << INST_CAP.clone
     form.col1 << METER_NAME.clone << METER_NUMB.clone << METER_COEF.clone << METER_DIGS.clone
-    form.col2 << MAINACC.clone << STATUS.clone << TYPE.clone
+    form.col1 << ComplexField.new(label: 'სახეობა', fields: [TYPE_ICON.clone, TYPE.clone])
+    form.col2 << MAINACC.clone << STATUS.clone
     form.col2 << CREATE_DATE.clone << CLOSE_DATE.clone << NOTE.clone
     form << acc
     form
