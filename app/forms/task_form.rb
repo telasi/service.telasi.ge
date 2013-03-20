@@ -26,7 +26,9 @@ module TaskForm
 
   def self.task_form(task)
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
-    form.col1 << ACCNUMB.clone << REGION.clone << STATUS.clone << TITLE.clone << BODY_HTML.clone
+    form.col1 << ACCNUMB.clone << REGION.clone
+    status = ComplexField.new(label: 'სტატუსი', fields: [STATUS_ICON.clone, STATUS.clone])
+    form.col1 << status << TITLE.clone << BODY_HTML.clone
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     form.actions << Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
