@@ -13,12 +13,12 @@ module TrashItemForm
   ASSISTANT = TextField.new(name: 'assistant', label: 'ასისტენტი')
   DOCNUMB = TextField.new(name: 'trashitemnumber', label: 'დოკუმენტის №')
   ENTERDATE = DateField.new(name: 'enterdate', label: 'შეყვანის თარიღი', formatter: '%d-%b-%Y %H:%M:%S')
-  KWH = NumberField.new(name: 'kwt', label: 'ელ.ენერგ.დარიცხვა', after: 'kWh')
+  KWH = NumberField.new(name: 'kwt', label: 'kWh', after: 'kWh')
 
   def self.item_table(items)
     tbl = Table.new(title: 'აბონენტის დასუფთავების ისტორია', icon: '/assets/fff/bin.png')
     tbl.cols << OPERDATE << ACCNUMB << OPERATION << AMOUNT
-    tbl.cols << BALANCE << CURR_BALANCE << OLD_BALANCE
+    tbl.cols << BALANCE << CURR_BALANCE << KWH
     tbl.vals = items
     tbl
   end
