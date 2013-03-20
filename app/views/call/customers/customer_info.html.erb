@@ -3,5 +3,5 @@
 <% @account_forms.each do |form| %>
 <%= form.html %>
 <% end %>
-<%= @trash_customer_form.html %>
-<%= @water_customer_form.html %>
+<%= @trash_customer_form.html rescue nil %>
+<%= @water_customer_form.html rescue nil %>
