@@ -5,6 +5,7 @@ module ItemForm
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.customer.custkey)})
   ACCID = TextField.new(name: 'account.accid', label: 'ანგარიში', required: true)
   OPERATION = TextField.new(name: 'operation', label: 'ოპერაცია', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_item_path(itemkey: v.itemkey)})
+  OPERKEY = NumberField.new(name: 'billoperkey', label: 'ოპერ.კოდი', required: true, precision: 0, before: 'id=')
   ITEMDATE = DateField.new(name: 'itemdate', label: 'თარიღი', required: true)
   READING = NumberField.new(name: 'reading', label: 'წაკითხვა', after: 'kWh', required: true, precision: 3)
   CHARGE =NumberField.new(name: 'kwt', label: 'დარიცხვა', after: 'kWh', required: true)
@@ -22,7 +23,7 @@ module ItemForm
     form = Form.new(title: 'ოპერაციის დეტალები', icon: '/assets/fff/lightbulb.png')
     form.col1 << ACCNUMB << ACCID << OPERATION << ITEMDATE
     form.col1 << READING << CHARGE << AMOUNT << BALANCE << PREV_BALANCE
-    form.col2 << DOCNUM << CYCLE << ENTERDATE << PERSON << NOTE
+    form.col2 << DOCNUM << CYCLE << OPERKEY << ENTERDATE << PERSON << NOTE
     #form.actions << ACT_HISTORY << ACT_CUT_HISTORY
     form << item
     form
