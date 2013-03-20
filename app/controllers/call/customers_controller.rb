@@ -14,6 +14,8 @@ class Call::CustomersController < ApplicationController
     @customer_table = CustomerForm.customer_table(@customers)
   end
 
+  # customer
+
   def customer_info
     @title = 'მონაცემები აბონენტზე'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
@@ -82,6 +84,20 @@ class Call::CustomersController < ApplicationController
     @trash_customer_form = TrashCustomerForm.customer_form(@customer.trash_customer)
     @trash_customer_form.collapsed = true
   end
+
+  def tariff_history
+    @title = 'ტარიფების ისტორია'
+    @customer = Bs::Customer.where(custkey: params[:custkey]).first
+    @customer_form = CustomerForm.customer_form(@customer)
+    @customer_form.collapsed = true
+    @accounts = @customer.accounts
+    @tariffs = {}
+    @accounts.each do |acc|
+      @tariffs[acc] = AccountForm.account_tariff_table(acc)
+    end
+  end
+
+  # tasks
 
   def tasks
     @title = 'დავალებები'
@@ -228,6 +244,9 @@ class Call::CustomersController < ApplicationController
       @nav['დავალების დეტალები'] = call_show_customer_task_url(id: @task.id) if @task
       @nav['ახალი კომენტარი'] = nil if @new_comment
       @nav['კომენტარის რედაქტირება'] = nil if @comment
+    end
+    if @tariffs
+      @nav['ტარიფების ისტორია'] = call_tariff_history_url(custkey: @customer.custkey)
     end
   end
 

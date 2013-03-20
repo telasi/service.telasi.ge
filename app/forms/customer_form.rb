@@ -30,6 +30,7 @@ module CustomerForm
   ACT_HISTORY = Action.new(label: 'ისტორია', tooltip: 'დარიცხვის ისტორია', icon: '/assets/fff/lightbulb.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_items_path(custkey: v.custkey)})
   ACT_CUT_HISTORY = Action.new(label: 'ჩაჭრები', tooltip: 'ჩაჭრების ისტორია', icon: '/assets/fff/cut.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_cuts_path(custkey: v.custkey)})
   ACT_TASKS = Action.new(label: 'დავალებები', tooltip: 'დავალებების ნახვა', icon: '/assets/fff/clock.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_tasks_path(custkey: v.custkey)})
+  ACT_TARIFFS = Action.new(label: 'ტარიფები', tooltip: 'ტარიფების ისტორია', icon: '/assets/fff/money.png', url: lambda{|v| Rails.application.routes.url_helpers.call_tariff_history_path(custkey: v.custkey)})
 
   def self.customer_table(custs)
     tbl = Table.new(title: 'აბონენტები', icon: '/assets/fff/group.png')
@@ -44,7 +45,7 @@ module CustomerForm
     form.col1 << SEND_ADDRESS << REGION << TAXID << COMERCIAL << PHONE << EMAIL
     form.col2 << STATUS << CATEG << ACTIVITY << CUT << EXCEPT << ILLEGAL_LINE
     form.col2 << CREATE_DATE << CLOSE_DATE << NOTE
-    form.actions << ACT_HISTORY << ACT_CUT_HISTORY << ACT_TASKS
+    form.actions << ACT_HISTORY << ACT_CUT_HISTORY << ACT_TASKS << ACT_TARIFFS
     form << cust
     form
   end

@@ -28,4 +28,16 @@ module AccountForm
     form
   end
 
+  def self.account_tariff_table(acc)
+    tbl = Table.new(title: "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/cog.png')
+    tbl.cols << TextField.new(name: 'account.accid', label: 'ანგარიში')
+    tbl.cols << DateField.new(name: 'startdate', label: 'დაწყება')
+    tbl.cols << DateField.new(name: 'enddate', label: 'დასრულება')
+    tbl.cols << BooleanField.new(name: 'status', label: 'გაუქმ?')
+    tbl.cols << TextField.new(name: 'tariff.compname', label: 'ტარიფი')
+    tbl.cols << NumberField.new(name: 'tariff.amount', label: 'ტარიფი', after: 'GEL')
+    tbl.vals = acc.tariffs
+    tbl
+  end
+
 end

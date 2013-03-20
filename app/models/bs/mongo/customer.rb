@@ -3,7 +3,7 @@ class Bs::Mongo::Customer
   include Mongoid::Document
   include Mongoid::Timestamps
   store_in 'bs_customer'
-  
+
   field :custkey, type: Integer
   embeds_one :address, class_name: 'Bs::Mongo::Address'
   embeds_one :send_address, class_name: 'Bs::Mongo::Address'

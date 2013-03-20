@@ -1,0 +1,5 @@
+<%= render partial: 'call/customers/top' %>
+<%= @customer_form.html %>
+<% @tariffs.each do |acc, form| %>
+<%= form.html %>
+<% end %>
