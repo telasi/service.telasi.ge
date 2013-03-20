@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Bs::Account < ActiveRecord::Base
+  TYPE_SUBSTATION = 1
+  TYPE_FEEDER = 2
+  TYPE_TRANSF = 3
+  TYPE_METER  = 4
+  
   self.table_name  = 'bs.account'
   self.primary_key = :acckey
   belongs_to :customer,   class_name: 'Bs::Customer',      foreign_key: :custkey
@@ -10,6 +15,21 @@ class Bs::Account < ActiveRecord::Base
 
   def status
     self.statuskey == 0 ? 'აქტიური' : 'გაუქმებული'
+  end
+
+  def account_type
+    case self.acctype
+    when TYPE_SUBSTATION
+      'სადგური'
+    when TYPE_FEEDER
+      'ფიდერი'
+    when TYPE_TRANSF
+      'ტრანსფორმატორი'
+    when TYPE_METER
+      'მრიცხველი'
+    else
+      '?'
+    end
   end
 
 end
