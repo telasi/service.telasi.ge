@@ -1,4 +1,7 @@
 <%= render partial: 'call/customers/top' %>
 <%= @customer_form.html %>
+<% @account_forms.each do |form| %>
+<%= form.html %>
+<% end %>
 <%= @trash_customer_form.html %>
 <%= @water_customer_form.html %>

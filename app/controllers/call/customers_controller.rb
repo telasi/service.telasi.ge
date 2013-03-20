@@ -24,6 +24,12 @@ class Call::CustomersController < ApplicationController
     @trash_customer_form.collapsed = true
     @water_customer_form = WaterCustomerForm.customer_form(@customer)
     @water_customer_form.collapsed = true
+    @account_forms = []
+    @customer.accounts.each do |acc|
+      form = AccountForm.account_form(acc)
+      form.collapsed = true
+      @account_forms << form
+    end
   end
 
   def items

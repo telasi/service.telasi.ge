@@ -20,7 +20,7 @@ module AccountForm
   NOTE = TextField.new(name: 'note', label: 'შენიშვნები')
 
   def self.account_form(acc, opts = {})
-    form = Form.new(title:  opts[:title] || 'ანგარიში და მრიცხველი', icon: '/assets/fff/cog.png')
+    form = Form.new(title:  opts[:title] || "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/lightbulb.png')
     form.col1 << ACCID << ADDRESS << REGION << INST_CAP
     form.col1 << METER_NAME << METER_NUMB << METER_COEF << METER_DIGS
     form.col2 << MAINACC << STATUS << CREATE_DATE << CLOSE_DATE << NOTE
