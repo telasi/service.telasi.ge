@@ -5,6 +5,7 @@ module TrashItemForm
   OPERDATE = DateField.new(name: 'operdate', label: 'თარიღი', required: true)
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.customer.custkey)})
   OPERATION = TextField.new(name: 'operation.description', label: 'ოპერაცია', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_trash_item_path(trashitemid: v.trashitemid)})
+  OPERATIONID = NumberField.new(name: 'operationid', label: 'ოპერაც. კოდი', required: true, before: 'id=', precision: 0)
   AMOUNT = NumberField.new(name: 'normal_amount', label: 'თანხა', after: 'GEL', required: true)
   BALANCE = NumberField.new(name: 'balance', label: 'სრული ვალი', after: 'GEL', required: true)
   CURR_BALANCE = NumberField.new(name: 'curr_balance', label: 'მიმდ.ვალი', after: 'GEL', required: true)
@@ -26,7 +27,7 @@ module TrashItemForm
   def self.item_form(item)
     form = Form.new(title: 'დასუფთავების ოპერაციის დეტალები', icon: '/assets/fff/bin.png')
     form.col1 << OPERDATE << ACCNUMB << OPERATION << AMOUNT << CURR_BALANCE << BALANCE
-    form.col2 << KWH << DOCNUMB << ENTERDATE << SIGNEE << ASSISTANT
+    form.col2 << OPERATIONID << KWH << DOCNUMB << ENTERDATE << SIGNEE << ASSISTANT
     form << item
     form
   end
