@@ -26,4 +26,28 @@ class Sys::UsersController < ApplicationController
     redirect_to sys_users_path, notice: 'მომხმარებელი წაშლილია.'
   end
 
+  # show user properties
+  def show
+    @title = 'მომხმარებელის თვისებები'
+    @user = User.find(params[:id])
+  end
+
+  def confirm_acc
+    user = User.find(params[:id])
+    user.accnumbs.delete(params[:accnumb])
+    user.confirmed_accnumbs ||= []
+    user.confirmed_accnumbs << params[:accnumb]
+    user.save
+    redirect_to sys_show_user_url(id: user.id), notice: 'ანგარიში დადასტურებულია.'
+  end
+
+  def remove_acc
+    user = User.find(params[:id])
+    user.confirmed_accnumbs.delete(params[:accnumb])
+    user.accnumbs ||= []
+    user.accnumbs << params[:accnumb]
+    user.save
+    redirect_to sys_show_user_url(id: user.id), notice: 'ანგარიში გაუქმებულია.'
+  end
+
 end

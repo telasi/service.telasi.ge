@@ -13,15 +13,18 @@
         <tr>
           <td width="45" class="center"><%= image_tag(u.normal_photo) %></td>
           <td>
-            <%= u.full_name %>
-            <% unless u.bs_person.blank? %>
-              <span class="muted">&rarr; <%= u.bs_person %></span>
-            <% end %>
-            <br>
-            <span class="muted">
-              <%= icon_text (u.email_confirmed ? 'ok-sign' : 'question-sign'), mail_to(u.email) %>
-              <%= C12.format_mobile u.mobile %>
-            </span>
+            <div style="padding: 5px 0">
+              <%= link_to u.full_name, sys_show_user_url(id: u.id) %>
+              <% unless u.bs_person.blank? %>
+                <span class="muted">&rarr; <%= u.bs_person %></span>
+              <% end %>
+            </div>
+            <div>
+              <span class="muted">
+                <%= icon_text (u.email_confirmed ? 'ok-sign' : 'question-sign'), mail_to(u.email) %>
+                <%= C12.format_mobile u.mobile %>
+              </span>
+            </div>
           </td>
           <td>
             <%= render partial: 'users/roles', locals: {user: u} %>

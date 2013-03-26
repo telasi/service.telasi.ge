@@ -61,6 +61,8 @@ class User
 
   # აბონენტის ნომერი.
   field :accnumbs, type: Array
+  # დადასტურებული აბონენტის ნომრები.
+  field :confirmed_accnumbs, type: Array
 
   # მომხარებლის ენა.
   field :language, type: String, default: 'ka'
@@ -167,6 +169,16 @@ class User
     else
       self.send(role.to_sym) if self.respond_to?(role.to_sym)
     end
+  end
+
+  # customer accounts
+
+  def all_accounts
+    (self.accnumbs || []) + (self.confirmed_accnumbs || [])
+  end
+
+  def confirmed?(accnumb)
+    (self.confirmed_accnumbs || []).include(accnumb)
   end
 
   private

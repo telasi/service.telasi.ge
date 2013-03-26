@@ -43,6 +43,9 @@ TelasiService::Application.routes.draw do
       get   '/',            action: :index,  as: :users
       match '/edit/:id',    action: :edit,   as: :edit_user
       delete '/delete/:id', action: :delete, as: :delete_user
+      get '/show/:id',      action: :show,   as: :show_user
+      post '/confirm/:id/:accnumb', action: :confirm_acc, as: :confirm_acc
+      delete '/remove/:id/:accnumb', action: :remove_acc, as: :remove_acc
     end
     scope '/regions', controller: :regions do
       get  '/',           action: :index,        as: :regions
