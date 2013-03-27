@@ -178,7 +178,7 @@ class User
   end
 
   def confirmed?(accnumb)
-    (self.confirmed_accnumbs || []).include(accnumb)
+    (self.confirmed_accnumbs || []).include?(accnumb)
   end
 
   private
