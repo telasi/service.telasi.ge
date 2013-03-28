@@ -5,7 +5,7 @@ module CutForm
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბონენტი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.customer.custkey)})
   ACCID = TextField.new(name: 'account.accid', label: 'ანგარიში', required: true)
   OPER_DATE = DateField.new(name: 'oper_date', label: 'თარიღი', required: true)
-  MARK_DATE = DateField.new(name: 'mark_date', label: 'გენერაციის თარიღი', required: true)
+  MARK_DATE = DateField.new(name: 'mark_date', label: 'გენერაციის თარიღი', required: true, formatter: '%d-%b-%Y %H:%M:%S')
   OPERATION = TextField.new(name: 'operation', label: 'ოპერაცია', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_cut_path(cutkey: v.cr_key)})
   RESULT = TextField.new(name: 'result', label: 'შესრულება')
   NOTE = TextField.new(name: 'note', label: 'შენიშვნა')

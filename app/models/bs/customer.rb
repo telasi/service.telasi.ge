@@ -22,6 +22,11 @@ class Bs::Customer < ActiveRecord::Base
     end
   end
 
+  def pre_payment_date
+    p = Bs::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first
+    p.paydate if p
+  end
+
   def pre_trash_payment
     Bs::TrashPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
       sum += payment.amount

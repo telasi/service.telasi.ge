@@ -8,7 +8,8 @@ module CustomerForm
   CUSTNAME = TextField.new(name: 'custname', label: 'დასახელება', required: true)
   BALANCE = NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
   OLD_BALANCE = NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
-  PRE_PAYMENT = NumberField.new(name: 'pre_payment', label: 'წინასწარი გადახდა', after: 'GEL')
+  PRE_PAYMENT_AMNT = NumberField.new(name: 'pre_payment', after: 'GEL')
+  PRE_PAYMENT_DATE = DateField.new(name: 'pre_payment_date')
   ADDRESS = TextField.new(name: 'address', label: 'მისამართი', required: true)
   SEND_ADDRESS = TextField.new(name: 'send_address', label: 'ქვითრის მისამართი', required: true)
   REGION = TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
@@ -41,8 +42,9 @@ module CustomerForm
   end
 
   def self.customer_form(cust, opts = {})
+    pre = ComplexField.new(fields: [PRE_PAYMENT_AMNT, PRE_PAYMENT_DATE], label: 'წინასწარი გადახდა')
     form = Form.new(title: opts[:title] || 'აბონენტი', icon: '/assets/fff/user.png')
-    form.col1 << ACCNUMB << CUSTNAME << BALANCE << PRE_PAYMENT << OLD_BALANCE << ADDRESS
+    form.col1 << ACCNUMB << CUSTNAME << BALANCE << pre << OLD_BALANCE << ADDRESS
     form.col1 << SEND_ADDRESS << REGION << TAXID << COMERCIAL << PHONE << EMAIL
     form.col2 << STATUS << CATEG << ACTIVITY << CUT << EXCEPT << ILLEGAL_LINE
     form.col2 << CREATE_DATE << CLOSE_DATE << NOTE
