@@ -269,30 +269,30 @@ class Call::CustomersController < ApplicationController
     unless params.blank?
       unless params[:accnumb].blank?
         conditions << 'customer.accnumb LIKE :accnumb'
-        values[:accnumb] = "%#{params[:accnumb].to_geo}%"
+        values[:accnumb] = "%#{params[:accnumb].strip.to_geo}%"
       end
       unless params[:custname].blank?
         conditions << 'customer.custname LIKE :custname'
-        values[:custname] = "%#{params[:custname].to_geo}%"
+        values[:custname] = "%#{params[:custname].strip.to_geo}%"
       end
       unless params[:regionname].blank?
         conditions << 'region.regionname LIKE :regionname'
-        values[:regionname] = "%#{params[:regionname].to_geo}%"
+        values[:regionname] = "%#{params[:regionname].strip.to_geo}%"
         join_address = join_regions = true
       end
       unless params[:streetname].blank?
         conditions << 'street.streetname LIKE :streetname'
-        values[:streetname] = "%#{params[:streetname].to_geo}%"
+        values[:streetname] = "%#{params[:streetname].strip.to_geo}%"
         join_address = join_street = true
       end
       unless params[:building].blank?
         conditions << '(address.building LIKE :building OR address.house LIKE :building)'
-        values[:building] = "%#{params[:building].to_geo}%"
+        values[:building] = "%#{params[:building].strip.to_geo}%"
         join_address = true
       end
       unless params[:flate].blank?
         conditions << 'address.flate LIKE :flate'
-        values[:flate] = "%#{params[:flate].to_geo}%"
+        values[:flate] = "%#{params[:flate].strip.to_geo}%"
         join_address = true
       end
     end
