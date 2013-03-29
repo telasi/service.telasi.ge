@@ -9,7 +9,7 @@ module CustomerForm
   BALANCE = NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
   OLD_BALANCE = NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
   PRE_PAYMENT_AMNT = NumberField.new(name: 'pre_payment', after: 'GEL')
-  PRE_PAYMENT_DATE = DateField.new(name: 'pre_payment_date')
+  PRE_PAYMENT_DATE = DateField.new(name: 'pre_payment_date', formatter: '%d-%b%Y %H:%M:%S')
   ADDRESS = TextField.new(name: 'address', label: 'მისამართი', required: true)
   SEND_ADDRESS = TextField.new(name: 'send_address', label: 'ქვითრის მისამართი', required: true)
   REGION = TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
