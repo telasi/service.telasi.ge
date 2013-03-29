@@ -39,11 +39,14 @@ class Bs::Customer < ActiveRecord::Base
   end
 
   def pre_water_payment
-    # XXXX: status ???
-    # Bs::WaterPayment.where('paydate > ? AND custkey = ?', Date.today - 7, self.custkey).inject(0) do |sum, payment|
-    #   sum += payment.payamount
-    # end
-    0
+    Bs::WaterPayment.where('paydate > ? AND custkey = ?', Date.today - 7, self.custkey).inject(0) do |sum, payment|
+      sum += payment.payamount
+    end
+  end
+
+  def pre_water_payment_date
+    p = Bs::WaterPayment.where('paydate > ? AND custkey = ?', Date.today - 7, self.custkey).order('opayment_id desc').first
+    p.paydate if p
   end
 
   def normal_balance
@@ -54,9 +57,14 @@ class Bs::Customer < ActiveRecord::Base
     self.trash_customer ? (self.trash_customer.curr_balance - (self.pre_trash_payment || 0)) : 0
   end
 
+  def water_balance
+    water_item = self.water_items.last
+    water_item ? water_item.new_balance : 0
+  end
+
   def normal_water_balance
     water_item = self.water_items.last
-    (water_item ? water_item.new_balance : 0) - (self.pre_water_payment || 0)
+    self.water_balance - (self.pre_water_payment || 0)
   end
 
   def cut_candidate?
