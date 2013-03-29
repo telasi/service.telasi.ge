@@ -7,6 +7,7 @@ module AccountForm
   ACCID = TextField.new(name: 'accid', label: 'ანგარიში', required: true)
   ADDRESS = TextField.new(name: 'address', label: 'მისამართი', required: true)
   REGION = TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
+  BLOCK = TextField.new(name: 'route_account.route.block.blockname', label: 'ბლოკი', required: true)
   INST_CAP = NumberField.new(name: 'inst_cp', label: 'დადგმ.სიმძლავრე', precision: 0, after: 'kWh')
   METER_NAME = TextField.new(name: 'meter_type.mtname', label: 'მრიცხველი')
   METER_NUMB = TextField.new(name: 'mtnumb', label: 'მრიცხველის №')
@@ -23,7 +24,7 @@ module AccountForm
 
   def self.account_form(acc, opts = {})
     form = Form.new(title:  opts[:title] || "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/lightbulb.png')
-    form.col1 << ACCID.clone << ADDRESS.clone << REGION.clone << INST_CAP.clone
+    form.col1 << ACCID.clone << ADDRESS.clone << REGION.clone << BLOCK.clone << INST_CAP.clone
     form.col1 << METER_NAME.clone << METER_NUMB.clone << METER_COEF.clone << METER_DIGS.clone
     form.col1 << ComplexField.new(label: 'სახეობა', fields: [TYPE_ICON.clone, TYPE.clone])
     trace = ArrayField.new(label: 'კვება', name: 'parents', field: ComplexField.new(fields: [TYPE_ICON.clone, ACCID.clone, TextField.new(name: 'customer.custname', klass: 'muted')]))
