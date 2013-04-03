@@ -102,7 +102,7 @@ class Call::CustomersController < ApplicationController
       @tariffs[acc] = AccountForm.account_tariff_table(acc)
     end
     @steps = []
-    [100, 101, 200, 201].each do |key|
+    [100, 101, 200, 201, 300, 301].each do |key|
        @steps << AccountForm.tariff_steps(Bs::Tariff.find(key))
     end
   end
