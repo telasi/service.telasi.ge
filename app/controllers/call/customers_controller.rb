@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Call::CustomersController < ApplicationController
 
+  before_filter :validate_login
+
   def render(*args)
     navbuttons
     super

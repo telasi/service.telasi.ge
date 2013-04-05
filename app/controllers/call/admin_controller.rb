@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Call::AdminController < ApplicationController
 
+  before_filter :validate_login
+
   # status
 
   def new_status

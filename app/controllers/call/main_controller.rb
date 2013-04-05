@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Call::MainController < ApplicationController
 
+  before_filter :validate_login
+
   def index
     @title = 'ქოლ-ცენტრი'
     open_stats = Call::Status.where(open: true)
