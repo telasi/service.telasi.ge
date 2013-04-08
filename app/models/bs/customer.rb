@@ -57,9 +57,18 @@ class Bs::Customer < ActiveRecord::Base
     self.trash_customer ? (self.trash_customer.curr_balance - (self.pre_trash_payment || 0)) : 0
   end
 
+  def last_water_item
+    self.water_items.last
+  end
+
   def water_balance
-    water_item = self.water_items.last
+    water_item = self.last_water_item
     water_item ? water_item.new_balance : 0
+  end
+
+  def current_water_balance
+    water_item = self.last_water_item
+    water_item ? water_item.curr_charge : 0
   end
 
   def normal_water_balance
