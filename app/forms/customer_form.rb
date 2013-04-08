@@ -2,31 +2,6 @@
 module CustomerForm
   include Dima::Html
 
-  # fields
-
-  ACCNUMB = TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.custkey)})
-  CUSTNAME = TextField.new(name: 'custname', label: 'დასახელება', required: true)
-  BALANCE = NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
-  OLD_BALANCE = NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
-  PRE_PAYMENT_AMNT = NumberField.new(name: 'pre_payment', after: 'GEL')
-  PRE_PAYMENT_DATE = DateField.new(name: 'pre_payment_date', formatter: '%d-%b%Y %H:%M:%S')
-  ADDRESS = TextField.new(name: 'address', label: 'მისამართი', required: true)
-  SEND_ADDRESS = TextField.new(name: 'send_address', label: 'ქვითრის მისამართი', required: true)
-  REGION = TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
-  TAXID = TextField.new(name: 'taxid', label: 'გადამხ.კოდი', required: false)
-  COMERCIAL = TextField.new(name: 'commercial', label: 'კომერც. დასახელება', required: false)
-  PHONE = TextField.new(name: 'tel', label: 'ტელეფონი')
-  EMAIL = TextField.new(name: 'email', label: 'ელ.ფოსტა')
-  STATUS = TextField.new(name: 'status_name', label: 'სტატუსი')
-  CATEG = TextField.new(name: 'category', label: 'კატეგორია', required: true)
-  ACTIVITY = TextField.new(name: 'activity', label: 'საქმიანოვის სფერო')
-  CUT = BooleanField.new(name: 'cut', label: 'ჩაჭრილი?')
-  EXCEPT = BooleanField.new(name: 'except', label: 'გამონაკლისი?')
-  ILLEGAL_LINE = BooleanField.new(name: 'illegalline', label: 'უკანონო ხაზი?')
-  CREATE_DATE = DateField.new(name: 'createdate', label: 'შეიქმნა')
-  CLOSE_DATE = DateField.new(name: 'closedate', label: 'დაიხურა')
-  NOTE = TextField.new(name: 'note', label: 'შენიშვნები')
-
   # actions
   ACT_HISTORY = Action.new(label: 'ისტორია', tooltip: 'დარიცხვის ისტორია', icon: '/assets/fff/lightbulb.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_items_path(custkey: v.custkey)})
   ACT_CUT_HISTORY = Action.new(label: 'ჩაჭრები', tooltip: 'ჩაჭრების ისტორია', icon: '/assets/fff/cut.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_cuts_path(custkey: v.custkey)})
@@ -36,18 +11,42 @@ module CustomerForm
 
   def self.customer_table(custs)
     tbl = Table.new(title: 'აბონენტები', icon: '/assets/fff/group.png')
-    tbl.cols << ACCNUMB << CUSTNAME << REGION << ADDRESS << BALANCE << CUT
+    tbl.cols << TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.custkey)})
+    tbl.cols << TextField.new(name: 'custname', label: 'დასახელება', required: true)
+    tbl.cols << TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
+    tbl.cols << TextField.new(name: 'address', label: 'მისამართი', required: true)
+    tbl.cols << NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
+    tbl.cols << BooleanField.new(name: 'cut', label: 'ჩაჭრილი?')
     tbl.vals = custs
     tbl
   end
 
   def self.customer_form(cust, opts = {})
-    pre = ComplexField.new(fields: [PRE_PAYMENT_AMNT, PRE_PAYMENT_DATE], label: 'წინასწარი გადახდა')
+    # col1
+    pre = ComplexField.new(fields: [NumberField.new(name: 'pre_payment', after: 'GEL'), DateField.new(name: 'pre_payment_date', formatter: '%d-%b%Y %H:%M:%S')], label: 'წინასწარი გადახდა')
     form = Form.new(title: opts[:title] || 'აბონენტი', icon: '/assets/fff/user.png')
-    form.col1 << ACCNUMB << CUSTNAME << BALANCE << pre << OLD_BALANCE << ADDRESS
-    form.col1 << SEND_ADDRESS << REGION << TAXID << COMERCIAL << PHONE << EMAIL
-    form.col2 << STATUS << CATEG << ACTIVITY << CUT << EXCEPT << ILLEGAL_LINE
-    form.col2 << CREATE_DATE << CLOSE_DATE << NOTE
+    form.col1 << TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.custkey)})
+    form.col1 << TextField.new(name: 'custname', label: 'დასახელება', required: true)
+    form.col1 << NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
+    form.col1 << pre
+    form.col1 << NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
+    form.col1 << TextField.new(name: 'address', label: 'მისამართი', required: true)
+    form.col1 << TextField.new(name: 'send_address', label: 'ქვითრის მისამართი', required: true)
+    form.col1 << TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
+    form.col1 << TextField.new(name: 'taxid', label: 'გადამხ.კოდი', required: false)
+    form.col1 << TextField.new(name: 'commercial', label: 'კომერც. დასახელება', required: false)
+    form.col1 << TextField.new(name: 'tel', label: 'ტელეფონი')
+    form.col1 << TextField.new(name: 'email', label: 'ელ.ფოსტა')
+    # col2
+    form.col2 << TextField.new(name: 'status_name', label: 'სტატუსი')
+    form.col2 << TextField.new(name: 'category', label: 'კატეგორია', required: true)
+    form.col2 << TextField.new(name: 'activity', label: 'საქმიანოვის სფერო')
+    form.col2 << BooleanField.new(name: 'cut', label: 'ჩაჭრილი?')
+    form.col2 << BooleanField.new(name: 'except', label: 'გამონაკლისი?')
+    form.col2 << BooleanField.new(name: 'illegalline', label: 'უკანონო ხაზი?')
+    form.col2 << DateField.new(name: 'createdate', label: 'შეიქმნა')
+    form.col2 << DateField.new(name: 'closedate', label: 'დაიხურა')
+    form.col2 << TextField.new(name: 'note', label: 'შენიშვნები')
     form.actions << ACT_HISTORY << ACT_CUT_HISTORY << ACT_TARIFFS #<< ACT_BILLS
     form.actions << ACT_TASKS
     form << cust

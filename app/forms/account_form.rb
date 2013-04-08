@@ -2,35 +2,31 @@
 module AccountForm
   include Dima::Html
 
-  # fields
-
-  ACCID = TextField.new(name: 'accid', label: 'ანგარიში', required: true)
-  ADDRESS = TextField.new(name: 'address', label: 'მისამართი', required: true)
-  REGION = TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
-  BLOCK = TextField.new(name: 'route_account.route.block.blockname', label: 'ბლოკი', required: true)
-  INST_CAP = NumberField.new(name: 'inst_cp', label: 'დადგმ.სიმძლავრე', precision: 0, after: 'kWh')
-  METER_NAME = TextField.new(name: 'meter_type.mtname', label: 'მრიცხველი')
-  METER_NUMB = TextField.new(name: 'mtnumb', label: 'მრიცხველის №')
-  METER_COEF = NumberField.new(name: 'mtkoef', label: 'კოეფიციენტი', precision: 0, before: '&times;')
-  METER_DIGS = NumberField.new(name: 'meter_type.digit', label: 'თანრიგი', precision: 0)
-
-  MAINACC = BooleanField.new(name: 'mainaccount', label: 'ძირითადი ანგარიში?', required: true)
-  STATUS = TextField.new(name: 'status', label: 'სტატუსი', required: true)
-  CREATE_DATE = DateField.new(name: 'createdate', label: 'შეიქმნა', required: true)
-  CLOSE_DATE = DateField.new(name: 'closedate', label: 'დაიხურა')
-  NOTE = TextField.new(name: 'note', label: 'შენიშვნები')
-  TYPE = TextField.new(name: 'account_type')
-  TYPE_ICON = IconField.new(name: 'account_type_icon')
-
   def self.account_form(acc, opts = {})
     form = Form.new(title:  opts[:title] || "ანგარიში №#{acc.accid.to_ka}", icon: '/assets/fff/lightbulb.png')
-    form.col1 << ACCID.clone << ADDRESS.clone << REGION.clone << BLOCK.clone << INST_CAP.clone
-    form.col1 << METER_NAME.clone << METER_NUMB.clone << METER_COEF.clone << METER_DIGS.clone
-    form.col1 << ComplexField.new(label: 'სახეობა', fields: [TYPE_ICON.clone, TYPE.clone])
-    trace = ArrayField.new(label: 'კვება', name: 'parents', field: ComplexField.new(fields: [TYPE_ICON.clone, ACCID.clone, TextField.new(name: 'customer.custname', klass: 'muted')]))
+    # COL 1
+    form.col1 << TextField.new(name: 'accid', label: 'ანგარიში', required: true)
+    form.col1 << TextField.new(name: 'address', label: 'მისამართი', required: true)
+    form.col1 << TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
+    form.col1 << TextField.new(name: 'route_account.route.block.blockname', label: 'ბლოკი', required: true)
+    form.col1 << NumberField.new(name: 'inst_cp', label: 'დადგმ.სიმძლავრე', precision: 0, after: 'kWh')
+    form.col1 << TextField.new(name: 'meter_type.mtname', label: 'მრიცხველი')
+    form.col1 << TextField.new(name: 'mtnumb', label: 'მრიცხველის №')
+    form.col1 << NumberField.new(name: 'mtkoef', label: 'კოეფიციენტი', precision: 0, before: '&times;')
+    form.col1 << NumberField.new(name: 'meter_type.digit', label: 'თანრიგი', precision: 0)
+    form.col1 << ComplexField.new(label: 'სახეობა', fields: [IconField.new(name: 'account_type_icon'), TextField.new(name: 'account_type')])
+    trace = ArrayField.new(label: 'კვება', name: 'parents',
+      field: ComplexField.new(fields: [
+        IconField.new(name: 'account_type_icon'),
+        TextField.new(name: 'accid', label: 'ანგარიში', required: true),
+        TextField.new(name: 'customer.custname', klass: 'muted')]))
     form.col1 << trace
-    form.col2 << MAINACC.clone << STATUS.clone
-    form.col2 << CREATE_DATE.clone << CLOSE_DATE.clone << NOTE.clone
+    # COL 2
+    form.col2 << BooleanField.new(name: 'mainaccount', label: 'ძირითადი ანგარიში?', required: true)
+    form.col2 << TextField.new(name: 'status', label: 'სტატუსი', required: true)
+    form.col2 << DateField.new(name: 'createdate', label: 'შეიქმნა', required: true)
+    form.col2 << DateField.new(name: 'closedate', label: 'დაიხურა')
+    form.col2 << TextField.new(name: 'note', label: 'შენიშვნები')
     form << acc
     form
   end
