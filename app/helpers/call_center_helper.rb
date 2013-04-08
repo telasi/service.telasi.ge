@@ -6,6 +6,7 @@ module CallCenterHelper
     task_table = TaskForm.task_table(tasks)
     task_table.item_actions.clear
     add_url = lambda{ |v| call_add_to_favorites_path(id: v.id) }
+    task_table.actions << Action.new(icon: '/assets/fff/printer.png', label: ' ბეჭდვა', tooltip: 'რეესტრის ბეჭდვა', url: call_print_tasks_url)
     task_table.item_actions << Action.new(icon: '/assets/fff/heart_add.png', tooltip: 'ფავორიტებში დამატება', url: add_url, method: 'post')
     task_table.title = 'შეუსრულებელი დავალებები'
     task_table.html

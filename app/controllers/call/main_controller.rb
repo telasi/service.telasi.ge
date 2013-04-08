@@ -12,6 +12,13 @@ class Call::MainController < ApplicationController
     @mobiles = Call::Mobiles.asc(:_id)
   end
 
+  def print_tasks
+    @title = 'ბეჭდვა'
+    open_stats = Call::Status.where(open: true)
+    @tasks = Call::Task.by_user(current_user).where(:status_id.in => open_stats.map{|v| v.id}).desc(:_id)
+    render layout: 'print'
+  end
+
   def add_favorite
     ary = current_user.favorite_task_ids || []
     unless ary.include?(params[:id])
