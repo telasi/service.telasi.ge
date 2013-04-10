@@ -8,7 +8,7 @@ module Dima::Html
     end
 
     def val=(v)
-      @val = v.to_s.to_geo if v
+      @val = v ? v.to_s.to_geo : nil
     end
 
   end
