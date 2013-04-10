@@ -29,7 +29,7 @@ class Call::Task
   end
 
   def send_by(user)
-    mobiles = Call::Mobiles.where(region_id: self.region.id).first
+    mobiles = Call::RegionData.where(region_id: self.region.id).first
     if mobiles
       send_to(user, mobiles.mobile1) unless mobiles.mobile1.blank?
       send_to(user, mobiles.mobile2) unless mobiles.mobile2.blank?
