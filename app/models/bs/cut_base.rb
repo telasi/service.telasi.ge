@@ -8,7 +8,6 @@ module Bs::CutBase
   MARK_NOT_COMPLETE = 2
 
   module InstanceMethods
-
     def operation
       case self.oper_code
       when OPER_CUT then 'ჩაჭრა'
@@ -33,12 +32,13 @@ module Bs::CutBase
       end
       "აბონენტი #{oper}"
     end
+
   end
 
   def self.included(base)
     base.primary_key = :cr_key
-    base.belongs_to :customer,  class_name: 'Bs::Customer', foreign_key: :custkey
-    base.belongs_to :account,   class_name: 'Bs::Account',  foreign_key: :acckey
+    base.belongs_to :customer, class_name: 'Bs::Customer', foreign_key: :custkey
+    base.belongs_to :account, class_name: 'Bs::Account', foreign_key: :acckey
     base.send :include, InstanceMethods
   end
 

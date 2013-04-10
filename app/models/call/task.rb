@@ -29,10 +29,36 @@ class Call::Task
   end
 
   def send_by(user)
-    mobiles = Call::RegionData.where(region_id: self.region.id).first
-    if mobiles
-      send_to(user, mobiles.mobile1) unless mobiles.mobile1.blank?
-      send_to(user, mobiles.mobile2) unless mobiles.mobile2.blank?
+    region = Call::RegionData.where(region_id: self.region.id).first
+    if region
+      send_to(user, region.mobile1) unless region.mobile1.blank?
+      send_to(user, region.mobile2) unless region.mobile2.blank?
+    end
+  end
+
+  # synchronize this task
+  def sync(user)
+    if self.status.open
+      region = Call::RegionData.where(region_id: self.region.id).first
+      if region.cutbase.present?
+        clazz = region.cutbase.constantize
+        cut = clazz.where("custkey=? AND oper_code=? AND mark_date>?", self.custkey, Bs::CutBase::OPER_RESTORE, Time.now - Call::SYNC).order('cr_key DESC').first        
+        if cut
+          if cut.mark_code == Bs::CutBase::MARK_START
+            new_stat = Call::Status.where(wait: true).first
+            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩასართავად მონიშნულია').save
+            self.status = new_stat and self.save if new_stat
+          elsif cut.mark_code == Bs::CutBase::MARK_COMPLETE
+            new_stat = Call::Status.where(complete: true).first
+            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩართულია').save
+            self.status = new_stat and self.save if new_stat
+          elsif cut.mark_code == Bs::CutBase::MARK_NOT_COMPLETE
+            new_stat = Call::Status.where(canceled: true).first
+            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი არ/ვერ ჩაირთო').save
+            self.status = new_stat and self.save if new_stat
+          end
+        end
+      end
     end
   end
 

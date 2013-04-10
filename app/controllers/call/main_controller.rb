@@ -5,8 +5,7 @@ class Call::MainController < ApplicationController
 
   def index
     @title = 'ქოლ-ცენტრი'
-    open_stats = Call::Status.where(open: true)
-    @tasks = Call::Task.by_user(current_user).where(:status_id.in => open_stats.map{|v| v.id}).desc(:_id).paginate(per_page: 10, page: params[:page])
+    @tasks = open_tasks.desc(:_id).paginate(per_page: 10, page: params[:page])
     @favorites = Call::Task.by_user(current_user).where(:_id.in => (current_user.favorite_task_ids || [])).desc(:_id)
     @stats = Call::Status.asc(:order_by)
     @mobiles = Call::RegionData.asc(:_id)
@@ -37,4 +36,18 @@ class Call::MainController < ApplicationController
     redirect_to call_home_url, notice: 'წაშლილია ფავორიტებიდან'
   end
 
+  def sync_tasks
+    open_tasks.each do |task|
+      task.sync(current_user)
+    end
+    redirect_to call_home_url, notice: 'სინქრონიზაცია დასრულებულია.'
+  end
+
+  private
+
+  def open_tasks
+    open_stats = Call::Status.where(open: true)
+    Call::Task.by_user(current_user).where(:status_id.in => open_stats.map{|v| v.id})
+  end
+  
 end

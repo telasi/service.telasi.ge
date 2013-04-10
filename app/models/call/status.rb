@@ -5,9 +5,13 @@ class Call::Status
 
   field :name,     type: String
   field :icon,     type: String
-  field :default,  type: Boolean
-  field :open,     type: Boolean
   field :order_by, type: Integer
+
+  field :default,  type: Boolean, default: false
+  field :open,     type: Boolean, default: false
+  field :wait,     type: Boolean, default: false
+  field :complete, type: Boolean, default: false
+  field :canceled, type: Boolean, default: false
 
   def to_s
     self.name

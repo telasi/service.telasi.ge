@@ -164,6 +164,7 @@ TelasiService::Application.routes.draw do
       get '/print_tasks', action: :print_tasks, as: :print_tasks
       post '/favorites/add/:id', action: :add_favorite, as: :add_to_favorites
       delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
+      post '/sync_tasks', action: :sync_tasks, as: :sync_tasks
     end
     scope controller: :customers do
       get '/search', action: :index, as: :customer
