@@ -28,8 +28,8 @@ module CallCenterHelper
     stat_table.html
   end
 
-  def cc_mobiles_table(mobiles)
-    mobs_table = MobilesForm.mobiles_table(mobiles)
+  def cc_region_data_table(data)
+    mobs_table = RegionDataForm.region_data_table(data)
     mobs_table.collapsed = true
     mobs_table.html
   end

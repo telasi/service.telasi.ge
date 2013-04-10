@@ -192,9 +192,9 @@ TelasiService::Application.routes.draw do
       match '/status/new', action: :new_status, as: :new_status
       match '/status/edit/:id', action: :edit_status, as: :edit_status
       delete '/status/delete/:id', action: :delete_status, as: :delete_status
-      post '/mobiles/sync', action: :sync_mobiles, as: :sync_mobiles
-      match '/mobiles/edit/:id', action: :edit_mobiles, as: :edit_mobiles
-      delete '/mobiles/delete/:id', action: :delete_mobiles, as: :delete_mobiles
+      post '/regions/sync', action: :sync_regions, as: :sync_regions
+      match '/regions/edit/:id', action: :edit_region, as: :edit_region
+      delete '/regions/delete/:id', action: :delete_region, as: :delete_region
     end
   end
 

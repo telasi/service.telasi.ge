@@ -41,30 +41,30 @@ class Call::AdminController < ApplicationController
     redirect_to call_home_url, notice: 'სტატუსი წაშლილია.'
   end
 
-  # mobiles
+  # region data
 
-  def sync_mobiles
-    Call::Mobiles.sync
+  def sync_regions
+    Call::RegionData.sync
     redirect_to call_home_url, notice: 'რეგიონები სინქრონიზირებულია.'
   end
 
-  def edit_mobiles
+  def edit_region
     @title = 'მობილურების შეცვლა'
-    @mobiles = Call::Mobiles.find(params[:id])
-    @form = MobilesForm.mobiles_form(@mobiles, auth_token)
+    @region = Call::RegionData.find(params[:id])
+    @form = RegionDataForm.region_data_form(@region, auth_token)
     @form.edit = true
     if request.post?
       @form << params[:dim]
       if @form.valid?
-        @form >> @mobiles
-        @mobiles.save
+        @form >> @region
+        @region.save
         redirect_to call_home_url, notice: 'მობილურები შეცვლილია.'
       end
     end
   end
 
-  def delete_mobiles
-    mobiles = Call::Mobiles.find(params[:id])
+  def delete_region
+    mobiles = Call::RegionData.find(params[:id])
     mobiles.destroy
     redirect_to call_home_url, notice: 'მობილურები წაშლილია.'
   end
