@@ -166,6 +166,9 @@ TelasiService::Application.routes.draw do
       delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
       post '/sync_tasks', action: :sync_tasks, as: :sync_tasks
     end
+    scope controller: :tasks do
+      get '/all_tasks', action: :index, as: :all_tasks
+    end
     scope controller: :customers do
       get '/search', action: :index, as: :customer
       get '/info/:custkey', action: :customer_info, as: :customer_info

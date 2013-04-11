@@ -17,6 +17,7 @@
 </div>
 <div style="text-align: center" class="btn-toolbar">
   <%= link_to icon_text('search', 'აბონენტების ძებნა', white: true), call_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
+  <%= link_to icon_text('time', 'ყველა დავალება'), call_all_tasks_url, class: ['btn', 'btn-large'] %>
 </div>
 <%= cc_not_complete_tasks_list(@tasks) %>
 <%= paginate @tasks %>
