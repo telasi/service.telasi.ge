@@ -16,7 +16,7 @@ class Cra::AddressCache
   field :address,   type: String
   field :active,    type: Boolean
 
-  index :cra_id, unique: true
+  index :cra_id
 
   def path
     unless @__path_initialized
