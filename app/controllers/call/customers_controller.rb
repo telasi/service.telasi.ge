@@ -145,7 +145,7 @@ class Call::CustomersController < ApplicationController
         @new_task.region = Ext::Region.where(regionkey: @customer.address.region.regionkey).first
         @new_task.custkey = @customer.custkey
         @new_task.save
-        @new_task.send_by(current_user)
+        @new_task.send_by(current_user) if Call.call_center_sms_send_time
         redirect_to call_show_customer_task_url(id: @new_task.id), notice: 'დავალება დამატებულია!'
       end
     end
