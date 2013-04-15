@@ -5,7 +5,10 @@ class Call::Task
 
   field :custkey, type: Integer
   field :title, type: String
+  field :mobile, type: String
+  field :sendsms, type: Boolean, default: true
   field :body, type: String
+
   has_many :comments, class_name: 'Call::TaskComment', order: :_id.desc
   has_many :messages, class_name: 'Call::Sms', order: :_id.desc
   belongs_to :status, class_name: 'Call::Status'
@@ -14,10 +17,6 @@ class Call::Task
 
   def customer
     Bs::Customer.where(custkey: self.custkey).first
-  end
-
-  def body_html
-    self.body.gsub("\n", '<br>')
   end
 
   def self.by_user(user)
@@ -29,10 +28,12 @@ class Call::Task
   end
 
   def send_by(user)
-    region = Call::RegionData.where(region_id: self.region.id).first
-    if region
-      send_to(user, region.mobile1) unless region.mobile1.blank?
-      send_to(user, region.mobile2) unless region.mobile2.blank?
+    if self.sendsms
+      region = Call::RegionData.where(region_id: self.region.id).first
+      if region
+        send_to(user, region.mobile1) unless region.mobile1.blank?
+        send_to(user, region.mobile2) unless region.mobile2.blank?
+      end
     end
   end
 
@@ -78,6 +79,7 @@ class Call::Task
     msg << "მრიცხ:#{meter}" unless meter.blank?
     msg << "მის:#{acc.address.to_s}"
     msg << "აბონ:#{cust.accnumb.to_ka} #{cust.custname.to_ka}"
+    msg << "მობ: #{self.mobile}" unless self.mobile.blank?
     msg << "კომენტ: #{self.title}"
     msg.join("; ")
   end

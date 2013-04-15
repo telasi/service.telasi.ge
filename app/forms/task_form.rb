@@ -8,27 +8,27 @@ module TaskForm
   UPDATED = DateField.new(name: 'updated_at', label: 'შეიცვალა', formatter: '%d-%b-%Y %H:%M:%S')
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
   REGION = TextField.new(name: 'region.name', label: 'ბიზნ.ცენტრი', required: true)
-  TITLE = TextField.new(name: 'title', label: 'სათაური', required: true, width: 500, url: lambda{|v| Rails.application.routes.url_helpers.call_show_customer_task_path(id: v.id)})
+  TITLE = TextField.new(name: 'title', label: 'შინაარსი', required: true, width: 500, url: lambda{|v| Rails.application.routes.url_helpers.call_show_customer_task_path(id: v.id)})
   SIZE = NumberField.new(name: 'comments.size', label: 'კომენტ.', precision: 0)
-  BODY = TextField.new(name: 'body', label: 'დეტალები', required: true, textarea: true, width: 500, height: 100)
-  BODY_HTML = TextField.new(name: 'body_html', label: 'დეტალები', required: true)
   USER = TextField.new(name: 'user.full_name', label: 'ოპერატორი', required: true)
+  MOBILE = TextField.new(name: 'mobile', label: 'აბ.მობილური')
+  SENDSMS = BooleanField.new(name: 'sendsms', label: 'SMS შეტყობინება?', default: true)
 
   def self.edit_task_form(task, cust, auth_token)
     title = task.nil? ? 'ახალი დავალება' : 'დავალების შეცვლა'
     submit = task.nil? ? 'ახალი დავალება' : 'დავალების შენახვა'
     icon = task.nil? ? '/assets/fff/clock_add.png' : '/assets/fff/clock_edit.png'
     form = Form.new(title: title, icon: icon, submit: submit, auth_token: auth_token)
-    form.col1 << TITLE.clone << BODY.clone << STATUS.clone
+    form.col1 << TITLE.clone << MOBILE.clone << SENDSMS.clone << STATUS.clone
     form.edit = true
     form
   end
 
   def self.task_form(task)
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
-    form.col1 << ACCNUMB.clone << REGION.clone
+    form.col1 << REGION.clone << ACCNUMB.clone << MOBILE.clone
     status = ComplexField.new(label: 'სტატუსი', fields: [STATUS_ICON.clone, STATUS.clone])
-    form.col1 << status << TITLE.clone << BODY_HTML.clone
+    form.col1 << status << TITLE.clone << SENDSMS.clone
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     form.actions << Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
