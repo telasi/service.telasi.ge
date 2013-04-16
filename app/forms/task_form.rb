@@ -91,7 +91,7 @@ module TaskForm
 
   def self.search(operators, regions, params)
     form = Form.new(title: 'ძებნა', icon: '/assets/fff/magnifier.png', submit: 'ძებნა', method: 'get')
-    #form.col1 << TextField.new(name: 'accnumb', label: 'აბ.ნომერი')
+    form.col1 << TextField.new(name: 'accnumb', label: 'აბ.ნომერი')
     form.col1 << SelectField.new(name: 'status', label: 'სტატუსი', collection: Call::Status.asc(:order_by), empty: '(ყველა სტატუსი)')
     form.col1 << SelectField.new(name: 'user', label: 'ოპერატორი', collection: operators, empty: '(ყველა ოპერატორი)')
     form.col1 << SelectField.new(name: 'region', label: 'რეგიონი', collection: regions, empty: '(ყველა რეგიონი)')
