@@ -6,7 +6,6 @@ class Call::Task
   field :custkey, type: Integer
   field :title, type: String
   field :mobile, type: String
-  field :sendsms, type: Boolean, default: true
   field :body, type: String
 
   has_many :comments, class_name: 'Call::TaskComment', order: :_id.desc
@@ -28,12 +27,10 @@ class Call::Task
   end
 
   def send_by(user)
-    if self.sendsms
-      region = Call::RegionData.where(region_id: self.region.id).first
-      if region
-        send_to(user, region.mobile1) unless region.mobile1.blank?
-        send_to(user, region.mobile2) unless region.mobile2.blank?
-      end
+    region = Call::RegionData.where(region_id: self.region.id).first
+    if region
+      send_to(user, region.mobile1) unless region.mobile1.blank?
+      send_to(user, region.mobile2) unless region.mobile2.blank?
     end
   end
 

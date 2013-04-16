@@ -11,24 +11,23 @@ module TaskForm
   TITLE = TextField.new(name: 'title', label: 'შინაარსი', required: true, width: 500, url: lambda{|v| Rails.application.routes.url_helpers.call_show_customer_task_path(id: v.id)})
   SIZE = NumberField.new(name: 'comments.size', label: 'კომენტ.', precision: 0)
   USER = TextField.new(name: 'user.full_name', label: 'ოპერატორი', required: true)
-  MOBILE = TextField.new(name: 'mobile', label: 'აბ.მობილური')
-  SENDSMS = BooleanField.new(name: 'sendsms', label: 'SMS შეტყობინება?', default: true)
+  MOBILE = TextField.new(name: 'mobile', label: 'ტელეფონი')
 
   def self.edit_task_form(task, cust, auth_token)
     title = task.nil? ? 'ახალი დავალება' : 'დავალების შეცვლა'
     submit = task.nil? ? 'ახალი დავალება' : 'დავალების შენახვა'
     icon = task.nil? ? '/assets/fff/clock_add.png' : '/assets/fff/clock_edit.png'
     form = Form.new(title: title, icon: icon, submit: submit, auth_token: auth_token)
-    form.col1 << TITLE.clone << MOBILE.clone << SENDSMS.clone << STATUS.clone
+    form.col1 << TITLE.clone << MOBILE.clone << STATUS.clone
     form.edit = true
     form
   end
 
   def self.task_form(task)
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
-    form.col1 << REGION.clone << ACCNUMB.clone << MOBILE.clone
+    form.col1 << REGION.clone << ACCNUMB.clone
     status = ComplexField.new(label: 'სტატუსი', fields: [STATUS_ICON.clone, STATUS.clone])
-    form.col1 << status << TITLE.clone << SENDSMS.clone
+    form.col1 << TITLE.clone << MOBILE.clone << status
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     form.actions << Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
