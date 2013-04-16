@@ -23,4 +23,8 @@ class Bs::Region < ActiveRecord::Base
     self.regionname.to_ka
   end
 
+  def ext_region
+    Ext::Region.where(regionkey: self.regionkey).first
+  end
+
 end

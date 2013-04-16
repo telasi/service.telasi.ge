@@ -32,7 +32,12 @@ module CustomerForm
     form.col1 << NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
     form.col1 << TextField.new(name: 'address', label: 'მისამართი', required: true)
     form.col1 << TextField.new(name: 'send_address', label: 'ქვითრის მისამართი', required: true)
-    form.col1 << TextField.new(name: 'address.region', label: 'ბიზნეს-ცენტრი', required: true)
+    
+    region = TextField.new(name: 'address.region')
+    region_tel = TextField.new(name: 'address.region.ext_region.phone')
+
+    form.col1 << ComplexField.new(fields: [region, region_tel], label: 'ბიზნეს-ცენტრი', required: true)
+    
     form.col1 << TextField.new(name: 'taxid', label: 'გადამხ.კოდი', required: false)
     form.col1 << TextField.new(name: 'commercial', label: 'კომერც. დასახელება', required: false)
     form.col1 << TextField.new(name: 'tel', label: 'ტელეფონი')
