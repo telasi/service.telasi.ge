@@ -126,7 +126,7 @@ class Call::CustomersController < ApplicationController
     @customer = @task.customer
     @customer_form = CustomerForm.customer_form(@customer)
     @customer_form.collapsed = true
-    @task_form = TaskForm.task_form(@task)
+    @task_form = TaskForm.task_form(@task, current_user)
     @comments_form = TaskForm.comments_table(@task)
   end
 
@@ -184,7 +184,7 @@ class Call::CustomersController < ApplicationController
     @new_comment = Call::TaskComment.new
     @customer_form = CustomerForm.customer_form(@customer)
     @customer_form.collapsed = true
-    @task_form = TaskForm.task_form(@task)
+    @task_form = TaskForm.task_form(@task, current_user)
     @new_comment_form = TaskForm.edit_comment_form(nil, @task, auth_token)
     @new_comment = Call::TaskComment.new
     if request.post?
@@ -206,7 +206,7 @@ class Call::CustomersController < ApplicationController
     @customer = @task.customer
     @customer_form = CustomerForm.customer_form(@customer)
     @customer_form.collapsed = true
-    @task_form = TaskForm.task_form(@task)
+    @task_form = TaskForm.task_form(@task, current_user)
     @edit_comment_form = TaskForm.edit_comment_form(@comment, @task, auth_token)
     if request.post?
       @edit_comment_form << params[:dim]

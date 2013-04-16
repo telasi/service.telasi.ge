@@ -23,15 +23,19 @@ module TaskForm
     form
   end
 
-  def self.task_form(task)
+  def self.task_form(task, user)
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
     form.col1 << REGION.clone << ACCNUMB.clone
     status = ComplexField.new(label: 'სტატუსი', fields: [STATUS_ICON.clone, STATUS.clone])
     form.col1 << TITLE.clone << MOBILE.clone << status
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
+    delete_act = Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
+    send_act = Action.new(label: 'ხელახლა გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?')
     form.actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
-    form.actions << Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
-    form.actions << Action.new(label: 'ხელახლა გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?')
+    if user.all_regions or task.user == user
+      form.actions << delete_act
+      form.actions << send_act
+    end
     form << task
     form
   end
@@ -43,7 +47,7 @@ module TaskForm
     tbl.cols << ACCNUMB.clone << title_size << status << REGION.clone << CREATED.clone
     tbl.actions << Action.new(label: 'ახალი დავალება', tooltip: 'აბონენტზე ახალი დავალების შექმნა', icon: '/assets/fff/clock_add.png', url: Rails.application.routes.url_helpers.call_new_customer_task_path(custkey: cust.custkey)) if cust
     tbl.item_actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
-    tbl.item_actions << Action.new(label: '', tooltip: 'დავალების წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: lambda {|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)})
+    #tbl.item_actions << Action.new(label: '', tooltip: 'დავალების წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: lambda {|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)})
     tbl.vals = tasks
     tbl
   end
