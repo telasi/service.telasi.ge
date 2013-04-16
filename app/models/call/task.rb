@@ -44,16 +44,25 @@ class Call::Task
         if cut
           if cut.mark_code == Bs::CutBase::MARK_START
             new_stat = Call::Status.where(wait: true).first
-            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩასართავად მონიშნულია').save
-            self.status = new_stat and self.save if new_stat
+            if new_stat and new_stat != self.status
+              Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩასართავად მონიშნულია').save
+              self.status = new_stat
+              self.save
+            end
           elsif cut.mark_code == Bs::CutBase::MARK_COMPLETE
             new_stat = Call::Status.where(complete: true).first
-            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩართულია').save
-            self.status = new_stat and self.save if new_stat
+            if new_stat and new_stat != self.status
+              Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩართულია').save
+              self.status = new_stat
+              self.save
+            end
           elsif cut.mark_code == Bs::CutBase::MARK_NOT_COMPLETE
             new_stat = Call::Status.where(canceled: true).first
-            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი არ/ვერ ჩაირთო').save
-            self.status = new_stat and self.save if new_stat
+            if new_stat and new_stat != self.status
+              Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი არ/ვერ ჩაირთო').save
+              self.status = new_stat
+              self.save
+            end
           end
         end
       end
