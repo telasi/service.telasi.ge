@@ -11,7 +11,6 @@ class Call::CustomersController < ApplicationController
   def index
     @title = 'აბონენტების ძებნა'
     @search_form = CustomerForm.search(params[:dim])
-    accnumb = params[:dim][:accnumb] if params[:dim]
     @customers = search_customers(params[:dim], params[:page])
     @customer_table = CustomerForm.customer_table(@customers)
   end

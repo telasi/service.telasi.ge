@@ -181,6 +181,10 @@ class User
     (self.confirmed_accnumbs || []).include?(accnumb)
   end
 
+  def to_s
+    self.full_name
+  end
+
   private
 
   def mobile_format
