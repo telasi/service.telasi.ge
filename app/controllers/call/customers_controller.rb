@@ -284,7 +284,8 @@ class Call::CustomersController < ApplicationController
       end
       unless params[:streetname].blank?
         conditions << 'street.streetname LIKE :streetname'
-        values[:streetname] = "%#{params[:streetname].strip.to_geo}%"
+        str_search = params[:streetname].split(' ').join('%')
+        values[:streetname] = "%#{str_search.to_geo}%"
         join_address = join_street = true
       end
       unless params[:building].blank?
