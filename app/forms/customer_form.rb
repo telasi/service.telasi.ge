@@ -37,6 +37,7 @@ module CustomerForm
     region_tel = TextField.new(name: 'address.region.ext_region.phone')
 
     form.col1 << ComplexField.new(fields: [region, region_tel], label: 'ბიზნეს-ცენტრი', required: true)
+    form.col1 << TextField.new(name: 'address.region.ext_region.phone_exp', label: 'ექსპლუატაცია')
     
     form.col1 << TextField.new(name: 'taxid', label: 'გადამხ.კოდი', required: false)
     form.col1 << TextField.new(name: 'commercial', label: 'კომერც. დასახელება', required: false)

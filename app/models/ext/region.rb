@@ -9,6 +9,7 @@ class Ext::Region
   field :name,      type: String
   field :address,   type: String
   field :phone,     type: String
+  field :phone_exp, type: String
   field :latitude,  type: Float, default: 41.7341651833187
   field :longitude, type: Float, default: 44.78496193885803
   field :show_on_map,  type: Boolean, default: false
