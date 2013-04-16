@@ -23,7 +23,7 @@ module CustomerForm
 
   def self.customer_form(cust, opts = {})
     # col1
-    pre = ComplexField.new(fields: [NumberField.new(name: 'pre_payment', after: 'GEL'), DateField.new(name: 'pre_payment_date', formatter: '%d-%b%Y %H:%M:%S')], label: 'წინასწარი გადახდა')
+    pre = ComplexField.new(fields: [NumberField.new(name: 'pre_payment', after: 'GEL'), DateField.new(name: 'pre_payment_date', formatter: '%d-%b%Y %H:%M:%S')], label: 'დაუდ.გადახდა')
     form = Form.new(title: opts[:title] || 'აბონენტი', icon: '/assets/fff/user.png')
     form.col1 << TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.custkey)})
     form.col1 << TextField.new(name: 'custname', label: 'დასახელება', required: true)

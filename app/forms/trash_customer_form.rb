@@ -20,7 +20,7 @@ module TrashCustomerForm
   ACT_HISTORY = Action.new(label: 'ისტორია', tooltip: 'დარიცხვის ისტორია', icon: '/assets/fff/bin.png', url: lambda{|v| Rails.application.routes.url_helpers.call_customer_trash_items_path(custkey: v.custkey)})
 
   def self.customer_form(cust)
-    pre = ComplexField.new(fields: [PRE_PAYMENT_AMNT, PRE_PAYMENT_DATE], label: 'წინასწარი გადახდა')
+    pre = ComplexField.new(fields: [PRE_PAYMENT_AMNT, PRE_PAYMENT_DATE], label: 'დაუდ.გადახდა')
     form = Form.new(title: 'დასუფთავების აბონენტი', icon: '/assets/fff/bin.png')
     form.col1 << ACCNUMB << CUSTNAME << CURR_BALANCE << BALANCE << OLD_BALANCE << pre
     form.col2 << STATUS << EXCEPT << CREATE_DATE << NOTE
