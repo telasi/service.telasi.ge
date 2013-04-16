@@ -15,7 +15,7 @@ class Call::TasksController < ApplicationController
   def search_tasks(opts)
     stat = Call::Status.find(opts[:status]) rescue nil
     reg  = Ext::Region.find(opts[:region]) rescue nil
-    oper = Sys::User.find(opts[:user]) rescue nil
+    oper = User.find(opts[:user]) rescue nil
     tasks = Call::Task.by_user(current_user)
     tasks = tasks.where(status_id: stat.id) if stat
     tasks = tasks.where(region_id: reg.id) if reg
