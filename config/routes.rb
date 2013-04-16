@@ -162,8 +162,9 @@ TelasiService::Application.routes.draw do
     scope controller: :main do
       get '/', action: :index, as: :home
       get '/print_tasks', action: :print_tasks, as: :print_tasks
-      post '/favorites/add/:id', action: :add_favorite, as: :add_to_favorites
-      delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
+      #post '/favorites/add/:id', action: :add_favorite, as: :add_to_favorites
+      #delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
+      post '/complete/:id', action: :complete_task, as: :complete_task
       post '/sync_tasks', action: :sync_tasks, as: :sync_tasks
     end
     scope controller: :tasks do

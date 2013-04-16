@@ -5,10 +5,10 @@ module CallCenterHelper
   def cc_not_complete_tasks_list(tasks)
     task_table = TaskForm.task_table(tasks)
     task_table.item_actions.clear
-    add_url = lambda{ |v| call_add_to_favorites_path(id: v.id) }
+    complete_url = lambda{ |v| call_complete_task_path(id: v.id) }
     task_table.actions << Action.new(icon: '/assets/fff/printer.png', label: ' ბეჭდვა', tooltip: 'რეესტრის ბეჭდვა', url: call_print_tasks_url)
     task_table.actions << Action.new(icon: '/assets/fff/arrow_refresh.png', label: 'სიქნრონიზაცია', tooltip: 'ჩაჭრა/აღდგენასთან სინქრონიზაცია', url: call_sync_tasks_url, method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?')
-    task_table.item_actions << Action.new(icon: '/assets/fff/heart_add.png', tooltip: 'ფავორიტებში დამატება', url: add_url, method: 'post')
+    task_table.item_actions << Action.new(icon: '/assets/fff/tick.png', label: 'დასრულება', tooltip: 'დავალების დასრულება', url: complete_url, method: 'post', confirm: 'ნადვილად გინდათ დასრულება?')
     task_table.title = 'შეუსრულებელი დავალებები'
     task_table.html
   end

@@ -18,23 +18,30 @@ class Call::MainController < ApplicationController
     render layout: 'print'
   end
 
-  def add_favorite
-    ary = current_user.favorite_task_ids || []
-    unless ary.include?(params[:id])
-      ary << params[:id]
-      current_user.favorite_task_ids = ary
-      current_user.save
-    end
-    redirect_to call_home_url, notice: 'დამატებულია ფავორიტებში'
+  def complete_task
+    task = Call::Task.by_user(current_user).where(_id: params[:id]).first
+    task.status = Call::Status.where(complete: true).first
+    task.save
+    redirect_to call_home_url, notice: 'დავალება დახურულია'
   end
 
-  def remove_favorite
-    ary = current_user.favorite_task_ids || []
-    ary.delete params[:id]
-    current_user.favorite_task_ids = ary
-    current_user.save
-    redirect_to call_home_url, notice: 'წაშლილია ფავორიტებიდან'
-  end
+  # def add_favorite
+  #   ary = current_user.favorite_task_ids || []
+  #   unless ary.include?(params[:id])
+  #     ary << params[:id]
+  #     current_user.favorite_task_ids = ary
+  #     current_user.save
+  #   end
+  #   redirect_to call_home_url, notice: 'დამატებულია ფავორიტებში'
+  # end
+  # 
+  # def remove_favorite
+  #   ary = current_user.favorite_task_ids || []
+  #   ary.delete params[:id]
+  #   current_user.favorite_task_ids = ary
+  #   current_user.save
+  #   redirect_to call_home_url, notice: 'წაშლილია ფავორიტებიდან'
+  # end
 
   def sync_tasks
     open_tasks.each do |task|
