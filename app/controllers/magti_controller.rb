@@ -2,8 +2,8 @@
 class MagtiController < ApplicationController
 
   def index
-    msg_90033(params[:from], params[:text]) if params[:id] == '90033'
-    render text: find_accnumb_in_text(params[:text])
+    msg_90033(params[:from], params[:text]) if params[:service_id] == '90033'
+    render text: "ok"
   end
 
   private
@@ -27,8 +27,8 @@ class MagtiController < ApplicationController
   end
 
   def find_accnumb_in_text(text)
-    indx1 = text.index('abon: ') + 6
-    indx2 = text[indx1..-1].index(' ') + indx1 - 1
+    indx1 = text.downcase.index('abon: ') + 6
+    indx2 = text.downcase[indx1..-1].index(' ') + indx1 - 1
     text[indx1..indx2]
   end
 
