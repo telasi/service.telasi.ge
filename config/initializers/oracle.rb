@@ -6,6 +6,9 @@ Gis::SmsLog.establish_connection :gis
 Gis::Section.establish_connection :gis
 Gis::Fider.establish_connection :gis
 
+# Water payments
+Bs::WaterItem.establish_connection :report_bs
+
 # Region connections
 Call::CutHistory::Avchala.establish_connection :report_bs
 Call::CutHistory::Chugureti.establish_connection :report_bs
