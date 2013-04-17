@@ -3,7 +3,7 @@ class Call::TasksController < ApplicationController
 
   def index
     @title = 'დავალებები'
-    operators = User.where(call_center: true, all_regions: true)
+    operators = User.where(call_center: true, all_regions: true).asc(:first_name, :last_name)
     regions = Ext::Region.all
     @search = TaskForm.search(operators, regions, params[:dim])
     @tasks = search_tasks(params[:dim]).desc(:_id).paginate(per_page: 15, page: params[:page])
