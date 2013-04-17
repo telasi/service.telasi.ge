@@ -39,7 +39,7 @@ class Bs::Customer < ActiveRecord::Base
   end
 
   def pre_water_payment
-    Bs::WaterPayment.where('paydate > ? AND custkey = ?', Date.today - 7, self.custkey).inject(0) do |sum, payment|
+    Bs::WaterPayment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).inject(0) do |sum, payment|
       sum += payment.payamount
     end
   end
