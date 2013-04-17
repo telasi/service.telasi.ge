@@ -37,6 +37,11 @@ TelasiService::Application.routes.draw do
     get '/', action: :index, as: :map
   end
 
+  # magti routes
+  scope '/magti', controller: :magti do
+    get '/', action: :index, as: :magti
+  end
+
   # სისტემური ადმინისტრატორის მოქმედებები
   namespace :sys do
     scope '/users', :controller => :users do
