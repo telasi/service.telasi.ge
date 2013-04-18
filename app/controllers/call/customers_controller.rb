@@ -132,20 +132,22 @@ class Call::CustomersController < ApplicationController
   def new_task
     @title = 'ახალი დავალება'
     @customer = Bs::Customer.where(custkey: params[:custkey]).first
-    @customer_form = CustomerForm.customer_form(@customer)
-    @customer_form.collapsed = true
-    @new_task_form = TaskForm.edit_task_form(nil, @customer, auth_token)
-    @new_task = Call::Task.new
-    if request.post?
-      @new_task_form << params[:dim]
-      if @new_task_form.valid?
-        @new_task_form >> @new_task
-        @new_task.user = current_user
-        @new_task.region = Ext::Region.where(regionkey: @customer.address.region.regionkey).first
-        @new_task.custkey = @customer.custkey
-        @new_task.save
-        @new_task.send_by(current_user) if Call.call_center_sms_send_time
-        redirect_to call_show_customer_task_url(id: @new_task.id), notice: 'დავალება დამატებულია!'
+    if validate_last_task(@customer)
+      @customer_form = CustomerForm.customer_form(@customer)
+      @customer_form.collapsed = true
+      @new_task_form = TaskForm.edit_task_form(nil, @customer, auth_token)
+      @new_task = Call::Task.new
+      if request.post?
+        @new_task_form << params[:dim]
+        if @new_task_form.valid?
+          @new_task_form >> @new_task
+          @new_task.user = current_user
+          @new_task.region = Ext::Region.where(regionkey: @customer.address.region.regionkey).first
+          @new_task.custkey = @customer.custkey
+          @new_task.save
+          @new_task.send_by(current_user) if Call.call_center_sms_send_time
+          redirect_to call_show_customer_task_url(id: @new_task.id), notice: 'დავალება დამატებულია!'
+        end
       end
     end
   end
@@ -303,6 +305,16 @@ class Call::CustomersController < ApplicationController
     rel = rel.joins('INNER JOIN bs.region ON address.regionkey = region.regionkey') if join_regions
     rel = rel.joins('INNER JOIN bs.street ON address.streetkey = street.streetkey') if join_address
     rel.where(conditions.join(' AND '), values).paginate(per_page: 15, page: page).order(:accnumb)
+  end
+
+  def validate_last_task(cust)
+    lastTask = Call::Task.where(custkey: cust.custkey).last
+    if lastTask && (lastTask.created_at + Call::REPEAT) > Time.now
+      redirect_to call_customer_tasks_url(custkey: cust.custkey), alert: 'არ შეიძლება ახალი დავალების დამატება: ამ აბონენტზე დავალება ეს წუთია გაცემულია!!!'
+      false
+    else
+      true
+    end
   end
 
 end
