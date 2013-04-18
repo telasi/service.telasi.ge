@@ -6,13 +6,14 @@ module CallCenterHelper
     task_table = TaskForm.task_table(tasks)
     task_table.item_actions.clear
     complete_url = lambda{ |v| call_complete_task_path(id: v.id) }
+    complete_action = Action.new(icon: '/assets/fff/tick.png', label: 'დასრულება', tooltip: 'დავალების დასრულება', url: complete_url, method: 'post', confirm: 'ნადვილად გინდათ დასრულება?')
     task_table.actions << Action.new(icon: '/assets/fff/printer.png', label: ' ბეჭდვა', tooltip: 'რეესტრის ბეჭდვა', url: call_print_tasks_url)
     task_table.actions << Action.new(icon: '/assets/fff/arrow_refresh.png', label: 'სიქნრონიზაცია', tooltip: 'ჩაჭრა/აღდგენასთან სინქრონიზაცია', url: call_sync_tasks_url, method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?')
-    task_table.item_actions << Action.new(icon: '/assets/fff/tick.png', label: 'დასრულება', tooltip: 'დავალების დასრულება', url: complete_url, method: 'post', confirm: 'ნადვილად გინდათ დასრულება?')
+    task_table.item_actions << complete_action unless current_user.all_regions
     task_table.title = 'შეუსრულებელი დავალებები'
     task_table.html
   end
-  
+
   def cc_tasks_list(tasks)
     task_table = TaskForm.task_table(tasks)
     task_table.item_actions.clear
