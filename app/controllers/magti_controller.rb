@@ -27,7 +27,7 @@ class MagtiController < ApplicationController
   end
 
   def find_accnumb_in_text(text)
-    indx1 = text.downcase.index('abon: ') + 6
+    indx1 = text.downcase.index('abon:') + 5
     indx2 = text.downcase[indx1..-1].index(' ') + indx1 - 1
     text[indx1..indx2]
   end

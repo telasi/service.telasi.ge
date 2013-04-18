@@ -85,7 +85,7 @@ class Call::Task
     msg << "მრიცხ:#{meter}" unless meter.blank?
     msg << "მის:#{acc.address.to_s}"
     msg << "აბონ:#{cust.accnumb.to_ka} #{cust.custname.to_ka}"
-    msg << "ტელ: #{self.mobile}" unless self.mobile.blank?
+    msg << "ტელ:#{self.mobile}" unless self.mobile.blank?
     msg << "კომენტ: #{self.title}"
     msg.join("; ")
   end
