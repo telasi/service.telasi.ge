@@ -21,6 +21,9 @@
 </div>
 <%= cc_not_complete_tasks_list(@tasks) %>
 <%= paginate @tasks %>
+<div style="padding-bottom: 16px;">
+  ნაპოვნია: <code><%= C12.number_format(@tasks.total_entries, 0) %></code> დავალება
+</div>
 
 <%= role_content :sys_admin do %>
 
