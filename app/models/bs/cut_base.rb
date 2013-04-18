@@ -8,6 +8,7 @@ module Bs::CutBase
   MARK_NOT_COMPLETE = 2
 
   module InstanceMethods
+
     def operation
       case self.oper_code
       when OPER_CUT then 'ჩაჭრა'
@@ -17,7 +18,7 @@ module Bs::CutBase
 
     def result
       oper = '?'
-      if self.restore?
+      if self.oper_code == OPER_RESTORE
         case self.mark_code
         when MARK_START then oper = 'მონიშნულია აღსადგენად'
         when MARK_COMPLETE then oper = 'აღდგენილია'
