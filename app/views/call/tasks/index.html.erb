@@ -2,3 +2,6 @@
 <%= @search.html %>
 <%= cc_tasks_list(@tasks) %>
 <%= paginate @tasks %>
+<div>
+  ნაპოვნია: <code><%= C12.number_format(@tasks.total_entries, 0) %></code> დავალება
+</div>
