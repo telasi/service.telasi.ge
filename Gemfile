@@ -24,6 +24,7 @@ gem 'simple_form', '~> 2.0'
 gem 'mongoid-paperclip'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'business_time'
 
 gem 'kramdown'
 gem 'gmaps4rails'

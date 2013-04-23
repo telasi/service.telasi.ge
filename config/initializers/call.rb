@@ -8,6 +8,9 @@ module Call
   # ამ ინტერვალში შეიძლება მაქსიმუმ 1 დავალების გაშვება.
   REPEAT = 30.minutes
 
+  # რამდენი დღე უნდა დასცალდეს აბონენტს ვალის გადახდა?
+  DAYS_BEFORE_CUT = 7
+
   def self.call_center_sms_send_time
     hour = Time.now.localtime.hour
     wday = Time.now.localtime.wday

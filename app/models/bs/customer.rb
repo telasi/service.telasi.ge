@@ -89,4 +89,13 @@ class Bs::Customer < ActiveRecord::Base
     end
   end
 
+  def last_bill_date
+    self.item_bills.last.billdate
+  end
+
+  def eval_cut_date
+    d1 = last_bill_date
+    Call::DAYS_BEFORE_CUT.business_days.after(d1)
+  end
+
 end
