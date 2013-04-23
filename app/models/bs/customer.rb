@@ -93,9 +93,13 @@ class Bs::Customer < ActiveRecord::Base
     self.item_bills.last.billdate
   end
 
+  def pay_period
+    Bs::ConfigDefault.value(13, self.address.region.regionkey, self.custcatkey)
+  end
+
   def eval_cut_date
     d1 = last_bill_date
-    Call::DAYS_BEFORE_CUT.business_days.after(d1)
+    pay_period.business_days.after(d1)
   end
 
 end
