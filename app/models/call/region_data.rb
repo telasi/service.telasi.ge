@@ -8,6 +8,13 @@ class Call::RegionData
   field :mobile2, type: String
   field :cutbase, type: String
 
+  def region_status
+    clazz = self.cutbase.constantize
+    clazz.count > 0
+  rescue
+    false
+  end
+
   def self.sync
     Ext::Region.all.each do |r|
       region = Call::RegionData.where(region_id: r.id).first
