@@ -43,7 +43,7 @@ module CallCenterHelper
 
   def cc_region_data_table(data)
     mobs_table = RegionDataForm.region_data_table(data)
-    mobs_table.collapsed = true
+    mobs_table.collapsed = false
     mobs_table.html
   end
 

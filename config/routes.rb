@@ -206,6 +206,7 @@ TelasiService::Application.routes.draw do
       match  '/admin/statuses/edit/:id',   action: :edit_status,   as: :edit_status
       delete '/admin/statuses/delete/:id', action: :delete_status, as: :delete_status
       # regions
+      get    '/admin/regions',             action: :regions,       as: :regions
       post   '/admin/regions/sync',        action: :sync_regions,  as: :sync_regions
       match  '/admin/regions/edit/:id',    action: :edit_region,   as: :edit_region
       delete '/admin/regions/delete/:id',  action: :delete_region, as: :delete_region

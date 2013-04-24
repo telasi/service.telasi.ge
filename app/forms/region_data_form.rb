@@ -12,7 +12,7 @@ module RegionDataForm
     tbl.cols << TextField.new(name: 'mobile1', label: 'მობილური 1')
     tbl.cols << TextField.new(name: 'mobile2', label: 'მობილური 2')
     tbl.cols << TextField.new(name: 'cutbase', label: 'ჩაჭრის კლასი')
-    #tbl.cols << BooleanField.new(name: 'region_status', label: 'სტატუსი')
+    tbl.cols << BooleanField.new(name: 'region_status', label: 'სტატუსი')
     tbl.actions << ACT_SYNC
     tbl.item_actions << ACT_EDITMOB << ACT_DELMOB
     tbl.vals = data

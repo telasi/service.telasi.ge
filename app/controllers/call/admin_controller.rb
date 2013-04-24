@@ -54,9 +54,15 @@ class Call::AdminController < Call::CallController
 
   # region data
 
+  def regions
+    @title = 'რეგიონები'
+    @regions = Call::RegionData.asc(:_id)
+    navbuttons
+  end
+
   def sync_regions
     Call::RegionData.sync
-    redirect_to call_home_url, notice: 'რეგიონები სინქრონიზირებულია.'
+    redirect_to call_regions_url, notice: 'რეგიონები სინქრონიზირებულია.'
   end
 
   def edit_region
@@ -69,9 +75,10 @@ class Call::AdminController < Call::CallController
       if @form.valid?
         @form >> @region
         @region.save
-        redirect_to call_home_url, notice: 'მობილურები შეცვლილია.'
+        redirect_to call_regions_url, notice: 'რეგიონი შეცვლილია.'
       end
     end
+    navbuttons
   end
 
   def delete_region
@@ -87,6 +94,10 @@ class Call::AdminController < Call::CallController
     if @statuses or @status
       @nav['სტატუსები'] = call_statuses_url
       @nav['სტატუსი'] = nil if @status
+    end
+    if @regions or @region
+      @nav['რეგიონები'] = call_regions_url
+      @nav['რეგიონი'] = nil if @region
     end
   end
 
