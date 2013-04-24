@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Call::AdminController < ApplicationController
-
-  before_filter :validate_login
+class Call::AdminController < Call::CallController
 
   # status
 

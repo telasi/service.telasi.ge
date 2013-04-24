@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Call::MainController < ApplicationController
-
-  before_filter :validate_login
+class Call::MainController < Call::CallController
 
   def index
     @title = 'ქოლ-ცენტრი'

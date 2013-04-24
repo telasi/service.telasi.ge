@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Call::TasksController < ApplicationController
+class Call::TasksController < Call::CallController
 
   def index
     @title = 'დავალებები'
