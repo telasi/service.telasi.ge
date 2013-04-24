@@ -206,6 +206,9 @@ TelasiService::Application.routes.draw do
       match '/regions/edit/:id', action: :edit_region, as: :edit_region
       delete '/regions/delete/:id', action: :delete_region, as: :delete_region
     end
+    scope controller: :docs do
+      get '/docs', action: :index
+    end
   end
 
   root :to => 'site#index'
