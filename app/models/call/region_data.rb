@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'timeout'
+
 class Call::RegionData
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -9,8 +11,10 @@ class Call::RegionData
   field :cutbase, type: String
 
   def region_status
-    clazz = self.cutbase.constantize
-    clazz.count > 0
+    Timeout::timeout(0.5) do
+      clazz = self.cutbase.constantize
+      clazz.count > 0
+    end
   rescue
     false
   end
