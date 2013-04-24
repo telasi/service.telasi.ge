@@ -210,6 +210,11 @@ TelasiService::Application.routes.draw do
       post   '/admin/regions/sync',        action: :sync_regions,  as: :sync_regions
       match  '/admin/regions/edit/:id',    action: :edit_region,   as: :edit_region
       delete '/admin/regions/delete/:id',  action: :delete_region, as: :delete_region
+      # docs
+      get    '/admin/docs',                action: :docs,          as: :admin_docs
+      match  '/admin/docs/new',            action: :new_doc,       as: :new_doc
+      match  '/admin/docs/edit/:id',       action: :edit_doc,      as: :edit_doc
+      delete '/admin/docs/delete/:id',     action: :delete_doc,    as: :delete_doc
     end
     scope controller: :docs do
       get '/docs', action: :index

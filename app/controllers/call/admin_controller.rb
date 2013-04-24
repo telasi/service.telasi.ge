@@ -24,7 +24,7 @@ class Call::AdminController < Call::CallController
       if @form.valid?
         @form >> @status
         @status.save
-        redirect_to call_statuses_url, notice: 'სტატუსი დამატებულია!'
+        redirect_to call_statuses_url, notice: 'სტატუსი დამატებულია.'
       end
     end
     navbuttons
@@ -87,6 +87,46 @@ class Call::AdminController < Call::CallController
     redirect_to call_home_url, notice: 'მობილურები წაშლილია.'
   end
 
+  # documents
+
+  def docs
+    @title = 'დოკუმენტები'
+    @docs = Call::Doc.asc(:order_by)
+    navbuttons
+  end
+
+  def new_doc
+    @title = 'ახალი დოკუმენტი'
+    @doc = Call::Doc.new
+    @form = DocsForm.doc_form(@doc, auth_token)
+    @form.edit = true
+    if request.post?
+      @form << params[:dim]
+      if @form.valid?
+        @form >> @doc
+        @doc.save
+        redirect_to call_admin_docs_url, notice: 'დოკუმენტი დამატებულია.'
+      end
+    end
+    navbuttons
+  end
+
+  def edit_doc
+    @title = 'დოკუმენტის შეცვლა'
+    @doc = Call::Doc.find(params[:id])
+    @form = DocsForm.doc_form(@doc, auth_token)
+    @form.edit = true
+    if request.post?
+      @form << params[:dim]
+      if @form.valid?
+        @form >> @doc
+        @doc.save
+        redirect_to call_admin_docs_url, notice: 'დოკუმენტი შეცვლილია.'
+      end
+    end
+    navbuttons
+  end
+
   private
 
   def navbuttons
@@ -98,6 +138,10 @@ class Call::AdminController < Call::CallController
     if @regions or @region
       @nav['რეგიონები'] = call_regions_url
       @nav['რეგიონი'] = nil if @region
+    end
+    if @docs or @doc
+      @nav['დოკუმენტები'] = call_admin_docs_url
+      @nav['დოკუმენტი'] = nil if @doc
     end
   end
 
