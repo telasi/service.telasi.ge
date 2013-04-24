@@ -3,7 +3,7 @@ class Call::DocsController < Call::CallController
 
   def index
     @title = 'დოკუმენტები'
-    @docs = Call::Doc.asc(:order_by)
+    @docs = Call::Doc.where(:order_by.gte => 0).asc(:order_by)
     navbuttons
   end
 
