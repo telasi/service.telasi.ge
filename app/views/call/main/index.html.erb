@@ -19,22 +19,12 @@
   <%= link_to icon_text('search', 'აბონენტების ძებნა', white: true), call_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
   <%= link_to icon_text('tasks', 'ყველა დავალება'), call_all_tasks_url, class: ['btn', 'btn-large'] %>
   <%= link_to icon_text('bookmark', 'დოკუმენტები'), call_docs_url, class: ['btn', 'btn-large'] %>
+  <%= role_content :sys_admin do %>
+  <%= link_to icon_text('cog', 'ადმინისტრირება'), call_admin_url, class: ['btn', 'btn-large'] %>
+  <% end %>
 </div>
 <%= cc_not_complete_tasks_list(@tasks) %>
 <%= paginate @tasks %>
 <div style="padding-bottom: 16px;">
   ნაპოვნია: <code><%= C12.number_format(@tasks.total_entries, 0) %></code> დავალება
 </div>
-
-<%= role_content :sys_admin do %>
-
-<!-- admin menu -->
-
-<div class="title">
-  ადმინისტრირება
-</div>
-
-<%= cc_status_table(@stats) %>
-<%= cc_region_data_table(@mobiles) %>
-
-<% end %>

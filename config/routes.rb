@@ -153,7 +153,7 @@ TelasiService::Application.routes.draw do
     end
   end
 
-  # Cra.ge web services
+  # cra.ge web services
   namespace :cra, controller: :cra do
     get '/', action: :index
     get '/by_id_card', action: :by_id_card, as: :by_id_card
@@ -199,12 +199,16 @@ TelasiService::Application.routes.draw do
       post '/tasks/send/:id', action: :send_task, as: :send_task
     end
     scope controller: :admin do
-      match '/status/new', action: :new_status, as: :new_status
-      match '/status/edit/:id', action: :edit_status, as: :edit_status
-      delete '/status/delete/:id', action: :delete_status, as: :delete_status
-      post '/regions/sync', action: :sync_regions, as: :sync_regions
-      match '/regions/edit/:id', action: :edit_region, as: :edit_region
-      delete '/regions/delete/:id', action: :delete_region, as: :delete_region
+      get    '/admin',                     action: :index,         as: :admin
+      # stats
+      get    '/statuses',                  action: :statuses,      as: :statuses
+      match  '/admin/statuses/new',        action: :new_status,    as: :new_status
+      match  '/admin/statuses/edit/:id',   action: :edit_status,   as: :edit_status
+      delete '/admin/statuses/delete/:id', action: :delete_status, as: :delete_status
+      # regions
+      post   '/admin/regions/sync',        action: :sync_regions,  as: :sync_regions
+      match  '/admin/regions/edit/:id',    action: :edit_region,   as: :edit_region
+      delete '/admin/regions/delete/:id',  action: :delete_region, as: :delete_region
     end
     scope controller: :docs do
       get '/docs', action: :index

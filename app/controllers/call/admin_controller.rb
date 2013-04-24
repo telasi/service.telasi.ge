@@ -1,42 +1,55 @@
 # -*- encoding : utf-8 -*-
 class Call::AdminController < Call::CallController
 
-  # status
+  def index
+    @title = 'ადმინისტრირება'
+    navbuttons
+  end
+
+  # statuses
+
+  def statuses
+    @title = 'სტატუსები'
+    @statuses = Call::Status.asc(:order_by)
+    navbuttons
+  end
 
   def new_status
     @title = 'ახალი სტატუსი'
-    @stat = Call::Status.new(open: false, default: false)
-    @form = StatusForm.status_form(@stat, auth_token)
+    @status = Call::Status.new(open: false, default: false)
+    @form = StatusForm.status_form(@status, auth_token)
     @form.edit = true
     if request.post?
       @form << params[:dim]
       if @form.valid?
-        @form >> @stat
-        @stat.save
-        redirect_to call_home_url, notice: 'სტატუსი დამატებულია!'
+        @form >> @status
+        @status.save
+        redirect_to call_statuses_url, notice: 'სტატუსი დამატებულია!'
       end
     end
+    navbuttons
   end
 
   def edit_status
     @title = 'სტატუსის შეცვლა'
-    @stat = Call::Status.find(params[:id])
-    @form = StatusForm.status_form(@stat, auth_token)
+    @status = Call::Status.find(params[:id])
+    @form = StatusForm.status_form(@status, auth_token)
     @form.edit = true
     if request.post?
       @form << params[:dim]
       if @form.valid?
-        @form >> @stat
-        @stat.save
-        redirect_to call_home_url, notice: 'სტატუსი შეცვლილია.'
+        @form >> @status
+        @status.save
+        redirect_to call_statuses_url, notice: 'სტატუსი შეცვლილია.'
       end
     end
+    navbuttons
   end
 
   def delete_status
-    @stat = Call::Status.find(params[:id])
-    @stat.destroy
-    redirect_to call_home_url, notice: 'სტატუსი წაშლილია.'
+    @status = Call::Status.find(params[:id])
+    @status.destroy
+    redirect_to call_statuses_url, notice: 'სტატუსი წაშლილია.'
   end
 
   # region data
@@ -65,6 +78,16 @@ class Call::AdminController < Call::CallController
     mobiles = Call::RegionData.find(params[:id])
     mobiles.destroy
     redirect_to call_home_url, notice: 'მობილურები წაშლილია.'
+  end
+
+  private
+
+  def navbuttons
+    @nav = { 'მთავარი' => call_home_url, 'ადმინისტრირება' => call_admin_url }
+    if @statuses or @status
+      @nav['სტატუსები'] = call_statuses_url
+      @nav['სტატუსი'] = nil if @status
+    end
   end
 
 end
