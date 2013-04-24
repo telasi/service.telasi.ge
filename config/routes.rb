@@ -217,7 +217,8 @@ TelasiService::Application.routes.draw do
       delete '/admin/docs/delete/:id',     action: :delete_doc,    as: :delete_doc
     end
     scope controller: :docs do
-      get '/docs', action: :index
+      get '/docs', action: :index, as: :docs
+      get '/docs/show/:id', action: :show, as: :show_doc
     end
   end
 

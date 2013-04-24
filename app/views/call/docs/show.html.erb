@@ -1,0 +1,4 @@
+<%= render partial: 'call/top' %>
+<div>
+<%= Kramdown::Document.new(@doc.text).to_html.html_safe %>
+</div>

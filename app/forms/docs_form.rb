@@ -4,6 +4,15 @@ module DocsForm
 
   def self.docs_table(docs)
     tbl = Table.new(title: 'დოკუმენტები', icon: '/assets/fff/book.png')
+    url = lambda{|v| Rails.application.routes.url_helpers.call_show_doc_path(id: v.id) }
+    tbl.cols << TextField.new(name: 'order_by', label: '#')
+    tbl.cols << TextField.new(name: 'title', label: 'სათაური', url: url)
+    tbl.vals = docs
+    tbl
+  end
+
+  def self.admin_docs_table(docs)
+    tbl = Table.new(title: 'დოკუმენტები', icon: '/assets/fff/book.png')
     tbl.cols << TextField.new(name: 'order_by', label: '#')
     tbl.cols << TextField.new(name: 'title', label: 'სათაური')
     tbl.cols << TextField.new(name: 'file', label: 'ფაილი')

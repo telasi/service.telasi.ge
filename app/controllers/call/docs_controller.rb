@@ -3,13 +3,23 @@ class Call::DocsController < Call::CallController
 
   def index
     @title = 'დოკუმენტები'
+    @docs = Call::Doc.asc(:order_by)
     navbuttons
   end
 
+  def show
+    @title = 'დოკუმენტები'
+    @doc = Call::Doc.find(params[:id])
+    navbuttons
+  end
+  
   private
 
   def navbuttons
     @nav = { 'მთავარი' => call_home_url, 'დოკუმენტები' => call_docs_url }
+    if @doc
+      @nav[@doc.title] = nil
+    end
   end
 
 end

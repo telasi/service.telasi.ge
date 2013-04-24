@@ -52,9 +52,13 @@ module CallCenterHelper
     sms_table.html
   end
 
-  def cc_docs_table(docs)
-    sms_table = DocsForm.docs_table(docs)
-    sms_table.html
+  def cc_docs_table(docs, admin = true)
+    if admin
+      table = DocsForm.admin_docs_table(docs)
+    else
+      table = DocsForm.docs_table(docs)
+    end
+    table.html
   end
 
 end
