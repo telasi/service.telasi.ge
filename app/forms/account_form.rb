@@ -21,6 +21,11 @@ module AccountForm
         TextField.new(name: 'accid', label: 'ანგარიში', required: true),
         TextField.new(name: 'customer.custname', klass: 'muted')]))
     form.col1 << trace
+    gisFields = [
+        IconField.new(name: "parent.last_gis_log.call_center_icon"),
+        TextField.new(name: "parent.last_gis_log.call_center_text")
+      ]
+    form.col1 << ComplexField.new(label: 'სადისპეტჩერო', fields: gisFields)
     # COL 2
     form.col2 << BooleanField.new(name: 'mainaccount', label: 'ძირითადი ანგარიში?', required: true)
     form.col2 << TextField.new(name: 'status', label: 'სტატუსი', required: true)

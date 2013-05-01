@@ -23,7 +23,7 @@ class Ext::Gis::Transformator
   field :street_count,  type: Integer
   field :account_count, type: Integer
 
-  # indices
+  # indecies
   index [[:tp_name, Mongo::ASCENDING], [:tr_name, Mongo::ASCENDING]]
   index :objectid
   index :acckey

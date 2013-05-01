@@ -18,6 +18,14 @@ class Bs::Account < ActiveRecord::Base
     self.statuskey == 0 ? 'აქტიური' : 'გაუქმებული'
   end
 
+  # GIS log on transformator
+  def last_gis_log
+    if self.acctype == TYPE_TRANSF
+      transf = Ext::Gis::Transformator.where(acckey: self.acckey).first
+      Ext::Gis::Log.where(objectid: transf.objectid).last if transf
+    end
+  end
+
   def account_type
     case self.acctype
     when TYPE_SUBSTATION then 'სადგური'
