@@ -1,3 +1,4 @@
+<%= render partial: 'call/sms_notice' %>
 <ul class="breadcrumb">
   <% @nav.each_with_index do |(k, v), i| %>
   <% if i == @nav.size - 1%>
@@ -7,12 +8,3 @@
   <% end%>
   <% end %>
 </ul>
-<% if Call.call_center_sms_send_time %>
-  <div class="alert alert-error alert-block">
-    SMS გაგზავნა <strong>გააქტიურებულია</strong> დროის ამ მონაკვეთში!
-  </div>
-<% else %>
-  <div class="alert alert-warning alert-block">
-    SMS გაგზავნა დროის ამ მონაკვეთში <strong>არ მოხდება</strong>!
-  </div>
-<% end %>
