@@ -11,12 +11,13 @@ class Call::RegionData
   field :cutbase, type: String
 
   def region_status
-    Timeout::timeout(0.5) do
-      clazz = self.cutbase.constantize
-      clazz.count > 0
-    end
-  rescue
-    false
+    #Timeout::timeout(0.5) do
+    #  clazz = self.cutbase.constantize
+    #  clazz.count > 0
+    #end
+  #rescue
+    #false
+    true
   end
 
   def self.sync
