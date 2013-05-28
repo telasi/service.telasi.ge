@@ -7,12 +7,12 @@
     reset_detail_and_summary();
   });
   function reset_detail_and_summary() {
-  	if ($(':checked=[name="apps_new_customer_item[type]"]').val() == 'detail') {
-  	  $('#detail').show();
-  	  $('#summary').hide();
+  	if ($('#apps_new_customer_item_type_summary').is(':checked')) {
+      $('#detail').hide();
+      $('#summary').show();
   	} else {
-  	  $('#detail').hide();
-  	  $('#summary').show();
+  	  $('#detail').show();
+      $('#summary').hide();
   	}
   }
 </script>
