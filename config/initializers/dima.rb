@@ -14,7 +14,8 @@ module Dima::Html
 
     def val=(v)
       unless self.original
-        @val = v ? v.to_s.to_geo : nil
+        text = v.to_s
+        @val = text.present? ? text.to_geo : nil
       else
         @val = v
       end
