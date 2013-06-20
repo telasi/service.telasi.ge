@@ -6,6 +6,13 @@ class MagtiController < ApplicationController
     render text: "ok"
   end
 
+  def send_sms
+    Magti.send_sms(params[:mobile], params[:message][0..150].to_lat) if Magti::SEND
+    render text: "ok"
+  rescue Exception => ex
+    render text: ex.message
+  end
+
   private
 
   # message @90033

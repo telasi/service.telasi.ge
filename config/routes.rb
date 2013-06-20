@@ -40,6 +40,7 @@ TelasiService::Application.routes.draw do
   # magti routes
   scope '/magti', controller: :magti do
     get '/', action: :index, as: :magti
+    get '/send_sms', action: :send_sms
   end
 
   # სისტემური ადმინისტრატორის მოქმედებები
