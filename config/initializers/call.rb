@@ -5,8 +5,7 @@ module Call
   WEEKDAYS = [ Date.new(2013,5,9) ]
 
   def self.is_weekend(time)
-    wday = time.wday
-    wday == 6 or wday == 7 or WEEKDAYS.include?(time.to_date)
+    time.saturday? or time.sunday? or WEEKDAYS.include?(time.to_date)
   end
 
   def self.call_center_sms_send_time
