@@ -102,4 +102,7 @@ class Bs::Customer < ActiveRecord::Base
     pay_period.business_days.after(d1)
   end
 
+  def last_pay_date
+    self.item_bills.last.lastday
+  end
 end
