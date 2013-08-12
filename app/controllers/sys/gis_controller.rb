@@ -2,29 +2,9 @@
 class Sys::GisController < ApplicationController
   before_filter :gis_validation
 
-  private
-
-  def gis_validation
-    user = current_user
-    if user.nil?
-      session[:return_url] = request.url
-      redirect_to login_url, notice: 'გაიარეთ ავტორიზაცია.'
-    elsif !can_view?(user)
-      redirect_to login_url, notice: 'არ გაქვთ შესვლის უფლება.'
-    end
+  def index
+    @title = 'GIS'
   end
-
-  def can_view?(user)
-    if ['messages', 'message', 'details', 'logs'].include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer])
-      true
-    elsif user.has_role?([:sys_admin])
-      true
-    else
-      false
-    end
-  end
-
-  public
 
 # ქსელის ობიექტები.
 
@@ -147,4 +127,25 @@ class Sys::GisController < ApplicationController
     render partial: 'sys/gis/details'
   end
 
+private
+
+  def gis_validation
+    user = current_user
+    if user.nil?
+      session[:return_url] = request.url
+      redirect_to login_url, notice: 'გაიარეთ ავტორიზაცია.'
+    elsif !can_view?(user)
+      redirect_to login_url, notice: 'არ გაქვთ შესვლის უფლება.'
+    end
+  end
+
+  def can_view?(user)
+    if ['messages', 'message', 'details', 'logs'].include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer])
+      true
+    elsif user.has_role?([:sys_admin])
+      true
+    else
+      false
+    end
+  end
 end

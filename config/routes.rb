@@ -66,6 +66,7 @@ TelasiService::Application.routes.draw do
       match '/edit/:id', action: :edit, as: :billoperation_edit
     end
     scope '/gis', controller: :gis do
+      get '/', action: 'index', as: 'gis'
       # network object actions
       get '/transformators', action: :transformators, as: :transformators
       get '/sections', action: :sections, as: :sections
@@ -88,6 +89,8 @@ TelasiService::Application.routes.draw do
       get '/details', action: :details, as: :gis_details
     end
   end
+
+  get '/gis' => redirect('/sys/gis')
 
   # განცხადებები
   namespace :apps do
