@@ -7,7 +7,7 @@ module Telasi::Queryable
         ary = words.map{ |w| { '$or' => fields.map {|f| {f => /#{Regexp::escape(w)}/i} } } }
         where('$and' => ary)
       else
-        where
+        where({})
       end
     end
   end
