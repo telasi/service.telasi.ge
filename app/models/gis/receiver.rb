@@ -3,7 +3,7 @@ class Gis::Receiver
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name,       type: String
-  field :active,     type: Boolean
+  field :active,     type: Mongoid::Boolean
   field :locale,     type: String, default: 'ka'
   field :email_on,   type: String
   field :email_off,  type: String

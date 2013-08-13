@@ -26,35 +26,35 @@ class User
   field :last_name, type: String
 
   # არის თუ არა ეს სისტემური ადმინისტრატორი?
-  field :sys_admin, type: Boolean
+  field :sys_admin, type: Mongoid::Boolean
 
   # ახალი აბონენტის რეგისტრაციის ადმინისტრატორი.
-  field :new_cust_admin, type: Boolean
+  field :new_cust_admin, type: Mongoid::Boolean
 
   # GIS ნახვა.
-  field :gis_viewer, type: Boolean
+  field :gis_viewer, type: Mongoid::Boolean
 
   # Person ID for connection with BS database.
   field :bs_person, type: Integer
   field :bs_login, type: String
 
   # BS administrator role
-  field :bs_admin, type: Boolean
+  field :bs_admin, type: Mongoid::Boolean
 
   # BS inspector role
-  field :bs_inspector, type: Boolean
+  field :bs_inspector, type: Mongoid::Boolean
 
   # C(ivil) R(egistry) A(gency) role
-  field :cra, type: Boolean
+  field :cra, type: Mongoid::Boolean
 
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
-  field :email_confirmed, type: Boolean
+  field :email_confirmed, type: Mongoid::Boolean
 
   # კოდი, რომელიც გამოიყენება ამ ელ. ფოსტის მისამართის დასადასტურებლად.
   field :email_confirm_hash, type: String
 
   # არის თუ არა მომხმარებლის მობილური დადასტურებული?
-  field :mobile_confirmed, type: Boolean
+  field :mobile_confirmed, type: Mongoid::Boolean
 
   # პაროლის აღდგენის კოდი
   field :new_password_hash, type: String
@@ -73,10 +73,10 @@ class User
   ### >> ქოლ-ცენტრის ოპციები: დასაწყისი
 
   # აქვს თუ არა ქოლ-ცენტრით სარგებლობის უფლება.
-  field :call_center, type: Boolean
+  field :call_center, type: Mongoid::Boolean
 
   # ყველა რეგიონი აქვს?
-  field :all_regions, type: Boolean
+  field :all_regions, type: Mongoid::Boolean
 
   # რეგიონების მასივი, რომელზეც შეიძლება ამ მომხმარებელს იმუშაოს.
   has_and_belongs_to_many :regions, class_name: 'Ext::Region'

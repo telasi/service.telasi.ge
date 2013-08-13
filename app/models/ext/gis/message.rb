@@ -4,9 +4,9 @@ class Ext::Gis::Message
   include Mongoid::Timestamps
   include Telasi::Queryable
 
-  field :on,   type: Boolean
+  field :on,   type: Mongoid::Boolean
   field :off_status, type: Integer
-  field :sent, type: Boolean, default: false
+  field :sent, type: Mongoid::Boolean, default: false
 
   field :section_count, type: Integer, default: 0
   field :fider_count,   type: Integer, default: 0

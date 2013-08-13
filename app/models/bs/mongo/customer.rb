@@ -22,11 +22,11 @@ class Bs::Mongo::Customer
   field :contact, type: String
   field :balance, type: Float
   field :old_balance, type: Float
-  field :illegalline, type: Boolean
-  field :except, type: Boolean
-  field :goodpayer, type: Boolean
+  field :illegalline, type: Mongoid::Boolean
+  field :except, type: Mongoid::Boolean
+  field :goodpayer, type: Mongoid::Boolean
   field :payint, type: Integer
-  field :cut, type: Boolean
+  field :cut, type: Mongoid::Boolean
   field :statuskey, type: Integer
 
   def self.sync!(data)

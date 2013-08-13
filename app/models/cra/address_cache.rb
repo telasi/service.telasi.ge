@@ -14,7 +14,7 @@ class Cra::AddressCache
   field :identificator_type, type: Integer
   field :identificator_type_text, type: String
   field :address,   type: String
-  field :active,    type: Boolean
+  field :active,    type: Mongoid::Boolean
 
   index :cra_id
 

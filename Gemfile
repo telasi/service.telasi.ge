@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 3.2.11'
 gem 'pony'
 
-gem 'mongoid', '~> 2.4'
+gem 'mongoid', '~> 3.1'
 gem 'bson_ext', '~> 1.5'
 gem 'sqlite3'
 gem 'ruby-oci8', '~> 2.1.0'
