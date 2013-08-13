@@ -177,7 +177,7 @@ class Sys::GisController < ApplicationController
       transf = Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first
       if transf and value['on']
         @items << {
-          transformator: "#{transf.tp_name}-#{trans.tr_name}",
+          transformator: "#{transf.tp_name}-#{transf.tr_name}",
           on: value['on'].to_i, off: value['off'].to_i,
           damage: value['damage'].to_i, switch: value['switch'].to_i,
           planed: value['planed'].to_i, maintain: value['maintain'].to_i,
