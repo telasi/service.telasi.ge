@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/dimakura/mongoid_session_store.git
+  revision: 5c1ef4d0cdffb4eb0a73dc86fce226aeacfb139f
+  specs:
+    mongoid_session_store (3.0.0)
+      mongoid (~> 3.0)
+      rails (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -148,9 +156,6 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
-    mongoid_session_store (3.0.0)
-      mongoid (~> 3.0)
-      rails (~> 3.0)
     moped (1.5.1)
     multi_json (1.7.9)
     multi_xml (0.5.5)
@@ -300,7 +305,7 @@ DEPENDENCIES
   mongoid (~> 3.1)
   mongoid-paperclip
   mongoid-rspec
-  mongoid_session_store
+  mongoid_session_store!
   pony
   rails (~> 3.2.11)
   rs.ge (~> 0.1)

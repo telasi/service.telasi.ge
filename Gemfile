@@ -10,7 +10,7 @@ gem 'ruby-oci8', '~> 2.1.0'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
 gem 'composite_primary_keys', '~> 5'
 
-gem 'mongoid_session_store'
+gem 'mongoid_session_store', github: 'dimakura/mongoid_session_store'
 
 gem 'rs.ge', '~> 0.1'
 gem 'cra.ge', '~> 0.2'
