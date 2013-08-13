@@ -170,8 +170,10 @@ class Sys::GisController < ApplicationController
         return result;
       }
     }
-    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT).map_reduce(map, reduce).out(inline: true)
+    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT, :log_date.gte => @d1, :log_date.lte => @d2).map_reduce(map, reduce).out(inline: true)
     @items = []
+    @summary = { on: 0, off: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0,
+      fire: 0, debt: 0, explotation: 0, unknown: 0 }
     data.each do |row|
       value = row['value']
       transf = Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first
@@ -183,7 +185,19 @@ class Sys::GisController < ApplicationController
           planed: value['planed'].to_i, maintain: value['maintain'].to_i,
           correction: value['correction'].to_i, fire: value['fire'].to_i,
           debt: value['debt'].to_i, explotation: value['explotation'].to_i,
+          unknown: value['unknown'].to_i
         }
+        @summary[:on] += value['on'].to_i
+        @summary[:off] += value['off'].to_i
+        @summary[:damage] += value['damage'].to_i
+        @summary[:switch] += value['switch'].to_i
+        @summary[:planed] += value['planed'].to_i
+        @summary[:maintain] += value['maintain'].to_i
+        @summary[:correction] += value['correction'].to_i
+        @summary[:fire] += value['fire'].to_i
+        @summary[:debt] += value['debt'].to_i
+        @summary[:explotation] += value['explotation'].to_i
+        @summary[:unknown] += value['unknown'].to_i
       end
     end
   end

@@ -13,7 +13,7 @@
       <tr>
         <th rowspan="2">ტრანსფ.</th>
         <th rowspan="2">ჩართვა</th>
-        <th colspan="6">გამორთვა</th>
+        <th colspan="10">გამორთვა</th>
       </tr>
       <tr>
         <th>ჯამი</th>
@@ -25,6 +25,7 @@
         <th>ხანძარი</th>
         <th>დავალ-ბა</th>
         <th>ექსპლ-ცია</th>
+        <th>სხვა</th>
       </tr>
     </thead>
     <tbody>
@@ -41,8 +42,25 @@
           <td><%= item[:fire] %></td>
           <td><%= item[:debt] %></td>
           <td><%= item[:explotation] %></td>
+          <td><%= item[:unknown] %></td>
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <th>ჯამი</th>
+        <th><code><%= @summary[:on] %></code></th>
+        <th><code><%= @summary[:off] %></code></th>
+        <th><code><%= @summary[:damage] %></code></th>
+        <th><code><%= @summary[:switch] %></code></th>
+        <th><code><%= @summary[:planed] %></code></th>
+        <th><code><%= @summary[:maintain] %></code></th>
+        <th><code><%= @summary[:correction] %></code></th>
+        <th><code><%= @summary[:fire] %></code></th>
+        <th><code><%= @summary[:debt] %></code></th>
+        <th><code><%= @summary[:explotation] %></code></th>
+        <th><code><%= @summary[:unknown] %></code></th>
+      </tr>
+    </tfoot>
   </table>
 </div>
