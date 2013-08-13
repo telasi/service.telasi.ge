@@ -1,12 +1,18 @@
 development:
-  host: localhost
-  database: telasi_service_development
-
+  sessions:
+    default:
+      database: telasi_service_development
+      hosts:
+        - localhost:27017
+      options:
+  options:
 test:
-  host: localhost
-  database: telasi_service_test
-
-# set these environment variables on your prod server
-production:
-  host: localhost
-  database: telasi_service_prod
+  sessions:
+    default:
+      database: telasi_service_test
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+        max_retries: 1
+        retry_interval: 0

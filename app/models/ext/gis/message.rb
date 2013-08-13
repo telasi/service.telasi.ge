@@ -4,9 +4,9 @@ class Ext::Gis::Message
   include Mongoid::Timestamps
   include Telasi::Queryable
 
-  field :on,   type: Mongoid::Boolean
+  field :on,   type: Boolean
   field :off_status, type: Integer
-  field :sent, type: Mongoid::Boolean, default: false
+  field :sent, type: Boolean, default: false
 
   field :section_count, type: Integer, default: 0
   field :fider_count,   type: Integer, default: 0
@@ -18,7 +18,7 @@ class Ext::Gis::Message
   field :search_text, type: String
 
   has_many :logs, class_name: 'Ext::Gis::Log', inverse_of: :message
-  index :search_text
+  index({ search_text: 1 })
 
   def self.by_q(q)
     self.search_by_q(q, :search_text)

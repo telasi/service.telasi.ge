@@ -12,11 +12,10 @@ class Ext::Gis::Fider
   field :number,   type: String
   belongs_to :section, class_name: 'Ext::Gis::Fider', inverse_of: :fider
 
-  index :objectid
-  index [[:station, Mongo::ASCENDING], [:voltage, Mongo::ASCENDING], [:number, Mongo::ASCENDING]]
+  index({ objectid: 1 })
+  index({ station: 1, voltage: 1, number: 1 })
 
   def to_s
     "#{station} #{voltage} კვ, სექცია #{section_number}, ფიდერი #{number}"
   end
-
 end

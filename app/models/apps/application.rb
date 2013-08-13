@@ -10,7 +10,7 @@ class Apps::Application
 
   field :type,    type: String
   field :number,  type: Integer
-  field :private, type: Mongoid::Boolean, default: true
+  field :private, type: Boolean, default: true
   field :total,   type: Float, default: 0
   field :paid,      type: Float, default: 0
   field :remaining, type: Float, default: 0

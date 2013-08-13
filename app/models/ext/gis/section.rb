@@ -11,8 +11,8 @@ class Ext::Gis::Section
   field :number,   type: String
   has_many :fiders, class_name: 'Ext::Gis::Fider', inverse_of: :section, order: 'number'
 
-  index :objectid
-  index [[:station, Mongo::ASCENDING], [:voltage, Mongo::ASCENDING], [:number, Mongo::ASCENDING]]
+  index({ objectid: 1 })
+  index({ station: 1, voltage: 1, number: 1 })
 
   def self.sync
     Gis::Section.all.each do |gis_sec|

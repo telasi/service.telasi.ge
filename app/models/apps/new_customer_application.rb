@@ -26,7 +26,7 @@ class Apps::NewCustomerApplication
   field :voltage, type: String
   field :amount,  type: Float
   field :days,    type: Integer
-  field :need_resolution, type: Mongoid::Boolean, default: true
+  field :need_resolution, type: Boolean, default: true
   field :send_date,    type: Time
   field :approve_date, type: Time
   field :deprove_date, type: Time

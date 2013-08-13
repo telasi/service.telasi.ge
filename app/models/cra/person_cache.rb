@@ -12,7 +12,7 @@ class Cra::PersonCache
   field :birth_date, type: Date
   field :address_text, type: String
 
-  index :address_id
+  index({ address_id: 1 })
 
   def full_name
     "#{first_name} #{last_name}"

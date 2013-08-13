@@ -14,9 +14,9 @@ class Cra::AddressCache
   field :identificator_type, type: Integer
   field :identificator_type_text, type: String
   field :address,   type: String
-  field :active,    type: Mongoid::Boolean
+  field :active,    type: Boolean
 
-  index :cra_id
+  index({ cra_id: 1 })
 
   def path
     unless @__path_initialized

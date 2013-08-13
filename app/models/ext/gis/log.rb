@@ -32,8 +32,8 @@ class Ext::Gis::Log
   belongs_to :pair, class_name: 'Ext::Gis::Log'
   belongs_to :message, class_name: 'Ext::Gis::Message', inverse_of: :logs
 
-  index :log_id
-  index :objectid
+  index({ log_id: 1 })
+  index({ objectid: 1 })
 
   def self.off_status_text(off_status, locale = nil)
     I18n.t("gis_off_status_#{off_status || 0}", locale: (locale || I18n.locale)) unless off_status.blank? or off_status == 0

@@ -13,7 +13,6 @@ class Cra::History
 
   def is_person?
     obj = self.object
-    
   end
 
   def self.make_log(user)

@@ -26,35 +26,35 @@ class User
   field :last_name, type: String
 
   # არის თუ არა ეს სისტემური ადმინისტრატორი?
-  field :sys_admin, type: Mongoid::Boolean
+  field :sys_admin, type: Boolean
 
   # ახალი აბონენტის რეგისტრაციის ადმინისტრატორი.
-  field :new_cust_admin, type: Mongoid::Boolean
+  field :new_cust_admin, type: Boolean
 
   # GIS ნახვა.
-  field :gis_viewer, type: Mongoid::Boolean
+  field :gis_viewer, type: Boolean
 
   # Person ID for connection with BS database.
   field :bs_person, type: Integer
   field :bs_login, type: String
 
   # BS administrator role
-  field :bs_admin, type: Mongoid::Boolean
+  field :bs_admin, type: Boolean
 
   # BS inspector role
-  field :bs_inspector, type: Mongoid::Boolean
+  field :bs_inspector, type: Boolean
 
   # C(ivil) R(egistry) A(gency) role
-  field :cra, type: Mongoid::Boolean
+  field :cra, type: Boolean
 
   # არის თუ არა მომხმარებლის ელ. ფოსტა დადასტურებული?
-  field :email_confirmed, type: Mongoid::Boolean
+  field :email_confirmed, type: Boolean
 
   # კოდი, რომელიც გამოიყენება ამ ელ. ფოსტის მისამართის დასადასტურებლად.
   field :email_confirm_hash, type: String
 
   # არის თუ არა მომხმარებლის მობილური დადასტურებული?
-  field :mobile_confirmed, type: Mongoid::Boolean
+  field :mobile_confirmed, type: Boolean
 
   # პაროლის აღდგენის კოდი
   field :new_password_hash, type: String
@@ -73,10 +73,10 @@ class User
   ### >> ქოლ-ცენტრის ოპციები: დასაწყისი
 
   # აქვს თუ არა ქოლ-ცენტრით სარგებლობის უფლება.
-  field :call_center, type: Mongoid::Boolean
+  field :call_center, type: Boolean
 
   # ყველა რეგიონი აქვს?
-  field :all_regions, type: Mongoid::Boolean
+  field :all_regions, type: Boolean
 
   # რეგიონების მასივი, რომელზეც შეიძლება ამ მომხმარებელს იმუშაოს.
   has_and_belongs_to_many :regions, class_name: 'Ext::Region'
@@ -102,9 +102,9 @@ class User
   before_create :before_user_create
   before_update :before_user_update
 
-  index :email
-  index :bs_login
-  index [[:email, Mongo::ASCENDING], [:mobile, Mongo::ASCENDING], [:first_name, Mongo::ASCENDING], [:last_name, Mongo::ASCENDING]]
+  index({ email: 1 })
+  index({ bs_login: 1 })
+  index({ email: 1, mobile: 1, first_name: 1, last_name: 1 })
 
   # მომხმარებლის ავტორიზაცია.
   def self.authenticate(email, pwd)

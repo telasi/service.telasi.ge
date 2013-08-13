@@ -3,13 +3,13 @@ class Gis::Receiver
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name,       type: String
-  field :active,     type: Mongoid::Boolean
+  field :active,     type: Boolean
   field :locale,     type: String, default: 'ka'
   field :email_on,   type: String
   field :email_off,  type: String
   field :mobile_on,  type: String
   field :mobile_off, type: String
-  index :name
+  index({ name: 1 })
 
   def self.send_message(msg)
     return if msg.transformator_count == 0

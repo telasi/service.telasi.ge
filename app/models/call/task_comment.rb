@@ -7,8 +7,5 @@ class Call::TaskComment
   belongs_to :user
   belongs_to :task, class_name: 'Call::Task'
 
-  def text_html
-    self.text.gsub("\n", '<br>')
-  end
-
+  def text_html; self.text.gsub("\n", '<br>') end
 end

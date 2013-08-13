@@ -7,7 +7,7 @@ class Ext::Billoperation
   field :billopername, type: String
   field :description, type: String
 
-  index :billoperkey
+  index({ billoperkey: 1 })
 
   def self.sync
     Bs::Billoperation.all.each do |op|

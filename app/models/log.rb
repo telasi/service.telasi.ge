@@ -18,5 +18,5 @@ class Log
   belongs_to  :user
   embedded_in :loggable, polymorphic: true
 
-  index :logabble_id
+  index({ logabble_id: 1 })
 end

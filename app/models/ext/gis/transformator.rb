@@ -24,9 +24,9 @@ class Ext::Gis::Transformator
   field :account_count, type: Integer
 
   # indecies
-  index [[:tp_name, Mongo::ASCENDING], [:tr_name, Mongo::ASCENDING]]
-  index :objectid
-  index :acckey
+  index({ tp_name: 1, tr_name: 1 })
+  index({ objectid: 1 })
+  index({ acckey: 1 })
 
   def self.sync
     Gis::Transformator.order('tp_name ASC, tr_name ASC').each do |gis_tr|

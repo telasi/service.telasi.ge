@@ -6,7 +6,7 @@ class UserCustomer
   field :accnumb,    type: String
   field :custkey,    type: Integer
   field :custname,   type: String
-  field :notify_sms, type: Mongoid::Boolean, default: true
+  field :notify_sms, type: Boolean, default: true
   field :last_balance,       type: Float
   field :last_trash_balance, type: Float
   field :last_water_balance, type: Float
@@ -57,5 +57,4 @@ class UserCustomer
     self.user.accnumbs.delete(self.accnumb)
     self.user.save
   end
-
 end
