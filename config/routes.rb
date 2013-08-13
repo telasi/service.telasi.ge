@@ -87,6 +87,10 @@ TelasiService::Application.routes.draw do
       get '/message/:id', action: :message, as: :gis_message
       post '/send/:id', action: :send_message, as: :gis_send
       get '/details', action: :details, as: :gis_details
+      # reports
+      scope '/reports' do
+        get '/tp_statuses', action: 'tp_statuses', as: :gis_report_tp_statuses
+      end
     end
   end
 

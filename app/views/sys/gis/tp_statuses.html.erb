@@ -1,0 +1,14 @@
+<h1><%= @title %></h1>
+<hr />
+<div class="btn-toolbar">
+  <form method="get">
+    <input name="d1" value="<%= @d1.strftime('%d-%b-%Y') %>" class="datepicker" style="width:100px;" />
+    <input name="d2" value="<%= @d2.strftime('%d-%b-%Y') %>" class="datepicker" style="width:100px;" />
+    <button type="submit">მონაცემების ნახვა</button>
+  </form>
+</div>
+
+
+<div>
+  <%=  @items  %>
+</div>

@@ -127,6 +127,33 @@ class Sys::GisController < ApplicationController
     render partial: 'sys/gis/details'
   end
 
+# რეპორტები
+
+  def tp_statuses
+    @title = 'TP-ს სტატუსები'
+    @d1 = Date.strptime(params[:d1], '%d-%b-%Y') rescue (Date.today - 30)
+    @d2 = Date.strptime(params[:d2], '%d-%b-%Y') rescue Date.today
+    map = %Q{
+      function() {
+        emit(this.objectid, { gis_status: this.gis_status });
+      }
+    }
+    reduce = %Q{
+      function(key, values) {
+        var result = { on: 0, off: 0 };
+        values.forEach(function(value) {
+          if (value.gis_status == 1) {
+            result.on += 1;
+          } else {
+            result.off += 1;
+          }
+        });
+        return result;
+      }
+    }
+    @items = Ext::Gis::Log.sum(:gis_status) #collection.map_reduce(map, reduce) #.out(inline: true)
+  end
+
 private
 
   def gis_validation
