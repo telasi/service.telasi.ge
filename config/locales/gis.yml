@@ -28,7 +28,7 @@ en:
     log_on: Switching On
     log_off: Turning Off
     message:
-      additional_info: More information can be found <a href="%{url}?locale=en">here</a>.
+      additional_info: "More information can be found <a href=\"%{url}?locale=en\">here</a>."
 ka:
   gis_logs_title: GIS შეტყობინებები
   gis_logs: შეტყობინებები

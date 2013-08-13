@@ -7,8 +7,42 @@
     <button type="submit">მონაცემების ნახვა</button>
   </form>
 </div>
-
-
 <div>
-  <%=  @items  %>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="2">ტრანსფ.</th>
+        <th rowspan="2">ჩართვა</th>
+        <th colspan="6">გამორთვა</th>
+      </tr>
+      <tr>
+        <th>ჯამი</th>
+        <th>დაზიანება</th>
+        <th>გადართვა</th>
+        <th>გეგმიური</th>
+        <th>პროფ-კა</th>
+        <th>კორექცია</th>
+        <th>ხანძარი</th>
+        <th>დავალ-ბა</th>
+        <th>ექსპლ-ცია</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%  @items.each do |item| %>
+        <tr>
+          <td><%= item[:transformator] %></td>
+          <td><code><%= item[:on] %></code></td>
+          <td><code><%= item[:off] %></code></td>
+          <td><%= item[:damage] %></td>
+          <td><%= item[:switch] %></td>
+          <td><%= item[:planed] %></td>
+          <td><%= item[:maintain] %></td>
+          <td><%= item[:correction] %></td>
+          <td><%= item[:fire] %></td>
+          <td><%= item[:debt] %></td>
+          <td><%= item[:explotation] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

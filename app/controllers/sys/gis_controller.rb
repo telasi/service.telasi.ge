@@ -135,23 +135,54 @@ class Sys::GisController < ApplicationController
     @d2 = Date.strptime(params[:d2], '%d-%b-%Y') rescue Date.today
     map = %Q{
       function() {
-        emit(this.objectid, { gis_status: this.gis_status });
+        emit(this.objectid, { gis_status: this.gis_status, gis_off_status: this.gis_off_status });
       }
     }
     reduce = %Q{
       function(key, values) {
-        var result = { on: 0, off: 0 };
+        var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0 };
         values.forEach(function(value) {
           if (value.gis_status == 1) {
             result.on += 1;
           } else {
             result.off += 1;
+            if ( value.gis_off_status == 1 ) {
+              result.damage += 1;
+            } else if ( value.gis_off_status == 2 ) {
+              result.switch += 1;
+            } else if ( value.gis_off_status == 3 ) {
+              result.planed += 1;
+            } else if ( value.gis_off_status == 4 ) {
+              result.maintain += 1;
+            } else if ( value.gis_off_status == 5 ) {
+              result.correction += 1;
+            } else if ( value.gis_off_status == 6 ) {
+              result.fire += 1;
+            } else if ( value.gis_off_status == 7 ) {
+              result.debt += 1;
+            } else if ( value.gis_off_status == 8 ) {
+              result.explotation += 1;
+            } else {
+              result.unknown += 1;
+            }
           }
         });
         return result;
       }
     }
-    @items = Ext::Gis::Log.sum(:gis_status) #collection.map_reduce(map, reduce) #.out(inline: true)
+    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT).map_reduce(map, reduce).out(inline: true)
+    @items = []
+    data.each do |row|
+      value = row['value']
+      @items << {
+        transformator: Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first.tp_name,
+        on: value['on'].to_i, off: value['off'].to_i,
+        damage: value['damage'].to_i, switch: value['switch'].to_i,
+        planed: value['planed'].to_i, maintain: value['maintain'].to_i,
+        correction: value['correction'].to_i, fire: value['fire'].to_i,
+        debt: value['debt'].to_i, explotation: value['explotation'].to_i,
+      } if value['on']
+    end
   end
 
 private
