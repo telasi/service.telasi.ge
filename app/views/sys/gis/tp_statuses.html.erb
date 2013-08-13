@@ -27,6 +27,20 @@
         <th>ექსპლ-ცია</th>
         <th>სხვა</th>
       </tr>
+      <tr>
+        <th>ჯამი</th>
+        <th><code><%= @summary[:on] %></code></th>
+        <th><code><%= @summary[:off] %></code></th>
+        <th><code><%= @summary[:damage] %></code></th>
+        <th><code><%= @summary[:switch] %></code></th>
+        <th><code><%= @summary[:planed] %></code></th>
+        <th><code><%= @summary[:maintain] %></code></th>
+        <th><code><%= @summary[:correction] %></code></th>
+        <th><code><%= @summary[:fire] %></code></th>
+        <th><code><%= @summary[:debt] %></code></th>
+        <th><code><%= @summary[:explotation] %></code></th>
+        <th><code><%= @summary[:unknown] %></code></th>
+      </tr>
     </thead>
     <tbody>
       <%  @items.each do |item| %>
@@ -46,21 +60,5 @@
         </tr>
       <% end %>
     </tbody>
-    <tfoot>
-      <tr>
-        <th>ჯამი</th>
-        <th><code><%= @summary[:on] %></code></th>
-        <th><code><%= @summary[:off] %></code></th>
-        <th><code><%= @summary[:damage] %></code></th>
-        <th><code><%= @summary[:switch] %></code></th>
-        <th><code><%= @summary[:planed] %></code></th>
-        <th><code><%= @summary[:maintain] %></code></th>
-        <th><code><%= @summary[:correction] %></code></th>
-        <th><code><%= @summary[:fire] %></code></th>
-        <th><code><%= @summary[:debt] %></code></th>
-        <th><code><%= @summary[:explotation] %></code></th>
-        <th><code><%= @summary[:unknown] %></code></th>
-      </tr>
-    </tfoot>
   </table>
 </div>
