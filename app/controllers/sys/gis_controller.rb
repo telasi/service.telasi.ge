@@ -174,14 +174,17 @@ class Sys::GisController < ApplicationController
     @items = []
     data.each do |row|
       value = row['value']
-      @items << {
-        transformator: Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first.tp_name,
-        on: value['on'].to_i, off: value['off'].to_i,
-        damage: value['damage'].to_i, switch: value['switch'].to_i,
-        planed: value['planed'].to_i, maintain: value['maintain'].to_i,
-        correction: value['correction'].to_i, fire: value['fire'].to_i,
-        debt: value['debt'].to_i, explotation: value['explotation'].to_i,
-      } if value['on']
+      transf = Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first
+      if transf and value['on']
+        @items << {
+          transformator: transf.tp_name,
+          on: value['on'].to_i, off: value['off'].to_i,
+          damage: value['damage'].to_i, switch: value['switch'].to_i,
+          planed: value['planed'].to_i, maintain: value['maintain'].to_i,
+          correction: value['correction'].to_i, fire: value['fire'].to_i,
+          debt: value['debt'].to_i, explotation: value['explotation'].to_i,
+        }
+      end
     end
   end
 
