@@ -9,7 +9,7 @@ class Ext::Gis::Section
   field :station,  type: String
   field :voltage,  type: String
   field :number,   type: String
-  has_many :fiders, class_name: 'Ext::Gis::Fider', inverse_of: :section, order: 'number'
+  has_many :fiders, class_name: 'Ext::Gis::Fider', inverse_of: :section
 
   index({ objectid: 1 })
   index({ station: 1, voltage: 1, number: 1 })
