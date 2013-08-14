@@ -131,7 +131,7 @@ class Sys::GisController < ApplicationController
 
   def tp_statuses
     @title = 'TP-ს სტატუსები'
-    @d1 = Date.strptime(params[:d1], '%d-%b-%Y') rescue (Date.today - 30)
+    @d1 = Date.strptime(params[:d1], '%d-%b-%Y') rescue Date.today
     @d2 = Date.strptime(params[:d2], '%d-%b-%Y') rescue Date.today
     map = %Q{
       function() {
