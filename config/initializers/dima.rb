@@ -1,6 +1,12 @@
 # -*- encoding : utf-8 -*-
 module Dima::Html
 
+  class DateField
+    def val
+      @val.localtime if @val
+    end
+  end
+
   class TextField
     attr_accessor :original
 
