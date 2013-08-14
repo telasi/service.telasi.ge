@@ -1,0 +1,12 @@
+<div class="btn-toolbar">
+  <ul class="breadcrumb"><%
+  items = gis_menu_items
+  items.each_with_index do |v,index| %>
+    <% if index == items.length - 1 %>
+      <li><%= v[0] %></li>
+    <% else %>
+      <li><%= link_to v[0], v[1]%> <span class="divider">/</span></li>
+    <% end %>
+  <% end %>
+  </ul>
+</div>

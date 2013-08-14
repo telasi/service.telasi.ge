@@ -2,6 +2,18 @@
 class Sys::GisController < ApplicationController
   before_filter :gis_validation
 
+  def gis_menu_items
+    items = { 'GIS' => sys_gis_url }
+    case action_name
+    when 'messages' then items['შეტყობინებები'] = sys_gis_messages_url
+    when 'message' then items['შეტყობინებები'] = sys_gis_messages_url and items[@title] = nil
+    when 'new_receiver', 'edit_receiver' then items['დაგზავნის სია'] = sys_gis_receivers_url and items[@title] = nil
+    else items[@title] = nil
+    end
+    items
+  end
+  helper_method :gis_menu_items
+
   def index
     @title = 'GIS'
   end
@@ -58,7 +70,7 @@ class Sys::GisController < ApplicationController
 # მიმღებთა სიის მართვა.
 
   def receivers
-    @title = 'დაგზავნის პარამეტრები'
+    @title = 'დაგზავნის სია'
     @receivers = Gis::Receiver.asc(:name)
   end
 
