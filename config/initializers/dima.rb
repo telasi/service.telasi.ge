@@ -3,7 +3,8 @@ module Dima::Html
 
   class DateField
     def val
-      @val.localtime if @val
+      val = super
+      val.localtime if val
     end
   end
 
