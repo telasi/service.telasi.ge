@@ -19,7 +19,7 @@ table.common td {
   <table class="common">
     <% @tasks.each do |t| %>
     <tr>
-      <td width="150"><%= t.created_at.strftime('%d-%b-%Y %H:%M:%S') %></td>
+      <td width="150"><%= t.created_at.localtime.strftime('%d-%b-%Y %H:%M:%S') %></td>
       <td width="100">
         აბ.# <strong><%= t.customer.accnumb.to_ka %></strong>
       </td>
