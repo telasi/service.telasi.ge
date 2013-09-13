@@ -9,7 +9,7 @@ module TrashCustomerForm
   BALANCE = NumberField.new(name: 'balance', label: 'სრული დავალიანება', after: 'GEL', required: true)
   OLD_BALANCE = NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
   PRE_PAYMENT_AMNT = NumberField.new(name: 'customer.pre_trash_payment')
-  PRE_PAYMENT_DATE = DateField.new(name: 'customer.pre_trash_payment_date', formatter: '%d-%b-%Y %H:%M:%S')
+  PRE_PAYMENT_DATE = DateField.new(name: 'customer.pre_trash_payment_date', formatter: '%d-%b-%Y %H:%M:%S', not_local: true)
 
   STATUS = TextField.new(name: 'status_name', label: 'სტატუსი')
   EXCEPT = BooleanField.new(name: 'except', label: 'გამონაკლისი?')
