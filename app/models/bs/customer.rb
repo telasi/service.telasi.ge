@@ -24,7 +24,7 @@ class Bs::Customer < ActiveRecord::Base
 
   def pre_payment_date
     p = Bs::Payment.where('paydate > ? AND custkey = ? AND status = 1', Date.today - 7, self.custkey).order('paykey desc').first
-    p.paydate if p
+    p.paydate.local.localtime if p
   end
 
   def pre_trash_payment
