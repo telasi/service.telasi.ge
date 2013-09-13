@@ -2,9 +2,11 @@
 module Dima::Html
 
   class DateField
+    attr_accessor :not_local
+
     def val
       val = super
-      val.localtime if val
+      (self.not_local ? val : val.localtime) if val
     end
   end
 
