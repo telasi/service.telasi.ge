@@ -87,7 +87,7 @@ class Ext::Gis::Transformator
 
   # ტრანსფორმატორის მდგომარეობის სინქრონიზაცია.
   def sync_current_status
-    log = Ext::Gis::Log.where(objectid: self.objectid, sms_status: Ext::Gis::Log::STATUS_SENT).last
+    log = Ext::Gis::Log.where(objectid: self.objectid, sms_status: Ext::Gis::Log::STATUS_SENT, :log_date.le => Date.today - 7).last
     if log.blank? or log.enabled?
       self.on = true
       self.off_status = nil
