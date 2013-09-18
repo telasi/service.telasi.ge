@@ -26,6 +26,7 @@ class Ext::Gis::Transformator
   # status of the transformator
   field :on, type: Boolean
   field :off_status, type: Integer
+  field :off_date, type: DateTime
 
   # indecies
   index({ tp_name: 1, tr_name: 1 })
@@ -91,9 +92,11 @@ class Ext::Gis::Transformator
     if log.blank? or log.enabled?
       self.on = true
       self.off_status = nil
+      self.off_date = nil
     else
       self.on = false
       self.off_status = log.gis_off_status || 0
+      self.off_date = log.log_date
     end
     self.save
   end
