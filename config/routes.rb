@@ -90,6 +90,8 @@ TelasiService::Application.routes.draw do
       # reports
       scope '/reports' do
         get '/tp_statuses', action: 'tp_statuses', as: :gis_report_tp_statuses
+        get '/network_status', action: 'network_status', as: :gis_network_status
+        post '/network_status_sync', action: 'network_status_sync', as: :gis_network_status_sync
       end
     end
   end

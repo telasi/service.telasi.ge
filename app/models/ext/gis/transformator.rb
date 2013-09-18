@@ -23,6 +23,10 @@ class Ext::Gis::Transformator
   field :street_count,  type: Integer
   field :account_count, type: Integer
 
+  # status of the transformator
+  field :on, type: Boolean
+  field :off_status, type: Integer
+
   # indecies
   index({ tp_name: 1, tr_name: 1 })
   index({ objectid: 1 })
@@ -79,8 +83,21 @@ class Ext::Gis::Transformator
     end
   end
 
-  def to_s
-    "#{self.tp_name} &rarr; #{self.tr_name}".html_safe
-  end
+  def region; Bs::Region.find(self.regionkey) rescue nil end
 
+  # ტრანსფორმატორის მდგომარეობის სინქრონიზაცია.
+  def sync_current_status
+    log = Ext::Gis::Log.where(objectid: self.objectid, sms_status: Ext::Gis::Log::STATUS_SENT).last
+    if log.blank? or log.enabled?
+      self.on = true
+      self.off_status = nil
+    else
+      self.on = false
+      self.off_status = log.gis_off_status
+    end
+    self.save
+  end
+  def self.sync_current_status; Ext::Gis::Transformator.each { |x| x. sync_current_status } end
+
+  def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
 end

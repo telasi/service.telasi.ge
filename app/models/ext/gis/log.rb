@@ -39,33 +39,12 @@ class Ext::Gis::Log
     I18n.t("gis_off_status_#{off_status || 0}", locale: (locale || I18n.locale)) unless off_status.blank? or off_status == 0
   end
 
-  def call_center_icon
-    if self.enabled?
-      "/assets/fff/accept.png"
-    else
-      "/assets/fff/cancel.png"
-    end
-  end
+  def call_center_icon; self.enabled? ? "/assets/fff/accept.png" : "/assets/fff/cancel.png" end
+  def call_center_text; self.enabled? ?  "ჩართულია" : "გათიშვა: #{Ext::Gis::Log.off_status_text(self.gis_off_status)}" end
 
-  def call_center_text
-    if self.enabled?
-      "ჩართულია"
-    else
-      "გათიშვა: #{Ext::Gis::Log.off_status_text(self.gis_off_status)}"
-    end
-  end
-
-  def section?
-    self.table_name == Ext::Gis::Log::SECTION
-  end
-
-  def fider?
-    self.table_name == Ext::Gis::Log::FIDER
-  end
-
-  def transformator?
-    self.table_name == Ext::Gis::Log::TRANSFORMATOR
-  end
+  def section?; self.table_name == Ext::Gis::Log::SECTION end
+  def fider?; self.table_name == Ext::Gis::Log::FIDER end
+  def transformator?; self.table_name == Ext::Gis::Log::TRANSFORMATOR end
 
   def object
     if section?

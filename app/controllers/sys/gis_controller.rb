@@ -14,9 +14,7 @@ class Sys::GisController < ApplicationController
   end
   helper_method :gis_menu_items
 
-  def index
-    @title = 'GIS'
-  end
+  def index; @title = 'GIS' end
 
 # ქსელის ობიექტები.
 
@@ -215,6 +213,18 @@ class Sys::GisController < ApplicationController
     end
   end
 
+### Network status
+
+  def network_status
+    @title = 'ქსელის მდომარეობა'
+    @transformators = Ext::Gis::Transformator.where(on: false, :off_status.ne => 0)
+  end
+
+  def network_status_sync
+    Ext::Gis::Transformator.sync_current_status
+    redirect_to sys_gis_network_status_url, notice: 'სინქრონიზაცია დასრულებულია.'
+  end
+
 private
 
   def gis_validation
@@ -228,7 +238,7 @@ private
   end
 
   def can_view?(user)
-    if ['index', 'messages', 'message', 'details', 'logs', 'tp_statuses'].include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer])
+    if ['index', 'messages', 'message', 'details', 'logs', 'tp_statuses', 'network_status'].include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer])
       true
     elsif user.has_role?([:sys_admin])
       true
