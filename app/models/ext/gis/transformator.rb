@@ -118,7 +118,7 @@ class Ext::Gis::Transformator
       reg_transformators = transformators.select {|x| regions.include?(x.regionkey)}
       count1 = (reg_transformators.select {|x| [1,6,8].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
       count2 = (reg_transformators.select {|x| [3,4].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
-      text << "#{name}: avaria (#{count1}), gegmiuri: (#{count2})".to_lat
+      text << "#{name}: avaria (#{count1}), gegmiuri: (#{count2})"
     end
     text = text.join("\n")
     Magti.send_sms('599422451', text) if Magti::SEND
