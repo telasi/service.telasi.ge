@@ -45,6 +45,8 @@ class Ext::Gis::Log
   def section?; self.table_name == Ext::Gis::Log::SECTION end
   def fider?; self.table_name == Ext::Gis::Log::FIDER end
   def transformator?; self.table_name == Ext::Gis::Log::TRANSFORMATOR end
+  def enabled?; self.gis_status == 1 end
+  def date; self.log_date - Gis::CORR end
 
   def object
     if section?
@@ -56,13 +58,4 @@ class Ext::Gis::Log
     end
     rel.where(objectid: self.objectid).first
   end
-
-  def enabled?
-    self.gis_status == 1
-  end
-
-  def date
-    self.log_date - Gis::CORR
-  end
-
 end
