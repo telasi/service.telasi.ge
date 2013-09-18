@@ -102,5 +102,27 @@ class Ext::Gis::Transformator
   end
   def self.sync_current_status; Ext::Gis::Transformator.each { |x| x. sync_current_status } end
 
+  REGION_MAPPINGS = {
+    'გლდანი-ნაძალადევი' => [1,23,34,35],
+    'დიდუბე-ჩუღურეთი' => [2,15,16],
+    'ვაკე-საბურთალო' => [3,9,10,14],
+    'მთაწმინდა-კრწანისი' => [7],
+    'ისანი-სამგორი' => [8,28,31],
+  }
+
+  def self.sync_current_status_and_notify
+    Ext::Gis::Transformator.sync_current_status
+    transformators = Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7]).select {|x| x.tp_name[0] != 'A'}
+    text = []
+    REGION_MAPPINGS.each do |name,regions|
+      reg_transformators = transformators.select {|x| regions.include?(x.regionkey)}
+      count1 = (reg_transformators.select {|x| [1,6,8].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
+      count2 = (reg_transformators.select {|x| [3,4].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
+      text << "#{name}: avaria (#{count1}), gegmiuri: (#{count2})".to_lat
+    end
+    text = text.join("\n")
+    Magti.send_sms('599422451', text) if Magti::SEND
+  end
+
   def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
 end
