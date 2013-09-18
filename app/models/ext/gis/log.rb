@@ -41,7 +41,6 @@ class Ext::Gis::Log
 
   def call_center_icon; self.enabled? ? "/assets/fff/accept.png" : "/assets/fff/cancel.png" end
   def call_center_text; self.enabled? ?  "ჩართულია" : "გათიშვა: #{Ext::Gis::Log.off_status_text(self.gis_off_status)}" end
-
   def section?; self.table_name == Ext::Gis::Log::SECTION end
   def fider?; self.table_name == Ext::Gis::Log::FIDER end
   def transformator?; self.table_name == Ext::Gis::Log::TRANSFORMATOR end
