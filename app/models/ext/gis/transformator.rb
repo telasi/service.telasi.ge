@@ -143,8 +143,11 @@ class Ext::Gis::Transformator
     text_ru << ['-------', "Всего планого отключено #{total2} абонентов, что составляет #{percent2}% от общего кол-ва.", 'Данные по регионам:', planned_ru]
     text = text.flatten.join("\n")
     text_ru = text_ru.flatten.join("\n")
-    Magti.send_sms('599422451', text) if Magti::SEND
-    Magti.send_sms('599422451', text_ru) if Magti::SEND
+    if Magti::SEND
+      Telasi::SMS_LIST.each do |number, locale|
+        Magti.send_sms(number, locale == 'ru' ? text_ru : text)
+      end
+    end
   end
 
   def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
