@@ -88,12 +88,13 @@ class Ext::Gis::Transformator
 
   # ტრანსფორმატორის მდგომარეობის სინქრონიზაცია.
   def sync_current_status
-    log = Ext::Gis::Log.where(objectid: self.objectid, sms_status: Ext::Gis::Log::STATUS_SENT).desc(:_id).first
-    if log.blank? or log.enabled?
+    tr = Gis::Transformator.where(objectid: self.objectid).first
+    if tr.enabled == 1
       self.on = true
       self.off_status = nil
       self.off_date = nil
     else
+      log = Ext::Gis::Log.where(objectid: self.objectid, sms_status: Ext::Gis::Log::STATUS_SENT, :gis_status.ne => 1).desc(:_id).first
       self.on = false
       self.off_status = log.gis_off_status || 0
       self.off_date = log.log_date
@@ -110,18 +111,40 @@ class Ext::Gis::Transformator
     'ისანი-სამგორი' => [8,28,31],
   }
 
+  REGIONS_RU = {
+    'გლდანი-ნაძალადევი' => 'Глдани-Надзаладеви',
+    'დიდუბე-ჩუღურეთი' => 'Дидубе-Чугурети',
+    'ვაკე-საბურთალო' => 'Ваке-Сабуртало',
+    'მთაწმინდა-კრწანისი' => 'Мтацминда-Крцаниси',
+    'ისანი-სამგორი' => 'Исани-Самгори',
+  }
+
   def self.sync_current_status_and_notify
     Ext::Gis::Transformator.sync_current_status
     transformators = Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7]).select {|x| x.tp_name[0] != 'A'}
-    text = []
+    text = ['გათიშვები', Time.now.strftime('%d-%b-%Y %H:%M')]
+    text_ru = ['Отключения', Time.now.strftime('%d-%b-%Y %H:%M')]
+    total1 = total2 = 0; customer_count = Bs::Customer.count
+    accident = []; accident_ru = [];
+    planned = []; planned_ru = [];
     REGION_MAPPINGS.each do |name,regions|
       reg_transformators = transformators.select {|x| regions.include?(x.regionkey)}
       count1 = (reg_transformators.select {|x| [1,6,8].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
       count2 = (reg_transformators.select {|x| [3,4].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
-      text << "#{name}: avaria (#{count1}), gegmiuri: (#{count2})"
+      accident << "#{name}: #{count1}"; accident_ru << "#{REGIONS_RU[name]}: #{count1}"
+      planned << "#{name}: #{count2}"; planned_ru << "#{REGIONS_RU[name]}: #{count2}"
+      total1 += count1; total2 += count2
     end
-    text = text.join("\n")
+    percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
+    percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
+    text << ['-------', "სულ ავარიულად გათიშულია #{total1} აბონენტი, რაც შეადგენს #{percent1}% სრული რაოდენობიდან.", 'მონაცემები რაიონების მიხედვით:', accident]
+    text << ['-------', "სულ გეგმიურად გათიშულია #{total2} აბონენტი, რაც შეადგენს #{percent2}% სრული რაოდენობიდან.", 'მონაცემები რაიონების მიხედვით:', planned]
+    text_ru << ['-------', "Всего аварийно отключено #{total1} абонентов, что составляет #{percent1}% от общего кол-ва.", 'Данные по регионам:', accident_ru]
+    text_ru << ['-------', "Всего планого отключено #{total2} абонентов, что составляет #{percent2}% от общего кол-ва.", 'Данные по регионам:', planned_ru]
+    text = text.flatten.join("\n")
+    text_ru = text_ru.flatten.join("\n")
     Magti.send_sms('599422451', text) if Magti::SEND
+    Magti.send_sms('599422451', text_ru) if Magti::SEND
   end
 
   def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
