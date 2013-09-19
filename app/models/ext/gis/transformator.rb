@@ -135,12 +135,16 @@ class Ext::Gis::Transformator
       planned << "#{name}: #{count2}"; planned_ru << "#{REGIONS_RU[name]}: #{count2}"
       total1 += count1; total2 += count2
     end
+    total = total1 + total2
+    percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
     percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
     percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
-    text << ['-------', "სულ ავარიულად გათიშულია #{total1} აბონენტი, რაც შეადგენს #{percent1}% სრული რაოდენობიდან.", 'მონაცემები რაიონების მიხედვით:', accident]
-    text << ['-------', "სულ გეგმიურად გათიშულია #{total2} აბონენტი, რაც შეადგენს #{percent2}% სრული რაოდენობიდან.", 'მონაცემები რაიონების მიხედვით:', planned]
-    text_ru << ['-------', "Всего аварийно отключено #{total1} абонентов, что составляет #{percent1}% от общего кол-ва.", 'Данные по регионам:', accident_ru]
-    text_ru << ['-------', "Всего планого отключено #{total2} абонентов, что составляет #{percent2}% от общего кол-ва.", 'Данные по регионам:', planned_ru]
+    text << ['-------', "სულ თბილისის მაშტაბით გათიშულია #{total} აბონენტი (#{percent}%)."]
+    text << ['-------', "აქედან ავარიულად გათიშულია #{total1} აბონენტი (#{percent1}%).", 'მონაცემები რაიონების მიხედვით:', accident]
+    text << ['-------', "აქედან გეგმიურად გათიშულია #{total2} აბონენტი (#{percent2}%).", 'მონაცემები რაიონების მიხედვით:', planned]
+    text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов (#{percent}%)."]
+    text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов (#{percent1}%).", 'Данные по регионам:', accident_ru]
+    text_ru << ['-------', "Доля планового отключия: #{total2} абонентов (#{percent2}%).", 'Данные по регионам:', planned_ru]
     text = text.flatten.join("\n")
     text_ru = text_ru.flatten.join("\n")
     if Magti::SEND
