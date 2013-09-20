@@ -39,6 +39,12 @@
     <td><code><%= @transformators.inject(0) { |sum, x| sum += x.account_count } %></code></td>
     <td><code><%= @transformators.count %></code></td>
   </tr>
+  <tr>
+    <td><strong>გასაგზავნი ჯამი</strong></td>
+    <% semeki = Ext::Gis::Transformator.transformators_for_semeki %>
+    <td><code><%= semeki.inject(0) { |sum, x| sum += x.account_count } %></code></td>
+    <td><code><%= semeki.count %></code></td>
+  </tr>
 </table>
 
 <div class="page-header">

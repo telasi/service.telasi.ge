@@ -119,9 +119,13 @@ class Ext::Gis::Transformator
     'ისანი-სამგორი' => 'Исани-Самгори',
   }
 
+  def self.transformators_for_semeki
+    Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7]).select {|x| x.tp_name[0] != 'A'}
+  end
+
   def self.sync_current_status_and_notify
     Ext::Gis::Transformator.sync_current_status
-    transformators = Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7]).select {|x| x.tp_name[0] != 'A'}
+    transformators = Ext::Gis::Transformator.transformators_for_semeki
     text = ['გათიშვები', Time.now.strftime('%d-%b-%Y %H:%M')]
     text_ru = ['Отключения', Time.now.strftime('%d-%b-%Y %H:%M')]
     total1 = total2 = 0; customer_count = Bs::Customer.count
