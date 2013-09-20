@@ -242,7 +242,7 @@ private
   end
 
   def can_view?(user)
-    if ['index', 'messages', 'message', 'details', 'logs', 'tp_statuses', 'network_status'].include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer])
+    if ['index', 'messages', 'message', 'details', 'logs', 'tp_statuses', 'network_status', 'network_status_sync'].include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer])
       true
     elsif user.has_role?([:sys_admin])
       true
