@@ -111,6 +111,8 @@ class Ext::Gis::Transformator
     'ისანი-სამგორი' => [8,28,31],
   }
 
+  ALL_REGKEYS = REGION_MAPPINGS.values.flatten
+
   REGIONS_RU = {
     'გლდანი-ნაძალადევი' => 'Глдани-Надзаладеви',
     'დიდუბე-ჩუღურეთი' => 'Дидубе-Чугурети',
@@ -120,7 +122,7 @@ class Ext::Gis::Transformator
   }
 
   def self.transformators_for_semeki
-    Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7]).select {|x| x.tp_name[0] != 'A'}
+    Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7, 9]).in(regionkey: ALL_REGKEYS).select {|x| x.tp_name[0] != 'A'}
   end
 
   def self.sync_current_status_and_notify
