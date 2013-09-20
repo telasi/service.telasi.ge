@@ -29,7 +29,7 @@ en:
     log_on: Switching On
     log_off: Turning Off
     message:
-      additional_info: "More information can be found <a href=\"%{url}?locale=en\">here</a>."
+      additional_info: 'More information can be found <a href=\"%{url}?locale=en\">here</a>.'
 ka:
   gis_logs_title: GIS შეტყობინებები
   gis_logs: შეტყობინებები
@@ -61,7 +61,7 @@ ka:
     log_on: ჩართვა
     log_off: გათიშვა
     message:
-      additional_info: "მეტი ინფორმაციის მისაღებად მიჰყევით <a href="%{url}?locale=ka">ბმულს</a>."
+      additional_info: 'მეტი ინფორმაციის მისაღებად მიჰყევით <a href="%{url}?locale=ka">ბმულს</a>.'
 ru:
   gis_logs_title: GIS Логи
   gis_logs: Уведомления
@@ -93,4 +93,4 @@ ru:
     log_on: Включение
     log_off: Выключение
     message:
-      additional_info: Дополнительную информацию смотрите <a href="%{url}?locale=ru">на сайте</a>.
+      additional_info: 'Дополнительную информацию смотрите <a href="%{url}?locale=ru">на сайте</a>.'
