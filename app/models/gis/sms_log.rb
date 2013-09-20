@@ -57,6 +57,7 @@ class Gis::SmsLog < ActiveRecord::Base
     send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_CORRECTION)
     send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DEBT)
     send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_EXPLOITATION)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_RESERVATION)
   end
 
   def self.send_on_message

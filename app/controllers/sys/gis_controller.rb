@@ -150,7 +150,7 @@ class Sys::GisController < ApplicationController
     }
     reduce = %Q{
       function(key, values) {
-        var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0 };
+        var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0, reservation: 0 };
         values.forEach(function(value) {
           if (value.gis_status == 1) {
             result.on += 1;
@@ -172,6 +172,8 @@ class Sys::GisController < ApplicationController
               result.debt += 1;
             } else if ( value.gis_off_status == 8 ) {
               result.explotation += 1;
+            } else if ( value.gis_off_status == 9 ) {
+              result.reservation += 1;
             } else {
               result.unknown += 1;
             }
@@ -183,7 +185,7 @@ class Sys::GisController < ApplicationController
     data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT, :log_date.gte => @d1, :log_date.lte => (@d2 + 1)).map_reduce(map, reduce).out(inline: true)
     @items = []
     @summary = { on: 0, off: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0,
-      fire: 0, debt: 0, explotation: 0, unknown: 0 }
+      fire: 0, debt: 0, explotation: 0, reservation: 0,unknown: 0 }
     data.each do |row|
       value = row['value']
       transf = Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first
@@ -196,6 +198,7 @@ class Sys::GisController < ApplicationController
           planed: value['planed'].to_i, maintain: value['maintain'].to_i,
           correction: value['correction'].to_i, fire: value['fire'].to_i,
           debt: value['debt'].to_i, explotation: value['explotation'].to_i,
+          reservation: value['reservation'].to_i,
           unknown: value['unknown'].to_i
         }
         @summary[:on] += value['on'].to_i
@@ -208,6 +211,7 @@ class Sys::GisController < ApplicationController
         @summary[:fire] += value['fire'].to_i
         @summary[:debt] += value['debt'].to_i
         @summary[:explotation] += value['explotation'].to_i
+        @summary[:reservation] += value['reservation'].to_i
         @summary[:unknown] += value['unknown'].to_i
       end
     end

@@ -29,6 +29,7 @@
         <th>ხანძარი</th>
         <th>დავალ-ბა</th>
         <th>ექსპლ-ცია</th>
+        <th>სარეზერვო</th>
         <th>სხვა</th>
       </tr>
       <tr>
@@ -43,6 +44,7 @@
         <th><code><%= @summary[:fire] %></code></th>
         <th><code><%= @summary[:debt] %></code></th>
         <th><code><%= @summary[:explotation] %></code></th>
+        <th><code><%= @summary[:reservation] %></code></th>
         <th><code><%= @summary[:unknown] %></code></th>
       </tr>
     </thead>
@@ -60,6 +62,7 @@
           <td><%= item[:fire] %></td>
           <td><%= item[:debt] %></td>
           <td><%= item[:explotation] %></td>
+          <td><%= item[:reservation] %></td>
           <td><%= item[:unknown] %></td>
         </tr>
       <% end %>
