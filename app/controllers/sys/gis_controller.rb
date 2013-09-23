@@ -145,39 +145,41 @@ class Sys::GisController < ApplicationController
     @d2 = Date.strptime(params[:d2], '%d-%b-%Y') rescue Date.today
     map = %Q{
       function() {
-        emit(this.objectid, { gis_status: this.gis_status, gis_off_status: this.gis_off_status });
+        var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0, reservation: 0 };
+        if (this.gis_status == 1) {
+          result.on = 1;
+          emit(this.obejctid, result);
+        } else {
+          result.off = 1;
+          if      ( this.gis_off_status == 1 ) { result.damage      = 1; }
+          else if ( this.gis_off_status == 2 ) { result.switch      = 1; }
+          else if ( this.gis_off_status == 3 ) { result.planed      = 1; }
+          else if ( this.gis_off_status == 4 ) { result.maintain    = 1; }
+          else if ( this.gis_off_status == 5 ) { result.correction  = 1; }
+          else if ( this.gis_off_status == 6 ) { result.fire        = 1; }
+          else if ( this.gis_off_status == 7 ) { result.debt        = 1; }
+          else if ( this.gis_off_status == 8 ) { result.explotation = 1; }
+          else if ( this.gis_off_status == 9 ) { result.reservation = 1; }
+          else                                 { result.unknown     = 1; }
+          emit(this.objectid, result);
+        }
       }
     }
     reduce = %Q{
       function(key, values) {
         var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0, reservation: 0 };
         values.forEach(function(value) {
-          if (value.gis_status == 1) {
-            result.on += 1;
-          } else {
-            result.off += 1;
-            if ( value.gis_off_status == 1 ) {
-              result.damage += 1;
-            } else if ( value.gis_off_status == 2 ) {
-              result.switch += 1;
-            } else if ( value.gis_off_status == 3 ) {
-              result.planed += 1;
-            } else if ( value.gis_off_status == 4 ) {
-              result.maintain += 1;
-            } else if ( value.gis_off_status == 5 ) {
-              result.correction += 1;
-            } else if ( value.gis_off_status == 6 ) {
-              result.fire += 1;
-            } else if ( value.gis_off_status == 7 ) {
-              result.debt += 1;
-            } else if ( value.gis_off_status == 8 ) {
-              result.explotation += 1;
-            } else if ( value.gis_off_status == 9 ) {
-              result.reservation += 1;
-            } else {
-              result.unknown += 1;
-            }
-          }
+          result.on += value.on;
+          result.off += value.off;
+          result.damage += value.damage;
+          result.switch += value.switch;
+          result.planed += value.planed;
+          result.maintain += value.maintain;
+          result.correction += value.correction;
+          result.fire += value.fire;
+          result.debt += value.debt;
+          result.explotation += value.explotation;
+          result.reservation += value.reservation;
         });
         return result;
       }
@@ -189,7 +191,7 @@ class Sys::GisController < ApplicationController
     data.each do |row|
       value = row['value']
       transf = Ext::Gis::Transformator.where(objectid: row['_id'].to_i).first
-      if transf and value['on']
+      if transf # and value['on']
         @items << {
           tp: transf.tp_name, tr: transf.tr_name,
           transformator: "#{transf.tp_name}-#{transf.tr_name}",
