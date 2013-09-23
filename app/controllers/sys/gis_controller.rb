@@ -221,7 +221,7 @@ class Sys::GisController < ApplicationController
 
   def network_status
     @title = 'ქსელის მდგომარეობა'
-    @transformators = Ext::Gis::Transformator.where(on: false, :account_count.gt => 0, :off_status.ne => 0).asc(:tp_name, :tr_name)
+    @transformators = Ext::Gis::Transformator.where(on: false, :off_status.ne => 0).asc(:tp_name, :tr_name)
   end
 
   def network_status_sync
