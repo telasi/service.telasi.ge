@@ -148,7 +148,7 @@ class Sys::GisController < ApplicationController
         var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0, reservation: 0 };
         if (this.gis_status == 1) {
           result.on = 1;
-          emit(this.obejctid, result);
+          emit(this.objectid, result);
         } else {
           result.off = 1;
           if      ( this.gis_off_status == 1 ) { result.damage      = 1; }
