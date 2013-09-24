@@ -1,7 +1,7 @@
 wb = xlsx_package.workbook
 # style_shout = wb.styles.add_style sz: 16, b: true, alignment: { horizontal: :center }
 wb.add_worksheet(name: "report") do |sheet|
-  sheet.add_row [@d1.strftime('%d-%b-%Y'), @d2.strftime('%d-%b-%Y')]
+  sheet.add_row [@d1.localtime.strftime('%d-%b-%Y %H:%M'), @d2.localtime.strftime('%d-%b-%Y %H:%M')]
   sheet.add_row []
   sheet.add_row []
   sheet.add_row ['', '', '', 'გამორთვა']
