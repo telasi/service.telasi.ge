@@ -18,7 +18,7 @@
             <% end %>
           </td>
           <td>
-            <%= link_to "#{C12::KA.format_date msg.created_at, format: :short} #{msg.created_at.strftime('%H:%M:%S')}", sys_gis_message_url(id: msg.id) %>
+            <%= link_to "#{C12::KA.format_date msg.created_at.localtime, format: :short} #{msg.created_at.localtime.strftime('%H:%M:%S')}", sys_gis_message_url(id: msg.id) %>
           </td>
           <td>
             <%= render partial: 'sys/gis/message_info', locals: {msg: msg}%>
