@@ -141,8 +141,8 @@ class Sys::GisController < ApplicationController
 
   def tp_statuses
     @title = 'TP-ს სტატუსები'
-    @d1 = Date.strptime(params[:d1], '%d-%b-%Y') rescue Date.today
-    @d2 = Date.strptime(params[:d2], '%d-%b-%Y') rescue Date.today
+    @d1 = Time.strptime("#{params[:d1]} #{params[:t1] || '00:00'}", '%d-%b-%Y %H:%M') rescue Date.today
+    @d2 = Time.strptime("#{params[:d2]} #{params[:t2] || '00:00'}", '%d-%b-%Y %H:%M') rescue (Date.today + 1)
     map = %Q{
       function() {
         var result = { on: 0, off: 0, unknown: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0, fire: 0, debt: 0, explotation: 0, reservation: 0 };
@@ -184,7 +184,7 @@ class Sys::GisController < ApplicationController
         return result;
       }
     }
-    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT, :log_date.gte => @d1, :log_date.lte => (@d2 + 1)).map_reduce(map, reduce).out(inline: true)
+    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT, :log_date.gte => @d1, :log_date.lte => @d2).map_reduce(map, reduce).out(inline: true)
     @items = []
     @summary = { on: 0, off: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0,
       fire: 0, debt: 0, explotation: 0, reservation: 0,unknown: 0 }

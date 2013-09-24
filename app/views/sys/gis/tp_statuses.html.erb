@@ -6,8 +6,11 @@
     <%= link_to 'Excel-ის ფორმატში', sys_gis_report_tp_statuses_url(d1: params[:d1], d2: params[:d2], format: 'xlsx'), class: 'btn' %>
   </div>
   <form method="get">
-    <input name="d1" value="<%= @d1.strftime('%d-%b-%Y') %>" class="datepicker" style="width:100px;" />
-    <input name="d2" value="<%= @d2.strftime('%d-%b-%Y') %>" class="datepicker" style="width:100px;" />
+    <input name="d1" value="<%= @d1.localtime.strftime('%d-%b-%Y') %>" class="datepicker" style="width:100px;" />
+    <input name="t1" value="<%= @d1.localtime.strftime('%H:%M') %>" style="width:40px;" />
+    &mdash;
+    <input name="d2" value="<%= @d2.localtime.strftime('%d-%b-%Y') %>" class="datepicker" style="width:100px;" />
+    <input name="t2" value="<%= @d2.localtime.strftime('%H:%M') %>" style="width:40px;" />
     <button type="submit">მონაცემების ნახვა</button>
   </form>
 </div>
