@@ -121,11 +121,17 @@ class Ext::Gis::Transformator
     'ისანი-სამგორი' => 'Исани-Самгори',
   }
 
+  PHONES = {
+    1 => Telasi::PHONES_1,
+    2 => Telasi::PHONES_2,
+    3 => Telasi::PHONES_3,
+  }
+
   def self.transformators_for_semeki
     Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7, 9]).in(regionkey: ALL_REGKEYS).select {|x| x.tp_name[0] != 'A'}
   end
 
-  def self.sync_current_status_and_notify(pre = false)
+  def self.sync_current_status_and_notify(phones_key = 1)
     Ext::Gis::Transformator.sync_current_status
     transformators = Ext::Gis::Transformator.transformators_for_semeki
     text = ['გათიშვები', Time.now.strftime('%d-%b-%Y %H:%M')]
@@ -154,7 +160,7 @@ class Ext::Gis::Transformator
     text = text.flatten.join("\n")
     text_ru = text_ru.flatten.join("\n")
     if Magti::SEND
-      (pre ? Telasi::SMS_LIST_PRE : Telasi::SMS_LIST).each do |number, locale|
+      PHONES[phones_key].each do |number, locale|
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
       end
     end
