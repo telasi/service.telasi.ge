@@ -186,7 +186,7 @@ class Sys::GisController < ApplicationController
     }
     t1 = @d1 + 4.hours # bug in log's date!
     t2 = @d2 + 4.hours # bug in log's date!
-    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT, :log_date.gte => t1, :log_date.lte => t2).map_reduce(map, reduce).out(inline: true)
+    data = Ext::Gis::Log.where(sms_status: Ext::Gis::Log::STATUS_SENT, :table_name => 'mv_tr_pnt', :log_date.gte => t1, :log_date.lte => t2).map_reduce(map, reduce).out(inline: true)
     @items = []
     @summary = { on: 0, off: 0, damage: 0, switch: 0, planed: 0, maintain: 0, correction: 0,
       fire: 0, debt: 0, explotation: 0, reservation: 0,unknown: 0 }
