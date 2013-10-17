@@ -149,18 +149,19 @@ class Ext::Gis::Transformator
       total1 += count1; total2 += count2
     end
     total = total1 + total2
-    percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
-    percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
-    percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
-    text << ['-------', "სულ თბილისის მაშტაბით გათიშულია #{total} აბონენტი - #{percent}%."]
-    text << ['-------', "აქედან ავარიულად გათიშულია #{total1} აბონენტი - #{percent1}%.", 'მონაცემები რაიონების მიხედვით:', accident]
-    text << ['-------', "აქედან გეგმიურად გათიშულია #{total2} აბონენტი - #{percent2}%.", 'მონაცემები რაიონების მიხედვით:', planned]
-    text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов - #{percent}%."]
-    text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов - #{percent1}%.", 'Данные по регионам:', accident_ru]
-    text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
-    text = text.flatten.join("\n")
-    text_ru = text_ru.flatten.join("\n")
-    if total == 0
+    if total > 0
+      percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
+      percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
+      percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
+      text << ['-------', "სულ თბილისის მაშტაბით გათიშულია #{total} აბონენტი - #{percent}%."]
+      text << ['-------', "აქედან ავარიულად გათიშულია #{total1} აბონენტი - #{percent1}%.", 'მონაცემები რაიონების მიხედვით:', accident]
+      text << ['-------', "აქედან გეგმიურად გათიშულია #{total2} აბონენტი - #{percent2}%.", 'მონაცემები რაიონების მიხედვით:', planned]
+      text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов - #{percent}%."]
+      text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов - #{percent1}%.", 'Данные по регионам:', accident_ru]
+      text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
+      text = text.flatten.join("\n")
+      text_ru = text_ru.flatten.join("\n")
+    else
       text = 'ყველა აბონენტს მიეწოდება დენი'
       text_ru = 'Все потребители получают эл.энергию'
     end
