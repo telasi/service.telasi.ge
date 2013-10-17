@@ -160,6 +160,10 @@ class Ext::Gis::Transformator
     text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
     text = text.flatten.join("\n")
     text_ru = text_ru.flatten.join("\n")
+    if total == 0
+      text = 'ყველა აბონენტს მიეწოდება დენი'
+      text_ru = 'Все потребители получают эл.энергию'
+    end
     if Magti::SEND
       PHONES[phones_key].each do |number, locale|
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
