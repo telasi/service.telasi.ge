@@ -165,12 +165,12 @@ class Ext::Gis::Transformator
       text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов - #{percent}%."]
       text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов - #{percent1}%.", 'Данные по регионам:', accident_ru]
       text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
-      text = text.flatten.join("\n")
-      text_ru = text_ru.flatten.join("\n")
     else
       text << 'თელასის ქსელი სრული დატვირთვით მუშაობს: ყველა აბონენტს მიეწოდება ელენერგია.'
       text_ru << 'Сеть Теласи нагруженна полностью: все потребители получают эл.энергию.'
     end
+    text = text.flatten.join("\n")
+    text_ru = text_ru.flatten.join("\n")
     if Magti::SEND
       PHONES[phones_key].each do |number, locale|
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
