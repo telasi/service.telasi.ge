@@ -95,7 +95,7 @@ class Ext::Gis::Transformator
       self.off_date = nil
     else
       # log = Ext::Gis::Log.where(objectid: self.objectid, table_name: 'mv_tr_pnt', sms_status: Ext::Gis::Log::STATUS_SENT, :gis_status.ne => 1).desc(:_id).first
-      log = Ext::Gis::Log.where(objectid: self.objectid, table_name: 'mv_tr_pnt').desc(:_id).first
+      log = Ext::Gis::Log.where(objectid: self.objectid, table_name: 'mv_tr_pnt', sms_status: Ext::Gis::Log::STATUS_SENT).desc(:_id).first
       if log.blank? or log.gis_status == 1
         self.on = true
         self.off_status = nil
