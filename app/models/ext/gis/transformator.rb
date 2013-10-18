@@ -155,7 +155,7 @@ class Ext::Gis::Transformator
       total1 += count1; total2 += count2
     end
     total = total1 + total2
-    if total > 0
+    #if total > 0
       percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
       percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
       percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
@@ -165,10 +165,10 @@ class Ext::Gis::Transformator
       text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов - #{percent}%."]
       text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов - #{percent1}%.", 'Данные по регионам:', accident_ru]
       text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
-    else
-      text << 'თელასის ქსელი სრული დატვირთვით მუშაობს: ყველა აბონენტს მიეწოდება ელენერგია.'
-      text_ru << 'Сеть Теласи нагруженна полностью: все потребители получают эл.энергию.'
-    end
+    #else
+    #  text << 'თელასის ქსელი სრული დატვირთვით მუშაობს: ყველა აბონენტს მიეწოდება ელენერგია.'
+    #  text_ru << 'Сеть Теласи нагруженна полностью: все потребители получают эл.энергию.'
+    #end
     text = text.flatten.join("\n")
     text_ru = text_ru.flatten.join("\n")
     if Magti::SEND
