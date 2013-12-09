@@ -9,6 +9,7 @@ class Bs::Customer < ActiveRecord::Base
   belongs_to :address,      class_name: 'Bs::Address',       foreign_key: :premisekey
   belongs_to :send_address, class_name: 'Bs::Address',       foreign_key: :sendkey
   has_one  :trash_customer, class_name: 'Bs::TrashCustomer', foreign_key: :custkey
+  has_one  :water_customer, class_name: 'Bs::WaterCustomer', foreign_key: :custkey
   has_many :water_items,    class_name: 'Bs::WaterItem',     foreign_key: :custkey, order: 'year, month'
   has_many :item_bills,     class_name: 'Bs::ItemBill',      foreign_key: :custkey, order: 'itemkey'
   has_many :accounts,       class_name: 'Bs::Account',       foreign_key: :custkey
@@ -49,36 +50,20 @@ class Bs::Customer < ActiveRecord::Base
     p.paydate if p
   end
 
-  def normal_balance
-    self.balance - (self.pre_payment || 0)
-  end
+  def normal_balance; self.balance - (self.pre_payment || 0) end
+  def normal_trash_balance; self.trash_customer ? (self.trash_customer.curr_balance - (self.pre_trash_payment || 0)) : 0 end
+  
+  def water_balance; self.water_customer.new_balance end
+  def current_water_balance; self.water_customer.curr_charge end
 
-  def normal_trash_balance
-    self.trash_customer ? (self.trash_customer.curr_balance - (self.pre_trash_payment || 0)) : 0
-  end
+  # def normal_water_balance
+  #   water_item = self.water_items.last
+  #   self.water_balance - (self.pre_water_payment || 0)
+  # end
 
-  def last_water_item
-    self.water_items.last
-  end
-
-  def water_balance
-    water_item = self.last_water_item
-    water_item ? water_item.new_balance : 0
-  end
-
-  def current_water_balance
-    water_item = self.last_water_item
-    water_item ? water_item.curr_charge : 0
-  end
-
-  def normal_water_balance
-    water_item = self.water_items.last
-    self.water_balance - (self.pre_water_payment || 0)
-  end
-
-  def cut_candidate?
-    self.normal_balance > 0.50 or self.normal_trash_balance > 0.50 or self.normal_water_balance > 0.50
-  end
+  # def cut_candidate?
+  #   self.normal_balance > 0.50 or self.normal_trash_balance > 0.50 or self.normal_water_balance > 0.50
+  # end
 
   def status_name
     case self.statuskey

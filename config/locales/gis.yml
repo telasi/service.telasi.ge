@@ -25,6 +25,7 @@ en:
   gis_off_status_7: Debt
   gis_off_status_8: Exploitation Request
   gis_off_status_9: Reservation
+  gis_off_status_10: SectionOff
   gis:
     log_on: Switching On
     log_off: Turning Off
@@ -57,6 +58,7 @@ ka:
   gis_off_status_7: დავალიანებით
   gis_off_status_8: ექსპლუატაციის მოთხოვნით
   gis_off_status_9: სარეზერვო
+  gis_off_status_10: SectionOff
   gis:
     log_on: ჩართვა
     log_off: გათიშვა
@@ -89,6 +91,7 @@ ru:
   gis_off_status_7: Задолженность
   gis_off_status_8: По требованию эксплуатации
   gis_off_status_9: Резерв
+  gis_off_status_10: SectionOff
   gis:
     log_on: Включение
     log_off: Выключение

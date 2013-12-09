@@ -13,5 +13,4 @@ module WaterCustomerForm
     form << cust
     form
   end
-
 end
