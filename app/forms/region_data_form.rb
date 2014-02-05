@@ -11,7 +11,6 @@ module RegionDataForm
     tbl.cols << TextField.new(name: 'region.name', label: 'რეგიონი', readonly: true, required: true)
     tbl.cols << TextField.new(name: 'mobile1', label: 'მობილური 1')
     tbl.cols << TextField.new(name: 'mobile2', label: 'მობილური 2')
-    tbl.cols << TextField.new(name: 'cutbase', label: 'ჩაჭრის კლასი')
     tbl.cols << BooleanField.new(name: 'region_status', label: 'სტატუსი')
     tbl.actions << ACT_SYNC
     tbl.item_actions << ACT_EDITMOB << ACT_DELMOB
@@ -24,7 +23,6 @@ module RegionDataForm
     form.col1 << TextField.new(name: 'region.name', label: 'რეგიონი', readonly: true, required: true)
     form.col1 << TextField.new(name: 'mobile1', label: 'მობილური 1')
     form.col1 << TextField.new(name: 'mobile2', label: 'მობილური 2')
-    form.col1 << TextField.new(name: 'cutbase', label: 'ჩაჭრის კლასი')
     form << data
     form
   end

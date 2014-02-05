@@ -8,17 +8,6 @@ class Call::RegionData
   belongs_to :region, class_name: 'Ext::Region'
   field :mobile1, type: String
   field :mobile2, type: String
-  field :cutbase, type: String
-
-  def region_status
-    #Timeout::timeout(0.5) do
-    #  clazz = self.cutbase.constantize
-    #  clazz.count > 0
-    #end
-  #rescue
-    #false
-    true
-  end
 
   def self.sync
     Ext::Region.all.each do |r|
@@ -27,5 +16,4 @@ class Call::RegionData
       region.save
     end
   end
-
 end

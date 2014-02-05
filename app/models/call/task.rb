@@ -37,32 +37,28 @@ class Call::Task
   # synchronize this task
   def sync(user)
     if self.status.open
-      region = Call::RegionData.where(region_id: self.region.id).first
-      if region.cutbase.present?
-        clazz = region.cutbase.constantize
-        cut = clazz.where("custkey=? AND oper_code=? AND mark_date>?", self.custkey, Bs::CutBase::OPER_RESTORE, Time.now - Call::SYNC).order('cr_key DESC').first        
-        if cut
-          if cut.mark_code == Bs::CutBase::MARK_START
-            new_stat = Call::Status.where(wait: true).first
-            if new_stat and new_stat != self.status
-              Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩასართავად მონიშნულია').save
-              self.status = new_stat
-              self.save
-            end
-          elsif cut.mark_code == Bs::CutBase::MARK_COMPLETE
-            new_stat = Call::Status.where(complete: true).first
-            if new_stat and new_stat != self.status
-              Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩართულია').save
-              self.status = new_stat
-              self.save
-            end
-          elsif cut.mark_code == Bs::CutBase::MARK_NOT_COMPLETE
-            new_stat = Call::Status.where(canceled: true).first
-            if new_stat and new_stat != self.status
-              Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი არ/ვერ ჩაირთო').save
-              self.status = new_stat
-              self.save
-            end
+      cut = Bs::CutHistory.where("custkey=? AND oper_code=? AND mark_date>?", self.custkey, Bs::CutBase::OPER_RESTORE, Time.now - Call::SYNC).order('cr_key DESC').first        
+      if cut
+        if cut.mark_code == Bs::CutBase::MARK_START
+          new_stat = Call::Status.where(wait: true).first
+          if new_stat and new_stat != self.status
+            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩასართავად მონიშნულია').save
+            self.status = new_stat
+            self.save
+          end
+        elsif cut.mark_code == Bs::CutBase::MARK_COMPLETE
+          new_stat = Call::Status.where(complete: true).first
+          if new_stat and new_stat != self.status
+            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი ჩართულია').save
+            self.status = new_stat
+            self.save
+          end
+        elsif cut.mark_code == Bs::CutBase::MARK_NOT_COMPLETE
+          new_stat = Call::Status.where(canceled: true).first
+          if new_stat and new_stat != self.status
+            Call::TaskComment.new(task: self, user: user, text: '[SYNC] აბონენტი არ/ვერ ჩაირთო').save
+            self.status = new_stat
+            self.save
           end
         end
       end
