@@ -19,7 +19,7 @@ class Android::ReadingsController < ApplicationController
         @region = Bs::Region.find(params[:regionkey])
         rel = rel.joins(:route => :block).where('block.regionkey=?', params[:regionkey])
       end
-      @routes = rel.paginate(per_page: 10, page: params[:page]).order('route_header_id DESC')
+      @routes = rel.paginate(per_page: 30, page: params[:page]).order('route_header_id DESC')
     end
   end
 
