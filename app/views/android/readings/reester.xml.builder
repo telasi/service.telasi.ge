@@ -43,6 +43,8 @@ xml.reester do
           xml.previous_reading_date(item.prv_readdate ? item.prv_readdate.strftime('%d-%b-%Y') : '')
           xml.previous_real_reading(item.prv_r_reading)
           xml.previous_real_reading_date(item.prv_r_readdate ? item.prv_r_readdate.strftime('%d-%b-%Y') : '')
+          xml.note item.note
+          xml.error_code item.error_code_ilia.present? ? item.error_code_ilia : 0
         end
         xml.other do
           xml.installed_capacity(item.cur_instcp)

@@ -13,5 +13,4 @@ class Bs::RouteStoreItem < ActiveRecord::Base
       0
     end
   end
-
 end
