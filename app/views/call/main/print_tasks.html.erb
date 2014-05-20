@@ -20,8 +20,10 @@ table.common td {
     <% @tasks.each do |t| %>
     <tr>
       <td width="80" rowspan="2"><%= t.created_at.localtime.strftime('%d-%b-%Y %H:%M:%S') %></td>
-      <td width="140">
+      <td width="160">
         აბ.# <strong><%= t.customer.accnumb.to_ka %></strong>
+        <%acc=t.customer.accounts.where(mainaccount:1).first rescue nil%>
+        <%if acc%>(მრიცხ. #<%=acc.accid%>)<%end%>
       </td>
       <td><%= t.customer.address %></td>
     </tr>
