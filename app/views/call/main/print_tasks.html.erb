@@ -23,7 +23,7 @@ table.common td {
       <td width="160">
         აბ.# <strong><%= t.customer.accnumb.to_ka %></strong>
         <%acc=t.customer.accounts.where(mainaccount:1).first rescue nil%>
-        <%if acc%>(მრიცხ. #<%=acc.accid%>)<%end%>
+        <%if acc%>(მრ.#<%=acc.mtnumb%>)<%end%>
       </td>
       <td><%= t.customer.address %></td>
     </tr>
