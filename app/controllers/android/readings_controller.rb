@@ -2,7 +2,6 @@
 require 'xmlsimple' 
 
 class Android::ReadingsController < ApplicationController
-
   include Android::BsLoginController
 
   # რეესტრების სიის მიღება.
@@ -58,7 +57,7 @@ class Android::ReadingsController < ApplicationController
           item.note=xml_item['reading'][0]['note'][0] rescue ''
           item.note_id=xml_item['reading'][0]['note_id'][0].to_i rescue 0
           item.error_code_ilia = xml_item['reading'][0]['error_code'][0].to_i rescue 0
-          meter=xml_item['meter']||xml_item['meter'][0]
+          meter=(xml_item['meter'] and xml_item['meter'][0])
           if meter
             item.new_mtnumb   = meter['new_number'][0]
             item.new_mtkoef   = meter['new_coeff'][0]
@@ -93,5 +92,4 @@ class Android::ReadingsController < ApplicationController
       redirect_to android_route_url(route), notice: 'მარშრუტი სინქრონიზირებულია'
     end
   end
-
 end
