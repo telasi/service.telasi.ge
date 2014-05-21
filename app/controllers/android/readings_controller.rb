@@ -59,9 +59,9 @@ class Android::ReadingsController < ApplicationController
           item.error_code_ilia = xml_item['reading'][0]['error_code'][0].to_i rescue 0
           meter=(xml_item['meter'] and xml_item['meter'][0])
           if meter
-            item.new_mtnumb   = meter['new_number'][0]
-            item.new_mtkoef   = meter['new_coeff'][0]
-            item.new_sealnumb = meter['new_seal_number'][0]
+            item.new_mtnumb   = meter['new_number'][0] if meter['new_number']
+            item.new_mtkoef   = meter['new_coeff'][0] if meter['new_coeff']
+            item.new_sealnumb = meter['new_seal_number'][0] if meter['new_seal_number']
           end
           if xml_item['reading'][0]['reading_confirmed'][0] == 'true'
             item.confirmed = true
