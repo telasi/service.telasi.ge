@@ -55,9 +55,9 @@ class Android::ReadingsController < ApplicationController
         data['items'][0]['item'].each do |xml_item|
           item = Bs::RouteStoreItem.find(xml_item['id'][0])
           item.new_reading = xml_item['reading'][0]['reading'][0].to_f
-          item.note = xml_item['reading'][0]['note'][0] rescue ''
+          item.note=xml_item['reading'][0]['note'][0] rescue ''
+          item.note_id=xml_item['reading'][0]['note_id'][0].to_i rescue 0
           item.error_code_ilia = xml_item['reading'][0]['error_code'][0].to_i rescue 0
-          item.error_text_ilia = xml_item['reading'][0]['error_text'][0] rescue nil
           meter=xml_item['meter']||xml_item['meter'][0]
           if meter
             item.new_mtnumb   = meter['new_number'][0]
