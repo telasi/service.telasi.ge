@@ -72,7 +72,7 @@ class Android::ReadingsController < ApplicationController
           end
           item.save!
         end
-        route.upload_count += 1
+        route.upload_count = (route.upload_count||0)+1
         if all_complete
           route.status = Bs::RouteStoreHeader::STATUS_RECEIVED
         else
