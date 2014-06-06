@@ -3,7 +3,10 @@ class Call::MainController < Call::CallController
 
   def index
     @title = 'ქოლ-ცენტრი'
-    @tasks = open_tasks.desc(:_id).paginate(per_page: 10, page: params[:page])
+    respond_to do |format|
+      format.html{ @tasks = open_tasks.desc(:_id).paginate(per_page: 10, page: params[:page]) }
+      format.xlsx{ @tasks = open_tasks.desc(:_id) }
+    end
   end
 
   def print_tasks

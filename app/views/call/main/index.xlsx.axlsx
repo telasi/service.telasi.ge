@@ -1,0 +1,11 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "report") do |sheet|
+  sheet.add_row ['აბ.#','სტატუსი','ბ/ც','მისამართი','ტექსტი','SMS რაოდ.','კომენტ.რაოდ.','შექმნა','ბოლო ცლილება','ოპერატორი']
+  @tasks.each do |task|
+    sheet.add_row [
+      "##{task.customer.accnumb}", task.status.name,task.region, task.customer.address,task.title,task.messages.count,task.comments.count,
+      task.created_at.strftime('%d-%b-%Y %H:%M:%S'),task.updated_at.strftime('%d-%b-%Y %H:%M:%S'),
+      task.user.full_name
+    ]
+  end
+end
