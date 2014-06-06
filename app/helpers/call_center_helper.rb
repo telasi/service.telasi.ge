@@ -9,6 +9,7 @@ module CallCenterHelper
     complete_action = Action.new(icon: '/assets/fff/tick.png', label: 'დასრულება', tooltip: 'დავალების დასრულება', url: complete_url, method: 'post', confirm: 'ნადვილად გინდათ დასრულება?')
     task_table.actions << Action.new(icon: '/assets/fff/printer.png', label: ' ბეჭდვა', tooltip: 'რეესტრის ბეჭდვა', url: call_print_tasks_url)
     task_table.actions << Action.new(icon: '/assets/fff/arrow_refresh.png', label: 'სიქნრონიზაცია', tooltip: 'ჩაჭრა/აღდგენასთან სინქრონიზაცია', url: call_sync_tasks_url, method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?')
+    task_table.actions << Action.new(icon: '/assets/fff/page_excel.png', label: 'ექსელში', url: call_home_url(format: 'xlsx'))
     task_table.item_actions << complete_action unless current_user.all_regions
     task_table.title = 'შეუსრულებელი დავალებები'
     task_table.html
