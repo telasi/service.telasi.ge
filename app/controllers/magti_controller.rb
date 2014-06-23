@@ -17,6 +17,16 @@ class MagtiController < ApplicationController
 
   # message @90033
   def msg_90033(from, text)
+    return if process_dispatch(from, text)
+    return if process_callcenter(from, text)
+  end
+
+  def process_dispatch(from,text)
+    # TODO
+    false
+  end
+
+  def process_callcenter(from, text)
     accnumb = find_accnumb_in_text(text) rescue nil
     if accnumb
       customer = Bs::Customer.where(accnumb: accnumb).first
@@ -30,6 +40,9 @@ class MagtiController < ApplicationController
           t.save
         end
       end
+      true
+    else
+      false
     end
   end
 
@@ -38,5 +51,4 @@ class MagtiController < ApplicationController
     indx2 = text.downcase[indx1..-1].index(' ') + indx1 - 1
     text[indx1..indx2]
   end
-
 end
