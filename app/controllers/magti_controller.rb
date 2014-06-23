@@ -23,7 +23,15 @@ class MagtiController < ApplicationController
 
   def process_dispatch(from,text)
     if Telasi::DISPATCHER_ADMINS.include?(from)
-      Magti.send_sms(from, 'test') if Magti::SEND
+      if Magti::SEND
+        # Telasi::PHONES_3.each do |phone|
+        Telasi::PHONES_3_1.each do |phone|
+          Magti.send_sms(phone,text) if Magti::SEND
+        end
+      end
+      true
+    else
+      false
     end
   end
 
