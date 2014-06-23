@@ -18,4 +18,6 @@ module Telasi
   PHONES_3 = {
     '599422451' => 'ka',
   }
+
+  DISPATCHER_ADMINS=['+995555116776']
 end
