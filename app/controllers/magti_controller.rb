@@ -22,8 +22,9 @@ class MagtiController < ApplicationController
   end
 
   def process_dispatch(from,text)
-    # TODO
-    false
+    if Telasi::DISPATCHER_ADMINS.include?(from)
+      Magti.send_sms(from, 'test') if Magti::SEND
+    end
   end
 
   def process_callcenter(from, text)
