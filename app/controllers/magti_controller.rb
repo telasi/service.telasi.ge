@@ -25,8 +25,8 @@ class MagtiController < ApplicationController
     if Telasi::DISPATCHER_ADMINS.include?(from)
       if Magti::SEND
         # Telasi::PHONES_3.each do |phone|
-        Telasi::PHONES_3_1.each do |phone|
-          Magti.send_sms(phone,text) if Magti::SEND
+        Telasi::PHONES_3_1.each do |phone,locale|
+          Magti.send_sms(phone,text)
         end
       end
       true
