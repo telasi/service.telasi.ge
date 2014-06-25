@@ -17,23 +17,23 @@ class MagtiController < ApplicationController
 
   # message @90033
   def msg_90033(from, text)
-    return if process_dispatch(from, text)
+    # return if process_dispatch(from, text)
     return if process_callcenter(from, text)
   end
 
-  def process_dispatch(from,text)
-    if Telasi::DISPATCHER_ADMINS.include?(from)
-      if Magti::SEND
-        # Telasi::PHONES_3.each do |phone|
-        Telasi::PHONES_3_1.each do |phone,locale|
-          Magti.send_sms(phone,text)
-        end
-      end
-      true
-    else
-      false
-    end
-  end
+  # def process_dispatch(from,text)
+  #   if Telasi::DISPATCHER_ADMINS.include?(from)
+  #     if Magti::SEND
+  #       # Telasi::PHONES_1.each do |phone|
+  #       Telasi::PHONES_1_1.each do |phone,locale|
+  #         Magti.send_sms(phone,text)
+  #       end
+  #     end
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
   def process_callcenter(from, text)
     accnumb = find_accnumb_in_text(text) rescue nil
