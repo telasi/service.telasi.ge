@@ -252,7 +252,8 @@ class Sys::GisController < ApplicationController
     if Ext::Gis::TransformatorReport.where(sent: true).any?
       raise "უკვე გაგზავნილია!"
     else
-      Ext::Gis::Transformator.send_current_status(1)
+      # Ext::Gis::Transformator.send_current_status(1, true)
+      Ext::Gis::Transformator.send_current_status(4, true) # TEST group
       redirect_to sys_gis_network_status_url, notice: 'გაგზავნილია'
     end
   end

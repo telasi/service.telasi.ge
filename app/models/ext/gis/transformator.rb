@@ -179,16 +179,17 @@ class Ext::Gis::Transformator
   def self.sync_current_status_and_notify(phones_key = 1)
     Ext::Gis::Transformator.sync_current_status_and_prepare_report
     Ext::Gis::Transformator.send_current_status(phones_key)
+
   end
 
-  def self.send_current_status(phones_key = 1)
+  def self.send_current_status(phones_key = 1, lock = true)
     text, text_ru = Ext::Gis::Transformator.status_report_text
     if Magti::SEND
       PHONES[phones_key].each do |number, locale|
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
       end
     end
-    Ext::Gis::TransformatorReport.update_all(sent: true)
+    Ext::Gis::TransformatorReport.update_all(sent: true) if !lock
   end
 
   def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
