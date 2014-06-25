@@ -138,39 +138,50 @@ class Ext::Gis::Transformator
     Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7, 9]).in(regionkey: ALL_REGKEYS).select {|x| x.tp_name[0] != 'A'}
   end
 
-  def self.sync_current_status_and_notify(phones_key = 1)
-    Ext::Gis::Transformator.sync_current_status
-    transformators = Ext::Gis::Transformator.transformators_for_semeki
-    text = ['გათიშვები', Time.now.strftime('%d-%b-%Y %H:%M')]
-    text_ru = ['Отключения', Time.now.strftime('%d-%b-%Y %H:%M')]
-    total1 = total2 = 0; customer_count = Bs::Customer.count
-    accident = []; accident_ru = [];
-    planned = []; planned_ru = [];
+  def self.sync_and_prepare_report
+    Transformator.sync_current_status
+    Ext::Gis::TransformatorReport.destroy_all
+    transformators = Transformator.transformators_for_semeki
     REGION_MAPPINGS.each do |name,regions|
       reg_transformators = transformators.select {|x| regions.include?(x.regionkey)}
       count1 = (reg_transformators.select {|x| [1,6,8].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
       count2 = (reg_transformators.select {|x| [3,4].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
-      accident << "#{name}: #{count1}"; accident_ru << "#{REGIONS_RU[name]}: #{count1}"
-      planned << "#{name}: #{count2}"; planned_ru << "#{REGIONS_RU[name]}: #{count2}"
+      Ext::Gis::TransformatorReport.create(region: name, count1: count1, count2: count2)
+    end
+  end
+
+  def self.status_report_text
+    text = ['გათიშვები', Time.now.strftime('%d-%b-%Y %H:%M')]
+    text_ru = ['Отключения', Time.now.strftime('%d-%b-%Y %H:%M')]
+    total1 = total2 = 0; customer_count = Bs::Customer.count
+    accident = []; accident_ru = []; planned = []; planned_ru = [];
+    Ext::Gis::TransformatorReport.each do |rep|
+      accident << "#{rep.name}: #{rep.count1}"; accident_ru << "#{REGIONS_RU[rep.name]}: #{rep.count1}"
+      planned  << "#{rep.name}: #{rep.count2}"; planned_ru  << "#{REGIONS_RU[rep.name]}: #{rep.count2}"
       total1 += count1; total2 += count2
     end
     total = total1 + total2
-    #if total > 0
-      percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
-      percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
-      percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
-      text << ['-------', "სულ თბილისის მაშტაბით გათიშულია #{total} აბონენტი - #{percent}%."]
-      text << ['-------', "აქედან ავარიულად გათიშულია #{total1} აბონენტი - #{percent1}%.", 'მონაცემები რაიონების მიხედვით:', accident]
-      text << ['-------', "აქედან გეგმიურად გათიშულია #{total2} აბონენტი - #{percent2}%.", 'მონაცემები რაიონების მიხედვით:', planned]
-      text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов - #{percent}%."]
-      text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов - #{percent1}%.", 'Данные по регионам:', accident_ru]
-      text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
-    #else
-    #  text << 'თელასის ქსელი სრული დატვირთვით მუშაობს: ყველა აბონენტს მიეწოდება ელენერგია.'
-    #  text_ru << 'Сеть Теласи нагруженна полностью: все потребители получают эл.энергию.'
-    #end
+    percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
+    percent1 = total1 * 100.0 / customer_count; percent2 = total2 * 100.0 / customer_count
+    percent1 = (percent1 * 10_000).round/10_000.0; percent2 = (percent2 * 10_000).round/10_000.0;
+    text << ['-------', "სულ თბილისის მაშტაბით გათიშულია #{total} აბონენტი - #{percent}%."]
+    text << ['-------', "აქედან ავარიულად გათიშულია #{total1} აბონენტი - #{percent1}%.", 'მონაცემები რაიონების მიხედვით:', accident]
+    text << ['-------', "აქედან გეგმიურად გათიშულია #{total2} აბონენტი - #{percent2}%.", 'მონაცემები რაიონების მიხედვით:', planned]
+    text_ru << ['-------', "Всего в Тбилиси отключено #{total} абонентов - #{percent}%."]
+    text_ru << ['-------', "Доля аварийного отключия: #{total1} абонентов - #{percent1}%.", 'Данные по регионам:', accident_ru]
+    text_ru << ['-------', "Доля планового отключия: #{total2} абонентов - #{percent2}%.", 'Данные по регионам:', planned_ru]
     text = text.flatten.join("\n")
     text_ru = text_ru.flatten.join("\n")
+    [text, text_ru]
+  end
+
+  def self.sync_current_status_and_notify(phones_key = 1)
+    Transformator.sync_and_prepare_report
+    Transformator.send_current_status(phones_key)
+  end
+
+  def self.send_current_status(phones_key = 1)
+    text, text_ru = Transformator.status_report_text
     if Magti::SEND
       PHONES[phones_key].each do |number, locale|
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
@@ -179,4 +190,11 @@ class Ext::Gis::Transformator
   end
 
   def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
+end
+
+class Ext::Gis::TransformatorReport
+  include Mongoid::Document
+  field :region, type: String
+  field :count1, type: Integer
+  field :count2, type: Integer
 end
