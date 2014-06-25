@@ -138,15 +138,15 @@ class Ext::Gis::Transformator
     Ext::Gis::Transformator.where(on: false, :account_count.gt => 0).not_in(off_status: [2, 5, 7, 9]).in(regionkey: ALL_REGKEYS).select {|x| x.tp_name[0] != 'A'}
   end
 
-  def self.sync_and_prepare_report
-    Transformator.sync_current_status
+  def self.sync_current_status_and_prepare_report
+    Ext::Gis::Transformator.sync_current_status
     Ext::Gis::TransformatorReport.destroy_all
-    transformators = Transformator.transformators_for_semeki
+    transformators = Ext::Gis::Transformator.transformators_for_semeki
     REGION_MAPPINGS.each do |name,regions|
       reg_transformators = transformators.select {|x| regions.include?(x.regionkey)}
       count1 = (reg_transformators.select {|x| [1,6,8].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
       count2 = (reg_transformators.select {|x| [3,4].include?(x.off_status)}).inject(0) { |sum,x| sum+=x.account_count }
-      Ext::Gis::TransformatorReport.create(region: name, count1: count1, count2: count2)
+      Ext::Gis::TransformatorReport.create(name: name, count1: count1, count2: count2)
     end
   end
 
@@ -158,7 +158,7 @@ class Ext::Gis::Transformator
     Ext::Gis::TransformatorReport.each do |rep|
       accident << "#{rep.name}: #{rep.count1}"; accident_ru << "#{REGIONS_RU[rep.name]}: #{rep.count1}"
       planned  << "#{rep.name}: #{rep.count2}"; planned_ru  << "#{REGIONS_RU[rep.name]}: #{rep.count2}"
-      total1 += count1; total2 += count2
+      total1 += rep.count1; total2 += rep.count2
     end
     total = total1 + total2
     percent = total * 100.0 / customer_count; percent = (percent * 10_000).round/10_000.0
@@ -176,12 +176,12 @@ class Ext::Gis::Transformator
   end
 
   def self.sync_current_status_and_notify(phones_key = 1)
-    Transformator.sync_and_prepare_report
-    Transformator.send_current_status(phones_key)
+    Ext::Gis::Transformator.sync_current_status_and_prepare_report
+    Ext::Gis::Transformator.send_current_status(phones_key)
   end
 
   def self.send_current_status(phones_key = 1)
-    text, text_ru = Transformator.status_report_text
+    text, text_ru = Ext::Gis::Transformator.status_report_text
     if Magti::SEND
       PHONES[phones_key].each do |number, locale|
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
@@ -194,7 +194,7 @@ end
 
 class Ext::Gis::TransformatorReport
   include Mongoid::Document
-  field :region, type: String
+  field :name, type: String
   field :count1, type: Integer
   field :count2, type: Integer
 end

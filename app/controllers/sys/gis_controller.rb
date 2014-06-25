@@ -229,7 +229,8 @@ class Sys::GisController < ApplicationController
   end
 
   def network_status_sync
-    Ext::Gis::Transformator.sync_current_status
+    #Ext::Gis::Transformator.sync_current_status
+    Ext::Gis::Transformator.sync_current_status_and_prepare_report
     redirect_to sys_gis_network_status_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
