@@ -92,6 +92,8 @@ TelasiService::Application.routes.draw do
         get '/tp_statuses', action: 'tp_statuses', as: :gis_report_tp_statuses
         get '/network_status', action: 'network_status', as: :gis_network_status
         post '/network_status_sync', action: 'network_status_sync', as: :gis_network_status_sync
+        match '/network_status/edit', action: 'network_status_edit', as: :gis_network_status_edit
+        post '/network_status/send', action: 'network_status_send', as: :gis_network_status_send
       end
     end
   end

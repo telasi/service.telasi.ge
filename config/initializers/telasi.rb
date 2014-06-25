@@ -19,5 +19,9 @@ module Telasi
     '599422451' => 'ka',
   }
 
+  PHONES_4 = {
+    '555116776' => 'ka',
+  }
+
   DISPATCHER_ADMINS=['+995555116776']
 end

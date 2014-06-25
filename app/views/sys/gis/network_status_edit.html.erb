@@ -1,0 +1,26 @@
+<h1 class="page-header"><%= @title %></h1>
+<%= form_tag do %>
+  <%= hidden_field_tag 'size', @reports.size%>
+  <table>
+    <tr>
+      <td></td>
+      <td>ავარიული</td>
+      <td>გეგმიური</td>
+    </tr>
+    <% @reports.each_with_index do |r, i| %>
+      <tr>
+        <td style="padding:10px;"><%=r.name%></td>
+        <td style="padding:10px;"><%= text_field_tag "count1-#{i}", r.count1, style: 'width:50px; text-align:right;' %></td>
+        <td style="padding:10px;"><%= text_field_tag "count2-#{i}", r.count2, style: 'width:50px; text-align:right;' %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td>
+        <button type="submit" class="btn btn-primary">შენახვა</button>
+        <%= link_to 'გაუქმება', sys_gis_network_status_url, class: 'btn' %>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+<% end %>

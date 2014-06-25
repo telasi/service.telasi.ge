@@ -132,6 +132,7 @@ class Ext::Gis::Transformator
     1 => Telasi::PHONES_1,
     2 => Telasi::PHONES_2,
     3 => Telasi::PHONES_3,
+    4 => Telasi::PHONES_4,
   }
 
   def self.transformators_for_semeki
@@ -187,14 +188,8 @@ class Ext::Gis::Transformator
         Magti.send_sms(number, locale == 'ru' ? text_ru : text)
       end
     end
+    Ext::Gis::TransformatorReport.update_all(sent: true)
   end
 
   def to_s; "#{self.tp_name} &rarr; #{self.tr_name}".html_safe end
-end
-
-class Ext::Gis::TransformatorReport
-  include Mongoid::Document
-  field :name, type: String
-  field :count1, type: Integer
-  field :count2, type: Integer
 end

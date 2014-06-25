@@ -234,6 +234,29 @@ class Sys::GisController < ApplicationController
     redirect_to sys_gis_network_status_url, notice: 'სინქრონიზაცია დასრულებულია.'
   end
 
+  def network_status_edit
+    @title='SMS შეცვლა'
+    @reports=Ext::Gis::TransformatorReport.all.to_a
+    if request.post?
+      (0..params[:size].to_i-1).each do |i|
+        r = @reports[i]
+        r.count1 = params["count1-#{i}".to_sym]
+        r.count2 = params["count2-#{i}".to_sym]
+        r.save
+      end
+      redirect_to sys_gis_network_status_url, notice: 'მონაცემები შეცვლილია'
+    end
+  end
+
+  def network_status_send
+    if Ext::Gis::TransformatorReport.where(sent: true).any?
+      raise "უკვე გაგზავნილია!"
+    else
+      Ext::Gis::Transformator.send_current_status(1)
+      redirect_to sys_gis_network_status_url, notice: 'გაგზავნილია'
+    end
+  end
+
 private
 
   def gis_validation
