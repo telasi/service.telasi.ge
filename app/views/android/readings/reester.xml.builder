@@ -16,7 +16,7 @@ xml.reester do
           xml.address do
             tp = item.account.tp
             if tp.present?
-              xml.full_address("#{item.account.address.to_s} (tp: ##{tp.accid}")
+              xml.full_address("#{item.account.address.to_s} (tp ##{tp.accid})")
             else
               xml.full_address(item.account.address.to_s)
             end
