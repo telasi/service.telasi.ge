@@ -16,9 +16,9 @@ xml.reester do
           xml.address do
             tp = item.account.tp
             if tp.present?
-              xml.full_address("#{item.account.address.to_s} (tp ##{tp.accid})")
+              xml.full_address("#{item.account.address.to_s2} (tp ##{tp.accid})")
             else
-              xml.full_address(item.account.address.to_s)
+              xml.full_address(item.account.address.to_s2)
             end
             xml.street_id(item.account.address.street.streetkey)
             xml.street_name(item.account.address.street.streetname.strip.to_ka)
