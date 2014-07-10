@@ -61,8 +61,6 @@ class Bs::Account < ActiveRecord::Base
     pars
   end
 
-  def to_s
-    self.accid
-  end
-
+  def tp; self.parents.select{|x| x.acctype == TYPE_TRANSF }.first end
+  def to_s; self.accid end
 end
