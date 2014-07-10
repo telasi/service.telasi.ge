@@ -14,7 +14,7 @@ xml.reester do
           xml.accid(item.accid.strip.to_ka)
           xml.custname(item.custname.strip.to_ka)
           xml.address do
-            tp = item.tp
+            tp = item.account.tp
             if tp.present?
               xml.full_address("#{item.account.address.to_s} (tp: ##{tp.accid}")
             else
