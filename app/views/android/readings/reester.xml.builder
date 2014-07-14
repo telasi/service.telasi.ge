@@ -14,13 +14,13 @@ xml.reester do
           xml.accid(item.accid.strip.to_ka)
           xml.custname(item.custname.strip.to_ka)
           xml.address do
-            # tp = item.account.tp
-            # if tp.present?
-            #   xml.full_address("#{item.account.address.to_s2} (tp ##{tp.accid})")
-            # else
-            #   xml.full_address(item.account.address.to_s2)
-            # end
-            xml.full_address(item.account.address.to_s2)
+            tp = item.account.tp
+            if tp.present?
+              xml.full_address("#{item.account.address.to_s2} (tp ##{tp.accid})")
+            else
+              xml.full_address(item.account.address.to_s2)
+            end
+            # xml.full_address(item.account.address.to_s2)
             xml.street_id(item.account.address.street.streetkey)
             xml.street_name(item.account.address.street.streetname.strip.to_ka)
             xml.house(item.account.address.house.strip.to_ka) if item.account.address.house
