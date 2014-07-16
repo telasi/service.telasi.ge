@@ -12,11 +12,10 @@ class Call::Task
   has_many :messages, class_name: 'Call::Sms', order: :_id.desc
   belongs_to :status, class_name: 'Call::Status'
   belongs_to :region, class_name: 'Ext::Region'
+  belongs_to :category, class_name: 'Call::Category'
   belongs_to :user
 
-  def customer
-    Bs::Customer.where(custkey: self.custkey).first
-  end
+  def customer; Bs::Customer.where(custkey: self.custkey).first end
 
   def self.by_user(user)
     if user.all_regions
