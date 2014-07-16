@@ -159,6 +159,12 @@ class Call::AdminController < Call::CallController
     navbuttons
   end
 
+  def delete_category
+    category = Call::Category.find(params[:id])
+    category.destroy
+    redirect_to call_categories_url, notice: 'კატეგორია წაშლილია'
+  end
+
   private
 
   def navbuttons
