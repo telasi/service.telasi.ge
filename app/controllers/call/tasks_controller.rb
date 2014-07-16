@@ -29,5 +29,4 @@ class Call::TasksController < Call::CallController
     @nav = { 'მთავარი' => call_home_url }
     @nav['ყველა დავალება'] = nil
   end
-
 end

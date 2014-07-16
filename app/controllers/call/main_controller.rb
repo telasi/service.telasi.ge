@@ -38,5 +38,4 @@ class Call::MainController < Call::CallController
     open_stats = Call::Status.where(open: true)
     Call::Task.by_user(current_user).where(:status_id.in => open_stats.map{|v| v.id})
   end
-  
 end

@@ -21,5 +21,4 @@ class Call::DocsController < Call::CallController
       @nav[@doc.title] = nil
     end
   end
-
 end

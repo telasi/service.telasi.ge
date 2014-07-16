@@ -10,5 +10,4 @@ class Call::CallController < ApplicationController
       redirect_to login_url, alert: 'თქვენ არ გაქვს ქოლ-ცენტრის პროგრამით სარგებლობის უფლება.'
     end
   end
-
 end
