@@ -3,6 +3,7 @@ module TaskForm
   include Dima::Html
 
   STATUS  = SelectField.new(name: 'status', label: 'სტატუსი', collection: Call::Status.asc(:order_by))
+  CATEGORY = SelectField.new(name: 'category', label: 'კატეგორია', collection: Call::Category.asc(:order_by), required: true)
   STATUS_ICON = IconField.new(name: 'status.icon', label: '')
   CREATED = DateField.new(name: 'created_at', label: 'შეიქმნა', formatter: '%d-%b-%Y %H:%M')
   UPDATED = DateField.new(name: 'updated_at', label: 'შეიცვალა', formatter: '%d-%b-%Y %H:%M')
@@ -18,7 +19,7 @@ module TaskForm
     submit = task.nil? ? 'ახალი დავალება' : 'დავალების შენახვა'
     icon = task.nil? ? '/assets/fff/clock_add.png' : '/assets/fff/clock_edit.png'
     form = Form.new(title: title, icon: icon, submit: submit, auth_token: auth_token)
-    form.col1 << TITLE.clone << MOBILE.clone << STATUS.clone
+    form.col1 << CATEGORY.clone << TITLE.clone << MOBILE.clone << STATUS.clone
     form.edit = true
     form
   end
@@ -27,7 +28,7 @@ module TaskForm
     form = Form.new(title: 'დავალება', icon: '/assets/fff/clock.png')
     form.col1 << REGION.clone << ACCNUMB.clone
     status = ComplexField.new(label: 'სტატუსი', fields: [STATUS_ICON.clone, STATUS.clone])
-    form.col1 << TITLE.clone << MOBILE.clone << status
+    form.col1 << CATEGORY.clone << TITLE.clone << MOBILE.clone << status
     form.col2 << USER.clone << CREATED.clone << UPDATED.clone
     delete_act = Action.new(label: 'წაშლა', icon: '/assets/fff/delete.png', url: lambda{|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)}, method: 'delete', confirm: 'ნამდვილად გინდათ დავალების წაშლა?')
     send_act = Action.new(label: 'ხელახლა გაგზავნა', icon: '/assets/fff/phone.png', url: lambda{|v| Rails.application.routes.url_helpers.call_send_task_path(id: v.id)}, method: 'post', confirm: 'ნამდვილად გინდათ გაგზავნა?')
@@ -45,7 +46,7 @@ module TaskForm
     title_size = ComplexField.new(label: 'დავალების შინაარსი', fields: [SIZE.clone, TITLE.clone], url: TITLE.url)
     account=ComplexField.new(label: 'აბონენტი', fields: [STATUS_ICON.clone, ACCNUMB.clone])
     address=TextField.new(name: 'customer.address', label: 'მისამართი')
-    tbl.cols << account << title_size << REGION.clone << address << CREATED.clone
+    tbl.cols << account << title_size << CATEGORY.clone << REGION.clone << address << CREATED.clone
     tbl.actions << Action.new(label: 'ახალი დავალება', tooltip: 'აბონენტზე ახალი დავალების შექმნა', icon: '/assets/fff/clock_add.png', url: Rails.application.routes.url_helpers.call_new_customer_task_path(custkey: cust.custkey)) if cust
     tbl.item_actions << Action.new(label: 'შეცვლა', icon: '/assets/fff/pencil.png', url: lambda{|v| Rails.application.routes.url_helpers.call_edit_customer_task_path(id: v.id)})
     #tbl.item_actions << Action.new(label: '', tooltip: 'დავალების წაშლა', icon: '/assets/fff/delete.png', method: 'delete', confirm: 'დარწმუნებული ხართ?', url: lambda {|v| Rails.application.routes.url_helpers.call_delete_customer_task_path(id: v.id)})
