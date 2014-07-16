@@ -179,8 +179,8 @@ TelasiService::Application.routes.draw do
     scope controller: :main do
       get '/', action: :index, as: :home
       get '/print_tasks', action: :print_tasks, as: :print_tasks
-      #post '/favorites/add/:id', action: :add_favorite, as: :add_to_favorites
-      #delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
+      # post '/favorites/add/:id', action: :add_favorite, as: :add_to_favorites
+      # delete '/favorites/remove/:id', action: :remove_favorite, as: :remove_from_favorites
       post '/complete/:id', action: :complete_task, as: :complete_task
       post '/sync_tasks', action: :sync_tasks, as: :sync_tasks
     end
@@ -227,6 +227,13 @@ TelasiService::Application.routes.draw do
       match  '/admin/docs/new',            action: :new_doc,       as: :new_doc
       match  '/admin/docs/edit/:id',       action: :edit_doc,      as: :edit_doc
       delete '/admin/docs/delete/:id',     action: :delete_doc,    as: :delete_doc
+      # categories
+      scope '/admin/categories' do
+        get '/', action: 'categories', as: 'categories'
+        match '/new', action: 'new_category', as: 'new_category'
+        match '/edit/:id', action: 'edit_category', as: 'edit_category'
+        delete '/delete/:id', action: 'delete_category', as: 'delete_category'
+      end
     end
     scope controller: :docs do
       get '/docs', action: :index, as: :docs

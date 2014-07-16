@@ -100,5 +100,4 @@ module TaskForm
     form.edit = true
     form
   end
-
 end

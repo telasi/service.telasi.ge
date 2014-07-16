@@ -61,5 +61,4 @@ module CallCenterHelper
     end
     table.html
   end
-
 end

@@ -1,0 +1,5 @@
+<%= render partial: 'call/top' %>
+<%= table_for @categories, title: @title, icon: '/assets/fff/bug.png' do |t|
+  t.title_action call_new_category_url, label: 'ახალი კატეგორია', icon: '/assets/fff/bug_add.png'
+  t.text_field 'name'
+end %>

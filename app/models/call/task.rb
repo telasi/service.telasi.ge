@@ -84,5 +84,4 @@ class Call::Task
     msg << "კომენტ: #{self.title}"
     msg.join("; ")[0..150]
   end
-
 end

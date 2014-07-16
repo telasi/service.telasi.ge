@@ -12,6 +12,7 @@
  *= require_tree .
  *= require jquery.ui.datepicker
  *= require dima
+ *= require forma
 */
 body { padding-top: 60px; padding-bottom: 45px; }
 .center { text-align: center !important; }

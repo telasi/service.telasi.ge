@@ -127,6 +127,14 @@ class Call::AdminController < Call::CallController
     navbuttons
   end
 
+  # categories
+
+  def categories
+    @title = 'კატეგორიები'
+    @categories = Call::Category.asc(:order_by)
+    navbuttons
+  end
+
   private
 
   def navbuttons
@@ -143,6 +151,9 @@ class Call::AdminController < Call::CallController
       @nav['დოკუმენტები'] = call_admin_docs_url
       @nav['დოკუმენტი'] = nil if @doc
     end
+    if @categories or @category
+      @nav['კატეგორიები'] = call_categories_url
+      #@nav[@title] = nil if @category
+    end
   end
-
 end
