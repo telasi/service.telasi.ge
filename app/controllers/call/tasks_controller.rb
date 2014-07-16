@@ -14,6 +14,7 @@ class Call::TasksController < Call::CallController
 
   def search_tasks(opts)
     cust = Bs::Customer.where(accnumb: opts[:accnumb].strip.to_geo).first rescue nil
+    categ = Call::Category.find(opts[:category]) rescue nil
     stat = Call::Status.find(opts[:status]) rescue nil
     reg  = Ext::Region.find(opts[:region]) rescue nil
     oper = User.find(opts[:user]) rescue nil
@@ -22,6 +23,7 @@ class Call::TasksController < Call::CallController
     tasks = tasks.where(status_id: stat.id) if stat
     tasks = tasks.where(region_id: reg.id) if reg
     tasks = tasks.where(user_id: oper.id) if oper
+    tasks = tasks.where(category_id: categ.id) if categ
     tasks
   end
 
