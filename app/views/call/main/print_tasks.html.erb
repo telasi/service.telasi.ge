@@ -29,7 +29,9 @@ table.common td {
     </tr>
     <tr>
       <td><%= t.customer.custname.to_ka %></td>
-      <td colspan="2"><%= t.title %></td>
+      <td colspan="2">
+        <%= t.category.to_s %> <span class="muted"><%= t.title %></span>
+      </td>
     </tr>
     <% end %>
   </table>
