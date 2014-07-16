@@ -81,7 +81,7 @@ class Call::Task
     msg << "მის:#{acc.address.to_s}"
     msg << "აბონ:#{cust.accnumb.to_ka} #{cust.custname.to_ka}"
     msg << "ტელ:#{self.mobile}" unless self.mobile.blank?
-    msg << "კომენტ: #{self.title}"
+    msg << "კომენტ: #{self.category.to_s} #{self.title.to_s}"
     msg.join("; ")[0..150]
   end
 end
