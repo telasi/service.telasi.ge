@@ -3,4 +3,6 @@
   t.title_action call_new_category_url, label: 'ახალი კატეგორია', icon: '/assets/fff/bug_add.png'
   t.text_field 'order_by', label: '#', tag: 'code'
   t.text_field 'name', label: 'დასახელება'
+  t.item_action ->(x){ call_edit_category_url(id:x.id) }, icon: '/assets/fff/pencil.png'
+  t.item_action ->(x){ call_delete_category_url(id: x.id) }, icon: '/assets/fff/bin.png', confirm: 'ნამდვილად გინდათ წაშლა?', method: 'delete'
 end %>

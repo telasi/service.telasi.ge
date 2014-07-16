@@ -148,6 +148,17 @@ class Call::AdminController < Call::CallController
     navbuttons
   end
 
+  def edit_category
+    @title = 'კატეგორიის შეცვლა'
+    @category = Call::Category.find(params[:id])
+    if request.post?
+      if @category.update_attributes(params[:call_category])
+        redirect_to call_categories_url, notice: 'კატეგორია შეცვლილია'
+      end
+    end
+    navbuttons
+  end
+
   private
 
   def navbuttons
