@@ -1,0 +1,7 @@
+<%= render partial: 'call/top' %>
+<%= forma_for @category, title: @title, icon: '/assets/fff/bug_add.png' do |f|
+  f.text_field 'name', required: true, label: 'დასახელება', autofocus: true
+  f.text_field 'order_by', required: true, label: '#'
+  f.submit 'შენახვა'
+  f.bottom_action call_categories_url, label: 'გაუქმება'
+end %>

@@ -135,6 +135,19 @@ class Call::AdminController < Call::CallController
     navbuttons
   end
 
+  def new_category
+    @title = 'ახალი კატეგორია'
+    if request.post?
+      @category = Call::Category.new(params[:call_category])
+      if @category.save
+        redirect_to call_categories_url, notice: 'კატეგორია დამატებულია'
+      end
+    else
+      @category = Call::Category.new
+    end
+    navbuttons
+  end
+
   private
 
   def navbuttons
@@ -153,7 +166,7 @@ class Call::AdminController < Call::CallController
     end
     if @categories or @category
       @nav['კატეგორიები'] = call_categories_url
-      #@nav[@title] = nil if @category
+      @nav[@title] = nil if @category
     end
   end
 end
