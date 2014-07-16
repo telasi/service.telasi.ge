@@ -9,7 +9,7 @@ module TaskForm
   UPDATED = DateField.new(name: 'updated_at', label: 'შეიცვალა', formatter: '%d-%b-%Y %H:%M')
   ACCNUMB = TextField.new(name: 'customer.accnumb', label: 'აბ.ნომერი', required: true)
   REGION = TextField.new(name: 'region.name', label: 'ბ/ც', required: true)
-  TITLE = TextField.new(name: 'title', label: 'შინაარსი', required: true, width: 500, url: lambda{|v| Rails.application.routes.url_helpers.call_show_customer_task_path(id: v.id)})
+  TITLE = TextField.new(name: 'title', label: 'შინაარსი', width: 500, url: lambda{|v| Rails.application.routes.url_helpers.call_show_customer_task_path(id: v.id)})
   SIZE = NumberField.new(name: 'comments.size', label: 'კომენტ.', precision: 0)
   USER = TextField.new(name: 'user.full_name', label: 'ოპერატორი', required: true)
   MOBILE = TextField.new(name: 'mobile', label: 'ტელეფონი')
