@@ -3,29 +3,25 @@ class Call::TasksController < Call::CallController
 
   def index
     @title = 'დავალებები'
-    operators = User.where(call_center: true, all_regions: true).asc(:first_name, :last_name)
-    regions = Ext::Region.all
-    @search = TaskForm.search(operators, regions, params[:dim])
-    @tasks = search_tasks(params[:dim]).desc(:_id).paginate(per_page: 15, page: params[:page])
+    @search = params[:search] == 'clear' ? {} : params[:search]
+    rel = Call::Task.by_user(current_user)
+    if @search
+      customer = Bs::Customer.where(accnumb: @search[:accnumb].strip.to_geo).first rescue nil
+      rel = rel.where(custkey: customer.custkey) if customer
+      rel = rel.where(category_id: @search[:category_id]) if @search[:category_id].present?
+      rel = rel.where(status_id: @search[:status_id]) if @search[:status_id].present?
+      rel = rel.where(user_id: @search[:user_id]) if @search[:user_id].present?
+      rel = rel.where(region_id: @search[:region_id]) if @search[:region_id].present?
+      d1 = Date.strptime(@search[:d1]) if @search[:d1].present?
+      d2 = Date.strptime(@search[:d2]) if @search[:d2].present?
+      rel = rel.where(:created_at.gte => d1) if d1.present?
+      rel = rel.where(:created_at.lte => d2 + 1) if d2.present?
+    end
+    @tasks = rel.desc(:_id).paginate(per_page: 15, page: params[:page])
     navbuttons
   end
 
   private
-
-  def search_tasks(opts)
-    cust = Bs::Customer.where(accnumb: opts[:accnumb].strip.to_geo).first rescue nil
-    categ = Call::Category.find(opts[:category]) rescue nil
-    stat = Call::Status.find(opts[:status]) rescue nil
-    reg  = Ext::Region.find(opts[:region]) rescue nil
-    oper = User.find(opts[:user]) rescue nil
-    tasks = Call::Task.by_user(current_user)
-    tasks = tasks.where(custkey: cust.custkey) if cust
-    tasks = tasks.where(status_id: stat.id) if stat
-    tasks = tasks.where(region_id: reg.id) if reg
-    tasks = tasks.where(user_id: oper.id) if oper
-    tasks = tasks.where(category_id: categ.id) if categ
-    tasks
-  end
 
   def navbuttons
     @nav = { 'მთავარი' => call_home_url }

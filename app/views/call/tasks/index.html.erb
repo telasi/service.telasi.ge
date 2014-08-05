@@ -1,7 +1,21 @@
 <%= render partial: 'call/top' %>
-<%= @search.html %>
-<%= cc_tasks_list(@tasks) %>
-<%= paginate @tasks %>
-<div>
-  ნაპოვნია: <code><%= C12.number_format(@tasks.total_entries, 0) %></code> დავალება
-</div>
+
+<%= search_form @search do |f|
+  f.tab do |f|
+    f.col1 do |f|
+      f.text_field 'accnumb', label: 'აბონენტის #'
+      f.combo_field 'category_id', collection: Call::Category.asc(:order_by), empty: '--ყველა კატეგორია--', label: 'კატეგორია'
+      f.combo_field 'status_id', collection: Call::Status.asc(:order_by), empty: '--ყველა სტატუსი--', label: 'სტატუსი'
+    end
+    f.col2 do |f|
+      f.combo_field 'user_id', collection: User.where(call_center: true, all_regions: true).asc(:first_name, :last_name), label: 'ოპერატორი',  empty: '--ყველა ოპერატორი--'
+      f.combo_field 'region_id', collection: Ext::Region.all, label: 'რეგიონი', empty: '--ყველა რეგიონი--'
+      f.complex_field label: 'თარიღი' do |c|
+        c.date_field 'd1'
+        c.date_field 'd2'
+      end
+    end
+  end
+end %>
+
+<%= call_tasks_table(@tasks, title: 'დავალებები') %>
