@@ -18,4 +18,6 @@
   end
 end %>
 
-<%= call_tasks_table(@tasks, title: 'დავალებები') %>
+<%= call_tasks_table(@tasks, title: 'დავალებები') do |t|
+  t.title_action call_all_tasks_url({format: 'xlsx', search: @search}), label: 'ექსელში', icon: '/assets/fff/page_excel.png'
+end %>

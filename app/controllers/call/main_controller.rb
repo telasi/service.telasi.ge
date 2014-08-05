@@ -31,7 +31,6 @@ class Call::MainController < Call::CallController
   end
 
   def all
-    @title = 'დავალებები'
     @search = params[:search] == 'clear' ? {} : params[:search]
     rel = Call::Task.by_user(current_user)
     if @search
@@ -46,8 +45,17 @@ class Call::MainController < Call::CallController
       rel = rel.where(:created_at.gte => d1) if d1.present?
       rel = rel.where(:created_at.lte => d2 + 1) if d2.present?
     end
-    @tasks = rel.desc(:_id).paginate(per_page: 15, page: params[:page])
-    navbuttons
+    respond_to do |format|
+      format.html do
+        @title = 'დავალებები'
+        @tasks = rel.desc(:_id).paginate(per_page: 15, page: params[:page])
+        navbuttons
+      end
+      format.xlsx do
+        @tasks = rel.desc(:_id).paginate(per_page: 1000)
+        render action: 'index'
+      end
+    end
   end
 
   private
