@@ -12,7 +12,7 @@ module CallHelper
         c.text_field 'customer.address.region', tag: 'strong'
         c.text_field 'customer.address.to_s2', class: 'muted'
       end
-      t.date_field 'created_at', formatter: '%d-%b-%Y %H:%M:%S', label: 'შექმნა'
+      t.date_field 'created_at', formatter: '%d/%m/%Y %H:%M', label: 'შექმნა'
       t.paginate records: 'დავალება'
       yield t if block_given?
     end
