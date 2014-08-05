@@ -31,4 +31,5 @@
   t.title_action call_print_tasks_url, label: 'ბეჭდვა', icon: '/assets/fff/printer.png'
   t.title_action call_sync_tasks_url, icon: '/assets/fff/arrow_refresh.png', label: 'სიქნრონიზაცია', method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'
   t.title_action call_home_url(format: 'xlsx'), label: 'ექსელში', icon: '/assets/fff/page_excel.png'
+  t.item_action ->(x){ call_complete_task_url(id: x.id) }, icon: '/assets/fff/tick.png', method: 'post', confirm: 'ნადვილად გინდათ დასრულება?'
 end %>

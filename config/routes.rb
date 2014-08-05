@@ -235,6 +235,9 @@ TelasiService::Application.routes.draw do
       get '/docs', action: :index, as: :docs
       get '/docs/show/:id', action: :show, as: :show_doc
     end
+    scope 'outages', controller: 'outages' do
+      get '/', action: 'index', as: 'outages'
+    end
   end
 
   root :to => 'site#index'
