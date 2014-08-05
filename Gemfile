@@ -6,8 +6,8 @@ gem 'pony'
 gem 'mongoid', '~> 3.1'
 gem 'bson_ext', '~> 1.5'
 gem 'sqlite3'
-gem 'ruby-oci8', '~> 2.1.0'
-gem 'activerecord-oracle_enhanced-adapter', '~> 1.4.0'
+gem 'ruby-oci8', '2.1.5'
+gem 'activerecord-oracle_enhanced-adapter', '1.4.3'
 gem 'composite_primary_keys', '~> 5'
 
 gem 'mongoid_session_store', github: 'dimakura/mongoid_session_store'
@@ -40,7 +40,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '4.1.0'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.6'

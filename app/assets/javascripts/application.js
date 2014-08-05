@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require_tree .
+//= require forma
 $(function() {
 	$('[rel~=tooltip]').tooltip();
 	Telasi.datepickerInitialization();

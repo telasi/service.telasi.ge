@@ -17,6 +17,7 @@
 <div class="title">
   ქოლ-ცენტრი: მთავარი მენიუ
 </div>
+
 <div style="text-align: center" class="btn-toolbar">
   <%= link_to icon_text('search', 'აბონენტების ძებნა', white: true), call_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
   <%= link_to icon_text('tasks', 'ყველა დავალება'), call_all_tasks_url, class: ['btn', 'btn-large'] %>
@@ -25,8 +26,9 @@
   <%= link_to icon_text('cog', 'ადმინისტრირება'), call_admin_url, class: ['btn', 'btn-large'] %>
   <% end %>
 </div>
-<%= cc_not_complete_tasks_list(@tasks) %>
-<%= paginate @tasks %>
-<div style="padding-bottom: 16px;">
-  ნაპოვნია: <code><%= C12.number_format(@tasks.total_entries, 0) %></code> დავალება
-</div>
+
+<%= call_tasks_table(@tasks, title: 'მიმდინარე დავალებები') do |t|
+  t.title_action call_print_tasks_url, label: 'ბეჭდვა', icon: '/assets/fff/printer.png'
+  t.title_action call_sync_tasks_url, icon: '/assets/fff/arrow_refresh.png', label: 'სიქნრონიზაცია', method: :post, confirm: 'ნამდვილად გინდათ სინქრონიზაცია?'
+  t.title_action call_home_url(format: 'xlsx'), label: 'ექსელში', icon: '/assets/fff/page_excel.png'
+end %>
