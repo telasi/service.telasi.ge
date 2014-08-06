@@ -238,6 +238,8 @@ TelasiService::Application.routes.draw do
     scope 'outages', controller: 'outages' do
       get '/', action: 'index', as: 'outages'
       match '/new', action: 'new', as: 'new_outage'
+      match '/edit/:id', action: 'edit', as: 'edit_outage'
+      delete '/delete/:id', action: 'delete', as: 'delete_outage'
     end
   end
 
