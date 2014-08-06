@@ -1,6 +1,8 @@
 <%= render partial: 'call/top' %>
 <h2 class="page-header"><%= @title %></h2>
 <%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
-  t.date_field 'start', formatter: '%d-%b-%Y %H:%M'
-  t.date_field 'end', formatter: '%d-%b-%Y %H:%M'
+  t.title_action call_new_outage_url, label: 'ახალი გათიშვა', icon: '/assets/fff/lightning_add.png'
+  t.text_field 'accnumb', tag: 'code', label: 'აბ.#'
+  t.text_field 'start_date'
+  t.text_field 'end_date'
 end %>

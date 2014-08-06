@@ -237,6 +237,7 @@ TelasiService::Application.routes.draw do
     end
     scope 'outages', controller: 'outages' do
       get '/', action: 'index', as: 'outages'
+      match '/new', action: 'new', as: 'new_outage'
     end
   end
 
