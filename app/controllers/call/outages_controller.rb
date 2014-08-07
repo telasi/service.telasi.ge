@@ -12,6 +12,12 @@ class Call::OutagesController < Call::CallController
     navbuttons
   end
 
+  def on
+    outage = Call::Outage.find(params[:id])
+    outage.active = false ; outage.save
+    redirect_to call_outages_url, notice: 'გათიშვა გაუქმებულია'
+  end
+
   def new
     @title = 'ახალი გათიშვა'
     if request.post?

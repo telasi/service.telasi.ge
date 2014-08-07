@@ -241,6 +241,7 @@ TelasiService::Application.routes.draw do
       match '/new', action: 'new', as: 'new_outage'
       match '/edit/:id', action: 'edit', as: 'edit_outage'
       delete '/delete/:id', action: 'delete', as: 'delete_outage'
+      post '/on/:id', action: 'on', as: 'outage_on'
     end
   end
 
