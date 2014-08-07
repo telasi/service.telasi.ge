@@ -2,7 +2,8 @@
 class Call::OutagesController < Call::CallController
   def index
     @title = 'გათიშვები'
-    @outages = Call::Outage.where(active: true).desc(:_id).paginate(page: params[:page], per_page: params[:per_page])
+    @outages = Call::Outage.desc(:_id).paginate(page: params[:page], per_page: params[:per_page])
+    @streets = Call::Outage.where(active: true).desc(:_id).map{ |x| x.streets }.flatten
     navbuttons
   end
 
@@ -16,7 +17,7 @@ class Call::OutagesController < Call::CallController
     @title = 'ახალი გათიშვა'
     if request.post?
       @outage = Call::Outage.new(params[:call_outage])
-      redirect_to call_outages_url, notice: 'გამორთვა დამატებულია' if @outage.save
+      redirect_to call_outage_url(id: @outage.id), notice: 'გამორთვა დამატებულია' if @outage.save
     else
       @outage = Call::Outage.new
     end
@@ -27,7 +28,7 @@ class Call::OutagesController < Call::CallController
     @title = 'გათიშვის შეცვლა'
     @outage = Call::Outage.find(params[:id])
     if request.post?
-      redirect_to call_outages_url, notice: 'გამორთვა შეცვლილია' if @outage.update_attributes(params[:call_outage])
+      redirect_to call_outage_url(id: @outage.id), notice: 'გამორთვა შეცვლილია' if @outage.update_attributes(params[:call_outage])
     end
     navbuttons
   end

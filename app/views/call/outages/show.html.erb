@@ -4,6 +4,8 @@
   selected_tab = case params[:tab] when 'streets' then 1 else 0 end
 %>
 <%= view_for @outage, title: @title, icon: '/assets/fff/lightning.png', collapsible: true, selected_tab: selected_tab do |f|
+  f.title_action call_edit_outage_url(id: @outage.id), icon: '/assets/fff/pencil.png', label: 'შეცვლა'
+  f.title_action call_delete_outage_url(id: @outage.id), icon: '/assets/fff/bin.png', label: 'წაშლა', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
   f.tab title: 'ზოგადი', icon: '/assets/fff/lightning.png' do |f|
     f.complex_field label: 'ობიექტი', required: true do |f|
       f.text_field 'accnumb', tag: 'code', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
