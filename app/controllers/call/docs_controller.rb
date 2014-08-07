@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Call::DocsController < Call::CallController
-
   def index
     @title = 'დოკუმენტები'
     @docs = Call::Doc.where(:order_by.gte => 0).asc(:order_by)
@@ -12,7 +11,7 @@ class Call::DocsController < Call::CallController
     @doc = Call::Doc.find(params[:id])
     navbuttons
   end
-  
+
   private
 
   def navbuttons

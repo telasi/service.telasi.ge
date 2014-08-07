@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Call::CustomersController < Call::CallController
-
   def render(*args)
     navbuttons
     super
@@ -314,5 +313,4 @@ class Call::CustomersController < Call::CallController
       true
     end
   end
-
 end
