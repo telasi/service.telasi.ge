@@ -4,8 +4,9 @@
 <table class="table table-bordered table-stripped">
   <thead>
     <tr>
+      <th>ობიექტი</th>
       <th>ქუჩა</th>
-      <th>გათიშვა</th>
+      <th>მიზეზი</th>
       <th>პერიოდი</th>
       <th>რაოდ.</th>
     </tr>
@@ -15,11 +16,14 @@
       <% streets.each do |str| %>
       <tr>
         <td>
+          <strong><%= str.outage.parent.custname.to_ka rescue '' %></strong>
+          <span class="muted"><%= str.outage.accnumb %></span>
+        </td>
+        <td>
           <strong><%= str.region %></strong> &mdash;
           <%= str.streetname %>
         </td>
         <td>
-          <code><%= str.outage.accnumb %></code>
           <strong><%= str.outage.category_name %></strong>
           <span class="muted"><%= str.outage.description %></span>
         </td>
@@ -31,7 +35,7 @@
       <% end %>
     <% else %>
       <tr>
-        <td colspan="4" style="padding:32px; color: #aaa; text-align: center;">ყველა ქუჩა განათებულია!</td>
+        <td colspan="5" style="padding:32px; color: #aaa; text-align: center;">ყველა ქუჩა განათებულია!</td>
       </tr>
     <% end %>
   </tbody>

@@ -8,8 +8,9 @@
   f.title_action call_delete_outage_url(id: @outage.id), icon: '/assets/fff/bin.png', label: 'წაშლა', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
   f.tab title: 'ზოგადი', icon: '/assets/fff/lightning.png' do |f|
     f.complex_field label: 'ობიექტი', required: true do |f|
-      f.text_field 'accnumb.to_ka', tag: 'code', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
-      f.text_field 'customer.custname.to_ka', class: 'muted'
+      f.text_field 'parent.custname.to_ka', tag: 'strong', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
+      f.text_field 'accnumb.to_ka', class: 'muted'
+      # f.text_field 'customer.custname.to_ka', class: 'muted'
     end
     f.complex_field label: 'მიზეზი', required: true do |f|
       f.text_field 'category_name', tag: 'strong'
