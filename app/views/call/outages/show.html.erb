@@ -11,7 +11,10 @@
       f.text_field 'accnumb', tag: 'code', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
       f.text_field 'customer.custname', class: 'muted'
     end
-    f.text_field 'category_name', label: 'მიზეზი', required: true
+    f.complex_field label: 'მიზეზი', required: true do |f|
+      f.text_field 'category_name', tag: 'strong'
+      f.text_field 'description', class: 'muted', empty: false
+    end
     f.text_field 'start', label: 'დასაწყისი', required: true
     f.text_field 'end', label: 'დასასრული'
     # f.text_field 'streets.count', label: 'ქუჩების რაოდ.', tag: 'code'

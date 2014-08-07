@@ -20,7 +20,8 @@
         </td>
         <td>
           <code><%= str.outage.accnumb %></code>
-          <%= str.outage.category_name %>
+          <strong><%= str.outage.category_name %></strong>
+          <span class="muted"><%= str.outage.description %></span>
         </td>
         <td>
           <%= str.outage.start %> &mdash; <%= str.outage.end %>

@@ -22,7 +22,10 @@ module CallHelper
     cancel_url = outage.new_record? ? call_outages_url : call_outage_url(id: outage.id)
     forma_for outage, title: opts[:title], icon: opts[:icon], collapsible: true do |f|
       f.text_field 'accnumb', label: 'ფიდერის #', autofocus: true, required: true
-      f.combo_field 'category', collection: Call::Outage::CATEGORIES, empty: false, required: true, label: 'მიზეზი'
+      f.complex_field label: 'მიზეზი', required: true do |f|
+        f.combo_field 'category', collection: Call::Outage::CATEGORIES, empty: false
+        f.text_field 'description'
+      end
       f.complex_field label: 'დასაწყისი', required: true do |f|
         f.date_field 'start_date'
         f.text_field 'start_time', width: '50'
