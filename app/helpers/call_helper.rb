@@ -21,6 +21,7 @@ module CallHelper
   def call_outage_form(outage, opts={})
     forma_for outage, title: opts[:title], icon: opts[:icon], collapsible: true do |f|
       f.text_field 'accnumb', label: 'ფიდერის #', autofocus: true, required: true
+      f.combo_field 'category', collection: Call::Outage::CATEGORIES, empty: false, required: true, label: 'მიზეზი'
       f.complex_field label: 'დასაწყისი', required: true do |f|
         f.date_field 'start_date'
         f.text_field 'start_time', width: '50'
@@ -29,6 +30,7 @@ module CallHelper
         f.date_field 'end_date'
         f.text_field 'end_time', width: '50'
       end
+      
 
       f.submit 'შენახვა'
       f.bottom_action call_outages_url, label: 'გაუქმება'

@@ -5,6 +5,7 @@
   t.item_action ->(x){ call_edit_outage_url(id: x.id) }, icon: '/assets/fff/pencil.png'
   t.item_action ->(x){ call_delete_outage_url(id: x.id) }, icon: '/assets/fff/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
   t.text_field 'accnumb', tag: 'code', label: 'ობიქტის #', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
+  t.text_field 'category_name', label: 'მიზეზი'
   t.text_field 'start', label: 'დასაწყისი', url: ->(x){ call_outage_url(id:x.id) }
   t.text_field 'end', label: 'დასასრული', url: ->(x){ call_outage_url(id:x.id) }
 end %>

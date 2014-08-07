@@ -2,6 +2,10 @@
 class Call::Outage
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  CATEGORIES = { 'გეგმიური' => 1, 'ავარიული' => 2 }
+  NAMES = CATEGORIES.invert
+
   field :start_date, type: String, default: Date.today
   field :start_time, type: String, default: '00:00'
   field :end_date, type: String, default: Date.today
@@ -9,6 +13,7 @@ class Call::Outage
   field :active, type: Boolean, default: true
   field :accnumb, type: String
   field :custkey, type: Integer
+  field :category, type: Integer
   has_many :streets, class_name: 'Call::OutageStreet'
 
   validates_presence_of :start_date, message: 'საწყისი თარიღი აუცილებელია'
@@ -26,6 +31,7 @@ class Call::Outage
   def customer; Bs::Customer.find(self.custkey) if self.custkey end
   def start; "#{Date.strptime(self.start_date).strftime('%d/%m/%Y')} #{self.start_time}" rescue "#{self.start_date} #{self.start_time}" end
   def end; "#{Date.strptime(self.end_date).strftime('%d/%m/%Y')} #{self.end_time}" rescue "#{self.end_date} #{self.end_time}" end
+  def category_name; NAMES[self.category] end
 
   protected
 
