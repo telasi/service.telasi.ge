@@ -17,31 +17,37 @@ class Call::Outage
   validates_presence_of :end_time, message: 'საწყისი დრო აუცილებელია'
   validate :customer_presence
 
-  after_save :on_after_save
+  after_create :on_after_create
+  before_update :on_before_update
+  before_save :on_before_save
 
   index({ active: 1 })
 
   def customer; Bs::Customer.find(self.custkey) if self.custkey end
+  def start; "#{Date.strptime(self.start_date).strftime('%d/%m/%Y')} #{self.start_time}" rescue "#{self.start_date} #{self.start_time}" end
+  def end; "#{Date.strptime(self.end_date).strftime('%d/%m/%Y')} #{self.end_time}" rescue "#{self.end_date} #{self.end_time}" end
 
   protected
 
   def find_customer; Bs::Customer.where(accnumb: self.accnumb.to_lat).first end
-
   def customer_presence; errors.add(:accnumb, 'ასეთი აბონენტი ვერ მოიძებნა') if find_customer.blank? end
+  def on_before_save; self.custkey = find_customer.custkey if self.accnumb_changed? end
 
-  def on_after_save
+  def on_after_create
     customer = find_customer
-    self.custkey = customer.custkey
     customer.accounts.each do |acc|
       relations = Bs::Accrel.where(base_acckey: acc.acckey)
       relations.each do |rel|
         address = rel.account.address
-        street = address.street.streetname
+        street = address.street.streetname.to_ka
         str = self.streets.where(streetname: street).first || Call::OutageStreet.new(outage: self, streetname: street)
-        str.count += 1 ; str.region = address.region.regionname
+        str.count += 1 ; str.region = address.region.regionname.to_ka
         str.save
       end
     end
   end
-end
 
+  def on_before_update
+    on_after_create if self.accnumb_changed?
+  end
+end

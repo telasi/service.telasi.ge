@@ -6,6 +6,12 @@ class Call::OutagesController < Call::CallController
     navbuttons
   end
 
+  def show
+    @title = 'გათიშვის თვისებები'
+    @outage = Call::Outage.find(params[:id])
+    navbuttons
+  end
+
   def new
     @title = 'ახალი გათიშვა'
     if request.post?

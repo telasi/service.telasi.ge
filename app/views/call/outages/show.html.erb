@@ -1,0 +1,25 @@
+<%= render partial: 'call/top' %>
+<h2 class="page-header"><%= @title %></h2>
+<%
+  selected_tab = case params[:tab] when 'streets' then 1 else 0 end
+%>
+<%= view_for @outage, title: @title, icon: '/assets/fff/lightning.png', collapsible: true, selected_tab: selected_tab do |f|
+  f.tab title: 'ზოგადი', icon: '/assets/fff/lightning.png' do |f|
+    f.complex_field label: 'ობიექტი', required: true do |f|
+      f.text_field 'accnumb', tag: 'code', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
+      f.text_field 'customer.custname', class: 'muted'
+    end
+    f.text_field 'start', label: 'დასაწყისი'
+    f.text_field 'end', label: 'დასასრული'
+    # f.text_field 'streets.count', label: 'ქუჩების რაოდ.', tag: 'code'
+  end
+  f.tab title: "ქუჩები &mdash; <strong>#{@outage.streets.count}</strong>".html_safe, icon: '/assets/fff/map.png' do |f|
+    f.table_field 'streets' do |field|
+      field.table do |t|
+        t.text_field 'region', label: 'რაიონი'
+        t.text_field 'streetname', label: 'ქუჩა'
+        t.text_field 'count', tag: 'code', after: 'აბონენტი', label: 'რაოდენ.'
+      end
+    end
+  end
+end %>
