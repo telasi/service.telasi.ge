@@ -3,7 +3,6 @@ class Call::OutagesController < Call::CallController
   def index
     @title = 'გათიშვები'
     @outages = Call::Outage.desc(:_id).paginate(page: params[:page], per_page: params[:per_page])
-    @streets = Call::Outage.where(active: true).desc(:_id).map{ |x| x.streets }.flatten
     navbuttons
   end
 

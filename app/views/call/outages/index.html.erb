@@ -9,39 +9,4 @@
   t.text_field 'start', label: 'დასაწყისი', url: ->(x){ call_outage_url(id:x.id) }
   t.text_field 'end', label: 'დასასრული', url: ->(x){ call_outage_url(id:x.id) }
 end %>
-
-<h3 class="page-header">გათიშული ქუჩები</h3>
-<table class="table table-bordered table-stripped">
-  <thead>
-    <tr>
-      <th>ქუჩა</th>
-      <th>გათიშვა</th>
-      <th>პერიოდი</th>
-      <th>რაოდ.</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @streets.any? %>
-      <% @streets.each do |str| %>
-      <tr>
-        <td>
-          <strong><%= str.region %></strong> &mdash;
-          <%= str.streetname %>
-        </td>
-        <td>
-          <code><%= str.outage.accnumb %></code>
-          <%= str.outage.category_name %>
-        </td>
-        <td>
-          <%= str.outage.start %> &mdash; <%= str.outage.end %>
-        </td>
-        <td><code><%= str.count %></code> აბონენტი</td>
-      </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <td colspan="4" style="padding:32px; color: #aaa; text-align: center;">ყველა ქუჩა განათებულია!</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'call/outages' %>
