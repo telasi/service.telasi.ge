@@ -34,3 +34,5 @@
   t.title_action call_home_url(format: 'xlsx'), label: 'ექსელში', icon: '/assets/fff/page_excel.png'
   t.item_action ->(x){ call_complete_task_url(id: x.id) }, icon: '/assets/fff/tick.png', method: 'post', confirm: 'ნადვილად გინდათ დასრულება?', condition: ->(x){ not current_user.all_regions }
 end %>
+
+<%= render partial: 'call/outages' %>
