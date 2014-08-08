@@ -37,7 +37,6 @@ class Call::Outage
 
   protected
 
-  def find_customer; Bs::Customer.where(accnumb: self.accnumb.to_geo).first end
   def customer_presence; errors.add(:accnumb, 'ასეთი აბონენტი ვერ მოიძებნა') if find_customer.blank? end
   def on_before_save; self.custkey = find_customer.custkey if self.accnumb_changed? end
 
@@ -67,5 +66,13 @@ class Call::Outage
       $outage_parent[self.accnumb] = Bs::Account.find(relation.base_acckey).customer
     end
     $outage_parent[self.accnumb]
+  end
+
+  def find_customer
+    $outage_customer = {} if $outage_customer.blank?
+    if $outage_customer[self.accnumb].blank?
+      $outage_customer[self.accnumb] = Bs::Customer.where(accnumb: self.accnumb.to_geo).first
+    end
+    $outage_customer[self.accnumb]
   end
 end
