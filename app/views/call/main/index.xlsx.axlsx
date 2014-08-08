@@ -4,7 +4,7 @@ wb.add_worksheet(name: "report") do |sheet|
   @tasks.each do |task|
     sheet.add_row [
       "##{task.customer.accnumb}", task.status.to_s, task.category.to_s,  task.region, task.customer.address, task.mobile, task.title, task.messages.count, task.comments.count,
-      task.created_at.strftime('%d-%b-%Y %H:%M:%S'),task.updated_at.strftime('%d-%b-%Y %H:%M:%S'),
+      task.created_at.localtime.strftime('%d-%b-%Y %H:%M:%S'),task.updated_at.localtime.strftime('%d-%b-%Y %H:%M:%S'),
       task.user.full_name
     ]
   end
