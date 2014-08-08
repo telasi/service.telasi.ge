@@ -3,14 +3,20 @@
   streets = (outage ? [outage] : Call::Outage.where(active: true).desc(:_id)).map{ |x| x.streets }.flatten
 %>
 
+<%= url_for request.params %>
+
 <h3 class="page-header">
   გათიშული ქუჩები
 </h3>
 <% if outage %>
-  <p class="alert">
+  <div class="alert" style="padding: 8px 14px;">
+    <div class="pull-right">
+      <% params2 = request.params.clone ; params2.delete(:id) %>
+      <%= link_to 'ყველა გამორთვა', url_for(params2) %>
+    </div>
     ფილტრი: <strong><%= outage.parent.custname.to_ka rescue '' %></strong>
     <span class="muted"><%= outage.customer.custname.to_ka %></span>
-  </p>
+  </div>
 <% end %>
 <table class="table table-bordered table-stripped">
   <thead>
@@ -25,24 +31,25 @@
   <tbody>
     <% if streets.any? %>
       <% streets.each_with_index do |str, idx| %>
-      <tr>
-        <td>
-          <strong><%= str.outage.parent.custname.to_ka rescue '' %></strong>
-          <span class="muted"><%= str.outage.accnumb %></span>
-        </td>
-        <td>
-          <strong><%= str.region %></strong> &mdash;
-          <%= str.streetname %>
-        </td>
-        <td>
-          <strong><%= str.outage.category_name %></strong>
-          <span class="muted"><%= str.outage.description %></span>
-        </td>
-        <td>
-          <%= str.outage.start %> &mdash; <%= str.outage.end %>
-        </td>
-        <td><code><%= str.count %></code> აბონენტი</td>
-      </tr>
+        <tr>
+          <td>
+            <% params3 = request.params.clone ; params3[:id] = str.outage.id.to_s %>
+            <strong><%= link_to str.outage.parent.custname.to_ka, url_for(params3) %></strong>
+            <span class="muted"><%= str.outage.accnumb %></span>
+          </td>
+          <td>
+            <strong><%= str.region %></strong> &mdash;
+            <%= str.streetname %>
+          </td>
+          <td>
+            <strong><%= str.outage.category_name %></strong>
+            <span class="muted"><%= str.outage.description %></span>
+          </td>
+          <td>
+            <%= str.outage.start %> &mdash; <%= str.outage.end %>
+          </td>
+          <td><code><%= str.count %></code> აბონენტი</td>
+        </tr>
       <% end %>
     <% else %>
       <tr>
