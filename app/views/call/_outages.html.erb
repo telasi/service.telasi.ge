@@ -3,8 +3,6 @@
   streets = (outage ? [outage] : Call::Outage.where(active: true).desc(:_id)).map{ |x| x.streets }.flatten
 %>
 
-<%= url_for request.params %>
-
 <h3 class="page-header">
   გათიშული ქუჩები
 </h3>
