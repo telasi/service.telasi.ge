@@ -4,7 +4,10 @@ class Call::MainController < Call::CallController
   def index
     @title = 'ქოლ-ცენტრი'
     respond_to do |format|
-      format.html{ @tasks = open_tasks.desc(:_id).paginate(per_page: 10, page: params[:page]) }
+      format.html do
+        @tasks = open_tasks.desc(:_id).paginate(per_page: 10, page: params[:page])
+        @outage = Call::Outage.find(params[:id]) if params[:id].present?
+      end
       format.xlsx{ @tasks = open_tasks.desc(:_id) }
     end
   end
