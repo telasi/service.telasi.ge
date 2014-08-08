@@ -5,7 +5,7 @@
   t.item_action ->(x){ call_edit_outage_url(id: x.id) }, icon: '/assets/fff/pencil.png'
   t.item_action ->(x){ call_delete_outage_url(id: x.id) }, icon: '/assets/fff/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
   t.item_action ->(x){ call_outage_on_url(id: x.id) }, icon: '/assets/fff/tick.png', method: 'post', confirm: 'ნამდვილად გინდათ გათიშვის გაუქმება?', condition: ->(x){ x.active }
-  t.complex_field label: 'ობიქტი' do |t|
+  t.complex_field label: 'ობიქტი', url: ->(x){ call_outages_url(id: x.id) } do |t|
     t.text_field 'parent.custname.to_ka', tag: 'strong', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
     t.text_field 'accnumb', class: 'muted'
   end
@@ -13,7 +13,7 @@
     t.text_field 'category_name', tag: 'strong'
     t.text_field 'description', empty: false
   end
-  t.text_field 'start', label: 'დასაწყისი', url: ->(x){ call_outage_url(id:x.id) }
-  t.text_field 'end', label: 'დასასრული', url: ->(x){ call_outage_url(id:x.id) }
+  t.text_field 'start', label: 'დასაწყისი' #, url: ->(x){ call_outage_url(id:x.id) }
+  t.text_field 'end', label: 'დასასრული'   #, url: ->(x){ call_outage_url(id:x.id) }
 end %>
-<%= render partial: 'call/outages' %>
+<%= render partial: 'call/outages', locals: { outage: @outage } %>

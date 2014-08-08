@@ -2,7 +2,8 @@
 class Call::OutagesController < Call::CallController
   def index
     @title = 'გათიშვები'
-    @outages = Call::Outage.desc(:_id).paginate(page: params[:page], per_page: params[:per_page])
+    @outages = Call::Outage.where(active: true).desc(:_id).paginate(page: params[:page], per_page: params[:per_page])
+    @outage = Call::Outage.find(params[:id]) if params[:id].present?
     navbuttons
   end
 

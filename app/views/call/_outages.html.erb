@@ -1,6 +1,17 @@
-<% streets = Call::Outage.where(active: true).desc(:_id).map{ |x| x.streets }.flatten %>
+<%
+  outage = nil if not defined?(outage)
+  streets = (outage ? [outage] : Call::Outage.where(active: true).desc(:_id)).map{ |x| x.streets }.flatten
+%>
 
-<h3 class="page-header">გათიშული ქუჩები</h3>
+<h3 class="page-header">
+  გათიშული ქუჩები
+</h3>
+<% if outage %>
+  <p class="alert">
+    ფილტრი: <strong><%= outage.parent.custname.to_ka rescue '' %></strong>
+    <span class="muted"><%= outage.customer.custname.to_ka %></span>
+  </p>
+<% end %>
 <table class="table table-bordered table-stripped">
   <thead>
     <tr>
@@ -13,7 +24,7 @@
   </thead>
   <tbody>
     <% if streets.any? %>
-      <% streets.each do |str| %>
+      <% streets.each_with_index do |str, idx| %>
       <tr>
         <td>
           <strong><%= str.outage.parent.custname.to_ka rescue '' %></strong>
