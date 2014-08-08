@@ -33,12 +33,7 @@ class Call::Outage
   def start; "#{Date.strptime(self.start_date).strftime('%d/%m/%Y')} #{self.start_time}" rescue "#{self.start_date} #{self.start_time}" end
   def end; "#{Date.strptime(self.end_date).strftime('%d/%m/%Y')} #{self.end_time}" rescue "#{self.end_date} #{self.end_time}" end
   def category_name; NAMES[self.category] end
-
-  def parent
-    mainacc = self.customer.accounts.where(mainaccount: 1).first
-    relation = Bs::Accrel.where(acckey: mainacc.acckey).first
-    Bs::Account.find(relation.base_acckey).customer
-  end
+  def parent; find_parent end
 
   protected
 
@@ -60,7 +55,17 @@ class Call::Outage
     end
   end
 
-  def on_before_update
-    on_after_create if self.accnumb_changed?
+  def on_before_update; on_after_create if self.accnumb_changed? end
+
+  private
+
+  def find_parent
+    $outage_parent = {} if $outage_parent.blank?
+    if $outage_parent[self.accnumb].blank?
+      mainacc = self.customer.accounts.where(mainaccount: 1).first
+      relation = Bs::Accrel.where(acckey: mainacc.acckey).first
+      $outage_parent[self.accnumb] = Bs::Account.find(relation.base_acckey).customer
+    end
+    $outage_parent[self.accnumb]
   end
 end
