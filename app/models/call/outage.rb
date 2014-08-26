@@ -33,7 +33,7 @@ class Call::Outage
   def start; "#{Date.strptime(self.start_date).strftime('%d/%m/%Y')} #{self.start_time}" rescue "#{self.start_date} #{self.start_time}" end
   def end; "#{Date.strptime(self.end_date).strftime('%d/%m/%Y')} #{self.end_time}" rescue "#{self.end_date} #{self.end_time}" end
   def category_name; NAMES[self.category] end
-  def parent; find_parent end
+  def parent; find_parent rescue nil end
 
   protected
 
