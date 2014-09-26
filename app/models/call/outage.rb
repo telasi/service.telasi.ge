@@ -58,7 +58,7 @@ class Call::Outage
 
   def ___streetinclusion(acc)
     Bs::Accrel.where(base_acckey: acc.acckey).each do |rel|
-      if rel.reltype == 4 # meter!
+      if rel.reltype == 3 # tp -> (meter?)
         address = rel.account.address
         street = address.street.streetname.to_ka
         str = self.streets.where(streetname: street).first || Call::OutageStreet.new(outage: self, streetname: street, region: address.region.regionname.to_ka)
