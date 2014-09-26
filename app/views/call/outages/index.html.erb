@@ -1,4 +1,5 @@
 <%= render partial: 'call/top' %>
+<%= render partial: 'call/outages/style' %>
 <div class="page-header">
   <div class="pull-right">
     <%= link_to 'გათიშვების არქივი', call_outage_archive_url, class: 'btn' %>
@@ -20,5 +21,7 @@
   end
   t.text_field 'start', label: 'დასაწყისი' #, url: ->(x){ call_outage_url(id:x.id) }
   t.text_field 'end', label: 'დასასრული'   #, url: ->(x){ call_outage_url(id:x.id) }
+  t.row_class ->(x){ x.outage_class }
+  t.checkboxes true
 end %>
 <%= render partial: 'call/outages', locals: { outage: @outage } %>

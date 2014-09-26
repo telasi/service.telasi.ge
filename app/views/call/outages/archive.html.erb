@@ -1,5 +1,5 @@
 <%= render partial: 'call/top' %>
-
+<%= render partial: 'call/outages/style' %>
 <%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
   t.complex_field label: 'ობიქტი', url: ->(x){ call_outage_url(id:x.id) } do |t|
     t.text_field 'parent.custname.to_ka', tag: 'strong', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
@@ -12,4 +12,6 @@
   t.text_field 'start', label: 'დასაწყისი'
   t.text_field 'end', label: 'დასასრული'
   t.paginate records: 'ჩანაწერი'
+  t.row_class ->(x){ x.outage_class }
+  t.checkboxes true
 end %>

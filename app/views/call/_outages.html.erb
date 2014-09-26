@@ -29,7 +29,7 @@
   <tbody>
     <% if streets.any? %>
       <% streets.each_with_index do |str, idx| %>
-        <tr>
+        <tr class="<%= str.outage.outage_class %>">
           <td>
             <% params3 = request.params.clone ; params3[:id] = str.outage.id.to_s %>
             <strong><%= link_to str.outage.parent.custname.to_ka, url_for(params3) %></strong>
