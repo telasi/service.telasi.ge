@@ -43,18 +43,31 @@ class Call::Outage
   def on_after_create
     customer = find_customer
     customer.accounts.each do |acc|
-      relations = Bs::Accrel.where(base_acckey: acc.acckey)
-      relations.each do |rel|
-        address = rel.account.address
-        street = address.street.streetname.to_ka
-        str = self.streets.where(streetname: street).first || Call::OutageStreet.new(outage: self, streetname: street)
-        str.count += 1 ; str.region = address.region.regionname.to_ka
-        str.save
-      end
+      # relations = Bs::Accrel.where(base_acckey: acc.acckey)
+      # relations.each do |rel|
+      #   address = rel.account.address
+      #   street = address.street.streetname.to_ka
+      #   str = self.streets.where(streetname: street).first || Call::OutageStreet.new(outage: self, streetname: street, region: address.region.regionname.to_ka)
+      #   str.count += 1 ; str.save
+      # end
+      ___streetinclusion(acc)
     end
   end
 
   def on_before_update; on_after_create if self.accnumb_changed? end
+
+  def ___streetinclusion(acc)
+    Bs::Accrel.where(base_acckey: acc.acckey).each do |rel|
+      if rel.reltype == 4 # meter!
+        address = rel.account.address
+        street = address.street.streetname.to_ka
+        str = self.streets.where(streetname: street).first || Call::OutageStreet.new(outage: self, streetname: street, region: address.region.regionname.to_ka)
+        str.count += 1 ; str.save
+      else
+        ___streetinclusion(rel.account)
+      end
+    end
+  end
 
   private
 
