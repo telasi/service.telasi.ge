@@ -1,0 +1,34 @@
+<script type="text/javascript">
+  var allModelBoxes = function() {
+    return $('input[type="checkbox"]').filter(function() { return this.id.indexOf('model-') !== -1; });
+  };
+
+  var allSelectedIds = function() {
+    var boxes = allModelBoxes().toArray();
+    return boxes.filter(function(x) { return $(x).is(':checked'); }).map(function(x) {
+      return x.id.slice(6);
+    });
+  };
+
+  $(function() {
+    $('#all-models').change(function() {
+      var boxes = allModelBoxes();
+      boxes.prop('checked', $('#all-models').is(':checked'));
+    });
+
+    $('#delete-outages').click(function() {
+      var ids = allSelectedIds();
+      if (ids.length === 0) {
+        alert('მონიშნეთ გასათიში გათიშვები!');
+      } else {
+        $.post('<%= call_outage_ons_url %>', { ids: ids }, function() {
+          window.location.reload();
+        }).error(function(error) {
+          console.log(error);
+          alert('მოხდა შეცდომა: სცადეთ ხელახლა!');
+        });
+      }
+      return false;
+    });
+  });
+</script>

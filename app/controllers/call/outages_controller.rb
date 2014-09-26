@@ -25,6 +25,15 @@ class Call::OutagesController < Call::CallController
     redirect_to call_outages_url, notice: 'გათიშვა გაუქმებულია'
   end
 
+  def ons
+    outages = Call::Outage.in(_id: params[:ids])
+    outages.each do |out|
+      out.active = false
+      out.save
+    end
+    render text: 'ok'
+  end
+
   def new
     @title = 'ახალი გათიშვა'
     if request.post?

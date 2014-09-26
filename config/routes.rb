@@ -243,6 +243,7 @@ TelasiService::Application.routes.draw do
       match '/edit/:id', action: 'edit', as: 'edit_outage'
       delete '/delete/:id', action: 'delete', as: 'delete_outage'
       post '/on/:id', action: 'on', as: 'outage_on'
+      post '/ons', action: 'ons', as: 'outage_ons'
     end
   end
 
