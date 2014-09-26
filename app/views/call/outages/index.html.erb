@@ -1,5 +1,10 @@
 <%= render partial: 'call/top' %>
-<h2 class="page-header"><%= @title %></h2>
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to 'გათიშვების არქივი', call_outage_archive_url, class: 'btn' %>
+  </div>
+  <h2><%= @title %></h2>
+</div>
 <%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
   t.title_action call_new_outage_url, label: 'ახალი გათიშვა', icon: '/assets/fff/lightning_add.png'
   t.item_action ->(x){ call_edit_outage_url(id: x.id) }, icon: '/assets/fff/pencil.png'

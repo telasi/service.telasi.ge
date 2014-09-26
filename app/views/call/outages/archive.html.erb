@@ -1,0 +1,15 @@
+<%= render partial: 'call/top' %>
+
+<%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
+  t.complex_field label: 'ობიქტი', url: ->(x){ call_outage_url(id:x.id) } do |t|
+    t.text_field 'parent.custname.to_ka', tag: 'strong', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
+    t.text_field 'accnumb', class: 'muted'
+  end
+  t.complex_field label: 'მიზეზი' do |t|
+    t.text_field 'category_name', tag: 'strong'
+    t.text_field 'description', empty: false
+  end
+  t.text_field 'start', label: 'დასაწყისი'
+  t.text_field 'end', label: 'დასასრული'
+  t.paginate records: 'ჩანაწერი'
+end %>

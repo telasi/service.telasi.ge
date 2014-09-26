@@ -2,8 +2,14 @@
 class Call::OutagesController < Call::CallController
   def index
     @title = 'გათიშვები'
-    @outages = Call::Outage.where(active: true).desc(:_id) #.paginate(page: params[:page], per_page: params[:per_page])
+    @outages = Call::Outage.where(active: true).desc(:_id)
     @outage = Call::Outage.find(params[:id]) if params[:id].present?
+    navbuttons
+  end
+
+  def archive
+    @title = 'გათიშვების არქივი'
+    @outages = Call::Outage.desc(:_id).paginate(page: params[:page], per_page: 10)
     navbuttons
   end
 
@@ -50,6 +56,8 @@ class Call::OutagesController < Call::CallController
 
   def navbuttons
     @nav = { 'მთავარი' => call_home_url, 'გათიშვები' => call_outages_url }
-    @nav[@title] = nil if @outage
+    if @outage or action_name == 'archive'
+      @nav[@title] = nil
+    end
   end
 end
