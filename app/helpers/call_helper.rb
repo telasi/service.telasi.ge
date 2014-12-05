@@ -63,11 +63,11 @@ module CallHelper
       end
       f.complex_field label: 'დასაწყისი', required: true do |f|
         f.date_field 'start_date'
-        f.text_field 'start_time', width: '50'
+        f.combo_field 'start_time', collection: hours_hash, empty: false
       end
       f.complex_field label: 'დასასრული' do |f|
         f.date_field 'end_date'
-        f.text_field 'end_time', width: '50'
+        f.combo_field 'end_time', collection: hours_hash, empty: false
       end
       f.submit 'შენახვა'
       f.bottom_action cancel_url, label: 'გაუქმება'
