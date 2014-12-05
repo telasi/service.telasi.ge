@@ -1,26 +1,11 @@
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to 'ისტორია', cra_history_url, class: 'btn' %>
-  </div>
   <h2>სამოქალაქო რეესტრი <small>პიროვნების შესახებ ინფორმაციის ძებნა</small></h2>
 </div>
 
-<div>
-  <div class="page-header">
-    <h3>ძებნა პირადობის მოწმობის მიხედვით</h3>
-  </div>
-  <%= render partial: 'form_id_card' %>
-  
-  <div class="page-header">
-    <h3>ძებნა სახელი-გვარით და დაბ.თარიღით</h3>
-  </div>
-  <%= render partial: 'form_name_and_dob' %>
-
-  <div class="page-header">
-    <h3>ძებნა მისამართების მიხედვით</h3>
-  </div>
-  <div class="btn-toolbar">
-    <%= link_to 'საქართველო', cra_by_address_url(1), class: 'btn' %>
-    <%= link_to 'თბილისი', cra_by_address_url(4), class: 'btn' %>
-  </div>
+<div class="well">
+  <h1 style="color:red; text-align: center;" class="page-header">შეჩერებულია!</h1>
+  <p>
+    2014  წლის 1 დეკემბრიდან სს "თელასმა" აღარ გააგრძელა ხელშეკრულება სამოქალაქო რეესტრთან.
+    შესაბამისად ეს სერვისიც გათიშულია.
+  </p>
 </div>
