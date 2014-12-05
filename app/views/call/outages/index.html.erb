@@ -1,16 +1,22 @@
+<% has_action_permission = current_user.call_admin %>
 <%= render partial: 'call/top' %>
 <div class="page-header">
-  <div class="pull-right">
-    <%= link_to 'გათიშვების არქივი', call_outage_archive_url, class: 'btn' %>
-  </div>
+  <% if has_action_permission %>
+    <div class="pull-right">
+      <%= link_to 'გათიშვების არქივი', call_outage_archive_url, class: 'btn' %>
+    </div>
+  <% end %>
   <h2><%= @title %></h2>
 </div>
+
 <%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
-  t.title_action call_new_outage_url, label: 'ახალი გათიშვა', icon: '/assets/fff/lightning_add.png'
-  t.title_action '#', label: 'მონიშნულების დახურვა', icon: '/assets/fff/tick.png', id: 'delete-outages'
-  t.item_action ->(x){ call_edit_outage_url(id: x.id) }, icon: '/assets/fff/pencil.png'
-  t.item_action ->(x){ call_delete_outage_url(id: x.id) }, icon: '/assets/fff/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
-  t.item_action ->(x){ call_outage_on_url(id: x.id) }, icon: '/assets/fff/tick.png', method: 'post', confirm: 'ნამდვილად გინდათ გათიშვის გაუქმება?', condition: ->(x){ x.active }
+  if has_action_permission
+    t.title_action call_new_outage_url, label: 'ახალი გათიშვა', icon: '/assets/fff/lightning_add.png'
+    t.title_action '#', label: 'მონიშნულების დახურვა', icon: '/assets/fff/tick.png', id: 'delete-outages'
+    t.item_action ->(x){ call_edit_outage_url(id: x.id) }, icon: '/assets/fff/pencil.png'
+    t.item_action ->(x){ call_delete_outage_url(id: x.id) }, icon: '/assets/fff/bin.png', method: 'delete', confirm: 'ნამდვილად გინდათ წაშლა?'
+    t.item_action ->(x){ call_outage_on_url(id: x.id) }, icon: '/assets/fff/tick.png', method: 'post', confirm: 'ნამდვილად გინდათ გათიშვის გაუქმება?', condition: ->(x){ x.active }
+  end
   t.complex_field label: 'ობიქტი', url: ->(x){ call_outages_url(id: x.id) } do |t|
     t.text_field 'parent.custname.to_ka', tag: 'strong', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }
     t.text_field 'accnumb', class: 'muted'
