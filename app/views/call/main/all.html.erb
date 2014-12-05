@@ -10,9 +10,13 @@
     f.col2 do |f|
       f.combo_field 'user_id', collection: User.where(call_center: true, all_regions: true).asc(:first_name, :last_name), label: 'ოპერატორი',  empty: '--ყველა ოპერატორი--'
       f.combo_field 'region_id', collection: Ext::Region.all, label: 'რეგიონი', empty: '--ყველა რეგიონი--'
-      f.complex_field label: 'თარიღი' do |c|
+      f.complex_field label: 'მინ.თარიღი' do |c|
         c.date_field 'd1'
+        c.combo_field 't1', collection: hours_hash, empty: '--'
+      end
+      f.complex_field label: 'მაქს.თარიღი' do |c|
         c.date_field 'd2'
+        c.combo_field 't2', collection: hours_hash, empty: '--'
       end
     end
   end

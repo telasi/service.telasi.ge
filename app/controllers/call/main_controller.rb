@@ -43,10 +43,16 @@ class Call::MainController < Call::CallController
       rel = rel.where(status_id: @search[:status_id]) if @search[:status_id].present?
       rel = rel.where(user_id: @search[:user_id]) if @search[:user_id].present?
       rel = rel.where(region_id: @search[:region_id]) if @search[:region_id].present?
-      d1 = Date.strptime(@search[:d1]) if @search[:d1].present?
-      d2 = Date.strptime(@search[:d2]) if @search[:d2].present?
-      rel = rel.where(:created_at.gte => d1) if d1.present?
-      rel = rel.where(:created_at.lte => d2 + 1) if d2.present?
+      if @search[:d1].present?
+        d1str = "#{@search[:d1]} #{@search[:t1].present? ? @search[:t1] : '00:00'}"
+        d1 = Time.strptime(d1str, '%Y-%m-%d %H:%M')
+        rel = rel.where(:created_at.gte => d1)
+      end
+      if @search[:d2].present?
+        d2str = "#{@search[:d2]} #{@search[:t2].present? ? @search[:t2] : '24:00'}"
+        d2 = Time.strptime(d2str, '%Y-%m-%d %H:%M')
+        rel = rel.where(:created_at.lte => d2)
+      end
     end
     respond_to do |format|
       format.html do
