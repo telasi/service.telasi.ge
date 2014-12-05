@@ -1,5 +1,17 @@
 <%= render partial: 'call/top' %>
 <%= render partial: 'call/outages/style' %>
+
+<%= search_form @search do |f|
+  f.tab do |f|
+    f.text_field 'accnumb', label: 'აბონენტის #'
+    f.complex_field label: 'თარიღი' do |c|
+      c.date_field 'd1'
+      c.date_field 'd2'
+    end
+    f.combo_field 'category', collection: Call::Outage::CATEGORIES, empty: '--ყველა კატეგორია--', label: 'კატეგორია'
+  end
+end %>
+
 <%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
   t.complex_field label: 'ობიქტი', url: ->(x){ call_outage_url(id:x.id) } do |t|
     t.text_field 'parent.custname.to_ka', tag: 'strong', icon: ->(x){ x.active ? '/assets/fff/cancel.png' : '/assets/fff/tick.png' }

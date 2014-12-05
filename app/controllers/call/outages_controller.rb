@@ -9,7 +9,18 @@ class Call::OutagesController < Call::CallController
 
   def archive
     @title = 'გათიშვების არქივი'
-    @outages = Call::Outage.desc(:_id).paginate(page: params[:page], per_page: 10)
+    @search = params[:search] == 'clear' ? {} : params[:search]
+    rel = Call::Outage
+    if @search
+      customer = Bs::Customer.where(accnumb: @search[:accnumb].strip.to_geo).first rescue nil
+      rel = rel.where(custkey: customer.custkey) if customer
+      rel = rel.where(category: @search[:category]) if @search[:category].present?
+      d1 = Date.strptime(@search[:d1]) if @search[:d1].present?
+      d2 = Date.strptime(@search[:d2]) if @search[:d2].present?
+      rel = rel.where(:created_at.gte => d1) if d1.present?
+      rel = rel.where(:created_at.lte => d2 + 1) if d2.present?
+    end
+    @outages = rel.desc(:_id).paginate(page: params[:page], per_page: 10)
     navbuttons
   end
 
