@@ -26,7 +26,9 @@
   <%= f.input :bs_person, label: 'ბილინგის კოდი' %>
   <%= f.input :cra, as: 'boolean', label: false, inline_label: 'რეესტრის მონაცემების ნახვა' %>
   <h4>ქოლ-ცენტრის უფლებები</h4> <hr>
-  <%= f.input :call_center, as: 'boolean', label: false, inline_label: 'ქოლ-ცენტრის პროგამით სარგებლობა' %>
+  <%= f.input :call_center, as: 'boolean', label: false, inline_label: 'ქოლ-ცენტრის პროგამით 
+  სარგებლობა' %>
+  <%= f.input :call_admin, as: 'boolean', label: false, inline_label: 'ქოლ-ცენტრის ადმინისტრატორი' %>
   <h5>რეგიონები:</h5> <hr>
   <%= f.input :all_regions, as: 'boolean', label: false, inline_label: 'ყველა რეგიონზე აქვს წვდომა?' %>
   <div class="regions">

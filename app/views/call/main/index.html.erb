@@ -22,7 +22,7 @@
   <%= link_to icon_text('search', 'აბონენტების ძებნა', white: true), call_customer_url, class: ['btn', 'btn-success', 'btn-large'] %>
   <%= link_to icon_text('tasks', 'ყველა დავალება'), call_all_tasks_url, class: ['btn', 'btn-large'] %>
   <%= link_to icon_text('bookmark', 'დოკუმენტები'), call_docs_url, class: ['btn', 'btn-large'] %>
-  <%= role_content :all_regions do %>
+  <%= role_content :call_admin do %>
     <%= link_to icon_text('fire', 'გათიშვები'), call_outages_url, class: ['btn', 'btn-large'] %>
   <% end %>
   <%= role_content :sys_admin do %>

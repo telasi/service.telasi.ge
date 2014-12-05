@@ -74,6 +74,7 @@ class User
 
   # აქვს თუ არა ქოლ-ცენტრით სარგებლობის უფლება.
   field :call_center, type: Boolean
+  field :call_admin,  type: Boolean, default: false
 
   # ყველა რეგიონი აქვს?
   field :all_regions, type: Boolean
