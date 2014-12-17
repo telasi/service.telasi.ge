@@ -1,11 +1,2 @@
 <%= render partial: 'sys/gis/gis_menu' %>
-
-<%= forma_for @receiver, title: @title do |f|
-  f.text_field 'name', required: true, autofocus: true, label: 'სახელი, გვარი'
-  f.text_field 'mobile', required: true, label: 'მობილური'
-  f.text_field 'groups', required: true, label: 'ჯგუფ(ებ)ი'
-  f.boolean_field 'active', required: true, label: 'აქტიური?'
-  f.combo_field 'locale', collection: {'ქართული' => 'ka', 'Русский' => 'ru'}, empty: false, required: true, label: 'ენა'
-  f.text_field 'note', label: 'შენიშვნები', width: 400
-  f.submit 'შენახვა'
-end %>
+<%= render partial: 'sys/gis/summary_receiver_form' %>
