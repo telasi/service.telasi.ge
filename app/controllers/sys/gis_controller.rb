@@ -130,6 +130,12 @@ class Sys::GisController < ApplicationController
     end
   end
 
+  def delete_summary_receiver
+    receiver = Gis::SummaryReceiver.find(params[:id])
+    receiver.destroy
+    redirect_to sys_gis_summary_receivers_url, notice: 'მიმღები წაშლილია'
+  end
+
 # შეტყობინებები.
 
   def messages
