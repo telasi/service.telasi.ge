@@ -120,6 +120,16 @@ class Sys::GisController < ApplicationController
     end
   end
 
+  def edit_summary_receiver
+    @title = 'მიმღების შეცვლა'
+    @receiver = Gis::SummaryReceiver.find(params[:id])
+    if request.post?
+      if @receiver.update_attributes(params[:gis_summary_receiver])
+        redirect_to sys_gis_summary_receivers_url, notice: 'მიმღები შეცვლილია'
+      end
+    end
+  end
+
 # შეტყობინებები.
 
   def messages

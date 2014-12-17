@@ -4,6 +4,7 @@
 
 <%= table_for @receivers, title: @title do |t|
   t.title_action sys_new_gis_summary_receiver_url, label: 'ახალი მიმღები'
+  t.item_action ->(x){ sys_edit_gis_summary_receiver_url(x) }, label: 'შეცვლა'
   t.boolean_field 'active', label: '?'
   t.text_field 'mobile', label: 'მობილური', tag: 'code', after: ->(x){x.locale}
   t.text_field 'name', label: 'სახელი, გვარი'
