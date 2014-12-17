@@ -14,32 +14,33 @@ h1 {
 </style>
 <h1>GIS &mdash; მთავარი მენიუ</h1>
 <%= role_content :sys_admin, :gis_viewer do %>
-<div class="section">
-  <h2>შეტყობინებები</h2>
-  <div class="btn-toolbar">
-    <%= link_to icon_text('envelope', t(:gis_logs)), sys_gis_messages_path, class: 'btn' %>
-    <%= link_to icon_text('list', t(:gis_network_logs)), sys_gis_logs_path, class: 'btn' %>
+  <div class="section">
+    <h2>შეტყობინებები</h2>
+    <div class="btn-toolbar">
+      <%= link_to icon_text('envelope', t(:gis_logs)), sys_gis_messages_path, class: 'btn' %>
+      <%= link_to icon_text('list', t(:gis_network_logs)), sys_gis_logs_path, class: 'btn' %>
+    </div>
   </div>
-</div>
-<div class="section">
-  <h2>ქსელის ობიექტები</h2>
-  <div class="btn-toolbar">
-    <%= link_to icon_text('star', 'ქვესადგურის სექციები'), sys_sections_url, class: 'btn' %>
-    <%= link_to icon_text('star', 'ფიდერები'), sys_fiders_url, class: 'btn' %>
-    <%= link_to icon_text('star', 'ტრანსფორმატორები'), sys_transformators_path, class: 'btn' %>
+  <div class="section">
+    <h2>ქსელის ობიექტები</h2>
+    <div class="btn-toolbar">
+      <%= link_to icon_text('star', 'ქვესადგურის სექციები'), sys_sections_url, class: 'btn' %>
+      <%= link_to icon_text('star', 'ფიდერები'), sys_fiders_url, class: 'btn' %>
+      <%= link_to icon_text('star', 'ტრანსფორმატორები'), sys_transformators_path, class: 'btn' %>
+    </div>
   </div>
-</div>
-<div class="section">
-  <h2>რეპორტები</h2>
-  <div class="btn-toolbar">
-    <%= link_to 'TP-ს სტატუსები', sys_gis_report_tp_statuses_url, class: 'btn' %>
-    <%= link_to 'ქსელის მდგომარეობა', sys_gis_network_status_url, class: 'btn' %>
+  <div class="section">
+    <h2>რეპორტები</h2>
+    <div class="btn-toolbar">
+      <%= link_to 'TP-ს სტატუსები', sys_gis_report_tp_statuses_url, class: 'btn' %>
+      <%= link_to 'ქსელის მდგომარეობა', sys_gis_network_status_url, class: 'btn' %>
+    </div>
   </div>
-</div>
-<div class="section">
-  <h2>პარამეტრები</h2>
-  <div class="btn-toolbar">
-    <%= link_to 'დაგზავნის სია', sys_gis_receivers_url, class: 'btn' %>
+  <div class="section">
+    <h2>პარამეტრები</h2>
+    <div class="btn-toolbar">
+      <%= link_to 'დაგზავნის სია', sys_gis_receivers_url, class: 'btn' %>
+      <%= link_to 'დაგზავნის სია (შემაჯამებელი)', sys_gis_summary_receivers_url, class: 'btn' %>
+    </div>
   </div>
-</div>
 <% end %>

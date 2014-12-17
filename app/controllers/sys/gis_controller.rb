@@ -7,7 +7,12 @@ class Sys::GisController < ApplicationController
     case action_name
     when 'messages' then items['შეტყობინებები'] = sys_gis_messages_url
     when 'message' then items['შეტყობინებები'] = sys_gis_messages_url and items[@title] = nil
-    when 'new_receiver', 'edit_receiver' then items['დაგზავნის სია'] = sys_gis_receivers_url and items[@title] = nil
+    when 'new_receiver', 'edit_receiver'
+      items['დაგზავნის სია'] = sys_gis_receivers_url
+      items[@title] = nil
+    when 'summary_receivers', 'new_summary_receiver', 'edit_summary_receiver'
+      items['დაგზავნის სია (შემაჯამებელი)'] = sys_gis_summary_receivers_url
+      items[@title] = nil
     else items[@title] = nil
     end
     items
@@ -94,6 +99,25 @@ class Sys::GisController < ApplicationController
     receiver = Gis::Receiver.find(params[:id])
     receiver.destroy
     redirect_to sys_gis_receivers_url, notice: 'მიმღები წაშლილია.'
+  end
+
+# summary_receivers
+
+  def summary_receivers
+    @title = 'დაგზავნის სია (შემაჯამებელი)'
+    @receivers = Gis::SummaryReceiver.active.asc(:name)
+  end
+
+  def new_summary_receiver
+    @title = 'ახალი მიმღები'
+    if request.post?
+      @receiver = Gis::SummaryReceiver.new(params[:gis_summary_receiver])
+      if @receiver.save
+        redirect_to sys_gis_summary_receivers_url, notice: 'მიმღები შექმნილია'
+      end
+    else
+      @receiver = Gis::SummaryReceiver.new
+    end
   end
 
 # შეტყობინებები.

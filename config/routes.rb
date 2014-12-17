@@ -82,6 +82,13 @@ TelasiService::Application.routes.draw do
       match '/receiver/new', action: :new_receiver, as: :gis_new_receiver
       match '/receiver/edit/:id', action: :edit_receiver, as: :gis_edit_receiver
       delete '/receiver/:id', action: :delete_receiver, as: :gis_delete_receiver
+      # summary_receivers
+      scope '/summary_receivers' do
+        get '/', action: 'summary_receivers', as: 'gis_summary_receivers'
+        match '/new', action: 'new_summary_receiver', as: 'new_gis_summary_receiver'
+        match '/edit/:id', action: 'edit_summary_receiver', as: 'edit_gis_summary_receiver'
+        delete '/:id', action: 'delete_summary_receiver', as: 'delete_gis_summary_receiver'
+      end
       # messages
       get '/messages', action: :messages, as: :gis_messages
       get '/message/:id', action: :message, as: :gis_message
