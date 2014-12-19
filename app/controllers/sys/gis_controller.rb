@@ -164,7 +164,7 @@ class Sys::GisController < ApplicationController
 
   def send_summary_report
     report = Gis::SummaryReport.find(params[:id])
-    report.send_report
+    report.send_report(true)
     redirect_to sys_gis_summary_report_url(report), notice: 'გაგზავნილია!'
   end
 
