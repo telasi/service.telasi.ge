@@ -108,6 +108,7 @@ class Ext::Gis::Transformator
     end
     self.save
   end
+
   def self.sync_current_status; Ext::Gis::Transformator.each { |x| x. sync_current_status } end
 
   REGION_MAPPINGS = {

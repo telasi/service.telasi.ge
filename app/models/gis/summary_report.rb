@@ -11,6 +11,15 @@ class Gis::SummaryReport
 
   def sent?; self.sent == self.total end
 
+  def send_report
+    self.details.each do |det|
+      number = det.receiver.mobile
+      text = det.receiver.locale == 'ka' ? self.text_ka : self.text_ru
+      Magti.send_sms(number, text) if Magti::SEND
+      det.update_attributes(sent: true)
+    end
+  end
+
   def self.generate_summary_report(groupid)
     # get receivers in this group
     receivers = Gis::SummaryReceiver.where(active: true).to_a.select{|x| x.groupids.include?(groupid)}

@@ -84,17 +84,17 @@ TelasiService::Application.routes.draw do
       delete '/receiver/:id', action: :delete_receiver, as: :gis_delete_receiver
       # summary_receivers
       scope '/summary_receivers' do
-        get '/', action: 'summary_receivers', as: 'gis_summary_receivers'
-        match '/new', action: 'new_summary_receiver', as: 'new_gis_summary_receiver'
-        match '/edit/:id', action: 'edit_summary_receiver', as: 'edit_gis_summary_receiver'
-        delete '/:id', action: 'delete_summary_receiver', as: 'delete_gis_summary_receiver'
+        get    '/',         action: 'summary_receivers',       as: 'gis_summary_receivers'
+        match  '/new',      action: 'new_summary_receiver',    as: 'new_gis_summary_receiver'
+        match  '/edit/:id', action: 'edit_summary_receiver',   as: 'edit_gis_summary_receiver'
+        delete '/:id',      action: 'delete_summary_receiver', as: 'delete_gis_summary_receiver'
       end
       # summary_reports
       scope '/summary_reports' do
-        get '/', action: 'summary_reports', as: 'gis_summary_reports'
-        get '/show/:id', action: 'summary_report', as: 'gis_summary_report'
+        get '/',           action: 'summary_reports',     as: 'gis_summary_reports'
+        get '/show/:id',   action: 'summary_report',      as: 'gis_summary_report'
         match '/edit/:id', action: 'edit_summary_report', as: 'edit_gis_summary_report'
-        ###
+        post '/send/:id',  action: 'send_summary_report', as: 'send_gis_summary_report'
       end
       # messages
       get '/messages', action: :messages, as: :gis_messages

@@ -162,6 +162,12 @@ class Sys::GisController < ApplicationController
     end
   end
 
+  def send_summary_report
+    report = Gis::SummaryReport.find(params[:id])
+    report.send_report
+    redirect_to sys_gis_summary_report_url(report), notice: 'გაგზავნილია!'
+  end
+
 # შეტყობინებები.
 
   def messages
