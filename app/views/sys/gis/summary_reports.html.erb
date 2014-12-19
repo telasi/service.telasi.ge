@@ -1,8 +1,7 @@
 <%= render partial: 'sys/gis/gis_menu' %>
 <%= table_for @reports, title: @title do |t|
   t.text_field 'groupid', tag: 'code', label: 'ჯგუფი'
-  t.date_field 'created_at', formatter: '%d-%b-%Y %H:%M:%S', label: 'შექმნა'
-  # t.date_field 'updated_at', formatter: '%d-%b-%Y %H:%M:%S', label: 'ბოლო გაგზავნა'
+  t.date_field 'created_at', formatter: '%d-%b-%Y %H:%M:%S', label: 'შექმნა', url: ->(x){ sys_gis_summary_report_url(x) }
   t.complex_field label: 'გაგზავნა' do |c|
     c.text_field 'sent', tag: 'code', after: '/'
     c.text_field 'total', tag: 'code'

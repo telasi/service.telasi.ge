@@ -92,6 +92,7 @@ TelasiService::Application.routes.draw do
       # summary_reports
       scope '/summary_reports' do
         get '/', action: 'summary_reports', as: 'gis_summary_reports'
+        get '/show/:id', action: 'summary_report', as: 'gis_summary_report'
         ###
       end
       # messages

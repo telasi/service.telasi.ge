@@ -1,0 +1,10 @@
+<%= render partial: 'sys/gis/gis_menu' %>
+
+<div class="row">
+  <div class="span6">
+    <code><%= @report.text_ka.split("\n").join('<br>').html_safe %></code>
+  </div>
+  <div class="span6">
+    <code><%= @report.text_ru.split("\n").join('<br>').html_safe %></code>
+  </div>
+</div>
