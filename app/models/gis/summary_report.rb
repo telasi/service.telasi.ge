@@ -17,6 +17,7 @@ class Gis::SummaryReport
       text = det.receiver.locale == 'ka' ? self.text_ka : self.text_ru
       Magti.send_sms(number, text) if Magti::SEND
       det.update_attributes(sent: true)
+      self.inc(:sent, 1)
     end
   end
 
