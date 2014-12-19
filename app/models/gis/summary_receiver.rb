@@ -13,8 +13,4 @@ class Gis::SummaryReceiver
   validates_presence_of :name, :locale, :mobile, :groups
 
   def groupids; self.groups.split(',').map{|x| x.strip.to_i} if self.groups end
-
-  def self.send_sms_to_group(groupid, sms_text)
-    # TODO:
-  end
 end
