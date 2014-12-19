@@ -1,0 +1,14 @@
+<%= render partial: 'sys/gis/gis_menu' %>
+<%= form_for @report, url: request.url do |f| %>
+  <div class="row">
+    <div class="span6">
+      <%= f.text_area 'text_ka', style: 'width: 100%' %>
+    </div>
+    <div class="span6">
+      <%= f.text_area 'text_ru', style: 'width: 100%' %>
+    </div>
+  </div>
+  <div>
+    <%= f.submit 'შენახვა', class: ['btn', 'btn-primary'] %>
+  </div>
+<%end %>

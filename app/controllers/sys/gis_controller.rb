@@ -13,8 +13,9 @@ class Sys::GisController < ApplicationController
     when 'summary_receivers', 'new_summary_receiver', 'edit_summary_receiver'
       items['დაგზავნის სია (შემაჯამებელი)'] = sys_gis_summary_receivers_url
       items[@title] = nil
-    when 'summary_reports', 'summary_report'
+    when 'summary_reports', 'summary_report', 'edit_summary_report'
       items['შემაჯამებელი SMS-ები'] = sys_gis_summary_reports_url
+      items[@report.created_at.strftime('%d-%b-%Y %H:%M:%S')] = sys_gis_summary_report_url(@report) if @report
       items[@title] = nil
     else items[@title] = nil
     end
@@ -149,6 +150,16 @@ class Sys::GisController < ApplicationController
   def summary_report
     @report = Gis::SummaryReport.find(params[:id])
     @title = @report.created_at.strftime('%d-%b-%Y %H:%M:%S')
+  end
+
+  def edit_summary_report
+    @report = Gis::SummaryReport.find(params[:id])
+    @title = 'შეცვლა'
+    if request.put?
+      if @report.update_attributes(request[:gis_summary_report])
+        redirect_to sys_gis_summary_report_url(@report), notice: 'ტექსტი შეცვლილია'
+      end
+    end
   end
 
 # შეტყობინებები.

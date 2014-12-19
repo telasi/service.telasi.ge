@@ -2,7 +2,7 @@
 
 <% unless @report.sent? %>
   <div style="padding-bottom: 32px;">
-    <%= link_to 'ტექსტის შეცვლა', nil, class: 'btn' %>
+    <%= link_to 'ტექსტის შეცვლა', sys_edit_gis_summary_report_url(@report), class: 'btn' %>
     <%= link_to 'ყველაზე დაგზავნა', nil, class: ['btn', 'btn-danger'] %>
   </div>
 <% end %>
