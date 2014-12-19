@@ -2,8 +2,9 @@
   f.text_field 'name', required: true, autofocus: true, label: 'სახელი, გვარი'
   f.text_field 'mobile', required: true, label: 'მობილური'
   f.text_field 'groups', required: true, label: 'ჯგუფ(ებ)ი'
-  f.boolean_field 'active', required: true, label: 'აქტიური?'
+  f.boolean_field 'send_unconfirmed', required: true, label: 'დაუდასტურებელი გაუზავნო?'
   f.combo_field 'locale', collection: {'ქართული' => 'ka', 'Русский' => 'ru'}, empty: false, required: true, label: 'ენა'
   f.text_field 'note', label: 'შენიშვნები', width: 400
+  f.boolean_field 'active', required: true, label: 'აქტიური?'
   f.submit 'შენახვა'
 end %>

@@ -5,7 +5,7 @@ class Gis::SummaryReceiver
   field :name,    type: String
   field :active,  type: Boolean, default: true
   field :locale,  type: String,  default: 'ka'
-  # field :send_unconfirmed, type: Boolean, 
+  field :send_unconfirmed, type: Boolean, default: true
   field :mobile,  type: String
   field :groups,  type: String
   field :note,    type: String

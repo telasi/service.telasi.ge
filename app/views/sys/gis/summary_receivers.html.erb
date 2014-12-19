@@ -11,7 +11,7 @@
   t.item_action ->(x){ sys_edit_gis_summary_receiver_url(x) }, label: 'შეცვლა'
   t.item_action ->(x){ sys_delete_gis_summary_receiver_url(x) }, method: 'delete', label: 'წაშლა', confirm: 'ნამდვილად გინდათ წაშლა?'
   t.row_class ->(x){ (x.active ? 'active' : 'inactive') }
-  # t.boolean_field 'active', label: '?'
+  t.boolean_field 'send_unconfirmed', label: '?'
   t.text_field 'mobile', label: 'მობილური', tag: 'code', after: ->(x){x.locale}
   t.text_field 'name', label: 'სახელი, გვარი'
   t.text_field 'groups', label: 'ჯგუფ(ებ)ი'
