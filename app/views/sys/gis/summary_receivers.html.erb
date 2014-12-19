@@ -1,7 +1,3 @@
-<style type="text/css">
-  table tr.inactive td { background-color: #fdd !important; }
-  table tr.active td { background-color: #dfd !important; }
-</style>
 <%= render partial: 'sys/gis/gis_menu' %>
 
 <h1 class="page-header"><%= @title %></h1>
@@ -10,7 +6,7 @@
   t.title_action sys_new_gis_summary_receiver_url, label: 'ახალი მიმღები'
   t.item_action ->(x){ sys_edit_gis_summary_receiver_url(x) }, label: 'შეცვლა'
   t.item_action ->(x){ sys_delete_gis_summary_receiver_url(x) }, method: 'delete', label: 'წაშლა', confirm: 'ნამდვილად გინდათ წაშლა?'
-  t.row_class ->(x){ (x.active ? 'active' : 'inactive') }
+  t.row_class ->(x){ (x.active ? 'success' : 'danger') }
   t.boolean_field 'send_unconfirmed', label: '?'
   t.text_field 'mobile', label: 'მობილური', tag: 'code', after: ->(x){x.locale}
   t.text_field 'name', label: 'სახელი, გვარი'

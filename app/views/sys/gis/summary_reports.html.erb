@@ -1,5 +1,6 @@
 <%= render partial: 'sys/gis/gis_menu' %>
 <%= table_for @reports, title: @title do |t|
+  t.row_class ->(x){ (x.sent? ? 'success' : 'danger') }
   t.text_field 'groupid', tag: 'code', label: 'ჯგუფი'
   t.date_field 'created_at', formatter: '%d-%b-%Y %H:%M:%S', label: 'შექმნა', url: ->(x){ sys_gis_summary_report_url(x) }
   t.complex_field label: 'გაგზავნა' do |c|
