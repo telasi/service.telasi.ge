@@ -14,4 +14,8 @@ class Gis::SummaryReceiver
   def self.active
     Gis::SummaryReceiver.where(active: true)
   end
+
+  def groupids
+    self.groups.split(',').map{|x| x.strip.to_i} if self.groups
+  end
 end

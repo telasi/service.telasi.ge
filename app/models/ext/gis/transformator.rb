@@ -133,7 +133,7 @@ class Ext::Gis::Transformator
     2 => Telasi::PHONES_2,
     3 => Telasi::PHONES_3,
     4 => Telasi::PHONES_4,
-    5 => Telasi::PHONES_5,
+    # 5 => Telasi::PHONES_5,
   }
 
   def self.transformators_for_semeki
