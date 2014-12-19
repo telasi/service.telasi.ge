@@ -11,13 +11,15 @@ class Gis::SummaryReport
 
   def sent?; self.sent == self.total end
 
-  def send_report
+  def send_report(force_sending)
     self.details.each do |det|
-      number = det.receiver.mobile
-      text = det.receiver.locale == 'ka' ? self.text_ka : self.text_ru
-      Magti.send_sms(number, text) if Magti::SEND
-      det.update_attributes(sent: true)
-      self.inc(:sent, 1)
+      if det.receiver.send_unconfirmed or force_sending
+        number = det.receiver.mobile
+        text = det.receiver.locale == 'ka' ? self.text_ka : self.text_ru
+        Magti.send_sms(number, text) if Magti::SEND
+        det.update_attributes(sent: true)
+        self.inc(:sent, 1)
+      end
     end
   end
 
@@ -37,6 +39,11 @@ class Gis::SummaryReport
     end
     # generation done!
     report
+  end
+
+  def self.generate_summary_report_and_send_to_confirmed(groupid)
+    report = Gis::SummaryReport.generate_summary_report(groupid)
+    report.send_report(false)
   end
 end
 
