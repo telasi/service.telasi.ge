@@ -5,17 +5,16 @@ class Gis::SummaryReceiver
   field :name,    type: String
   field :active,  type: Boolean, default: true
   field :locale,  type: String,  default: 'ka'
+  # field :send_unconfirmed, type: Boolean, 
   field :mobile,  type: String
   field :groups,  type: String
   field :note,    type: String
   index({ active: 1, name: 1 })
   validates_presence_of :name, :locale, :mobile, :groups
 
-  def self.active
-    Gis::SummaryReceiver.where(active: true)
-  end
+  def groupids; self.groups.split(',').map{|x| x.strip.to_i} if self.groups end
 
-  def groupids
-    self.groups.split(',').map{|x| x.strip.to_i} if self.groups
+  def self.send_sms_to_group(groupid, sms_text)
+    # TODO:
   end
 end

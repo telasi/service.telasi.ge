@@ -105,7 +105,7 @@ class Sys::GisController < ApplicationController
 
   def summary_receivers
     @title = 'დაგზავნის სია (შემაჯამებელი)'
-    @receivers = Gis::SummaryReceiver.active.asc(:name)
+    @receivers = Gis::SummaryReceiver.asc(:name)
   end
 
   def new_summary_receiver
