@@ -21,7 +21,7 @@ class Gis::SummaryReport
     report = Gis::SummaryReport.create(groupid: groupid, text_ka: text_ka, text_ru: text_ru, total: total)
     # add details
     receivers.each do |receiver|
-      Gis::SummaryReportDetail.create(report: report receiver: receiver, mobile: receiver.mobile, sent: false)
+      Gis::SummaryReportDetail.create(report: report, receiver: receiver, mobile: receiver.mobile, sent: false)
     end
     # generation done!
     report

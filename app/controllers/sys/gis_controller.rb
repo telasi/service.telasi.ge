@@ -136,6 +136,13 @@ class Sys::GisController < ApplicationController
     redirect_to sys_gis_summary_receivers_url, notice: 'მიმღები წაშლილია'
   end
 
+# summary_reports
+
+  def summary_reports
+    @title = 'შემაჯამებელი SMS-ები'
+    @reports = Gis::SummaryReport.desc(:_id)
+  end
+
 # შეტყობინებები.
 
   def messages
