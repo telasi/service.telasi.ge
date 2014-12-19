@@ -1,5 +1,12 @@
 <%= render partial: 'sys/gis/gis_menu' %>
 
+<% unless @report.sent? %>
+  <div style="padding-bottom: 32px;">
+    <%= link_to 'ტექსტის შეცვლა', nil, class: 'btn' %>
+    <%= link_to 'ყველაზე დაგზავნა', nil, class: ['btn', 'btn-danger'] %>
+  </div>
+<% end %>
+
 <div class="row" style="padding-bottom: 32px;">
   <div class="span6">
     <code><%= @report.text_ka.split("\n").join('<br>').html_safe %></code>

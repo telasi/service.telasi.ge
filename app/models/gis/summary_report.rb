@@ -9,6 +9,8 @@ class Gis::SummaryReport
   field :total,   type: Integer, default: 0
   embeds_many :details, class_name: 'Gis::SummaryReportDetail'
 
+  def sent?; self.sent == self.total end
+
   def self.generate_summary_report(groupid)
     # get receivers in this group
     receivers = Gis::SummaryReceiver.where(active: true).to_a.select{|x| x.groupids.include?(groupid)}

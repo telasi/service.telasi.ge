@@ -143,7 +143,7 @@ class Sys::GisController < ApplicationController
 
   def summary_reports
     @title = 'შემაჯამებელი SMS-ები'
-    @reports = Gis::SummaryReport.desc(:_id)
+    @reports = Gis::SummaryReport.desc(:_id).paginate(per_page: 10, page: params[:page])
   end
 
   def summary_report
