@@ -17,6 +17,7 @@
 </div>
 
 <%= table_for @report.details, title: 'მიმღებები' do |t|
+  t.row_class ->(x){ (x.sent ? 'success' : 'danger') }
   t.text_field 'receiver.mobile', tag: 'code', label: 'მობილური'
   t.text_field 'receiver.name', label: 'მიმღები'
   t.boolean_field 'sent', label: 'გაიზავნა?'
