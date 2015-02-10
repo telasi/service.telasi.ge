@@ -9,7 +9,7 @@ class Gis::SummaryReport
   field :total,   type: Integer, default: 0
   embeds_many :details, class_name: 'Gis::SummaryReportDetail'
 
-  def sent?; self.sent == self.total end
+  def sent?; self.sent >= self.total end
 
   def send_report(force_sending)
     self.details.each do |det|
