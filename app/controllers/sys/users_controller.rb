@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Sys::UsersController < ApplicationController
+  before_filter :admin_validation
 
   # მომხმარებლების საწყისი გვერდი.
   def index
@@ -49,5 +50,15 @@ class Sys::UsersController < ApplicationController
     user.save
     redirect_to sys_show_user_url(id: user.id), notice: 'ანგარიში გაუქმებულია.'
   end
+private
 
+  def admin_validation
+    user = current_user
+    if user.nil?
+      session[:return_url] = request.url
+      redirect_to login_url, notice: 'გაიარეთ ავტორიზაცია.'
+    elsif !user.sys_admin
+      redirect_to login_url, notice: 'არ გაქვთ შესვლის უფლება.'
+    end
+  end
 end
