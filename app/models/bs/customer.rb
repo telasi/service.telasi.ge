@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Bs::Customer < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
   ACTIVE = 0
   INACTIVE = 1
   CLOSED = 2
@@ -14,6 +15,7 @@ class Bs::Customer < ActiveRecord::Base
   has_many :item_bills,     class_name: 'Bs::ItemBill',      foreign_key: :custkey, order: 'itemkey'
   has_many :accounts,       class_name: 'Bs::Account',       foreign_key: :custkey
   has_one  :note,           class_name: 'Bs::Note',          foreign_key: :notekey
+  has_one  :deposit_customer, class_name: 'Bs::DepositCustomer', foreign_key: :custkey
   belongs_to :category,     class_name: 'Bs::Custcateg',     foreign_key: :custcatkey
   belongs_to :activity,     class_name: 'Bs::Custcateg',     foreign_key: :activity
 
@@ -89,5 +91,26 @@ class Bs::Customer < ActiveRecord::Base
 
   def last_pay_date
     self.item_bills.last.lastday
+  end
+
+  def deposit_amount
+    if self.deposit_customer
+      return self.deposit_customer.start_depozit_amount
+    else
+      return 0
+    end
+  end
+
+  def balance_fld
+    balance = number_with_precision(self.balance, precision: 2, separator: '.', delimiter: ',')
+    if self.deposit_amount > 0
+      dep_balance = number_with_precision(self.deposit_amount, precision: 2, separator: '.', delimiter: ',')
+      summary_balance = number_with_precision(self.balance + self.deposit_amount, precision: 2, separator: '.', delimiter: ',')
+      [ "მიმდინარე: <code>#{balance}</code> GEL",
+        "დეპოზიტი: <code>#{deposit_amount}</code> GEL",
+        "ჯამური: <code>#{summary_balance}</code>" ].join('<br>')
+    else
+      "<code>#{balance}</code> GEL"
+    end
   end
 end

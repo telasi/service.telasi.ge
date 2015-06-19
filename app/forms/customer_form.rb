@@ -27,7 +27,7 @@ module CustomerForm
     form = Form.new(title: opts[:title] || 'აბონენტი', icon: '/assets/fff/user.png')
     form.col1 << TextField.new(name: 'accnumb', label: 'აბ.ნომერი', required: true, url: lambda{|v| Rails.application.routes.url_helpers.call_customer_info_path(custkey: v.custkey)})
     form.col1 << TextField.new(name: 'custname', label: 'დასახელება', required: true)
-    form.col1 << NumberField.new(name: 'balance', label: 'დავალიანება', after: 'GEL', required: true)
+    form.col1 << TextField.new(name: 'balance_fld', label: 'დავალიანება', required: true)
     form.col1 << pre
     form.col1 << NumberField.new(name: 'old_balance', label: 'ძველი ვალი', after: 'GEL', required: true)
     form.col1 << TextField.new(name: 'address', label: 'მისამართი', required: true)
