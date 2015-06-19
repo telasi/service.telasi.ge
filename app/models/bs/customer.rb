@@ -94,7 +94,7 @@ class Bs::Customer < ActiveRecord::Base
   end
 
   def deposit_amount
-    if self.deposit_customer
+    if self.deposit_customer and self.deposit_customer.active?
       return self.deposit_customer.start_depozit_amount
     else
       return 0
