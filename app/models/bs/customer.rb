@@ -108,7 +108,7 @@ class Bs::Customer < ActiveRecord::Base
       summary_balance = number_with_precision(self.balance + self.deposit_amount, precision: 2, separator: '.', delimiter: ',')
       [ "მიმდინარე: <code>#{balance}</code> GEL",
         "დეპოზიტი: <code>#{deposit_amount}</code> GEL",
-        "ჯამური: <code>#{summary_balance}</code>" ].join('<br>')
+        "ჯამური: <code>#{summary_balance}</code> GEL" ].join('<br>')
     else
       "<code>#{balance}</code> GEL"
     end
