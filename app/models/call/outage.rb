@@ -15,6 +15,7 @@ class Call::Outage
   field :custkey, type: Integer
   field :category, type: Integer
   field :description, type: String
+
   has_many :streets, class_name: 'Call::OutageStreet'
 
   validates_presence_of :start_date, message: 'საწყისი თარიღი აუცილებელია'
