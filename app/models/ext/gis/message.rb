@@ -24,6 +24,11 @@ class Ext::Gis::Message
     self.search_by_q(q, :search_text)
   end
 
+  def self.emergency_count(d)
+    stats = [1, 6, 8, 10] # ავარია, ხანძარი, ექსპლუატაციის მოთხოვნით, სექციის გამორთვა
+    Ext::Gis::Message.where(on: false, :created_at.gte => d, :created_at.lt => d + 1, :off_status.in => stats).sum(:account_count)
+  end
+
   def sync
     self.logs.each do |log|
       if log.section?
@@ -110,5 +115,4 @@ class Ext::Gis::Message
     @__trlogs = self.logs.find_all{|log| log.transformator?} || [] unless @__trlogs
     @__trlogs
   end
-
 end
