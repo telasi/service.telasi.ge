@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 class MagtiController < ApplicationController
-
+  # Incomming sms messages.
   def index
-    msg_90033(params[:from], params[:text]) if params[:service_id] == '90033'
+    if params[:service_id] == '90033'
+      msg_90033(params[:from], params[:text])
+    end
     render text: "ok"
   end
 
@@ -15,9 +17,9 @@ class MagtiController < ApplicationController
 
   private
 
-  # message @90033
   def msg_90033(from, text)
     # return if process_dispatch(from, text)
+    return if process_sms_on_off(from, text)
     return if process_callcenter(from, text)
   end
 
@@ -34,6 +36,28 @@ class MagtiController < ApplicationController
   #     false
   #   end
   # end
+
+  def process_sms_on_off(from, text)
+    if text.blank? || text.strip.casecmp('off') == 1
+      mobile = from[-9..-1]
+      customers = BS::Customer.where(fax:mobile)
+      if customers.any?
+        customers.each do |customer|
+          customer.update_attributes(fax: "X#{mobile}")
+        end
+        return true
+      end
+    elsif text.length > 5
+      customer = BS::Customer.where(accnumb: text.strip).first
+      if customer
+        mobile = from[-9..-1]
+        customer.update_attributes(fax: mobile)
+        return true
+      end
+    end
+
+    false
+  end
 
   def process_callcenter(from, text)
     accnumb = find_accnumb_in_text(text) rescue nil
@@ -56,8 +80,12 @@ class MagtiController < ApplicationController
   end
 
   def find_accnumb_in_text(text)
-    indx1 = text.downcase.index('abon:') + 5
-    indx2 = text.downcase[indx1..-1].index(' ') + indx1 - 1
-    text[indx1..indx2]
+    begin
+      indx1 = text.downcase.index('abon:') + 5
+      indx2 = text.downcase[indx1..-1].index(' ') + indx1 - 1
+      text[indx1..indx2]
+    rescue
+      nil
+    end
   end
 end
