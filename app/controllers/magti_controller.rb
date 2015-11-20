@@ -38,7 +38,7 @@ class MagtiController < ApplicationController
   # end
 
   def process_sms_on_off(from, text)
-    if text.blank? || text.strip.casecmp('off') == 1
+    if text.blank? || text.strip.length < 6
       mobile = from[-9..-1]
       customers = Bs::Customer.where(fax:mobile)
       if customers.any?
