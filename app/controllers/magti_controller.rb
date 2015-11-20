@@ -51,8 +51,8 @@ class MagtiController < ApplicationController
       customer = Bs::Customer.where(accnumb: text.strip).first
       if customer
         mobile = from[-9..-1]
-        customer_mobile = Bs::CustomerMobile.where(mobile: mobile, customer: customer).first
-        customer_mobile = Bs::CustomerMobile.create(mobile: mobile, customer: customer, is_main: 0)
+        customer_mobile = Bs::CustomerMobile.where(mobile: mobile,  custkey: customer.custkey).first
+        customer_mobile = Bs::CustomerMobile.create(mobile: mobile, custkey: customer.custkey, is_main: 0) if customer_mobile.blank?
         customer_mobile.update_attributes(status: 1)
         return true
       end
