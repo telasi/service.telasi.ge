@@ -41,6 +41,7 @@ module CustomerForm
     form.col1 << TextField.new(name: 'taxid', label: 'გადამხ.კოდი', required: false)
     form.col1 << TextField.new(name: 'commercial', label: 'კომერც. დასახელება', required: false)
     form.col1 << TextField.new(name: 'tel', label: 'ტელეფონი')
+    form.col1 << TextField.new(name: 'fax', label: 'მობილური')
     form.col1 << TextField.new(name: 'email', label: 'ელ.ფოსტა')
     # bill information
     form.col1 << DateField.new(name: 'last_bill_date', label: 'ბოლო ქვითარი', required: true)
