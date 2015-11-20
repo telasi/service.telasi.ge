@@ -40,7 +40,7 @@ class MagtiController < ApplicationController
   def process_sms_on_off(from, text)
     if text.blank? || text.strip.casecmp('off') == 1
       mobile = from[-9..-1]
-      customers = BS::Customer.where(fax:mobile)
+      customers = Bs::Customer.where(fax:mobile)
       if customers.any?
         customers.each do |customer|
           customer.update_attributes(fax: "X#{mobile}")
@@ -48,7 +48,7 @@ class MagtiController < ApplicationController
         return true
       end
     elsif text.length > 5
-      customer = BS::Customer.where(accnumb: text.strip).first
+      customer = Bs::Customer.where(accnumb: text.strip).first
       if customer
         mobile = from[-9..-1]
         customer.update_attributes(fax: mobile)
