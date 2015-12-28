@@ -5,6 +5,10 @@ class Bs::Account < ActiveRecord::Base
   TYPE_TRANSF = 3
   TYPE_METER  = 4
 
+  ACTIVE = 0   # აქტიური
+  CLOSED = 1   # დროებით დახურული
+  CANCELED = 2 # გაუქმებული
+
   self.table_name  = 'bs.account'
   self.primary_key = :acckey
   belongs_to :customer,      class_name: 'Bs::Customer',      foreign_key: :custkey
@@ -17,6 +21,18 @@ class Bs::Account < ActiveRecord::Base
   def status
     self.statuskey == 0 ? 'აქტიური' : 'გაუქმებული'
   end
+
+
+  # Returns all meter accounts under this account.
+  def deep_children
+    join_query = "INNER JOIN (SELECT DISTINCT rel.acckey FROM bs.accrel rel START WITH acckey = #{self.acckey} CONNECT BY PRIOR acckey = base_acckey) r ON account.acckey = r.acckey"
+    Bs::Account.joins(join_query).where('account.acctype = ?', TYPE_METER)
+  end
+
+  def deep_active_children
+    deep_children.where('account.statuskey IN (?)', [ACTIVE, CLOSED])
+  end
+
 
   # GIS log on transformator
   def last_gis_log
@@ -61,6 +77,6 @@ class Bs::Account < ActiveRecord::Base
     pars
   end
 
-  def tp; self.parents.select{|x| x.acctype == TYPE_TRANSF }.first end
+  def tp; self.parents.select{ |x| x.acctype == TYPE_TRANSF }.first end
   def to_s; self.accid end
 end

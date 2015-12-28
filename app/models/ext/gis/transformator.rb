@@ -63,7 +63,8 @@ class Ext::Gis::Transformator
   def sync
     if self.acckey
       account = Bs::Account.find(self.acckey)
-      self.account_count = Bs::Accrel.where(base_acckey: self.acckey).count
+      # self.account_count = Bs::Accrel.where(base_acckey: self.acckey).count
+      self.account_count = account.deep_active_children.count
       self.address = account.address.to_s
       if account.address
         self.regionkey = account.address.region.regionkey
