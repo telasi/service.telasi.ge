@@ -343,7 +343,7 @@ private
   end
 
   def can_view?(user)
-    gis_actions=['index', 'messages', 'message', 'details', 'logs', 'tp_statuses', 'network_status', 'network_status_sync', 'network_status_edit', 'network_status_send']
+    gis_actions=['index', 'messages', 'message', 'details', 'logs', 'tp_statuses', 'network_status', 'network_status_sync', 'network_status_edit', 'network_status_send', 'summary_reports']
     if gis_actions.include?(self.action_name) and user.has_role?([:sys_admin, :gis_viewer]) then true
     elsif user.has_role?([:sys_admin]) then true
     else false end
