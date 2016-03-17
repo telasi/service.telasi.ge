@@ -20,6 +20,7 @@ h1 {
       <%= link_to icon_text('envelope', t(:gis_logs)), sys_gis_messages_path, class: 'btn' %>
       <%= link_to icon_text('list', t(:gis_network_logs)), sys_gis_logs_path, class: 'btn' %>
       <%= link_to 'შემაჯამებელი SMS-ები', sys_gis_summary_reports_url, class: ['btn', 'btn-danger'] %>
+         
     </div>
   </div>
   <div class="section">
@@ -42,6 +43,7 @@ h1 {
     <div class="btn-toolbar">
       <%= link_to 'დაგზავნის სია', sys_gis_receivers_url, class: 'btn' %>
       <%= link_to 'დაგზავნის სია (შემაჯამებელი)', sys_gis_summary_receivers_url, class: 'btn' %>
+      <%= link_to 'ახალი ჯგუფი', sys_sms_client_data_path, class: 'btn' , id: "greengroupbtn"%>      
     </div>
   </div>
 <% end %>

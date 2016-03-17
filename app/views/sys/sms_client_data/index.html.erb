@@ -1,0 +1,19 @@
+<table id="menu_sms_client_data">
+   <tr>
+    <th style="width:250px"></th>
+    <th style="text-align: left;" ><h1>შეტყობინების მიმღებთა სია</h1></th>   	
+
+	</th>
+
+  </tr>
+  <tr>  <%= link_to "ახალი ჩანაწერის დამატება", new_sys_sms_client_datum_path %> </tr>
+</table>
+<br><br>
+
+
+<%= render 'list', obj: @clientdata_full %>
+<br><br><br><br>
+
+   <%= link_to 'Back', sys_gis_url %>
+ <br>
+

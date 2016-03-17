@@ -1,0 +1,60 @@
+
+<head>
+<style>
+table#t01 tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+table#t01 tr:nth-child(odd) {
+      background-color:#fff;
+       }
+
+td {
+    border: 3px solid #eaeaea;
+    padding: 8px;
+    font-size: 17px;
+  }
+
+</style>
+</head>
+
+<body>
+
+<%= form_for  [:sys, @sms_client_data], url: {action: "create"} do |f| %>
+
+        <br/>
+          <table id="t01">
+            <tr>
+              <td>"სახელი გვარი"</td>
+              <td><%= (f.text_area  :clientname, size: "40x1") %></td>    
+            </tr>
+            <tr>
+              <td>"მობილურის ნომერი"</td>
+              <td><%= f.telephone_field :phone %></td>
+            </tr>
+            <tr>
+              <td >"SMS_ს შეტყობინების ენა"</td>
+              <td>
+                  <%= label :lang, "ქართული/Русский" %>
+                  <%= f.radio_button :lang, 'ge', :checked => true %>
+                  <%= f.radio_button :lang, 'ru'  %>
+              </td><br>
+            </tr>
+
+            <tr>
+              <td>"შეტყობინების გაგზავნა აქტიურია: კი/არა"</td>
+              <td><%= f.check_box :active, {:class => "myclass", :style => "mystyle" }, "Y", "N"  %></td>
+            </tr>
+
+            <tr>
+              <td>"ჯგუფი"</td>
+              <td><%= (f.text_area :group   , size: "50x1")%></td>
+            </tr> 
+
+          </table><br><br>
+
+        <div class="actions">
+          <%= f.submit "ჩანაწერის დამატება"%>
+        </div>
+<% end %>
+

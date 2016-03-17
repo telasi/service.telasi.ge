@@ -1,0 +1,44 @@
+<div class='row'>
+  <div class='col-xs-12'>
+
+<%= form_for(@sms_client_data, :url => sys_sms_client_datum_path(@sms_client_data)) do |f|%>
+
+        <br/>
+          <table id="t01">
+            <tr>
+              <td>"სახელი გვარი"</td>
+              <td><%= (f.text_area  :clientname, size: "40x1") %></td>    
+            </tr>
+            <tr>
+              <td>"მობილურის ნომერი"</td>
+              <td><%= f.telephone_field :phone %></td>
+            </tr>
+            <tr>
+              <td >"SMS_ს შეტყობინების ენა"</td>
+              <td>
+                  <%= label :lang, "ქართული/Русский" %>
+                  <%= f.radio_button :lang, 'GE', :checked => true %>
+                  <%= f.radio_button :lang, 'RU'  %>
+              </td><br>
+            </tr>
+
+            <tr>
+              <td>"შეტყობინების გაგზავნა აქტიურია: კი/არა"</td>
+              <td><%= f.check_box :active, {:class => "myclass", :style => "mystyle" }, "Y", "N"  %></td>
+            </tr>
+
+            <tr>
+              <td>"ჯგუფი"</td>
+              <td><%= (f.text_area :group   , size: "50x1")%></td>
+            </tr> 
+
+          </table><br><br>
+
+        <div class="actions">
+          <%= f.submit "ჩანაწერის ცვლილება"%>
+        </div>
+      <% end %>
+
+
+  </div>
+</div>

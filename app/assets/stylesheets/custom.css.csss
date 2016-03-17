@@ -1,0 +1,19 @@
+
+#menu_sms_client_data 
+   {
+   color:black; 
+   border-collapse: collapse; 
+   width:100%;
+   #border: 1px solid black;
+   }
+
+
+ .text_box_1
+ {
+   border: 1px solid black;
+   padding: 15px;
+
+ }  
+
+
+#greengroupbtn { background-color: #AAD023}

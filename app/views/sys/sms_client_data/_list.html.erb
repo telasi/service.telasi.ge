@@ -1,0 +1,105 @@
+<head>
+<style>
+	table#t01 tr#t02 {
+	    border: 1px solid black;
+        border-collapse: collapse;    
+	    color: black;
+	    padding: 5px;
+	    font-size: 15px;
+
+	    margin: auto;
+	    width: 60%;
+	}
+
+
+th#t03 {
+	    border: 1px solid black;
+        border-collapse: collapse;    
+	    color: black;
+	    padding: 5px;
+	    font-size: 15px;
+
+	    margin: auto;
+	    width: auto;
+
+	    background-color: #6a99c8;
+	}
+
+th#t07 {
+	    border: 1px solid black;
+        border-collapse: collapse;    
+	    color: black;
+	    padding: 5px;
+	    font-size: 15px;
+
+	    margin: auto;
+	    width: auto;
+
+	    background-color: #6a99c8;
+	}
+
+
+
+#t04
+  {border: 1px solid black;
+     border-collapse: collapse; 
+     color: black;
+   }
+
+#t05
+  {border: 1px solid black;
+     border-collapse: collapse; 
+     color: black;
+	 padding: 5px;     
+   }
+
+
+table#t01 tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+table#t01 tr:nth-child(odd) {
+      background-color:#fff;
+       }
+
+</style>
+</head>
+
+<body>
+
+<div align="center">
+<table id="t01">
+  <tr id="t02">
+    <th id="t03">სახელი</th>
+    <th id="t03">ტელეფონის ნომერი</th>		
+    <th id="t03">ენა</th>
+    <th id="t03">აქტიური კი/არა</th> 
+    <th id="t03">ჯგუფი</th>    
+  
+    <th id="t07"></th>
+    <th id="t07"></th>
+
+  </tr>
+<% obj.each do |clientdata_v| %>
+  <tr id="t04">
+    <td id="t05"><%= clientdata_v.clientname %></td>
+    <td id="t05"><%= clientdata_v.phone %></td>		
+    <td id="t05"><%= clientdata_v.lang %></td>
+    <td id="t05"><%= clientdata_v.active %></td>
+    <td id="t05"><%= clientdata_v.group %></td>    
+    <td>
+      <%= link_to "რედაქტირება", edit_sys_sms_client_datum_path(clientdata_v), class: "btn btn-xs btn-primary" %>
+    </td> 
+    <td> 
+		  <%= link_to "წაშლა", sys_sms_client_datum_path(clientdata_v),
+		                                           method: :delete,
+		                                           data: { confirm: "ნამდვილად გსურთ ჩანაწერის წაშლა?"},
+		                                           class: "btn btn-xs btn-danger" %>
+    </td>
+
+  </tr>
+<% end %>
+</table>
+</div>
+
+</body>

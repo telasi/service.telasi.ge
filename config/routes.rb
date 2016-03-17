@@ -65,6 +65,8 @@ TelasiService::Application.routes.draw do
       post '/sync', action: :sync, as: :billoperation_sync
       match '/edit/:id', action: :edit, as: :billoperation_edit
     end
+
+
     scope '/gis', controller: :gis do
       get '/', action: 'index', as: 'gis'
       # network object actions
@@ -109,29 +111,34 @@ TelasiService::Application.routes.draw do
         match '/network_status/edit', action: 'network_status_edit', as: :gis_network_status_edit
         post '/network_status/send', action: 'network_status_send', as: :gis_network_status_send
       end
+
+
     end
+  #(edited) bacho 11/03/2016 .
+  resources :sms_client_data
+
   end
 
   get '/gis' => redirect('/sys/gis')
 
   # განცხადებები
   namespace :apps do
-  	scope :controller => :applications do
-  		get '/', :action => :index, :as => :home
-  	end
-  	# ქსელზე მიერთება
-  	scope '/new_customer', :controller => :new_customer do
-  	  get   '/print/:id',        action: :print,       as: :print
-  		match  '/new',             action: :new,         as: :new_customer_new
-  		match  '/edit/:id',        action: :edit,        as: :new_customer_edit
-  		delete '/delete/:id',      action: :delete,      as: :new_customer_delete
-  		post   '/send/:id',        action: :sendapp,     as: :new_customer_send
-  		post   '/approve/:id',     action: :approve,     as: :new_customer_approve
-  		post   '/deprove/:id',     action: :deprove,     as: :new_customer_deprove
-  		post   '/to_sent/:id',     action: :to_sent,     as: :new_customer_to_sent 
-  		post   '/complete/:id',    action: :complete,    as: :new_customer_complete
-  		post   '/to_complete/:id', action: :to_complete, as: :new_customer_to_complete
-  		scope '/show/:id', :controller => :new_customer do
+    scope :controller => :applications do
+      get '/', :action => :index, :as => :home
+    end
+    # ქსელზე მიერთება
+    scope '/new_customer', :controller => :new_customer do
+      get   '/print/:id',        action: :print,       as: :print
+      match  '/new',             action: :new,         as: :new_customer_new
+      match  '/edit/:id',        action: :edit,        as: :new_customer_edit
+      delete '/delete/:id',      action: :delete,      as: :new_customer_delete
+      post   '/send/:id',        action: :sendapp,     as: :new_customer_send
+      post   '/approve/:id',     action: :approve,     as: :new_customer_approve
+      post   '/deprove/:id',     action: :deprove,     as: :new_customer_deprove
+      post   '/to_sent/:id',     action: :to_sent,     as: :new_customer_to_sent 
+      post   '/complete/:id',    action: :complete,    as: :new_customer_complete
+      post   '/to_complete/:id', action: :to_complete, as: :new_customer_to_complete
+      scope '/show/:id', :controller => :new_customer do
         get '/',          :action => :show,      :as => :new_customer
         scope '/items' do
           get    '/',                action: :items,       as: :new_customer_items
@@ -149,15 +156,15 @@ TelasiService::Application.routes.draw do
           get   '/',    action: :notes,    as: :new_customer_notes
           match '/new', action: :new_note, as: :new_customer_new_note
         end
-  		  scope '/docs', :controller => :new_customer do
+        scope '/docs', :controller => :new_customer do
           get    '/',                 action: :docs,         as: :new_customer_docs
           match  '/new',              action: :new_doc,      as: :new_customer_new_doc
           match  '/edit/:doc_id',     action: :edit_doc,     as: :new_customer_edit_doc
           get    '/download/:doc_id', action: :download_doc, as: :new_customer_download_doc
           delete '/delete/:doc_id',   action: :delete_doc,   as: :new_customer_delete_doc
-  		  end
-  		end
-  	end
+        end
+      end
+    end
   end
 
   # Android-ის მომსახურების სერვისები.
