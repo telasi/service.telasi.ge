@@ -1,0 +1,55 @@
+<head>
+<style>
+
+table#t01 tr:nth-child(odd) {
+      background-color: #eee;
+    }
+
+table#t01 tr:nth-child(even) {
+      background-color:#fff;
+       }
+
+td {
+    border: 3px solid #eaeaea;
+    padding: 8px;
+    font-size: 17px;
+  }
+       
+</style>
+</head>
+
+<p id="notice"><%= notice %></p>
+
+<div class="jumbotron">
+<table id="t01">
+            <tr>
+              <td>"სახელი გვარი"</td>
+              <td><%= @sms_client_data.clientname %></td>    
+            </tr>
+            <tr>
+              <td>"მობილურის ნომერი"</td>
+              <td><%= @sms_client_data.phone %></td>
+            </tr>
+            <tr>
+              <td >"SMS_ს შეტყობინების ენა"</td>
+              <td>
+                  <%= @sms_client_data.lang %>
+              </td><br>
+            </tr>
+
+            <tr>
+              <td>"შეტყობინების გაგზავნა აქტიურია: კი/არა"</td>
+              <td><%= @sms_client_data.active %></td>
+            </tr>
+
+            <tr>
+              <td>"ჯგუფი"</td>
+              <td><%= @sms_client_data.group %></td>
+            </tr> 
+
+          </table><br><br>
+
+</div>
+
+<%= link_to 'Edit', edit_sys_sms_client_datum_path(@sms_client_data) %> |
+<%= link_to 'Back', sys_sms_client_data_path %>
