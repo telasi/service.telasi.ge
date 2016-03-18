@@ -193,7 +193,7 @@ class Ext::Gis::Transformator
       Sms_client_data.where(active: 'Y', group: phones_key.to_s).each do |data|
 
         # Magti.send_sms(number, locale == 'ru' ? text_ru : text) //bacho, edited 15/03/215
-        Magti.send_sms(data.phone, data,lang == 'ru' ? text_ru : text) # droebitaa dakomentarebuli
+        Magti.send_sms(data.phone, data.lang == 'ru' ? text_ru : text) # droebitaa dakomentarebuli
         
         # damatebulia 15/03/2015  bacho 
         #Sms_log_tbl.create(phone: data.phone, group: data.group, smsmodeule: "GIS axali jgufi", lang: data.lang)
