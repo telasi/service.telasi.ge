@@ -22,9 +22,9 @@ class Call::Outage
   validates_presence_of :start_time, message: 'საწყისი დრო აუცილებელია'
   validates_presence_of :end_date, message: 'საწყისი თარიღი აუცილებელია'
   validates_presence_of :end_time, message: 'საწყისი დრო აუცილებელია'
-  validate :customer_presence
+  validate :customer_presence 
 
-  after_create :on_after_create
+  after_create :on_after_create 
   before_update :on_before_update
   before_save :on_before_save
 

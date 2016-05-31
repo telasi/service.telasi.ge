@@ -17,3 +17,10 @@
 
 
 #greengroupbtn { background-color: #AAD023}
+
+
+#outage_log_table  
+{    
+  border-top: 1px solid black; 
+  border-bottom: 2px solid black;
+  width: 100%; text-align: left; }

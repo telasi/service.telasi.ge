@@ -265,6 +265,9 @@ TelasiService::Application.routes.draw do
       delete '/delete/:id', action: 'delete', as: 'delete_outage'
       post '/on/:id', action: 'on', as: 'outage_on'
       post '/ons', action: 'ons', as: 'outage_ons'
+
+      ####bacho
+      get 'sync' ,action: 'outage_sync' , as: 'outage_sync'
     end
   end
 
