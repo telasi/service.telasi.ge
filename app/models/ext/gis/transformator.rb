@@ -187,17 +187,18 @@ class Ext::Gis::Transformator
 
   def self.send_current_status(phones_key = 1, lock = true)
     text, text_ru = Ext::Gis::Transformator.status_report_text
-    #if Magti::SEND
-      # PHONES[phones_key].each do |number, locale|  //bacho, edited 15/03/215
-       Sms_client_data.where(active: 'Y', group: phones_key.to_s).each do |data|
 
-      # Magti.send_sms(number, locale == 'ru' ? text_ru : text) //bacho, edited 15/03/215
-      Magti.send_sms(data.phone, data,lang == 'ru' ? text_ru : text) # droebitaa dakomentarebuli
+    if Magti::SEND
+      # PHONES[phones_key].each do |number, locale|  //bacho, edited 15/03/215
+      Sms_client_data.where(active: 'Y', group: phones_key.to_s).each do |data|
+
+        # Magti.send_sms(number, locale == 'ru' ? text_ru : text) //bacho, edited 15/03/215
+        Magti.send_sms(data.phone, data.lang == 'ru' ? text_ru : text) # droebitaa dakomentarebuli
         
-       # damatebulia 15/03/2015  bacho 
-        Sms_log_tbl.create(phone: data.phone, group: data.group, smsmodeule: "GIS axali jgufi", lang: data.lang)
-       end
-    #end
+        # damatebulia 15/03/2015  bacho 
+        #Sms_log_tbl.create(phone: data.phone, group: data.group, smsmodeule: "GIS axali jgufi", lang: data.lang)
+      end
+    end
     # droebitaa dakomentarebuli
     Ext::Gis::TransformatorReport.update_all(sent: true) if !lock
   end
