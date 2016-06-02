@@ -197,7 +197,7 @@ class Call::OutagesController < Call::CallController
   ################################ ბაჩო 19/04/2016
   def outage_sync
     
-    outage = Call::Outage.where(active: true).where(category: 1).where(start_date: Time.now.strftime("%Y/%d/%m"))
+    outage = Call::Outage.where(active: true).where(category: 1)
     #debugger
     outage.each do |out|
     out.streets.destroy_all
