@@ -196,6 +196,7 @@ class Call::OutagesController < Call::CallController
 
   ################################ ბაჩო 19/04/2016
   def outage_sync
+
     
     outage = Call::Outage.where(active: true).where(category: 1)
     #debugger
@@ -246,9 +247,15 @@ class Call::OutagesController < Call::CallController
     cursor.close
     @conn_io1.logoff
    
-    redirect_to call_outages_url, notice: 'განახლება დასრულებულია'
+    #redirect_to call_outages_url, notice: 'განახლება დასრულებულია'
   end 
   ##############################
+
+  def syncpage
+
+  end  
+
+  #############################
 
   private
 

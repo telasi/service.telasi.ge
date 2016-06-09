@@ -267,7 +267,8 @@ TelasiService::Application.routes.draw do
       post '/ons', action: 'ons', as: 'outage_ons'
 
       ####bacho
-      get 'sync' ,action: 'outage_sync' , as: 'outage_sync'
+      get 'outage_sync' ,action: 'outage_sync' , as: 'outage_sync'
+      get 'syncpage' ,action: 'syncpage' , as: 'syncpage'
     end
   end
 

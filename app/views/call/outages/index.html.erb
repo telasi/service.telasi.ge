@@ -11,7 +11,7 @@
 
 <%= table_for @outages, title: @title, collapsible: true, icon: '/assets/fff/lightning.png' do |t|
   if has_action_permission
-    t.title_action call_outage_sync_url, label: 'გეგმიური გათიშვების განახლება', icon: '/assets/fff/arrow_refresh.png'  	
+    t.title_action call_syncpage_url(:actionpar => "new"), label: 'გეგმიური გათიშვების განახლება', icon: '/assets/fff/arrow_refresh.png'  	
     t.title_action call_new_outage_url, label: 'ახალი გათიშვა', icon: '/assets/fff/lightning_add.png'
     t.title_action '#', label: 'მონიშნულების დახურვა', icon: '/assets/fff/tick.png', id: 'delete-outages'
     t.item_action ->(x){ call_edit_outage_url(id: x.id) }, icon: '/assets/fff/pencil.png'

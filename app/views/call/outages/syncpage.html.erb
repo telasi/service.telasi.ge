@@ -1,0 +1,59 @@
+<head></head>
+<style type="text/css">
+ .button1 {
+ 	width: 550px;
+ }
+
+.button2 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+ </style>
+<body>
+ <h2 id='message1'> ნამდვილად გსურთ მონაცემების განახლება? </h2>
+<br>
+
+
+	<%= form_tag(call_outage_sync_url, method: :get, id: "call-outage-syncpage-form") do %>
+
+	 <%= hidden_field_tag 'actionpar', 'working' %>
+
+	<%= submit_tag('განახლება', 
+		:style => " width: 180px;
+		            background-color: #4CAF50;  
+		            border: none;
+				    color: white;
+				    padding: 15px 32px;
+				    text-align: center;
+				    text-decoration: none;
+				    display: inline-block;
+				    font-size: 16px;
+				    margin: 4px 2px;
+				    cursor: pointer;" ,
+    :onclick => "document.getElementById('message1').innerHTML = 'მიმდინარეობს მონაცემების განახლება. გთხოვთ დაელოდოთ <br><br> <div class=spinner2></div> <br>  '"  )  %>
+	<% end %>
+
+    <%= button_to "უკან დაბრუნება", call_outages_url , :method => "get", 
+    :style => " width: 180px;
+		            background-color: #ff4d4d;  
+		            border: none;
+				    color: white;
+				    padding: 15px 32px;
+				    text-align: center;
+				    text-decoration: none;
+				    display: inline-block;
+				    font-size: 16px;
+				    margin: 4px 2px;
+				    cursor: pointer;" %>
+
+</body>
