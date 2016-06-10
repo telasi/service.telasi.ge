@@ -205,6 +205,7 @@ class Call::OutagesController < Call::CallController
     end
     #debugger
     outage.destroy
+    check_array = []
 
          func_oci8
              cursor = @conn_io1.parse("select distinct
@@ -220,7 +221,7 @@ class Call::OutagesController < Call::CallController
                                           from call.outage_bases b, call.outage_tps tp, bs.account a, bs.customer c
                                          where tp.base_id = b.id
                                            and tp.acckey = a.acckey
-                                           and trunc(b.start_date) = trunc(sysdate)
+                                           and trunc(b.start_date) >= trunc(sysdate)-52
                                            and c.custkey=a.custkey ")
 
 
@@ -228,6 +229,10 @@ class Call::OutagesController < Call::CallController
 
      while r = cursor.fetch 
       #debugger
+
+
+
+
        aa = Call::Outage.new( 
                                   start_date:   r[0],
                                   start_time:   r[1],
@@ -239,8 +244,14 @@ class Call::OutagesController < Call::CallController
                                   category:     r[7],
                                   description:  r[8].to_ka
                                   )
+     ## dublirebisgan dacva
+     if !check_array.include?(aa)
+      then
+        check_array.push(aa)   
+        aa.save!
+     end
+     #####################################
 
-       aa.save!
 
      end
 
