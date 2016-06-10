@@ -221,7 +221,7 @@ class Call::OutagesController < Call::CallController
                                           from call.outage_bases b, call.outage_tps tp, bs.account a, bs.customer c
                                          where tp.base_id = b.id
                                            and tp.acckey = a.acckey
-                                           and trunc(b.start_date) >= trunc(sysdate)-52
+                                           and trunc(b.start_date) = trunc(sysdate)
                                            and c.custkey=a.custkey ")
 
 
