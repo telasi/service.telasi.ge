@@ -208,7 +208,7 @@ class Call::OutagesController < Call::CallController
     check_array = []
 
          func_oci8
-             cursor = @conn_io1.parse("select 
+             cursor = @conn_io1.parse("select distinct
                                                trunc(b.start_date + 1 / 6) start_date,
                                                to_char(b.start_date + 1 / 6, 'HH24:MI') start_time,
                                                trunc(b.end_date + 1 / 6) end_date,
