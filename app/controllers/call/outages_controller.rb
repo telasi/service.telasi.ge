@@ -208,7 +208,7 @@ class Call::OutagesController < Call::CallController
     check_array = []
 
          func_oci8
-             cursor = @conn_io1.parse("select distinct
+             cursor = @conn_io1.parse("select 
                                                trunc(b.start_date + 1 / 6) start_date,
                                                to_char(b.start_date + 1 / 6, 'HH24:MI') start_time,
                                                trunc(b.end_date + 1 / 6) end_date,
@@ -245,9 +245,8 @@ class Call::OutagesController < Call::CallController
                                   description:  r[8].to_ka
                                   )
      ## dublirebisgan dacva
-     if !check_array.include?(aa)
-      then
-        check_array.push(aa)   
+     if !check_array.include?(r[6])
+        check_array.push(r[6])   
         aa.save!
      end
      #####################################
