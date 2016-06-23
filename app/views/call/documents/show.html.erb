@@ -1,0 +1,41 @@
+<ul class="breadcrumb" >
+  <% @customnav.each_with_index do |(k, v), i| %>
+  <% if i == @customnav.size - 1%>
+    <li><%= k %></li>
+  <% else %>
+    <li><a href="<%= v %>"><%= k %></a> <span class="divider">/</span></li>
+  <% end%>
+  <% end %>
+</ul>
+
+
+
+<p>
+  
+  <h2 id='header1'><%= @call_document.name %> </h2>
+</p>
+<br>
+<div id='body1'>
+  <h4>დოკუმენტის ტექსტი</h4> 
+	  <div id='body21' >
+	   <br>
+	    <%= @call_document.document_html.html_safe %> 
+	  </div>
+
+	<% if !@call_document.calldocument.blank? %>
+	   <a href= <%= @call_document.calldocument %> > 
+	      <img alt="Search" border="0" src="/assets/fff/book_open.png"  />
+	   </a>	  
+	   <a href= <%= @call_document.calldocument %> id="linktext1"> 
+	     <font color="blue" id="linktextcolor1">მიმაგრებული ფაილის გახსნა</font>  
+	   </a>
+    <% end %>
+</div>
+
+
+<%= link_to 'Edit', edit_call_document_path(@call_document) %> |
+<%= link_to 'Back', call_documents_path %>
+
+
+
+

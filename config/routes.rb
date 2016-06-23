@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
 TelasiService::Application.routes.draw do
+  namespace :call do
+    resources :documents
+  end
+
+
   get 'site/index'
 
   # საიტის მოქმედებები

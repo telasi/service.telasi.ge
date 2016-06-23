@@ -37,7 +37,13 @@ class Call::MainController < Call::CallController
     @search = params[:search] == 'clear' ? {} : params[:search]
     rel = Call::Task.by_user(current_user)
     if @search
+     if !@search[:accnumb].present? && @search[:mtnumb].present?
+      mtnumb = Bs::Account.where(mtnumb: @search[:mtnumb]).first 
+      customer = Bs::Customer.where(custkey: mtnumb.custkey).first rescue nil
+     else
       customer = Bs::Customer.where(accnumb: @search[:accnumb].strip.to_geo).first rescue nil
+     end 
+
       rel = rel.where(custkey: customer.custkey) if customer
       rel = rel.where(category_id: @search[:category_id]) if @search[:category_id].present?
       rel = rel.where(status_id: @search[:status_id]) if @search[:status_id].present?

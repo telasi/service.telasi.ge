@@ -1,0 +1,65 @@
+// Place all the styles related to the Call::Documents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+#td1 {padding-right: 55px; 
+	  padding-left: 10px; 
+      border-right: 10px solid-black; 
+      border-right-style: groove;
+      margin-right: 10px;
+      }
+
+#td2 {padding-left: 5px; 
+	  text-align: right;
+      }
+
+
+table#tablerow1 tr:nth-child(even) {
+      background-color: #eee;
+      border-right: 1px solid-black; 
+    }
+
+table#tablerow1 tr:nth-child(odd) {
+      background-color:#ffeecc;
+             }
+
+   
+.button-documents-new   
+		{   background-color: #4CAF50; /* Green */
+		    border: none;
+		    color: white;
+		    padding: 1px 1px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 14px;
+		    border-radius: 4px;
+		    width: 250px;
+		}
+
+.button-documents-new:visited {
+    color: white; }	
+
+
+#header1  {background-color: #ffc34d ; padding: 10px; border-radius: 4px;}  
+
+#body1    {background-color: #f0f0f5 ; margin: 5px;  padding: 10px; border-radius: 4px;
+          }    
+
+#body2    {background-color: white ; padding: 1px; border-radius: 4px;
+           //margin-top: 10px;  margin-bottom: 20px;
+}
+
+
+#linktext1    {text-decoration-color: blue;
+           }
+
+#linktextcolor1:hover {
+    color: white;
+}
+
+#preformat1 { background-color: white; }
+

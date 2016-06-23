@@ -1,0 +1,29 @@
+<%= form_for(@call_document, :html => {multipart: true}) do |f| %>
+  <% if @call_document.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@call_document.errors.count, "error") %> prohibited this call_document from being saved:</h2>
+
+      <ul>
+      <% @call_document.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "დასახელება"%>
+    <%= f.text_field :name %>
+  </div>
+  <div class="aaafield">
+    <%= f.label "დოკუმენტის ტექსტი" %>
+    <%= f.text_area :document , size: "90x10"  %>
+  </div>  
+
+  <div class="field">
+    <%= f.file_field :calldocument %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

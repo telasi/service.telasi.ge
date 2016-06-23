@@ -1,0 +1,14 @@
+<ul class="breadcrumb" >
+  <% @customnav.each_with_index do |(k, v), i| %>
+  <% if i == @customnav.size - 1%>
+    <li><%= k %></li>
+  <% else %>
+    <li><a href="<%= v %>"><%= k %></a> <span class="divider">/</span></li>
+  <% end%>
+  <% end %>
+</ul>
+
+
+<h2 id='header1'>დოკუმენტის რედაქტირება</h2><br>
+
+<%= render 'form' %>

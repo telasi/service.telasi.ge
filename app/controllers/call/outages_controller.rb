@@ -206,6 +206,9 @@ class Call::OutagesController < Call::CallController
     #debugger
     outage.destroy
     check_array = []
+    
+    arr = []
+
 
          func_oci8
              cursor = @conn_io1.parse("select distinct
@@ -227,45 +230,45 @@ class Call::OutagesController < Call::CallController
 
              cursor.exec
 
-     while r = cursor.fetch 
+     while rr = cursor.fetch 
       #debugger
-
-
-
-
-       aa = Call::Outage.new( 
-                                  start_date:   r[0],
-                                  start_time:   r[1],
-                                  end_date:     r[2],
-                                  end_time:     r[3],
-                                  active:       true,
-                                  accnumb:      r[5],
-                                  custkey:      r[6],
-                                  category:     r[7],
-                                  description:  r[8].to_ka
-                                  )
-     ## dublirebisgan dacva
-     if !check_array.include?(r[6])
-        check_array.push(r[6])   
-        aa.save!
-     end
-     #####################################
-
-
+       arr.push(rr)  
      end
 
     cursor.close
     @conn_io1.logoff
+  
    
+    arr.each do |r|
+          aa = Call::Outage.new( 
+                                    start_date:   r[0],
+                                    start_time:   r[1],
+                                    end_date:     r[2],
+                                    end_time:     r[3],
+                                    active:       true,
+                                    accnumb:      r[5],
+                                    custkey:      r[6],
+                                    category:     r[7],
+                                    description:  r[8].to_ka
+                                    )
+         ## dublirebisgan dacva
+         if !check_array.include?(r[6])
+          check_array.push(r[6])   
+          aa.save!
+         end
+
+    end
+   #####################################
     #redirect_to call_outages_url, notice: 'განახლება დასრულებულია'
   end 
-  ##############################
+
+
+
 
   def syncpage
 
   end  
 
-  #############################
 
   private
 

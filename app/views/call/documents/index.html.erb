@@ -1,0 +1,36 @@
+<% has_action_permission = current_user.call_admin %>
+<ul class="breadcrumb" >
+  <% @customnav.each_with_index do |(k, v), i| %>
+  <% if i == @customnav.size - 1%>
+    <li><%= k %></li>
+  <% else %>
+    <li><a href="<%= v %>"><%= k %></a> <span class="divider">/</span></li>
+  <% end%>
+  <% end %>
+</ul>
+
+
+<h2 id='header1'>დოკუმენტების ჩამონათვალი</h2>
+<br>
+<table id="tablerow1">
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @call_documents.each do |call_document| %>
+  <tr>
+    <td id="td1"><%= link_to call_document.name , call_document %></td>
+      <% if has_action_permission %>
+        <td id="td2"><%= link_to 'რედაქტირება /', edit_call_document_path(call_document)%></td>
+        <td id="td2"><%= link_to 'წაშლა', call_document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br>
+<% if has_action_permission %>
+ <%= link_to 'ახალი დოკუმენტის შექმნა', new_call_document_path , class: "button-documents-new" %>
+<% end %>

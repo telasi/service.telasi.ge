@@ -1,0 +1,2 @@
+module Call::DocumentsHelper
+end
