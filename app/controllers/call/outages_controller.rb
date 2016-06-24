@@ -209,7 +209,7 @@ class Call::OutagesController < Call::CallController
     
     arr = []
 
-
+    begin
          func_oci8
              cursor = @conn_io1.parse("select distinct
                                                trunc(b.start_date + 1 / 6) start_date,
@@ -237,7 +237,11 @@ class Call::OutagesController < Call::CallController
 
     cursor.close
     @conn_io1.logoff
-  
+    
+    rescue OCIError
+      redirect_to call_outages_url, notice: 'დაფიქსირდა შეცდომა! კოდი: '+ $!.code.to_s + ' ტექსტი: '+$!.message
+
+    end
    
     arr.each do |r|
           aa = Call::Outage.new( 
