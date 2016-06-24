@@ -50,7 +50,7 @@ table#tablerow1 tr:nth-child(odd) {
           }    
 
 #body2    {background-color: white ; padding: 1px; border-radius: 4px;
-           //margin-top: 10px;  margin-bottom: 20px;
+           margin-top: 10px;  margin-bottom: 20px;
 }
 
 

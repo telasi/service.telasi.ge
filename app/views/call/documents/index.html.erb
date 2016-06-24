@@ -1,3 +1,48 @@
+<head></head>
+<style type="text/css">
+#td1 {padding-right: 55px; 
+    padding-left: 10px; 
+      border-right: 10px solid-black; 
+      border-right-style: groove;
+      margin-right: 10px;
+      }
+
+#td2 {padding-left: 5px; 
+    text-align: right;
+      }
+
+
+table#tablerow1 tr:nth-child(even) {
+      background-color: #eee;
+      border-right: 1px solid-black; 
+    }
+
+table#tablerow1 tr:nth-child(odd) {
+      background-color:#ffeecc;
+             }
+
+#header1  {background-color: #ffc34d ; padding: 10px; border-radius: 4px;}  
+
+.button-documents-new   
+    {   background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 1px 1px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        border-radius: 4px;
+        width: 250px;
+    }
+
+.button-documents-new:visited {
+    color: white; } 
+
+
+
+</style>
+<body>
 <% has_action_permission = current_user.call_admin %>
 <ul class="breadcrumb" >
   <% @customnav.each_with_index do |(k, v), i| %>
@@ -34,3 +79,4 @@
 <% if has_action_permission %>
  <%= link_to 'ახალი დოკუმენტის შექმნა', new_call_document_path , class: "button-documents-new" %>
 <% end %>
+</body>
