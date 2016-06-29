@@ -77,4 +77,20 @@ module CustomerForm
     form
   end
 
+  def self.search2(params)
+    form = Form.new(title: 'აბონენტის ძებნა', icon: '/assets/fff/magnifier.png', submit: 'ძებნა', method: 'get')
+    form.col1 << TextField.new(name: 'accnumb', label: 'აბ.ნომერი')
+    form.col1 << TextField.new(name: 'mtnumb', label: 'მრც.ნომერი')   
+    form.col1 << TextField.new(name: 'custname', label: 'დასახელება')
+    form.col1 << TextField.new(name: 'regionname', label: 'ბიზნ.ცენტრი')
+    form.col2 << TextField.new(name: 'streetname', label: 'ქუჩა')
+    form.col2 << TextField.new(name: 'building', label: 'სახლის №')
+    form.col2 << TextField.new(name: 'flate', label: 'ბინის №')
+    form << params.symbolize_keys if params
+    form.edit = true
+    form
+  end
+
+
+
 end

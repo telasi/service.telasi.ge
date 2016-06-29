@@ -286,7 +286,7 @@ class Call::OutagesController < Call::CallController
   # damatebulia 08/04/2016  bacho
   def func_oci8
    require 'oci8'
-   @conn_io1 =OCI8.new(Bsconnection::USR, Bsconnection::PASS, Bsconnection::IPSID) # dziritadze aq unda chauweros call iuzeri
+   @conn_io1 =OCI8.new(Bsconnection::USR, Bsconnection::PASS, Bsconnection::IPSID) 
   end
   ###############################
 

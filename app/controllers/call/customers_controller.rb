@@ -7,7 +7,7 @@ class Call::CustomersController < Call::CallController
 
   def index
     @title = 'აბონენტების ძებნა'
-    @search_form = CustomerForm.search(params[:dim])
+    @search_form = CustomerForm.search2(params[:dim])
     @customers = search_customers(params[:dim], params[:page])
     @customer_table = CustomerForm.customer_table(@customers)
   end
@@ -266,6 +266,9 @@ class Call::CustomersController < Call::CallController
     join_address = false
     join_regions = false
     join_street = false
+    join_mt = false   # bacho 27/06/2016
+
+
     unless params.blank?
       unless params[:accnumb].blank?
         conditions << 'customer.accnumb LIKE :accnumb'
@@ -296,11 +299,21 @@ class Call::CustomersController < Call::CallController
         values[:flate] = "%#{params[:flate].strip.to_geo}%"
         join_address = true
       end
+
+      ########################### bacho 27/06/2016 (mricx N dzebnis damateba)
+      unless params[:mtnumb].blank?
+        conditions << 'account.mtnumb LIKE :mtnumb'
+        values[:mtnumb] = "%#{params[:mtnumb].strip.to_geo}%"
+        join_mt = join_mt = true
+      end      
+      ###########################
+
     end
     rel = Bs::Customer
     rel = rel.joins('INNER JOIN bs.address ON customer.premisekey = address.premisekey') if join_address
     rel = rel.joins('INNER JOIN bs.region ON address.regionkey = region.regionkey') if join_regions
     rel = rel.joins('INNER JOIN bs.street ON address.streetkey = street.streetkey') if join_address
+    rel = rel.joins('INNER JOIN bs.account ON account.custkey = customer.custkey') if join_mt # bacho 27/06/2016
     rel.where(conditions.join(' AND '), values).paginate(per_page: 15, page: page).order(:accnumb)
   end
 
