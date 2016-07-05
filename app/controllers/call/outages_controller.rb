@@ -257,8 +257,10 @@ class Call::OutagesController < Call::CallController
                                     )
          ## dublirebisgan dacva
          if !check_array.include?(r[6])
-          check_array.push(r[6])   
-          aa.save!
+          check_array.push(r[6])  
+           if Call::Outage.where(active: true).where(category: 1).where(custkey: r[6]).blank?
+            aa.save!
+           end 
          end
 
     end
