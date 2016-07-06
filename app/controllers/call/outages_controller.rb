@@ -215,7 +215,7 @@ class Call::OutagesController < Call::CallController
                                     start_date:   r.start_date,
                                     start_time:   r.start_time,
                                     end_date:     r.end_date,
-                                    end_time:     r.end_time
+                                    end_time:     r.end_time,
                                     active:       true,
                                     accnumb:      r.accnumb,
                                     custkey:      r.custkey,
