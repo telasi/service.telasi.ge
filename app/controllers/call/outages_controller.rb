@@ -224,15 +224,16 @@ class Call::OutagesController < Call::CallController
                                           from call.outage_bases b, call.outage_tps tp, bs.account a, bs.customer c
                                          where tp.base_id = b.id
                                            and tp.acckey = a.acckey
-                                           and trunc(b.start_date) = trunc(sysdate)
+                                           and trunc(b.start_date) >= trunc(sysdate)-79
                                            and c.custkey=a.custkey ")
 
-
+          
              cursor.exec
-
+          
      while rr = cursor.fetch 
-      #debugger
+      
        arr.push(rr)  
+      
      end
 
     cursor.close
@@ -240,7 +241,6 @@ class Call::OutagesController < Call::CallController
     
     rescue OCIError
       redirect_to call_outages_url, notice: 'დაფიქსირდა შეცდომა! კოდი: '+ $!.code.to_s + ' ტექსტი: '+$!.message
-
     end
    
     arr.each do |r|
@@ -258,6 +258,7 @@ class Call::OutagesController < Call::CallController
          ## dublirebisgan dacva
          if !check_array.include?(r[6])
           check_array.push(r[6])  
+          
            if Call::Outage.where(active: true).where(category: 1).where(custkey: r[6]).blank?
             aa.save!
            end 
