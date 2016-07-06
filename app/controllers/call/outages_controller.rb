@@ -208,7 +208,7 @@ class Call::OutagesController < Call::CallController
     
     check_array = []
 
-    arr=Calloutagesyncv.all
+    arr=Bs::Calloutagesyncv.all
    
     arr.each do |r|
           aa = Call::Outage.new( 
