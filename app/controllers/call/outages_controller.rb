@@ -205,61 +205,28 @@ class Call::OutagesController < Call::CallController
     end
     #debugger
     outage.destroy
+    
     check_array = []
-    
-    arr = []
 
-    begin
-         func_oci8
-             cursor = @conn_io1.parse("select distinct
-                                               trunc(b.start_date + 1 / 6) start_date,
-                                               to_char(b.start_date + 1 / 6, 'HH24:MI') start_time,
-                                               trunc(b.end_date + 1 / 6) end_date,
-                                               to_char(b.end_date + 1 / 6, 'HH24:MI') end_time,
-                                               'true' active,
-                                               c.accnumb,
-                                               a.custkey,
-                                               '1' category,
-                                               b.description 
-                                          from call.outage_bases b, call.outage_tps tp, bs.account a, bs.customer c
-                                         where tp.base_id = b.id
-                                           and tp.acckey = a.acckey
-                                           and trunc(b.start_date) >= trunc(sysdate)-79
-                                           and c.custkey=a.custkey ")
-
-          
-             cursor.exec
-          
-     while rr = cursor.fetch 
-      
-       arr.push(rr)  
-      
-     end
-
-    cursor.close
-    @conn_io1.logoff
-    
-    rescue OCIError
-      redirect_to call_outages_url, notice: 'დაფიქსირდა შეცდომა! კოდი: '+ $!.code.to_s + ' ტექსტი: '+$!.message
-    end
+    arr=Calloutagesyncv.all
    
     arr.each do |r|
           aa = Call::Outage.new( 
-                                    start_date:   r[0],
-                                    start_time:   r[1],
-                                    end_date:     r[2],
-                                    end_time:     r[3],
+                                    start_date:   r.start_date,
+                                    start_time:   r.start_time,
+                                    end_date:     r.end_date,
+                                    end_time:     r.end_time
                                     active:       true,
-                                    accnumb:      r[5],
-                                    custkey:      r[6],
-                                    category:     r[7],
-                                    description:  r[8].to_ka
+                                    accnumb:      r.accnumb,
+                                    custkey:      r.custkey,
+                                    category:     r.category,
+                                    description:  r.description.to_ka
                                     )
          ## dublirebisgan dacva
-         if !check_array.include?(r[6])
-          check_array.push(r[6])  
+         if !check_array.include?(r.custkey)
+          check_array.push(r.custkey)  
           
-           if Call::Outage.where(active: true).where(category: 1).where(custkey: r[6]).blank?
+           if Call::Outage.where(active: true).where(category: 1).where(custkey: r.custkey).blank?
             aa.save!
            end 
          end
