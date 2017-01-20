@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '~> 3.2.11'
 gem 'pony'
@@ -32,10 +32,14 @@ gem 'gmaps4rails'
 gem 'xml-simple'
 gem 'axlsx_rails'
 
+gem 'rubyzip', '1.2.0'
+gem 'zip-zip'
+gem 'ruby_apk'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.0'
   gem 'coffee-rails', '~> 3.2.0'
-  gem 'therubyracer'
+#  gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -45,9 +49,9 @@ gem 'jquery-ui-rails', '4.1.0'
 group :test, :development do
   gem 'rspec-rails', '~> 2.6'
   gem 'mongoid-rspec'
-  gem 'capybara'
+  #gem 'capybara'
   gem 'factory_girl'
   gem 'email_spec'
-  gem 'capybara-webkit'
+  #gem 'capybara-webkit'
   gem 'debugger'
 end
