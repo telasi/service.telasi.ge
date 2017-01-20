@@ -13,20 +13,26 @@
     <tr>
       <th width="50">bs ID</th>
       <th width="100">bs Login</th>
+      <th width="70">bs cut ID</th>
+      <th width="100">bs cut Login</th>
       <th>სახელი, გვარი</th>
       <th width="100">მობილური</th>
       <th width="100">ზედამხედველი</th>
-      <th width="100">ინსპექტორი</th>
+      <th width="80">ინსპექტორი</th>
+      <th width="80">გამთიშველი</th>
     </tr>
   </thead>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.bs_person %></td>
       <td><strong><%= user.bs_login.blank? ? '--' : user.bs_login %></strong></td>
+      <td><%= user.bs_cut_person %></td>
+      <td><strong><%= user.bs_cut_login.blank? ? '--' : user.bs_cut_login %></strong></td>
       <td><%= user.full_name %> &mdash; <%= mail_to user.email %></td>
       <td><%= C12.format_mobile user.mobile %></td>
       <td><% if user.bs_admin %><%= image_tag 'fff/accept.png' %><% end %></td>
       <td><% if user.bs_inspector %><%= image_tag 'fff/accept.png' %><% end %></td>
+      <td><% if user.bs_cutter %><%= image_tag 'fff/accept.png' %><% end %></td>
     </tr>
   <% end %>
 </table>
