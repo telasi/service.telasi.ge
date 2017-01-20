@@ -12,9 +12,18 @@ class Android::AndroidController < ApplicationController
     process_login
   end
 
+  def auth_cut
+    @cut = 'cut'
+    process_login(@cut)
+  end
+
+  def cut_users
+    @users = Bs::Person.where("persstat = 0 and login is not null")
+  end
+
   def users
     @title = 'მომხმარებლები'
-    @users = User.excludes(bs_person: nil)
+    @users = User.or({:bs_cut_person.ne => nil}, {:bs_person.ne => nil})
   end
 
   def sync_logins
@@ -25,6 +34,15 @@ class Android::AndroidController < ApplicationController
         user.save
       end
     end
+
+    User.excludes(bs_cut_person: nil).each do |user|
+      person = Bs::Person.where(perskey: user.bs_cut_person).first
+      if person
+        user.bs_cut_login = person.login
+        user.save
+      end
+    end
+
     redirect_to android_users_url, notice: 'მომხმარებლები სინქრონიზირებულია'
   end
 

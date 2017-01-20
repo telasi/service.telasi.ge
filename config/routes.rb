@@ -177,7 +177,9 @@ TelasiService::Application.routes.draw do
     scope controller: :android do
       get '/', action: :index, as: :home
       get '/login', action: :authenticate, as: :authenticate
+      get '/cut_login', action: :auth_cut, as: :auth_cut
       get '/users', action: :users, as: :users
+      get '/cut_users', action: :cut_users, as: :cut_users
       get 'routes', action: :routes, as: :routes
       get 'route/:id', action: :route, as: :route
       post '/sync_users', action: :sync_logins, as: :sync_logins
@@ -188,6 +190,15 @@ TelasiService::Application.routes.draw do
       post '/upload',    action: :upload,     as: :upload_reester
       post '/newmeters', action: :newmeters,  as: :newmeters
       post '/sync/:id',  action: :sync_route, as: :sync_route
+    end
+    scope '/cutrecon', controller: :cutrecon do
+      get '/headers',    action: :headers,    as: :headers
+      get '/details',    action: :details,    as: :details
+      get '/discrecstatus', action: :discrecstatus, as: :discrecstatus
+      post '/detail',    action: :detail,     as: :detail
+      post '/newmeters', action: :newmeters,  as: :newmeters
+      post '/sync/:id',  action: :sync_route, as: :sync_route
+      get '/version', action: :version, as: :version
     end
   end
 

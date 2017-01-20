@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 module Android::BsLoginController
 
-  def process_login
+  def process_login(cut = nil)
     @user = current_user
-    @user = User.authenticate_bs(params[:username], params[:password]) unless @user
+    @user = User.authenticate_bs(params[:username], params[:password], cut) unless @user
     if @user
       yield if block_given?
     else
