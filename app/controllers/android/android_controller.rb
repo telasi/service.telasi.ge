@@ -18,7 +18,7 @@ class Android::AndroidController < ApplicationController
   end
 
   def cut_users
-    @users = Bs::Person.where("persstat = 0 and login is not null")
+    @users = Bs::Person.where("persstat = 0 and perstype = 4 and login is not null")
   end
 
   def users
