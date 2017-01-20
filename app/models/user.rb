@@ -36,13 +36,18 @@ class User
 
   # Person ID for connection with BS database.
   field :bs_person, type: Integer
+  field :bs_cut_person, type: Integer
   field :bs_login, type: String
+  field :bs_cut_login, type: String
 
   # BS administrator role
   field :bs_admin, type: Boolean
 
   # BS inspector role
   field :bs_inspector, type: Boolean
+
+  # BS cutter role
+  field :bs_cutter, type: Boolean
 
   # C(ivil) R(egistry) A(gency) role
   field :cra, type: Boolean
@@ -114,8 +119,12 @@ class User
   end
 
   # მომხმარებლის ავტორიზაცია: ბილინგის მომხმარებლით.
-  def self.authenticate_bs(username, pwd)
-    user = User.where(:bs_login => username).first
+  def self.authenticate_bs(username, pwd, cut)
+    if cut
+      user = User.where(:bs_cut_login => username).first
+    else
+      user = User.where(:bs_login => username).first
+    end
     user if user and Digest::SHA1.hexdigest("#{pwd}dimitri#{user.salt}") == user.hashed_password
   end
 
