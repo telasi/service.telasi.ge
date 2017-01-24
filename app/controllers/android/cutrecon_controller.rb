@@ -20,6 +20,20 @@ class Android::CutreconController < ApplicationController
     end
   end
 
+  def headerstatus
+    process_login('cut') do
+      if @user && @user.bs_cut_person
+        @header = Bs::CutGroups
+                           .where(cutgroup: params[:cutgroup])
+                           .where(inspector: @user.bs_cut_person)
+                           .where(oper_code: params[:type]).first
+        render json: { success: true, status: @header.status } 
+      else
+        render json: { success: false } 
+      end
+    end
+  end
+
   # რეესტრის გაგზავნა.
   def details
     process_login('cut') do
@@ -64,7 +78,7 @@ class Android::CutreconController < ApplicationController
         item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR
 
         item.save!
-        
+
         if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_status: 0).empty?
            header = Bs::CutGroups.find(item.cutgroup)
            header.upload_count = ( header.upload_count || 0 ) + 1

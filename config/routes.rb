@@ -193,6 +193,7 @@ TelasiService::Application.routes.draw do
     end
     scope '/cutrecon', controller: :cutrecon do
       get '/headers',    action: :headers,    as: :headers
+      get '/headerstatus',    action: :headerstatus,      as: :headerstatus
       get '/details',    action: :details,    as: :details
       get '/discrecstatus', action: :discrecstatus, as: :discrecstatus
       post '/detail',    action: :detail,     as: :detail
