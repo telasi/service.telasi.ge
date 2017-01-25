@@ -65,7 +65,7 @@ class Android::CutreconController < ApplicationController
       Bs::CutHistory.transaction do
         item.reading = data['reading'][0]
         item.note = data['note'][0].to_geo if data['note'][0].present?
-        if item.upload_status == 3
+        if item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC
           item.mark_code_insp = data['mark_code'][0]
           item.discrecstatuskey_insp = data['discrecstatuskey'][0] unless data['discrecstatuskey'][0] == 0  
         else

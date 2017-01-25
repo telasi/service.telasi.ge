@@ -7,5 +7,5 @@ class Bs::CutHistory < ActiveRecord::Base
   UPLOAD_STATUS_GNERC = 3
 
   self.table_name  = 'bs.cut_history' #'dimitri.ruby_cut_history'
-  self.set_integer_columns :mark_code, :oper_code, :mark_code_insp
+  self.set_integer_columns :mark_code, :oper_code, :mark_code_insp, :upload_status
 end
