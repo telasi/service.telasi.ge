@@ -100,6 +100,12 @@ class Android::CutreconController < ApplicationController
     end
   end
 
+  def testlogin
+    process_login('cut') do
+      render json: { success: true } 
+    end
+  end
+
   def download
   end
 

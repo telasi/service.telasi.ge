@@ -200,6 +200,7 @@ TelasiService::Application.routes.draw do
       post '/newmeters', action: :newmeters,  as: :newmeters
       post '/sync/:id',  action: :sync_route, as: :sync_route
       get '/version', action: :version, as: :version
+      get '/testlogin', action: :testlogin, as: :testlogin
     end
   end
 
