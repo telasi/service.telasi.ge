@@ -196,7 +196,9 @@ TelasiService::Application.routes.draw do
       get '/headerstatus',    action: :headerstatus,      as: :headerstatus
       get '/details',    action: :details,    as: :details
       get '/discrecstatus', action: :discrecstatus, as: :discrecstatus
+      get '/payments', action: :payments, as: :payments
       post '/detail',    action: :detail,     as: :detail
+      post '/gnerc',    action: :gnerc,     as: :gnerc
       post '/newmeters', action: :newmeters,  as: :newmeters
       post '/sync/:id',  action: :sync_route, as: :sync_route
       get '/version', action: :version, as: :version

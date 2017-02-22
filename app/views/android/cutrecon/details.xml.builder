@@ -11,6 +11,7 @@
         xml.address do 
           xml.full_address(item.customer.address.to_s2) if item.customer
           if item.account
+            xml.accstatus(item.account.statuskey)
             xml.street_id(item.account.address.street.streetkey)
             xml.street_name(item.account.address.street.streetname.strip.to_ka)
             xml.house(item.account.address.house.strip.to_ka) if item.account.address.house
@@ -39,7 +40,8 @@
           xml.balance_w(item.balance_w)
           xml.chargeamount(item.chargeamount)
           d = DateTime.new(1900,1,1)
-          xml.lastpaydate([item.lastpaydate || d, item.lastpaydate_tr  || d, item.lastpaydate_w || d].max.strftime('%Y-%m-%d %H:%M:%S'))
+          #xml.lastpaydate([item.lastpaydate || d, item.lastpaydate_tr  || d, item.lastpaydate_w || d].max.strftime('%Y-%m-%d %H:%M:%S'))
+          xml.lastpaydate([item.paydate_sys.strftime('%Y-%m-%d %H:%M:%S'))
         end
       end
     end

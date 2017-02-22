@@ -58,6 +58,12 @@ class Android::CutreconController < ApplicationController
     @discrecstatuses = Bs::Discrecstatusdet.includes(:discrecstatus).where("STATUS IN (?)", [0, 1])
   end
 
+  def payments
+    process_login('cut') do
+      @payments = Bs::Payment.where(accnumb: params[:accnumb]).order('paykey desc').limit(10)
+    end
+  end
+
   def detail
     process_login('cut') do
       data = XmlSimple.xml_in(params[:detail])
@@ -84,6 +90,46 @@ class Android::CutreconController < ApplicationController
            header.upload_count = ( header.upload_count || 0 ) + 1
            header.status = Bs::CutGroups::STATUS_RECEIVED
            header.save!
+        end
+
+      end
+
+    end
+  end
+
+  def gnerc
+    raise 'Error'
+
+    process_login('cut') do
+      data = XmlSimple.xml_in(params[:detail])
+      item = Bs::CutHistory.find(data['cr_key'][0])
+      Bs::CutHistory.transaction do
+        item.reading = data['reading'][0]
+        item.note = data['note'][0].to_geo if data['note'][0].present?
+        if item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC
+          item.mark_code_insp = data['mark_code'][0]
+          item.discrecstatuskey_insp = data['discrecstatuskey'][0] unless data['discrecstatuskey'][0] == 0  
+        else
+          item.mark_code = data['mark_code'][0]
+          item.discrecstatuskey = data['discrecstatuskey'][0] unless data['discrecstatuskey'][0] == 0
+        end
+
+        item.enter_date_insp = data['enter_date'][0]
+        item.upload_date_insp = Time.now + 4.hours
+        item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
+
+        item.save!
+
+        if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_status: 0).empty?
+           header = Bs::CutGroups.find(item.cutgroup)
+           header.upload_count = ( header.upload_count || 0 ) + 1
+           header.status = Bs::CutGroups::STATUS_RECEIVED
+           header.save!
+        end
+
+        cutter = Gnerc::Cutter.find(item.cr_key)
+        if cutter.present?
+
         end
 
       end
