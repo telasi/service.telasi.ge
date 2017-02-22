@@ -41,7 +41,7 @@
           xml.chargeamount(item.chargeamount)
           d = DateTime.new(1900,1,1)
           #xml.lastpaydate([item.lastpaydate || d, item.lastpaydate_tr  || d, item.lastpaydate_w || d].max.strftime('%Y-%m-%d %H:%M:%S'))
-          xml.lastpaydate([item.paydate_sys.strftime('%Y-%m-%d %H:%M:%S'))
+          xml.lastpaydate(item.paydate_sys.strftime('%Y-%m-%d %H:%M:%S'))
         end
       end
     end
