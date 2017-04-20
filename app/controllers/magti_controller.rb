@@ -2,13 +2,15 @@
 class MagtiController < ApplicationController
   # Incomming sms messages.
   def index
-    if !params[:from].nil
+    if !params[:from].nil?
        sender_mob_v = params[:from].to_s
        if sender_mob_v[0] == '+'
          sender_mob_v = sender_mob_v[1..12]
        end
 
-      incmsg = Sms::Messages.new
+      sender_mob_v.strip!
+
+      incmsg = Sms::Message.new
       incmsg.company = 'MAGTI' 
       incmsg.sender_mobile = sender_mob_v
       incmsg.smsid = params[:message_id]   
