@@ -4,6 +4,7 @@ class Bs::CutGroups < ActiveRecord::Base
   STATUS_DEFAULT  = 0
   STATUS_SENT     = 1
   STATUS_RECEIVED = 2
+  STATUS_CLOSED 	  = 3
   
   self.table_name  = 'bs.cut_groups' 
   self.set_integer_columns :inspector, :oper_code, :status, :download_count
