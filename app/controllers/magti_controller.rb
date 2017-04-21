@@ -27,7 +27,22 @@ class MagtiController < ApplicationController
   end
 
   def send_sms
-    Magti.send_sms(params[:mobile], params[:message][0..150].to_lat) if Magti::SEND
+
+   if Magti::SEND 
+    Magti.send_sms(params[:mobile], params[:message][0..150].to_lat) 
+
+    #bacho 
+    smsg = Sms::SentMessage.new
+    smsg.company='MAGTI'
+    smsg.receiver_mobile=params[:mobile]
+    smsg.text=params[:message][0..150].to_lat
+    smsg.status='S'
+    smsg.sent_at=Date.today
+    smsg.sender_user='ServiceTelasiGe'
+    smsg.save
+    #
+   end
+
     render text: "ok"
   rescue Exception => ex
     render text: ex.message
