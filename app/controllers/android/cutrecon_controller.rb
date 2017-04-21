@@ -82,15 +82,16 @@ class Android::CutreconController < ApplicationController
         item.enter_date_insp = data['enter_date'][0]
         item.upload_date_insp = Time.now + 4.hours
         item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
+        item.upload_numb = ( item.upload_numb || 0 ) + 1
 
         item.save!
 
-        if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_status: 0).empty?
-           header = Bs::CutGroups.find(item.cutgroup)
-           header.upload_count = ( header.upload_count || 0 ) + 1
-           header.status = Bs::CutGroups::STATUS_RECEIVED
-           header.save!
-        end
+        # if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_numb: 0).empty?
+        #    header = Bs::CutGroups.find(item.cutgroup)
+        #    header.upload_count = ( header.upload_count || 0 ) + 1
+        #    header.status = Bs::CutGroups::STATUS_RECEIVED
+        #    header.save!
+        # end
 
       end
 
@@ -117,20 +118,21 @@ class Android::CutreconController < ApplicationController
         item.enter_date_insp = data['enter_date'][0]
         item.upload_date_insp = Time.now + 4.hours
         item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
+        item.upload_numb = ( item.upload_numb || 0 ) + 1
 
         item.save!
 
-        if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_status: 0).empty?
+        if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_numb: 0).empty?
            header = Bs::CutGroups.find(item.cutgroup)
            header.upload_count = ( header.upload_count || 0 ) + 1
            header.status = Bs::CutGroups::STATUS_RECEIVED
            header.save!
         end
 
-        cutter = Gnerc::Cutter.find(item.cr_key)
-        if cutter.present?
+        # cutter = Gnerc::Cutter.find(item.cr_key)
+        # if cutter.present?
 
-        end
+        # end
 
       end
 
