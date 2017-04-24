@@ -9,7 +9,6 @@ class MagtiController < ApplicationController
        end
 
       sender_mob_v.strip!
-      sender_mob_v = '995'+sender_mob_v
 
       incmsg = Sms::Message.new
       incmsg.company = 'MAGTI' 
@@ -35,7 +34,7 @@ class MagtiController < ApplicationController
     #bacho 
     smsg = Sms::SentMessage.new
     smsg.company='MAGTI'
-    smsg.receiver_mobile=params[:mobile]
+    smsg.receiver_mobile='995' + params[:mobile].to_s
     smsg.text=params[:message][0..150].to_lat
     smsg.status='S'
     smsg.sent_at=Date.today
