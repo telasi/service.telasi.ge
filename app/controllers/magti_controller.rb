@@ -9,6 +9,7 @@ class MagtiController < ApplicationController
        end
 
       sender_mob_v.strip!
+      sender_mob_v = '995'+sender_mob_v
 
       incmsg = Sms::Message.new
       incmsg.company = 'MAGTI' 
