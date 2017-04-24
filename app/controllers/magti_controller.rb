@@ -37,7 +37,7 @@ class MagtiController < ApplicationController
     smsg.receiver_mobile='995' + params[:mobile].to_s
     smsg.text=params[:message][0..150].to_lat
     smsg.status='S'
-    smsg.sent_at=Date.today
+    smsg.sent_at=Time.now
     smsg.sender_user='ServiceTelasiGe'
     smsg.save
     #
