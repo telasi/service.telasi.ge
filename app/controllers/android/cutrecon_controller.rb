@@ -86,12 +86,12 @@ class Android::CutreconController < ApplicationController
 
         item.save!
 
-        if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_numb: 0).empty?
-           header = Bs::CutGroups.find(item.cutgroup)
+        #if Bs::CutHistory.where(cutgroup: item.cutgroup, upload_numb: 0).empty?
+        #   header = Bs::CutGroups.find(item.cutgroup)
            header.upload_count = ( header.upload_count || 0 ) + 1
            header.status = Bs::CutGroups::STATUS_RECEIVED unless header.status == Bs::CutGroups::STATUS_CLOSED
            header.save!
-        end
+        #end
 
       end
 
