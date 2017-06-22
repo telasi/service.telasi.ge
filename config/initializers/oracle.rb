@@ -10,3 +10,6 @@ Gis::Fider.establish_connection :gis
 Bs::WaterPayment.establish_connection :region_call
 Bs::CutHistory.establish_connection :region_call
 Bs::CutGroups.establish_connection :region_call
+
+Gnerc::Cutter.establish_connection :gnerc
+Gnerc::Queue.establish_connection :gnerc
