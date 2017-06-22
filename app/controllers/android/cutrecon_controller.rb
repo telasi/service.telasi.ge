@@ -60,7 +60,15 @@ class Android::CutreconController < ApplicationController
 
   def payments
     process_login('cut') do
-      @payments = Bs::Payment.where(accnumb: params[:accnumb]).order('paykey desc').limit(10)
+      type = params[:type] || '1'
+      case type
+        when '1'
+          @payments = Bs::Payment.where(accnumb: params[:accnumb]).order('paykey desc').limit(10)
+        when '2'
+          @payments = Bs::WaterPayment.where(accnumb: params[:accnumb]).order('paykey desc').limit(10)
+        when '3'
+          @payments = Bs::TrashPayment.where(accnumb: params[:accnumb]).order('paykey desc').limit(10)
+      end
     end
   end
 
@@ -81,7 +89,8 @@ class Android::CutreconController < ApplicationController
 
         item.enter_date_insp = data['enter_date'][0]
         item.upload_date_insp = Time.now + 4.hours
-        item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
+        item.upload_status = Bs::CutHistory::UPLOAD_STATUS_GNERC
+        #item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
         item.upload_numb = ( item.upload_numb || 0 ) + 1
 
         item.save!
@@ -92,6 +101,8 @@ class Android::CutreconController < ApplicationController
            header.status = Bs::CutGroups::STATUS_RECEIVED unless header.status == Bs::CutGroups::STATUS_CLOSED
            header.save!
         #end
+
+        Gnerc::Sender.stage2(item) if ( item.oper_code == 1 )
 
       end
 
