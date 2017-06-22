@@ -89,7 +89,7 @@ class Android::CutreconController < ApplicationController
 
         item.enter_date_insp = data['enter_date'][0]
         item.upload_date_insp = Time.now + 4.hours
-        item.upload_status = Bs::CutHistory::UPLOAD_STATUS_GNERC
+        item.upload_status = Bs::CutHistory::UPLOAD_STATUS_GNERC if ( item.oper_code == 1 )
         #item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
         item.upload_numb = ( item.upload_numb || 0 ) + 1
 
