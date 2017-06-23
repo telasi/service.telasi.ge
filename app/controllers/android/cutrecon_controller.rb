@@ -88,11 +88,11 @@ class Android::CutreconController < ApplicationController
           item.discrecstatuskey = data['discrecstatuskey'][0] unless data['discrecstatuskey'][0] == 0
         end
 
-        if data['enter_date'][0][0, 4] == '1970'
-          item.enter_date_insp = Time.now + 4.hours
-        else
+        #if data['enter_date'][0][0, 4] == '1970'
+         # item.enter_date_insp = Time.now + 4.hours
+        #else
           item.enter_date_insp = data['enter_date'][0]
-        end
+        #end
         item.upload_date_insp = Time.now + 4.hours
         item.upload_status = Bs::CutHistory::UPLOAD_STATUS_GNERC if ( item.oper_code == 1 )
         #item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR unless ( item.upload_status == Bs::CutHistory::UPLOAD_STATUS_GNERC )
