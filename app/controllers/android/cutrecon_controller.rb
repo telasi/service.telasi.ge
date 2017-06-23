@@ -90,7 +90,7 @@ class Android::CutreconController < ApplicationController
 
         enter_date = data['enter_date'][0][0..3]
 
-        if enter_date[0..3] == '1970' or enter_date.blank?
+        if enter_date.blank? or enter_date[0..3] == '1970'
           item.enter_date_insp = Time.now + 4.hours
         else
           item.enter_date_insp = data['enter_date'][0]
