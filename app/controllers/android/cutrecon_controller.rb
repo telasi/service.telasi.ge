@@ -98,7 +98,7 @@ class Android::CutreconController < ApplicationController
         item.upload_date_insp = Time.now + 4.hours
         
         if item.oper_code == 1
-          item.upload_status = Bs::CutHistory::UPLOAD_STATUS_GNERC
+          item.upload_status = Bs::CutHistory::UPLOAD_STATUS_GNERC unless ( item.mark_code == 2 )
         else 
           item.upload_status = Bs::CutHistory::UPLOAD_STATUS_INSPECTOR
         end
