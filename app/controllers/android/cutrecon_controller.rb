@@ -92,7 +92,7 @@ class Android::CutreconController < ApplicationController
 
         if enter_date.blank? or enter_date[0..3] == '1970'
           item.enter_date_insp = Time.now + 4.hours
-          Bs::LogDateAndroid(login: params[:username], cr_key: data['cr_key'][0], enterdate: Time.now + 4.hours).save
+          Bs::LogDateAndroid.new(login: params[:username], cr_key: data['cr_key'][0], enterdate: Time.now + 4.hours).save
         else
           item.enter_date_insp = data['enter_date'][0]
         end
