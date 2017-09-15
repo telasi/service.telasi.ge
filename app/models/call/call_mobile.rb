@@ -9,7 +9,7 @@ class Call::CallMobile < ActiveRecord::Base
 
   VALID_MOBILE_REGEX = /^5[0-9]{8}\z/
 
-  validates  :mobile , presence: true , format: {with: VALID_MOBILE_REGEX}
+  validates  :mobile ,  format: {with: VALID_MOBILE_REGEX } , :allow_blank => true
   validates  :accnumb , presence: true
 
   def  note_call_bs
