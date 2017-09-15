@@ -5,3 +5,16 @@
 <% end %>
 <%= @trash_customer_form.html rescue nil %>
 <%= @water_customer_form.html rescue nil %>
+
+<br>
+<h4>  
+
+  <img src="/assets/fff/text_list_bullets.png"  style="width:17px;height:17px;border:0">
+  <%= link_to 'მობილური ნომრის ცვლილების განცხადებები', call_call_mobiles_path , target: '_blank' %>
+ <br><br>
+  <img src="/assets/fff/layout_add.png"  style="width:17px;height:17px;border:0">
+  <%= link_to 'მობილური ნომრის ცვლილების ახალი განაცხადი', 
+      new_call_call_mobile_path(accnumb: @customer.accnumb, custname: @customer.custname) , target: '_blank' %> <br>
+
+
+</h4>

@@ -1,0 +1,38 @@
+<%= form_for(@call_call_mobile) do |f| %>
+  <% if @call_call_mobile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@call_call_mobile.errors.count, "error") %> prohibited this call_mobile from being saved:</h2>
+
+      <ul>
+      <% @call_call_mobile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %><br>  
+
+    <br>
+      <div >
+        <%= label_tag(:mobile, "ახალი მობილურის ნომერი") %>
+        <%= text_field_tag(:mobile) %>
+      </div>
+
+    <br>
+      <div >
+        <%= label_tag(:custname, "სახელი გვარი") %>
+        <%= text_field_tag(:custname) %>
+      </div>
+
+    <br>
+      <div >
+        <%= label_tag(:note_call, "კომენტარი") %>
+        <%= text_area_tag(:note_call) %>
+      </div>
+
+
+    <br>    <br>    <br>
+
+  <div class="actions">
+   <%= f.submit('გაგზავნა') %>
+  </div>
+<% end %>

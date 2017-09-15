@@ -1,0 +1,15 @@
+<div style="background-color: #fff2e6; padding: 20px; border-radius: 15px;"} >
+	<h1>ახალი განაცხადის შევსება</h1>
+	<br>
+	<h3>აბონენტი: <%= @custname.tr("ÀÁÂÃÄÅÆÈÉÊËÌÍÏÐÑÒÓÔÖ×ØÙÚÛÜÝÞßàáãä","აბგდევზთიკლმნოპჟრსტუფქღყშჩცძწჭხჯჰ").force_encoding("UTF-8") rescue nil%>, ნომერი: <%= @accnumb  %></h3> 
+</div>
+
+<%= render 'form_new' %>
+<div style="background-color: #fff2e6; padding: 20px; border-radius: 15px; font-size: 15px ;
+text-decoration-color: bold; "} >
+<h3>
+  <img src="/assets/fff/text_list_bullets.png"  style="width:17px;height:17px;border:0">
+<%= link_to 'მობილური ნომრის ცვლილების განცხადებები', call_call_mobiles_path %>
+</h3>
+
+</div>

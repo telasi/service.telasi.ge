@@ -290,6 +290,9 @@ TelasiService::Application.routes.draw do
       get 'outage_sync' ,action: 'outage_sync' , as: 'outage_sync'
       get 'syncpage' ,action: 'syncpage' , as: 'syncpage'
     end
+
+    resources :call_mobiles
+
   end
 
   root :to => 'site#index'
