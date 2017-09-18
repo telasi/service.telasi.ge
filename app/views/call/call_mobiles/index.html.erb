@@ -42,6 +42,7 @@ table#t01 th  {
 <table id="t01">
   <thead>
 <th style="text-align: center;">id </th>
+<th style="text-align: center;">აბონენტის # </th>
 <th style="text-align: center;">სტატუსი </th>
 <th style="text-align: center;">ახალი მობილურის ნომერი </th>
 <th style="text-align: center;">სახელი გვარი </th>
@@ -56,6 +57,7 @@ table#t01 th  {
 <% @call_call_mobiles.each do |call_call_mobile| %>
   <tr>
     <td><%= call_call_mobile.id %></td>
+    <td><%= call_call_mobile.accnumb %></td>    
     <td><%= call_call_mobile.status_desc %></td>    
     <td><%= call_call_mobile.mobile %></td>
     <td><%= call_call_mobile.bs_custname %></td>

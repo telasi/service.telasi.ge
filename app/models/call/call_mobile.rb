@@ -3,6 +3,8 @@ class Call::CallMobile < ActiveRecord::Base
   self.table_name  = 'bs.call_mobile'
   self.primary_key = :id
 
+  self.set_integer_columns :status,:id
+
   before_save {self.note_call = note_call_bs}
   before_save {self.custname = custname_bs}
   before_save {self.operator_call = operator_call_bs}
@@ -81,8 +83,8 @@ class Call::CallMobile < ActiveRecord::Base
   def status_desc
      case self.status 
        when  2  then  'უარყოფილი'  
-       when  false  then  'საწყისი'
-       when  true  then  'დადასტურებული'         
+       when  0  then  'საწყისი'
+       when  1  then  'დადასტურებული'         
      else  
        self.status           	
      end

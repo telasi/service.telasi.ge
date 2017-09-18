@@ -32,7 +32,7 @@ class Call::CallMobilesController < ApplicationController
     if @custname.nil?
       @custname = 'სახელი არ იძებნება'
     end  
-
+    @callmobilearch = Call::CallMobile.where(accnumb: @accnumb).paginate(page: params[:page], per_page: 10).order('id DESC')
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @call_call_mobile }
