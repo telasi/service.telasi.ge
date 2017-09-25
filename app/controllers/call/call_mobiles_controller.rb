@@ -6,6 +6,7 @@ class Call::CallMobilesController < ApplicationController
   # GET /call/call_mobiles.json
   def index
     @call_call_mobiles = Call::CallMobile.paginate(page: params[:page], per_page: 10).order('id DESC')
+    @call_call_mobiles2 = Call::CallMobile.where(status: 2).paginate(page: params[:page], per_page: 10).order('id DESC')    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @call_call_mobiles }
@@ -87,7 +88,7 @@ class Call::CallMobilesController < ApplicationController
     @call_call_mobile.destroy
 
     respond_to do |format|
-      format.html { redirect_to call_call_mobiles_url }
+      format.html { redirect_to call_call_mobiles_url, notice: 'განაცხადი წარმატებით წაიშალა' }
       format.json { head :no_content }
     end
   end

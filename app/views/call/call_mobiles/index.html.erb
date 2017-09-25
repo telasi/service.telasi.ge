@@ -31,6 +31,57 @@ table#t01 th  {
   height: 47px;
 
     }
+
+
+
+
+
+body {font-family: "Lato", sans-serif;}
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    /* padding: 6px 12px; */
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+
+
+
+
+
+
+
 </style>
 </head>
 
@@ -38,6 +89,13 @@ table#t01 th  {
 
 <h1>ბილინგში გაგზავნილი განცხადებები</h1>
 <br><br>
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">ყველა ჩანაწერი</button>
+  <button class="tablinks" onclick="openCity(event, 'Paris')"  id="defaultOpen2">უარყოფილები</button>
+</div>
+<br><br>
+
+<div id="London" class="tabcontent">
 
 <table id="t01">
   <thead>
@@ -49,7 +107,8 @@ table#t01 th  {
 <th style="text-align: center;">დრო </th>
 <th style="text-align: center;">მომხმარებელი </th>
 <th style="text-align: center;">ქოლცენტრის კომენტარი </th>  
-<th style="text-align: center;">პასუხი</th>  
+<th style="text-align: center;">დაბრუნებული პასუხი</th>  
+<th style="text-align: center;">ჩანაწერის წაშლა</th>  
  
   </thead>
 
@@ -65,12 +124,99 @@ table#t01 th  {
     <td><%= call_call_mobile.bs_operator_call %></td>    
     <td><%= call_call_mobile.bs_note_call %></td>
     <td><%= call_call_mobile.bs_note_bill %></td>
+    <td>
+      <% if ( current_user.to_s == call_call_mobile.bs_operator_call or current_user.call_admin? ) and call_call_mobile.status == 0 %>
+        <img src="/assets/fff/script_delete.png"  style="width:14px;height:14px;border:0">
+        <%= link_to 'წაშლა ', call_call_mobile_path(call_call_mobile.id), method: :delete, data: { confirm: 'ნამდვილად გსურთ წაშლა?' } %>
+      <% end %>
+    </td>      
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= will_paginate @call_call_mobiles %><br>
+<%= will_paginate @call_call_mobiles , :param_name => 'page', params: {active_tab: 'first'}%><br>
 
+</div>
+
+
+
+
+<div id="Paris" class="tabcontent">
+
+<table id="t01">
+  <thead>
+<th style="text-align: center;">id </th>
+<th style="text-align: center;">აბონენტის # </th>
+<th style="text-align: center;">სტატუსი </th>
+<th style="text-align: center;">ახალი მობილურის ნომერი </th>
+<th style="text-align: center;">სახელი გვარი </th>
+<th style="text-align: center;">დრო </th>
+<th style="text-align: center;">მომხმარებელი </th>
+<th style="text-align: center;">ქოლცენტრის კომენტარი </th>  
+<th style="text-align: center;">დაბრუნებული პასუხი</th>  
+<th style="text-align: center;">ჩანაწერის წაშლა</th>  
+ 
+  </thead>
+
+  <tbody>
+<% @call_call_mobiles2.each do |call_call_mobile2| %>
+  <tr>
+    <td><%= call_call_mobile2.id %></td>
+    <td><%= call_call_mobile2.accnumb %></td>    
+    <td><%= call_call_mobile2.status_desc %></td>    
+    <td><%= call_call_mobile2.mobile %></td>
+    <td><%= call_call_mobile2.bs_custname %></td>
+    <td><%= call_call_mobile2.enterdate.in_time_zone("Tbilisi").strftime("%d%b%Y %H:%M:%S") %></td>
+    <td><%= call_call_mobile2.bs_operator_call %></td>    
+    <td><%= call_call_mobile2.bs_note_call %></td>
+    <td><%= call_call_mobile2.bs_note_bill %></td>
+    <td>
+      <% if ( current_user.to_s == call_call_mobile2.bs_operator_call or current_user.call_admin? ) and call_call_mobile2.status == 0 %>
+        <img src="/assets/fff/script_delete.png"  style="width:14px;height:14px;border:0">
+        <%= link_to 'წაშლა ', call_call_mobile_path(call_call_mobile2.id), method: :delete, data: { confirm: 'ნამდვილად გსურთ წაშლა?' } %>
+      <% end %>
+    </td>      
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= will_paginate @call_call_mobiles2 , :param_name => 'page', params: {active_tab: 'rejected'}   %><br>
+
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+<% if  params[:active_tab] == 'rejected'  
+    then  %>
+  <script>      
+    document.getElementById("defaultOpen2").click();
+  </script>   
+<% else %>
+  <script>      
+    document.getElementById("defaultOpen").click();
+  </script> 
+<% end %> 
 </body>
+
+

@@ -60,7 +60,8 @@ table#t01 th  {
 <th style="text-align: center;">დრო </th>
 <th style="text-align: center;">მომხმარებელი </th>
 <th style="text-align: center;">ქოლცენტრის კომენტარი </th>  
-<th style="text-align: center;">პასუხი</th>  
+<th style="text-align: center;">დაბრუნებული პასუხი</th>  
+<th style="text-align: center;">ჩანაწერის წაშლა</th>  
  
   </thead>
 
@@ -76,6 +77,12 @@ table#t01 th  {
     <td><%= callmobilearch.bs_operator_call %></td>    
     <td><%= callmobilearch.bs_note_call %></td>
     <td><%= callmobilearch.bs_note_bill %></td>
+    <td>
+      <% if (current_user.to_s == callmobilearch.bs_operator_call or current_user.call_admin? ) and callmobilearch.status == 0 %>
+       <img src="/assets/fff/script_delete.png"  style="width:14px;height:14px;border:0">
+       <%= link_to 'წაშლა ', call_call_mobile_path(callmobilearch.id), method: :delete, data: { confirm: 'ნამდვილად გსურთ წაშლა?' } %>
+      <% end %>
+    </td>    
   </tr>
 <% end %>
 </table>
