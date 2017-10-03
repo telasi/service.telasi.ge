@@ -1,0 +1,45 @@
+wb = xlsx_package.workbook
+
+
+
+wb.add_worksheet(name: "mobiles") do |sheet|
+  wb.styles do |style|	
+  highlight_cell = style.add_style(bg_color: "EFC376",
+                                   border: Axlsx::STYLE_THIN_BORDER,
+                                   alignment: { horizontal: :center })	
+  sheet.add_row [
+				"ID",
+				"ACCNUMB",
+				"STATUS_DESC",
+				"MOBILE",
+				"CUSTNAME",
+				"ENTERDATE",
+				"ENTERTIME",
+				"OPERATOR_CALL",
+				"NOTE_CALL",
+				"OPERATOR_BILLING",
+				"NOTE_BILL"
+                ] , style: [highlight_cell, highlight_cell, 
+                	        highlight_cell, highlight_cell, 
+                	        highlight_cell, highlight_cell, 
+                	        highlight_cell, highlight_cell, 
+                	        highlight_cell, highlight_cell, 
+                	        highlight_cell]
+    end            	        
+
+  @call_call_mobiles_xlsx.each do |mob|
+    sheet.add_row [mob.id, 
+    	           mob.accnumb ,
+    	           mob.status_desc,
+    	           mob.mobile ,
+    	           mob.bs_custname, 
+    	           mob.enterdate.in_time_zone("Tbilisi").strftime("%d%b%Y") , 
+    	           mob.enterdate.in_time_zone("Tbilisi").strftime("%d%b%Y %H:%M:%S") ,
+    	           mob.bs_operator_call, 
+    	           mob.bs_note_call, 
+    	           mob.operator_billing,
+    	           mob.bs_note_bill ]
+  end
+end
+
+
