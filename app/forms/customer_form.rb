@@ -59,7 +59,7 @@ module CustomerForm
     form.col2 << DateField.new(name: 'closedate', label: 'დაიხურა')
     form.col2 << TextField.new(name: 'note', label: 'შენიშვნები')
     form.actions << ACT_HISTORY << ACT_CUT_HISTORY << ACT_TARIFFS #<< ACT_BILLS
-    form.actions << ACT_TASKS
+    form.actions << ACT_TASKS 
     form << cust
     form
   end

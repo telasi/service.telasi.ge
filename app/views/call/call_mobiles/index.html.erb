@@ -188,6 +188,11 @@ div.tab button.active {
 
 </div>
 
+<br>
+<img alt="ექსელში გადატანა" border="0" src="/assets/fff/page_excel.png"  />
+<%= link_to 'Download as .xlsx', call_call_mobiles_path(format: :xlsx , method: 'get')  , target: '_blank' %>
+
+
 <script>
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
@@ -217,6 +222,6 @@ document.getElementById("defaultOpen").click();
     document.getElementById("defaultOpen").click();
   </script> 
 <% end %> 
+
+
 </body>
-
-
