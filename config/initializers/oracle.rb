@@ -13,5 +13,6 @@ Bs::CutGroups.establish_connection :region_call
 Bs::LogDateAndroid.establish_connection :region_call
 Bs::WaterExceptions.establish_connection :region_call
 
+
 Gnerc::Cutter.establish_connection :gnerc
 Gnerc::Queue.establish_connection :gnerc
