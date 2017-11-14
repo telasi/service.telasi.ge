@@ -11,6 +11,7 @@ Bs::WaterPayment.establish_connection :region_call
 Bs::CutHistory.establish_connection :region_call
 Bs::CutGroups.establish_connection :region_call
 Bs::LogDateAndroid.establish_connection :region_call
+Bs::WaterExceptions.establish_connection :region_call
 
 Gnerc::Cutter.establish_connection :gnerc
 Gnerc::Queue.establish_connection :gnerc

@@ -18,6 +18,11 @@ class Bs::Customer < ActiveRecord::Base
   #has_one  :deposit_customer, -> { where status: 0 }, class_name: 'Bs::DepositCustomer', foreign_key: :custkey
   belongs_to :category,     class_name: 'Bs::Custcateg',     foreign_key: :custcatkey
   belongs_to :activity,     class_name: 'Bs::Custcateg',     foreign_key: :activity
+  has_one  :water_exceptions, class_name: 'Bs::WaterExceptions', foreign_key: :accnumb , primary_key: :accnumb  
+
+  def water_form_field 
+    self.water_exceptions.water_form_fld
+  end
 
   def deposit_customer
     Bs::DepositCustomer.where(custkey: self.custkey, status: 0).first

@@ -10,6 +10,7 @@ module WaterCustomerForm
     form.col1 << NumberField.new(name: 'water_balance', label: 'სრული ვალი', after: 'GEL', required: true)
     form.col1 << NumberField.new(name: 'current_water_balance', label: 'მიმდ.ვალი', after: 'GEL', required: true)
     form.col1 << pre
+    form.col1 << TextField.new(name: 'water_form_field', label: 'გამონაკლისი', required: true) 
     form << cust
     form
   end
