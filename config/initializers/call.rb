@@ -12,9 +12,9 @@ module Call
     hour = Time.now.localtime.hour
     #wday = Time.now.localtime.wday
     if is_weekend(Time.now.localtime)
-      (hour >= 10 && hour <= 22) # Weekends 10:00:00 - 21:59::59
+      (hour >= 10 && hour <= 19) # Weekends 10:00:00 - 21:59::59
     else
-      (hour >= 18 && hour <= 22) # Weekdays 18:00:00 - 21:59::59
+      (hour >= 18 && hour <= 19) # Weekdays 18:00:00 - 21:59::59
     end
   end
 end
