@@ -13,7 +13,8 @@ module Gnerc::Sender
 				cutter.update_attributes!(note: discrecstatus.name.to_ka) if discrecstatus.present?
 			end
 
-			cutter.update_attributes!(stage: 2, transaction_number_2: cutter.transaction_number, compare_date_2: item.enter_date_insp)
+			cutter.update_attributes!(stage: 2, transaction_number_2: cutter.transaction_number)
+			cutter.update_attributes!(compare_date_2: item.enter_date_insp) if cutter.compare_date_2.present?
 
 			if cutter.mainaccount == 1
 				if Gnerc::Queue.where(service: Gnerc::Queue::SERVICE, service_id: cutter.id, stage: 2).blank?
