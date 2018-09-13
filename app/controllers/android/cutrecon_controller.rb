@@ -55,7 +55,7 @@ class Android::CutreconController < ApplicationController
   end
 
   def discrecstatus
-    @discrecstatuses = Bs::Discrecstatusdet.includes(:discrecstatus).where("STATUS IN (?)", [0, 1])
+    @discrecstatuses = Bs::Discrecstatusdet.includes(:discrecstatus).where("STATUS IN (?) AND discrecstatus_det_key NOT IN (?)", [0, 1], [8, 51])
   end
 
   def payments
