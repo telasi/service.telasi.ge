@@ -3,7 +3,7 @@ module Gnerc::Sender
 
 	def self.stage2(item)
 		return if ( item.mark_code == 0 or item.mark_code == 2 )
-		return if [8, 51].include?(item.discrecstatuskey)
+		#return if [8, 51].include?(item.discrecstatuskey)
 
 		Gnerc::Cutter.transaction do
 			cutter = Gnerc::Cutter.where(transaction_number: item.cr_key).first
