@@ -190,6 +190,7 @@ TelasiService::Application.routes.draw do
       post '/upload',    action: :upload,     as: :upload_reester
       post '/newmeters', action: :newmeters,  as: :newmeters
       post '/sync/:id',  action: :sync_route, as: :sync_route
+      get '/version', action: :version, as: :version
     end
     scope '/cutrecon', controller: :cutrecon do
       get '/headers',    action: :headers,    as: :headers

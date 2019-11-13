@@ -63,6 +63,17 @@ class Android::ReadingsController < ApplicationController
             item.new_mtnumb   = meter['new_number'][0] if meter['new_number']
             item.new_mtkoef   = meter['new_coeff'][0] if meter['new_coeff']
             item.new_sealnumb = meter['new_seal_number'][0] if meter['new_seal_number']
+
+            # updating inventory number
+            # if meter['inv_no']
+            #   invno = meter['inv_no'][0] 
+            #   custPower = Bs::CustomerPower.where(inventorynumb: invno).first
+            #   if custPower.present? and Bs::AccountPower.where(acckey: item.acckey, base_custkey: custPower.custkey, reltype: 15).none?
+            #     account = Bs::Account.find(item.acckey)
+            #     Bs::AccountPower.new(acccount: account, base_custkey: custPower.custkey, reltype: 15).save
+            #   end
+            # end
+
           end
           if xml_item['reading'][0]['reading_confirmed'][0] == 'true'
             item.confirmed = true
@@ -72,6 +83,7 @@ class Android::ReadingsController < ApplicationController
           end
           item.save!
         end
+
         route.upload_count = (route.upload_count||0)+1
         if all_complete
           route.status = Bs::RouteStoreHeader::STATUS_RECEIVED
@@ -91,6 +103,15 @@ class Android::ReadingsController < ApplicationController
       route.status = Bs::RouteStoreHeader::STATUS_SYNCED
       route.save
       redirect_to android_route_url(route), notice: 'მარშრუტი სინქრონიზირებულია'
+    end
+  end
+
+  def version
+    apk = Android::Apk.new('./public/meter.apk')
+    if apk.present?
+      render json: { success: true, version: apk.manifest.version_name } 
+    else
+      render json: { success: false } 
     end
   end
 end
