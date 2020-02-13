@@ -17,15 +17,21 @@ en:
   gis_mailing_list: Mailing List
   gis_off_status_0: None
   gis_off_status_1: Accident
-  gis_off_status_2: Switch
+  gis_off_status_2: Accident_switch
   gis_off_status_3: Planned
-  gis_off_status_4: Maintenance
-  gis_off_status_5: Correction
-  gis_off_status_6: Fire
-  gis_off_status_7: Debt
-  gis_off_status_8: Exploitation Request
-  gis_off_status_9: Reservation
-  gis_off_status_10: SectionOff
+  gis_off_status_4: Planned_switch    
+  gis_off_status_5: Debt  
+  gis_off_status_6: Fire         
+  #gis_off_status_1: Accident
+  #gis_off_status_2: Switch
+  #gis_off_status_3: Planned
+  #gis_off_status_4: Maintenance
+  #gis_off_status_5: Correction
+  #gis_off_status_6: Fire
+  #gis_off_status_7: Debt
+  #gis_off_status_8: Exploitation Request
+  #gis_off_status_9: Reservation
+  #gis_off_status_10: SectionOff
   gis:
     log_on: Switching On
     log_off: Turning Off
@@ -49,16 +55,23 @@ ka:
   gis_config: პარამეტრები
   gis_mailing_list: დაგზავნის სია
   gis_off_status_0: გაურკვეველი
-  gis_off_status_1: ავარიული
-  gis_off_status_2: გადართვა
-  gis_off_status_3: გეგმიური
-  gis_off_status_4: პროფილაკტიკური
-  gis_off_status_5: სქემის კორექცია
-  gis_off_status_6: ხანძარი
-  gis_off_status_7: დავალიანებით
-  gis_off_status_8: ექსპლუატაციის მოთხოვნით
-  gis_off_status_9: სარეზერვო
-  gis_off_status_10: SectionOff
+  gis_off_status_1: ავარიული  
+  gis_off_status_2: ავარიული_გადართვა 
+  gis_off_status_3: გეგმიური    
+  gis_off_status_4: გეგმიური_გადართვა
+  gis_off_status_5: დავალიანებით 
+  gis_off_status_6: ხანძარი                 
+  #gis_off_status_0: გაურკვეველი
+  #gis_off_status_1: ავარიული
+  #gis_off_status_2: გადართვა
+  #gis_off_status_3: გეგმიური
+  #gis_off_status_4: პროფილაკტიკური
+  #gis_off_status_5: სქემის კორექცია
+  #gis_off_status_6: ხანძარი
+  #gis_off_status_7: დავალიანებით
+  #gis_off_status_8: ექსპლუატაციის მოთხოვნით
+  #gis_off_status_9: სარეზერვო
+  #gis_off_status_10: SectionOff
   gis:
     log_on: ჩართვა
     log_off: გათიშვა
@@ -83,15 +96,21 @@ ru:
   gis_mailing_list: Рассылка
   gis_off_status_0: Неопр.
   gis_off_status_1: Аварийное
-  gis_off_status_2: Переключение
+  gis_off_status_2: Аварийное_Переключение
   gis_off_status_3: Плановое
-  gis_off_status_4: Профилактическое
-  gis_off_status_5: Правка Схемы
-  gis_off_status_6: Пожар
-  gis_off_status_7: Задолженность
-  gis_off_status_8: По требованию эксплуатации
-  gis_off_status_9: Резерв
-  gis_off_status_10: SectionOff
+  gis_off_status_4: Плановое_Переключение   
+  gis_off_status_5: Задолженность  
+  gis_off_status_6: Пожар    
+  #gis_off_status_1: Аварийное
+  #gis_off_status_2: Переключение
+  #gis_off_status_3: Плановое
+  #gis_off_status_4: Профилактическое
+  #gis_off_status_5: Правка Схемы
+  #gis_off_status_6: Пожар
+  #gis_off_status_7: Задолженность
+  #gis_off_status_8: По требованию эксплуатации
+  #gis_off_status_9: Резерв
+  #gis_off_status_10: SectionOff
   gis:
     log_on: Включение
     log_off: Выключение
