@@ -55,8 +55,8 @@ ka:
   gis_config: პარამეტრები
   gis_mailing_list: დაგზავნის სია
   gis_off_status_0: გაურკვეველი
-  gis_off_status_1: ავარიული  
-  gis_off_status_2: ავარიული_გადართვა 
+  gis_off_status_1: არაგეგმიური  
+  gis_off_status_2: არაგეგმიური_გადართვა 
   gis_off_status_3: გეგმიური    
   gis_off_status_4: გეგმიური_გადართვა
   gis_off_status_5: დავალიანებით 
@@ -95,8 +95,8 @@ ru:
   gis_config: Конфигурация
   gis_mailing_list: Рассылка
   gis_off_status_0: Неопр.
-  gis_off_status_1: Аварийное
-  gis_off_status_2: Аварийное_Переключение
+  gis_off_status_1: Неплановое
+  gis_off_status_2: Неплановое_Переключение
   gis_off_status_3: Плановое
   gis_off_status_4: Плановое_Переключение   
   gis_off_status_5: Задолженность  
