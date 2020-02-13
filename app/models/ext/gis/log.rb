@@ -7,16 +7,23 @@ class Ext::Gis::Log
   STATUS_SENT_CANCELED = 1
   STATUS_SENT = 2
 
-  OFF_STATUS_DAMAGE       = 1  # ავარია
-  OFF_STATUS_SWITCH       = 2  # გადართვა
-  OFF_STATUS_PLANED       = 3  # გეგმიური
-  OFF_STATUS_MAINTN       = 4  # პროფილაკტიკა
-  OFF_STATUS_CORRECTION   = 5  # სქემის კორექცია
-  OFF_STATUS_FIRE         = 6  # ხანძარი
-  OFF_STATUS_DEBT         = 7  # დავალიანებით
-  OFF_STATUS_EXPLOITATION = 8  # ექსპლუატაციის მოთხოვნით
-  OFF_STATUS_RESERVATION  = 9  # სარეზერვო
-  OFF_STATUS_SECTIONOFF   = 10 # სექციის გამორთვა
+#   OFF_STATUS_DAMAGE        = 1  # ავარია
+#   OFF_STATUS_SWITCH       = 2  # გადართვა
+#   OFF_STATUS_PLANED       = 3  # გეგმიური
+#   OFF_STATUS_MAINTN       = 4  # პროფილაკტიკა
+#   OFF_STATUS_CORRECTION   = 5  # სქემის კორექცია
+#   OFF_STATUS_FIRE         = 6  # ხანძარი
+#   OFF_STATUS_DEBT         = 7  # დავალიანებით
+#   OFF_STATUS_EXPLOITATION = 8  # ექსპლუატაციის მოთხოვნით
+#   OFF_STATUS_RESERVATION  = 9  # სარეზერვო
+#   OFF_STATUS_SECTIONOFF   = 10 # სექციის გამორთვა
+
+    OFF_STATUS_AVARIULI     = 1
+    OFF_STATUS_GADARTVA_AV  = 2
+    OFF_STATUS_GEGMIURI     = 3    
+    OFF_STATUS_GADARTVA_GE  = 4
+    OFF_STATUS_DAVALIANEBIT = 5
+    OFF_STATUS_KHANDZARI    = 6
 
   SECTION = 'hv_section_ln'
   FIDER = 'hv_fiderswitches_pnt'

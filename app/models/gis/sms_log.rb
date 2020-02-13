@@ -49,16 +49,23 @@ class Gis::SmsLog < ActiveRecord::Base
   def self.send_messages
     send_on_message
     send_off_message_of_type(0)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DAMAGE)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_PLANED)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_MAINTN)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_SWITCH)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_FIRE)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_CORRECTION)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DEBT)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_EXPLOITATION)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_RESERVATION)
-    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_SECTIONOFF)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_AVARIULI)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_GADARTVA_AV)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_GEGMIURI)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_GADARTVA_GE)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DAVALIANEBIT)
+    send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_KHANDZARI)
+     
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DAMAGE)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_PLANED)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_MAINTN)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_SWITCH)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_FIRE)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_CORRECTION)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_DEBT)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_EXPLOITATION)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_RESERVATION)
+    #send_off_message_of_type(Ext::Gis::Log::OFF_STATUS_SECTIONOFF)
   end
 
   def self.send_on_message
