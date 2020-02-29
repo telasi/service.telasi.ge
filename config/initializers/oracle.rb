@@ -17,5 +17,5 @@ Bs::WaterExceptions.establish_connection :region_call
 Gnerc::Cutter.establish_connection :gnerc
 Gnerc::Queue.establish_connection :gnerc
 
-Gnerc::CutterTest.establish_connection :gnerc_test
-Gnerc::QueueTest.establish_connection :gnerc_test
+#Gnerc::CutterTest.establish_connection :gnerc_test
+#Gnerc::QueueTest.establish_connection :gnerc_test
