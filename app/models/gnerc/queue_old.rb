@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-class Gnerc::QueueTest < ActiveRecord::Base
-  self.table_name  = 'temo.queue'
+class Gnerc::QueueOld < ActiveRecord::Base
+  self.table_name  = 'semek.queue'
   self.primary_key = 'id'
 
   SERVICE = 'Cutter'
