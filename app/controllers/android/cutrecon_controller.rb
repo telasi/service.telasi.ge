@@ -73,6 +73,7 @@ class Android::CutreconController < ApplicationController
   end
 
   def detail
+    raise 'Error'
     process_login('cut') do
 
       data = XmlSimple.xml_in(params[:detail])
