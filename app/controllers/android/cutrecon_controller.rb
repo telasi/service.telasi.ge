@@ -73,6 +73,7 @@ class Android::CutreconController < ApplicationController
   end
 
   def detail
+    raise 'Error'
     process_login('cut') do
 
       data = XmlSimple.xml_in(params[:detail])
@@ -90,7 +91,10 @@ class Android::CutreconController < ApplicationController
 
         enter_date = data['enter_date'][0][0..3]
 
-        if enter_date.blank? or enter_date[0..3] == '1970'
+        if    enter_date.blank? or enter_date[0..3] == '1970' 
+           # or data['enter_date'][0].to_time > ( Time.now + 4.hours )
+           # or data['enter_date'][0].to_date < ( Date.today - 2.days )
+
           item.enter_date_insp = Time.now + 4.hours
           Bs::LogDateAndroid.new(login: params[:username], cr_key: data['cr_key'][0], enterdate: Time.now + 4.hours).save
         else
