@@ -19,6 +19,7 @@ class Bs::Customer < ActiveRecord::Base
   belongs_to :category,     class_name: 'Bs::Custcateg',     foreign_key: :custcatkey
   belongs_to :activity,     class_name: 'Bs::Custcateg',     foreign_key: :activity
   has_one  :water_exceptions, class_name: 'Bs::WaterExceptions', foreign_key: :accnumb , primary_key: :accnumb  
+  has_many :payments, class_name: 'Bs::Payment', foreign_key: :custkey    
 
   def water_form_field 
     self.water_exceptions.water_form_fld
