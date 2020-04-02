@@ -42,7 +42,7 @@
 <%= @water_customer_form.html rescue nil %>
 
 <div id = "daudasturebuli_gad" onclick="dgFunction()"> 
-<h4> <i class="dim-collapse icon-chevron-right"></i>  ყველა დაუდასტურებელი გადახდა</h4>
+<h4> <i class="dim-collapse icon-chevron-right"></i> დაუდასტურებელი გადახდები სულ</h4>
 </div>	
 
 	<table id = "dg_table" style= "display: none;">
@@ -72,12 +72,12 @@ function dgFunction() {
   if (dg_tabel_v.style.display == "inherit")
     {
      dg_tabel_v.style.display = "none";
-     dg_isari_v.innerHTML = "<h4> <i class='dim-collapse icon-chevron-right'></i>  დაუდასტურებელი გადახდები</h4>"; 
+     dg_isari_v.innerHTML = "<h4> <i class='dim-collapse icon-chevron-right'></i>  დაუდასტურებელი გადახდები სულ</h4>"; 
     } 
   else if (dg_tabel_v.style.display == "none")
     {
      dg_tabel_v.style.display = "inherit" ; 
-     dg_isari_v.innerHTML = "<h4> <i class='dim-collapse icon-chevron-down'></i>  დაუდასტურებელი გადახდები</h4>";
+     dg_isari_v.innerHTML = "<h4> <i class='dim-collapse icon-chevron-down'></i>  დაუდასტურებელი გადახდები სულ</h4>";
     } 
   }
 </script>
