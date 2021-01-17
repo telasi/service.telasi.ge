@@ -14,7 +14,7 @@ module Gnerc::Sender
 				cutter.update_attributes!(note: discrecstatus.name.to_ka) if discrecstatus.present?
 			end
 
-			cutter.update_attributes!(stage: 2, transaction_number_2: cutter.transaction_number)
+			cutter.update_attributes!(stage: 2, transaction_number_2: cutter.transaction_number, request_status: cutter.mark_code)
 			cutter.update_attributes!(compare_date_2: item.enter_date_insp) if cutter.compare_date_2.blank?
 
 			if cutter.mainaccount == 1
