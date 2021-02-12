@@ -2,7 +2,7 @@
 module Gnerc::Sender
 
 	def self.stage2(item)
-		return if item.mark_code == 0 || item.mark_code.blank?
+		return if item.mark_code == 0 || item.mark_code == 2 || item.mark_code.blank?
 		#return if ( item.mark_code == 0 or item.mark_code == 2 )
 		#return if [8, 51].include?(item.discrecstatuskey)
 
