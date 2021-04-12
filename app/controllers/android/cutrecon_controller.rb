@@ -27,7 +27,11 @@ class Android::CutreconController < ApplicationController
                            .where(cutgroup: params[:cutgroup])
                            .where(inspector: @user.bs_cut_person)
                            .where(oper_code: params[:type]).first
-        render json: { success: true, status: @header.status } 
+        if @header 
+          render json: { success: true, status: @header.status } 
+        else
+          render json: { success: false } 
+        end
       else
         render json: { success: false } 
       end
